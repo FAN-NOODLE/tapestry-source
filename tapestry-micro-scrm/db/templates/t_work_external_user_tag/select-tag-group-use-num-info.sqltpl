@@ -1,0 +1,27 @@
+SELECT
+	TG.`group_id` AS work_group_id,
+	TG.`group_name`,
+	TG.`id` AS group_id,
+	TG.`updated_at` AS value_update_at,
+	COUNT(UT.`id`) AS use_num
+FROM
+	`work_external_user_tag` AS UT
+	RIGHT JOIN `work_external_tag` T ON T.`id` = UT.`external_tag_id` AND UT.`deleted_at` = 0
+	INNER JOIN `work_external_tag_group` TG ON TG.`id` = T.`group_id`
+WHERE
+	TG.`enterprise_id` = {{.cond.EnterpriseID}}
+	{{if eq .cond.SearchType 1}}
+	    AND TG.`group_name` like "%{{.cond.Name}}%"
+	{{end}}
+    {{if eq .cond.SearchType 2}}
+        AND T.`name` like "%{{.cond.Name}}%"
+    {{end}}
+    {{if eq .cond.is_third_tag 1}}
+        AND (TG.`is_third_tag`={{.cond.is_third_tag}} OR TG.`group_name`="任务标签")
+    {{end}}
+    AND T.`deleted_at` = 0
+
+GROUP BY
+	TG.id
+ORDER BY
+TG.created_at desc

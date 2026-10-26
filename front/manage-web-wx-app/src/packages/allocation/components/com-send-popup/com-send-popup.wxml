@@ -1,0 +1,39 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup">
+    <view class="popup__close" bind:tap="handleCancel"></view>
+    <view class="popup__title">确认分配</view>
+    <view class="popup__tip">{{innerTip}}</view>
+    <view class="popup__content">
+      <view class="flex">
+        <view class="title">
+          <text>分配顾客提示语</text>
+          <view wx:if="{{!isEdit}}" class="edit" bind:tap="hanleEdit"></view>
+          <view wx:if="{{isEdit}}" class="cancel" bind:tap="handleEditCancel"></view>
+          <view wx:if="{{isEdit}}" class="confirm" bind:tap="handleEditConfirm"></view>
+        </view>
+        <view wx:if="{{isEdit}}" class="insert" bind:tap="handleInsertName">#插入接替者昵称</view>
+      </view>
+      <view class="editor">
+        <textarea 
+          wx:if="{{isEdit}}" 
+          class="textarea" 
+          value="{{innerContent}}"
+          show-confirm-bar="{{false}}"
+          hold-keyboard="{{false}}"
+          auto-height="{{true}}"
+          bindinput="handleInput"
+          bindfocus="handleFocus"
+          bindblur="handleBlur"
+          >
+        </textarea>
+        <rich-text wx:else nodes="{{innerHtmlContent}}"></rich-text>
+      </view>
+    </view>
+    <mp-footer fixed="{{false}}">
+      <view class="popup__footer">
+        <view class="btn" bind:tap="handleCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确定</view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

@@ -1,0 +1,18 @@
+<view class="tabs">
+    <view class="tabs-header custom-tab-header">
+        <block wx:for="{{list}}" wx:key="index">
+            <view 
+                class="tabs-header-item custom-tab-item {{currentIndex === item.value ? 'is-active' :''}}"
+                data-current="{{item.value}}" 
+                bindtap="clickTab"
+                >
+                {{item.label}}
+            </view>
+        </block>
+    </view>
+
+    <!-- swiper滑动切换 -->
+    <view class="tabs-content">
+        <slot></slot>
+    </view>
+</view>

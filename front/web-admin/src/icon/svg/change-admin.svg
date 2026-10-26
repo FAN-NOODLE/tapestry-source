@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="0512" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="上划" transform="translate(-1140.000000, -16.000000)">
+            <g id="蒙版-2" transform="translate(120.000000, 0.000000)">
+                <g id="编组-38">
+                    <g id="编组-30" transform="translate(1020.000000, 10.000000)">
+                        <g id="编组-24" transform="translate(0.000000, 6.000000)">
+                            <g id="编组-21">
+                                <g id="编组-13" transform="translate(2.000000, 2.000000)">
+                                    <path d="M8,0.5 C5.9290625,0.5 4.05406735,1.33953943 2.69680339,2.69680339 C1.33953943,4.05406735 0.5,5.9290625 0.5,8 C0.5,10.0709375 1.33953943,11.9459327 2.69680339,13.3031966 C4.05406735,14.6604606 5.9290625,15.5 8,15.5 C10.0709375,15.5 11.9459327,14.6604606 13.3031966,13.3031966 C14.6604606,11.9459327 15.5,10.0709375 15.5,8 C15.5,5.9290625 14.6604606,4.05406735 13.3031966,2.69680339 C11.9459327,1.33953943 10.0709375,0.5 8,0.5 Z" id="路径" stroke="#606266" fill-rule="nonzero"></path>
+                                    <path d="" id="路径-2" stroke="#979797"></path>
+                                    <g id="编组-3" transform="translate(4.000000, 4.500000)" stroke="#606266" stroke-linecap="round" stroke-linejoin="round">
+                                        <g id="编组-7">
+                                            <polyline id="路径-11" points="7.8589172 5 -1.66089364e-13 5 3.60985062 7"></polyline>
+                                            <polyline id="路径-11备份" transform="translate(3.929459, 1.000000) scale(-1, -1) translate(-3.929459, -1.000000) " points="7.8589172 0 -1.66089364e-13 0 3.60985062 2"></polyline>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

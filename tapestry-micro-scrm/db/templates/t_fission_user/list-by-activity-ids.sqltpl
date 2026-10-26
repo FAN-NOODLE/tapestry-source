@@ -1,0 +1,25 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `user_id`,
+  `total_assistant_num`,
+  `cur_assistant_num`,
+  `contact_id`,
+  `fission_num`,
+  `run_away_num`,
+  `join_group_num`,
+  `leave_group_num`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    `fission_user`
+where
+    `enterprise_id` = {{.enterprise_id}}
+and
+    `user_id` = {{.user_id}}
+and
+    `activity_id` in  ({{WhereIn .activity_id_list}})
+and
+    `deleted_at` = 0

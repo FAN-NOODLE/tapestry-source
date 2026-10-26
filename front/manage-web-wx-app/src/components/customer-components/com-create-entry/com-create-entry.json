@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-movable": "../../common/mp-movable/index"
+  }
+}

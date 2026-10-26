@@ -1,0 +1,129 @@
+<view wx:if="{{!loading}}" class="com-normal-material">
+  <!-- header -->
+  <view class="com-normal-material__header">
+    <view class="search-wrap">
+      <view class="search">
+        <view class="select" bind:tap="handleTag">
+          <text>属性</text>
+          <view class="select-num" wx:if="{{query.category_ids.length > 0}}">{{query.category_ids.length}}</view>
+        </view>
+        <view class="search-wrap">
+          <view class="search-wrap__icon"></view>
+          <input class="search-wrap__input" placeholder="输入素材名称/商品名称/款号/款色" placeholder-class="placeholder" bind:input="handleInput" bind:blur="handleSearch" bind:confirm="handleSearch" />
+        </view>
+      </view>
+      <!-- 条件筛选 -->
+      <!-- <view class="filter" bind:tap="handleFilter"></view> -->
+    </view>
+    <!-- filter result -->
+    <view wx:if="{{filterName}}" class="info">
+      <text class="number">{{filterName}}</text>
+      <view class="info-clear" bind:tap="handleFilterClear"></view>
+    </view>
+    <!-- tabs -->
+    <com-tabs active="{{active}}" tabs="{{tabs}}" bind:change="handleTabChange"></com-tabs>
+  </view>
+  <view wx:if="{{tabs[active].total>0}}" class="total">
+    <text class="number">素材数：{{tabs[active].total}}</text>
+    <view class="flex" bind:tap="handleSelectAll">
+      <view class="icon-select {{tabs[active].isAll?'active':''}}"></view>
+      <text>全选</text>
+    </view>
+  </view>
+  <!-- list -->
+  <view class="com-normal-material__content">
+    <view wx:if="{{tabs[active].status && tabs[active].list.length>0}}" class="list">
+      <mp-row gutter="{{tabs[active].gutter}}">
+        <mp-col 
+          wx:for="{{tabs[active].list}}" 
+          wx:key="index"
+          span="{{24/tabs[active].column}}"
+        >
+          <com-material-item 
+            item="{{item}}" 
+            selection="{{selection}}"
+            data-index="{{index}}"
+            enterType="{{3}}"
+            show-count="{{false}}"
+            custom-class="{{tabs[active].column===3?'column-3':''}}"
+            bind:save="handleSaveItem"
+            bind:select-save="handleShowSelectPopup"
+            bind:select="handleSelect"
+            bind:change="handleItemChange"
+            bind:preview="handlePreview"
+            bind:viewDetail="handleViewDetail"
+            bind:collect="handleRemoveItem"
+          ></com-material-item>
+        </mp-col>
+      </mp-row>
+      <!-- load-more -->
+      <mp-load-more status="{{tabs[active].status}}"></mp-load-more>
+    </view>
+    <!-- empty -->
+    <mp-empty wx:if="{{tabs[active].status && tabs[active].status !=='loading' && tabs[active].list.length==0}}" icon="no-data" content="暂无素材"></mp-empty>
+  </view>
+  <!-- 底部操作 -->
+  <mp-footer custom-class="com-normal-material__footer">
+    <view class="number">已选：{{selection.length}}</view>
+    <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空已选</view>
+    <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleCollect">取消收藏</view>
+  </mp-footer>
+</view>
+<page-loading wx:if="{{loading}}" />
+
+
+<!-- 创建素材入口 -->
+<com-create-entry type="{{3}}" bottom="{{300}}" id="com-create-entry" bind:click="handleBack"></com-create-entry>
+
+<!-- 选择素材类型 -->
+<com-popup-filter value="{{filterInfo}}" useSlot id="com-popup-filter" text="全部分组" bind:change="handleFilterChange"></com-popup-filter>
+
+<!-- 选择素材类型 -->
+<com-popup-select id="com-popup-select" bind:update="handleUpdate"></com-popup-select>
+
+<!-- 批量保存  -->
+<com-popup-save 
+  id="com-popup-save" 
+  zIndex="{{101}}"
+  item="{{tabs[active].list[current]}}"
+  showFirstPreviewTips="{{showFirstPreviewTips}}"
+  data-index="{{current}}"
+  selection="{{selection}}"
+  bind:select="handleSelect"
+  bind:preview="handlePreview"
+  bind:save="handleSave"
+  bind:saveAll="handleSaveAll"
+  bind:hidePreviewTips="handleHidePreviewTips"
+></com-popup-save>
+
+<!-- 图片预览 -->
+<com-popup-preview 
+  id="com-popup-preview"
+  current="{{previewIndex}}"
+  showTips="{{showFirstPreviewTips}}"
+  item="{{tabs[active].list[current]}}"
+  selection="{{selection}}"
+  enterType="{{3}}"
+  show-count="{{false}}"
+  bind:select="handleSelect"
+  bind:collect="handleCollectOne"
+  bind:save="handleSave"
+  bind:hide="handleHidePreviewTips"
+></com-popup-preview>
+
+<!-- 属性筛选 -->
+<com-popup-tag id="com-popup-tag" isCollect="{{1}}" bind:confirm="handleTagChange"></com-popup-tag>
+
+
+<message-modal
+  show="{{ showModal }}"
+  description="取消全部收藏内容"
+  descriptionTwo=""
+  bindclose="handleCollectCancel"
+  bindcancel="handleCollectCancel"
+  bindsure="handleCollectConfirm"
+></message-modal>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

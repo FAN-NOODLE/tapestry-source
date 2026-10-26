@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "model-slot": "../model-slot/model-slot"
+  }
+}

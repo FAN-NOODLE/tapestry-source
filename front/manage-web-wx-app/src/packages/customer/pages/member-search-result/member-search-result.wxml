@@ -1,0 +1,30 @@
+<wxs src="./member-search-result.wxs" module="tools"></wxs>
+<view class="container">
+  <view class="customer-list-top">
+    <view class="customer-total">共{{tools.formatNumber(meta.total)}}位顾客</view>
+  </view>
+  <view wx:if="{{list.length > 0}}" class="list">
+    <block wx:for="{{list}}" wx:key="index">
+      <com-customer-item item="{{item}}" from="{{1}}" data-index="{{index}}" bind:check="hanldeCheckOne"></com-customer-item>
+    </block>
+      
+    <!-- 加载更多 -->
+    <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+  </view>
+  <!-- 空组件 -->
+  <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+  <!-- footer -->
+  <mp-footer wx:if="{{options.from == 2}}" backgroundColor="#f7f7f7">
+    <view class="footer">
+        <view bindtap="handleViewCustomerList" class="btn">回顾客列表</view>
+        <view bindtap="handleRequery" class="btn">重新查询</view>
+    </view>
+  </mp-footer>
+</view>
+<!-- loading -->
+<page-loading wx:if="{{showMemberLoading}}" />
+<!-- 创建群发 -->
+<com-create-entry wx:if="{{options.from == 2}}" id="com-create-entry" bind:click="handleCreate"></com-create-entry>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

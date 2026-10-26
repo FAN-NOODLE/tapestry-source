@@ -1,0 +1,53 @@
+<half-screen-dialog show="{{show}}" custom-dialog="custom-dialog">
+    <view slot="body">
+        <!-- 关闭icon -->
+        <view class="close">
+            <view class="close-icon" bindtap="close"></view>
+        </view>
+
+        <!-- 头部信息 -->
+        <view class="header">
+            <view class="title">感谢预约，COACH期待你的来临</view>
+            <view class="sub-title">{{today}}</view>
+        </view>
+
+        <!-- body体 -->
+        <view class="body">
+            <!-- 核销状态 -->
+            <view class="status {{info.is_check === 0 ? 'is-check' : info.is_check === 1 ? 'success-check': 'over-check'}}">
+                {{info.is_check === 0 ? '待核销' : info.is_check === 1 ? '已核销': '已失效'}}
+            </view>
+
+            <view class="title text-mg">预约信息</view>
+            <view class="content text-mg">
+                <view class="content-label">预约时间：</view>
+                <view>{{info.reserve_time_str}}</view>
+            </view>
+            <view class="content text-mg">
+                <view class="content-label">取货地点：</view>
+                <view>{{info.reserve_address}}</view>
+            </view>
+
+            <!-- 查看位置 -->
+            <view class="look-map">
+                <view class="look-map-text" bindtap="jumpMap">查看展位地图</view>
+            </view>
+            <!-- 分割线 -->
+            <view class="split-line"/>
+            <view class="code-box">
+                  <view class="content">入场请出示预约凭证</view>
+                  <image src="{{info.qr_code}}" class="{{info.is_check === 1 ? 'cover-mask': ''}} {{isIPhoneX && info.is_check === 1 ? 'isIosBottom': ''}}" />
+            </view>
+            <view class="btns {{isIPhoneX ? 'isIosBottom': ''}}" wx:if="{{info.is_check !== 1}}">
+                <button class="is-cancel" bindtap="cancelReserve">取消预约</button>
+                <button class="is-update" bindtap="updateInfo" wx:if="{{info.is_check !== 2}}">修改预约</button>
+            </view>
+        </view>
+    </view>
+</half-screen-dialog>
+
+<!-- 提示弹窗 -->
+<toast id="toast" />
+
+<!-- 展位地图 -->
+<appointment-map id="appointmentMap" />

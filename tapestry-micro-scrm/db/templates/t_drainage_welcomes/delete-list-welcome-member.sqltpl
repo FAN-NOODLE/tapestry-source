@@ -1,0 +1,11 @@
+UPDATE
+    `drainage_welcome_members`
+SET
+    `deleted_at` = :deleted_at
+WHERE
+    1 = 1
+AND
+    `welcome_id` = :id
+AND
+    `deleted_at` = 0
+

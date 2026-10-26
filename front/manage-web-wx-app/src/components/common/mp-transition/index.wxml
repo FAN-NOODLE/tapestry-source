@@ -1,0 +1,12 @@
+<!-- components/common/mp-transition/index.wxml -->
+<wxs src="./index.wxs" module="computed" />
+
+<view
+  wx:if="{{ inited }}"
+  class="mp-transition custom-class {{ classes }}"
+  style="{{ computed.rootStyle({ currentDuration, display, customStyle }) }}"
+  bind:transitionend="onTransitionEnd"
+>
+  <slot />
+</view>
+<view wx:else style="display:none"> <slot /></view>

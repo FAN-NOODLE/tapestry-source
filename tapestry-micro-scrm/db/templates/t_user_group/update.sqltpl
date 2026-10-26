@@ -1,0 +1,10 @@
+UPDATE
+    `user_group`
+SET
+    `enterprise_id` = :enterprise_id,
+    `user_group_id` = :user_group_id,
+    `name` = :name,
+    `type` = :type,
+    `updated_at` = :updated_at
+WHERE
+    `id` = :id

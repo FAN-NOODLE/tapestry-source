@@ -1,0 +1,36 @@
+<view class="modal-page modal-box {{show?'modal-show':''}} {{(fadein || show)?'modal-normal':'modal-scale'}}">
+  <view class="modal-content {{isPartner ? 'ispartner' : ''}}" style="{{modalW}}" catchtap="catchFun">
+    <image class="img" catchtap="close" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" wx:if="{{isAuthent}}"></image>
+
+    <view class="modal-description" style="{{descBox}}">
+        <view class="{{contentClass}}" style="{{descStyle}}">{{description}}</view>
+        <view wx:if="{{descriptionTwo}}" style="{{descStyleTwo}}" class="two-description">{{descriptionTwo}}</view>
+    </view>
+    <view class="bottom-btn" wx:if="{{!isSingle && !reverse}}">
+      <view class="modal-btn btn-empty" catchtap="cancel">
+          <text>{{cancelText}}</text>
+      </view>
+      <view class="modal-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+      </view>
+    </view>
+
+    <view class="bottom-btn" wx:if="{{!isSingle && reverse}}">
+      <view class="modal-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+      </view>
+      <view class="modal-btn btn-empty" catchtap="cancel">
+          <text>{{cancelText}}</text>
+      </view>
+    </view>
+    <!-- 单个操作按钮-->
+    <view class="bottom-btn" wx:if="{{isSingle && !noBtn}}">
+      <view class="modal-btn single-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 遮罩 -->
+<view class="modal-mask {{show ? 'mask-show':''}}" wx:if="isCatchFun" catchtap="catchFun"></view>
+<view class="modal-mask {{show ? 'mask-show':''}}" wx:else></view>

@@ -1,0 +1,5 @@
+select
+    count(1)
+from work_group_chat
+where enterprise_id = ?
+and chat_type_id = ?

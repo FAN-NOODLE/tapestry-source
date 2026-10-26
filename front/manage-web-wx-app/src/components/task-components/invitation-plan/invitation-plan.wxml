@@ -1,0 +1,135 @@
+<wxs module="tools">
+  /** 邀约状态转换成class */
+  function statusToClass(status) {
+    // 0进行中,1已完成（coach邀约成功）,2待完成（邀约完成）,3已取消,, 4 已过期
+    var statusClasses = ['is-load', 'is-success1', 'is-success', 'is-cancel', 'is-cancel']
+
+    return statusClasses[status]
+  }
+
+  /** 邀约状态转换成文本 */
+  function statusToText(status) {
+    // 0进行中,1已完成（coach邀约成功）,2待完成（邀约完成）,3已取消 , 4 已过期
+    var statusTexts = ['进行中', '邀约成功', '邀约完成', '已取消', '已过期']
+    return statusTexts[status]
+  }
+
+  module.exports = {
+    statusToClass: statusToClass,
+    statusToText: statusToText
+  }
+</wxs>
+
+<view class="invitation-plan">
+	<!-- 日历 -->
+	<calendar id="calendar" calendarTime="{{start_time}}" bind:changeDay="changeDay" pageType="3"  status="{{calendarStatus}}" />
+
+    <!-- picker筛选 -->
+    <view class="picker-group">
+        <!-- 状态 -->
+        <picker range="{{statusList}}" data-id="{{0}}" range-key="value" bindchange="bindChange" value="{{checkedStatus}}">
+            <view class="picker-group-text">
+                <view>{{statusList[checkedStatus].value || '状态'}}</view>
+                <image class="arrow" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw2.png" />
+            </view>
+        </picker>
+        <!-- 门店 -->
+        <block wx:if="{{role === 5}}">
+            <picker range="{{storeList}}" data-id="{{1}}" range-key="value" bindchange="bindChange" value="{{checkedStore}}">
+                <view class="picker-group-text">
+                    <view>{{storeList[checkedStore].value || '门店'}}</view>
+                    <image class="arrow" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw2.png" />
+                </view>
+            </picker>
+            <!-- 重置 -->
+            <view class="picker-group-text" bindtap="reset">重置</view>
+        </block>
+    </view>
+    <!-- 搜索框 -->
+    <view class="search-box">
+        <view class="search-box-left">
+            <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/search.png" />
+            <input class="text" type="text" maxlength="20" value="{{searchValue}}" bindblur="handleSearch" placeholder="请输入顾客姓名" placeholder-style="color: rgb(197, 200, 205)" />
+        </view>
+           
+        <view class="search-box-right" bindtap="handleFilter">
+            筛选
+            <image class="arrow" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw2.png" />
+        </view>
+    </view>
+
+    <!-- 详细内容 -->
+    <block wx:if="{{!(!pageInfo.loading && list.length === 0)}}">
+        <!-- 邀约列表 -->
+        <view class="card invitation-plan-item" wx:for="{{list}}" wx:key="index">
+            <view class="invitation-plan-item-status {{tools.statusToClass(item.status)}}">{{tools.statusToText(item.status)}}</view>
+            <view class="invitation-plan-item-title">邀约到店时间: {{item.reserve_time_str}}</view>
+            <view class="invitation-plan-item-sub_title">客户留言：{{item.user_remark || '无'}}</view>
+            <block wx:if="{{item.status === 1}}">
+                <!-- 顾客类型 -->
+                <view class="cell">
+                    顾客类型：
+                    <radio-group class="cell-group" bindchange="changeInput" data-name="customer_status" data-item="{{item}}" >
+                        <label class="cell-group-label" wx:for="{{newPeoples}}" wx:for-item="personItem" wx:key="index">
+                            <radio disabled="{{item.customer_status}}" value="{{personItem.value}}" checked="{{item.customer_status === personItem.value}}"/>
+                            <text>{{personItem.name}}</text>
+                        </label>
+                    </radio-group>
+                </view>
+                <!-- 是否到店 -->
+                <view class="cell">
+                    是否到店购买：
+                    <radio-group class="cell-group" bindchange="changeInput" data-name="is_store" data-item="{{item}}" >
+                        <label class="cell-group-label" wx:for="{{shopOptions}}" wx:for-item="shopItem" wx:key="index">
+                            <radio disabled="{{item.is_store}}" value="{{shopItem.value}}" checked="{{item.is_store === shopItem.value}}"/>
+                            <text>{{shopItem.name}}</text>
+                        </label>
+                    </radio-group>
+                </view>
+                    <!-- 购买金额 -->
+                <view class="cell">
+                    订单金额：￥{{item.reserve_order_price}}
+                </view>
+            </block>
+            <view class="invitation-plan-item-detail">
+                <view class="line">
+                    <view class="label">顾客姓名：</view>
+                    <view class="value">
+                        <text>{{item.user_remark||item.user_name}}</text>
+                    </view>
+                </view>
+                <view class="line">
+                    <view class="label">邀约导购：</view>
+                    <view class="value">
+                        <text>{{item.member_name}}</text>
+                    </view>
+                </view>
+                <view class="line">
+                    <view class="label">服务名称：</view>
+                    <view class="value">
+                        <text>{{item.reserve_name}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="invitation-plan-item-btns">
+                <button class="btn" data-id="{{item.user_external_id}}" bindtap="communicate">联系顾客</button>
+                <button class="btn" data-item="{{item}}" bindtap="goInviteDetail">查看邀约</button>
+                <!-- <button class="btn primary" wx:if="{{item.status === 1 || item.status === 2}}" data-item="{{item}}" bindtap="sendApplets">邀请评价</button> -->
+            </view>
+        </view>
+        <!-- 自定义加载中 -->
+        <custom-loading isLoading="{{pageInfo.loading}}" hasMore="{{pageInfo.hasMore}}"></custom-loading>
+    </block>
+    <!-- 当数据为空时展示 -->
+    <mp-empty wx:else icon="task" content="暂无任务"></mp-empty>
+
+
+    <!-- 筛选弹窗 -->
+    <filter-selection 
+        id="filterSelection"
+        keys="{{filterKeys}}"
+        result="{{filterResult}}"
+        currentPage="{{3}}"
+        bind:onScroll="onScroll" 
+        bind:confirm="confirm" />
+</view>

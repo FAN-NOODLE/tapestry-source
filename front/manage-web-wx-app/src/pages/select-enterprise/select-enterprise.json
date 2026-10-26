@@ -1,0 +1,12 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "WeClient Pro",
+	"backgroundColor": "#000000",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"images": "../../components/images/images",
+		"avatar": "../../components/avatar/avatar"
+	}
+}

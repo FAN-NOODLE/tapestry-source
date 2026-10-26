@@ -1,0 +1,2 @@
+INSERT INTO  `work_external_tag_group` (`id`, `enterprise_id`, `group_id`, `group_name`, `order`, `create_time`, `created_at`, `updated_at`)
+VALUES (:id, :enterprise_id, :group_id, :group_name, :order, :create_time, :created_at, :updated_at) ;

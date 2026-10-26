@@ -1,0 +1,16 @@
+SELECT a.id,a.type,a.enterprise_id,a.content
+FROM `chat_msg` AS `a`
+LEFT JOIN
+    `chat_msg_media` AS `b`
+ON
+    `a`.`id` = `b`.`chat_msg_id`
+WHERE
+    `a`.`type` IN ({{WhereIn .type}})
+    AND `a`.`enterprise_id` = {{.enterprise_id}}
+    AND `a`.`deleted_at` = 0
+    AND `b`.`id` is null
+    AND `a`.`msg_at` >= {{.StartAt}}
+ORDER BY
+    a.msg_at asc
+Limit
+    1000;

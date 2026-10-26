@@ -1,0 +1,14 @@
+
+<wxs module="tools" src="./task-item.wxs"></wxs>
+<view wx:if="{{innerValue}}" class="item">
+  <view class="item-status {{tools.calcStatusInfo(innerValue.status, 'class')}}">
+    {{tools.calcStatusInfo(innerValue.status, 'name')}}
+  </view>
+  <view class="item-title">
+    <text>{{innerValue.name}}</text>
+    <text class="item-tag">{{['沟通任务','朋友圈任务'][innerValue.task_category]}}</text>
+  </view>
+  <view class="item-desc">任务描述：{{innerValue.remark}}</view>
+  <view class="item-date">子任务有效期：{{innerValue.task_start_time_text}}~{{innerValue.task_end_time_text}}</view>
+  <view class="item-btn" data-name="{{innerValue.status == 0 ? '去完成':'查看任务'}}" bind:tap="handleViewTask">{{innerValue.status == 0 ? '去完成':'查看任务'}}</view>
+</view>

@@ -1,0 +1,10 @@
+/* components/common/mp-row/index.wxss */
+
+
+.mp-row {
+  &::after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+}

@@ -1,0 +1,29 @@
+<view class="page-navigation-bar">
+  <view
+    class="navbar"
+    style="height:{{navigationBarHeight}}; {{ throughTop ? 'background-color:transparent' : ''}}; {{showNaviTitle ? ('background: '+ (bgColor ?  bgColor : 'white')) : ''}}"
+  >
+    <view style="height: {{statusBarHeight}}"></view>
+    <view class="title-container">
+      <view class="back-view" style="width:{{backBoxWidth}}rpx;" catchtap="backPage" wx:if="{{(back && show) || backText}}">
+        <image
+          wx:if="{{back && show}}"
+          class="banner-back"
+          src="../../images/customer/back.png"
+          mode="aspectFill"
+        />
+        <view class="back-text" wx:if="{{backText}}">{{backText}}</view>
+      </view>
+       <image class="coach" wx:if="{{icon}}" src="../../images/coach/coach.png"/>
+      <view
+        wx:if="{{showNaviTitle}}"
+        style="color: {{color}};font-size:{{fontSize}}px"
+        class="title"
+      >{{text}}</view>
+    </view>
+  </view>
+  <view
+    wx:if="{{!throughTop}}"
+    style="height: {{navigationBarHeight}};background: {{bgColor ? bgColor : 'white'}};"
+  ></view>
+</view>

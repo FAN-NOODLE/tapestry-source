@@ -1,0 +1,21 @@
+UPDATE
+    `fission_activity`
+SET
+    {{if .cond.UserNum}}
+    `user_num` = `user_num` + {{.cond.UserNum}},
+    {{end}}
+    {{if .cond.FissionNum}}
+    `fission_num` = `fission_num` + {{.cond.FissionNum}},
+    {{end}}
+    {{if .cond.RunAwayNum}}
+    `run_away_num` = `run_away_num` + {{.cond.RunAwayNum}},
+    {{end}}
+    {{if .cond.JoinGroupNum}}
+    `join_group_num` = `join_group_num` + {{.cond.JoinGroupNum}},
+    {{end}}
+    {{if .cond.LeaveGroupNum}}
+    `leave_group_num` = `leave_group_num` + {{.cond.LeaveGroupNum}},
+    {{end}}
+    `updated_at` = {{.cond.UpdateAt}}
+WHERE
+	`id` = ?

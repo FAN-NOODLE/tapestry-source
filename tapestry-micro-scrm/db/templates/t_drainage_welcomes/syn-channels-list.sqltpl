@@ -1,0 +1,7 @@
+SELECT
+	*
+FROM
+	channel
+WHERE
+	deleted_at = 0
+    AND enterprise_id = :enterprise_id

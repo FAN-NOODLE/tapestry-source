@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "我的收藏",
+  "backgroundColor": "#F4F7FB",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "com-tabs": "../../components/com-tabs/com-tabs",
+    "com-create-entry": "../../components/com-create-entry/com-create-entry",
+    "com-select-grid": "../../components/com-select-grid/com-select-grid",
+    "com-material-item": "../../components/com-material-item/com-material-item",
+    "com-popup-time": "../../components/com-popup-time/com-popup-time",
+    "com-popup-save": "../../components/com-popup-save/com-popup-save",
+    "com-popup-tag": "../../components/com-popup-tag/com-popup-tag",
+    "com-popup-filter": "../../components/com-popup-filter/com-popup-filter",
+    "com-popup-select": "../../components/com-popup-select/com-popup-select",
+    "com-popup-preview": "../../components/com-popup-preview/com-popup-preview"
+  }
+}

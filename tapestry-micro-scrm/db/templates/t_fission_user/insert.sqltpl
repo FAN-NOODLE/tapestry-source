@@ -1,0 +1,34 @@
+INSERT INTO `fission_user`
+(
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `user_id`,
+  `total_assistant_num`,
+  `cur_assistant_num`,
+  `contact_id`,
+  `fission_num`,
+  `run_away_num`,
+  `join_group_num`,
+  `leave_group_num`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+)
+VALUES
+(
+  :id,
+  :enterprise_id,
+  :activity_id,
+  :user_id,
+  :total_assistant_num,
+  :cur_assistant_num,
+  :contact_id,
+  :fission_num,
+  :run_away_num,
+  :join_group_num,
+  :leave_group_num,
+  :created_at,
+  :updated_at,
+  :deleted_at
+);

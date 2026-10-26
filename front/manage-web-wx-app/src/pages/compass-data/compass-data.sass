@@ -1,0 +1,457 @@
+@import '~@/style/color-variable'
+@import '~@/style/mixin'
+.custom-made-page
+  width: 100vw
+  height: 100vh
+  padding-bottom: vw(100)
+  // display: flex
+  // flex-direction: column
+  background: #ffffff
+  z-index: 1
+  .ranking-new
+    display: flex
+    align-items: center
+    justify-content: center
+    position: fixed
+    bottom: vw(26)
+    right: 0
+    width: vw(133)
+    height: vw(32)
+    background: rgba(51, 54, 60, 0.8)
+    border-radius: vw(100) 0 0 vw(100)
+    color: #fff
+    .ranking-image
+      width: vw(5)
+      height: vw(9)
+  .tab-fixed
+    width: 100%
+    // height: vw(189)
+    // padding-top: vw(82)
+    &.active
+      width: 100%
+      height: 100vh
+      background: transparent
+    .tab-wrap
+      background: transparent
+      display: flex
+      justify-content: space-between
+      align-items: center
+      line-height: vw(44)
+      padding: 0 vw(12)
+      font-size: vw(14)
+      font-weight: 500
+      color: #A6A6A6
+      .tab-item
+        flex: 1
+        text-align: center
+        background: transparent
+        position: relative
+        height: vw(44)
+        line-height: vw(44)
+        font-weight: 400
+        &.active
+          font-weight: 400
+          color: #000000
+        .bor-active
+          position: absolute
+          bottom: vw(8)
+          left: 50%
+          width: vw(40)
+          height: vw(2)
+          background: #4A4A4A
+          content: ""
+          transform: translateX(-50%)
+        .bor-r
+          position: absolute
+          top: 50%
+          right: 0
+          transform: translateY(-50%)
+          width: vw(1)
+          height: vw(13)
+          background: #D1BFA7
+  .page-content
+    padding: vw(20) vw(15)
+    background: #F6F7F9
+    // 盒子
+    .data-box
+      padding: vw(15)
+      background: #FFFFFF
+      border-radius: vw(2)
+      margin-bottom: vw(20)
+    // 
+
+    .select-wrap
+      background: transparent
+      // padding: 0 vw(15)
+      .select-box2
+        // padding-top: vw(20)
+        padding-bottom: vw(10)
+        position: relative
+        &.active
+        // height: vw(74)
+        .definition-time
+          width: 100%
+          color: #9E9FA5
+          height: vw(20)
+          font-size: vw(11)
+          margin-top: vw(10)
+        .box2-border
+          height: vw(34)
+          line-height: vw(34)
+          font-size: vw(14)
+          color: #4A4A4A
+          display: flex
+          align-items: center
+          flex-wrap: nowrap
+          text-align: center
+          background: #ffffff
+          font-weight: 400
+          .cover
+            flex: 1
+            height: vw(34)
+            position: relative
+            color: #4A4A4A
+            display: flex
+            justify-content: center
+            align-items: center
+            .word-wrap
+              max-width: vw(60)
+              white-space: nowrap
+              overflow: hidden
+              text-overflow: ellipsis
+            .icon-right
+              width: vw(15)
+              height: vw(15)
+              margin-left: vw(5)
+              flex-shrink: 0
+            .adjust
+              margin-left: vw(0)
+          .bd-r
+            width: vw(1)
+            height: vw(34)
+            background: #F1F1F1
+          .small
+            flex: 1
+            text-align: center
+            .label_box
+              height: vw(17)
+              line-height: vw(17)
+              font-size: vw(12)
+        .select-info
+          .cover
+            width: 100%
+            height: vw(50)
+            line-height: vw(50)
+            position: relative
+            font-size: vw(14)
+            border-bottom: vw(1) solid #F0F0F0
+            &.active
+              color: #4A4A4A
+              font-weight: bold
+            .tick
+              width: vw(18)
+              height: vw(18)
+              position: absolute
+              top: 50%
+              right: 0
+              transform: translateY(-50%)
+
+    // 头部选择
+    // .select-box
+    //   font-size: vw(12)
+    //   font-weight: 400
+    //   line-height: vw(17)
+    //   .select-date
+    //     width: 100%
+    //     padding: vw(0) vw(0) vw(15)
+    //     border-bottom: 1px solid #EEEEEE
+    //     display: flex
+    //     justify-content: space-between
+    //     align-items: center
+    //     color: #6E7279
+    //     .select-date-option
+    //       padding: vw(4) vw(14)
+    //       box-sizing: border-box
+    //       .date-option-custom
+    //         display: flex
+    //         align-items: center
+    //         color:#4A4A4A
+    //         image
+    //           width: vw(14)
+    //           height: vw(14)
+    //     .dateActive
+    //       background: linear-gradient(90deg, #59AEF9 0%, #4A4A4A 100%)
+    //       border-radius: vw(13)
+    //       color: #FFFFFF
+    //   .select-type
+    //     width: 100%
+    //     display: flex
+    //     justify-content: space-between
+    //     align-items: center
+    //     padding: vw(20) vw(0) vw(5)
+    //     .select-type-box
+    //       width: 48%
+    //       display: flex
+    //       justify-content: space-between
+    //       align-items: center
+    //       background: #F6F7FB
+    //       color: #41454C
+    //       border-radius: vw(2)
+    //       padding: vw(8) vw(9) vw(7) vw(15)
+    //       .select-custom-select
+    //         width: vw(14)
+    //         height: vw(14)
+
+    // 更新时间
+    .update-date
+      font-size: vw(10)
+      font-weight: 400
+      color: #999999
+      line-height: vw(14)
+      margin-bottom: vw(10)
+    // .page-content
+      // height: auto
+      // padding-bottom: vw(80)
+    // 一类盒子
+    .first-box
+      padding: vw(15) vw(5) vw(10) vw(20)
+      background: #F6F6F6
+      border-radius: vw(2)
+      height: vw(86)
+    .box-first-font
+      font-size: vw(28)
+      font-family: DINPro-Bold, DINPro
+      font-weight: bold
+      color: #464A52
+      line-height: vw(28)
+    // 二类盒子
+    .second-box
+      padding: vw(15) vw(5) vw(15) vw(20)
+      background: #F6F6F6
+      // opacity: .5
+      height: vw(78)
+    .box-second-font
+      font-size: vw(24)
+      font-family: DINPro-Bold, DINPro
+      font-weight: bold
+      color: #464A52
+      line-height: vw(31)
+    .new-second-box
+      padding-top: vw(10)
+      height: vw(78)
+      width: 40%
+    .new-first-box
+      padding-top: vw(10)
+      width: 30%
+    // 大盒子
+    .surround-box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin-top: vw(15)
+      &.m-t-0
+        margin-top: 0
+    // 一类大盒子
+    .first-surround-box
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: vw(15)
+    // 二类大盒子
+    .second-surround-box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin-top: vw(15)
+    // 内容标题
+    .box-content-title
+      display: flex
+      align-items: center
+      image
+      width: vw(16)
+      height: vw(16)
+    // 标题名
+    .box-title
+      font-size: vw(16)
+      font-weight: 500
+      color: #34363B
+      line-height: vw(22)
+    .item-title
+      height: vw(20)
+      line-height: vw(20)
+      font-size: vw(14)
+      color: #4A4A4A
+      display: flex
+      align-items: center
+      margin-bottom: vw(2)
+      .second-title
+        font-size: vw(10)
+        color: #4A4A4A
+        line-height: vw(14)
+      // 提示信息
+      .tip-box
+        .tip-express-type1
+          background: url('../../images/static/custom-title2.png')
+        .tip-express-type2
+          background: url('../../images/static/custom-title2.png')
+        .tip-express
+          margin-left: vw(2)
+          width: vw(16)
+          height: vw(16)
+          background-size: cover
+    .express-content
+      position: relative
+      top: vw(-45)
+      padding: vw(10) vw(11)
+      margin-right: vw(7)
+      color: #34363B
+      background: #ffffff
+      box-shadow: vw(0) vw(6) vw(10) vw(0) rgba(198, 205, 217, 0.57)
+      font-size: vw(12)
+      text-align: left
+      line-height: vw(17)
+      border-radius: vw(4)
+      z-index: 1000
+      &::after
+        content: ''
+        left: vw(15)
+        top: vw(-4)
+        position: absolute
+        width: vw(9)
+        height: vw(9)
+        transform: rotateZ(45deg)
+        background: #ffffff
+    .partition-img
+      // padding-top: vw(15)
+      image
+      width: vw(52)
+      height: vw(8)
+    .content-1
+      left: vw(60)
+      width: vw(108)
+    .content-2
+      left: vw(30)
+      width: vw(108)
+    .content-3
+      left: vw(30)
+      width: vw(108)
+      &::after
+        left: vw(74)
+    .content-4
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+    .content-5
+      top: vw(-35)
+      left: vw(30)
+      width: vw(108)
+      &::after
+        left: vw(35)
+    .content-6
+      top: vw(-35)
+      left: vw(-15)
+      width: vw(108)
+      &::after
+        left: vw(72)
+    .content-7
+      top: vw(-35)
+      left: vw(30)
+      width: vw(108)
+    .content-8
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+    .content-9
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+      &::after
+        left: vw(58)
+    .content-10
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+      &::after
+        left: vw(65)
+    .content-11
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+      &::after
+        left: vw(58)
+
+    .content-12
+      left: vw(47)
+      width: vw(108)
+    .content-13
+      left: vw(30)
+      width: vw(108)
+      &::after
+        left: vw(44)
+    .content-14
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+      &::after
+        left: vw(38)
+    .content-15
+      top: vw(-35)
+      left: vw(20)
+      width: vw(108)
+      &::after
+        left: vw(76)
+
+    // 内容部分
+    .content-box
+      padding-bottom: vw(95)
+      flex: 1
+      overflow: scroll
+      height: 85vh
+      .h-30
+        height: vw(30)
+    .BA-data-box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .BA-data-left
+        display: flex
+        align-items: center
+        font-size: vw(14)
+        font-weight: 500
+        color: #34363B
+        line-height: vw(20)
+        .data-left-img
+          width: vw(6)
+          height: vw(6)
+          background: #4A4A4A
+          border-radius: vw(1)
+          margin-right: vw(15)
+      .BA-data-right
+        display: flex
+        align-items: center
+        font-size: vw(18)
+        font-family: DINPro-Bold, DINPro
+        font-weight: bold
+        color: #4A4A4A
+        line-height: vw(23)
+        .data-left-img
+          margin-left: vw(7)
+          image
+          width: vw(14)
+          height: vw(14)
+
+.shade-load
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%,-50%)
+  background: #ffffff
+  opacity: 0.5
+  image
+    width: vw(80)
+    height: vw(80)
+.shade-load-new
+  background: transparent !important
+  opacity: 0 !important
+  position: fixed
+  top: 0

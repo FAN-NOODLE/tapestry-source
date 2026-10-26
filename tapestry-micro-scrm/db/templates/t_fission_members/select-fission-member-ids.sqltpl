@@ -1,0 +1,7 @@
+select
+    member_id,id
+from
+    fission_members
+where
+    activity_id = ?
+    and deleted_at = 0

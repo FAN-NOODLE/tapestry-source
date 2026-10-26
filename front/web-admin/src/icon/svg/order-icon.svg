@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="0512" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="上划" transform="translate(-34.000000, -336.000000)" stroke="#F5F6FA">
+            <g id="编组-15" transform="translate(15.000000, 30.000000)">
+                <g id="编组-45" transform="translate(19.000000, 306.000000)">
+                    <g id="订单">
+                        <g id="编组-11">
+                            <line x1="3.5" y1="5.2" x2="10.5" y2="5.2" id="直线-2" stroke-linecap="round"></line>
+                            <line x1="3.5" y1="8" x2="10.5" y2="8" id="直线-2复制" stroke-linecap="round"></line>
+                            <line x1="3.5" y1="10.8" x2="10.5" y2="10.8" id="直线-2复制-2" stroke-linecap="round"></line>
+                            <rect id="矩形" x="0.5" y="1.5" width="13" height="12" rx="1"></rect>
+                            <line x1="4.5" y1="0.524414062" x2="4.5" y2="2.61425781" id="直线-3" stroke-linecap="round"></line>
+                            <line x1="9.5" y1="0.524414062" x2="9.5" y2="2.61425781" id="直线-3复制" stroke-linecap="round"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

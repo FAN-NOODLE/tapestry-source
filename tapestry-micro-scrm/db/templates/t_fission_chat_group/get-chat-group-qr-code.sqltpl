@@ -1,0 +1,18 @@
+SELECT
+    fcg.id,
+    fcg.enterprise_id,
+    fcg.activity_id,
+    fcg.chat_id,
+    fcg.qr_code,
+    fcg.sort,
+    fcg.created_at,
+    fcg.updated_at,
+    fcg.deleted_at
+FROM
+	fission_chat_group as fcg
+WHERE
+	fcg.activity_id = {{.activity_id}}
+    AND fcg.enterprise_id = {{.enterprise_id}}
+	AND fcg.deleted_at = 0
+order by fcg.sort asc
+limit 1

@@ -1,0 +1,7 @@
+SELECT
+	*
+FROM
+	`chat_msg`
+WHERE
+	`id` = ?
+	AND `deleted_at` = 0;

@@ -1,0 +1,28 @@
+SELECT
+    id,
+    wx_union,
+    wx_shop,
+    wx_open,
+    wx_external,
+    bind_to,
+    name,
+    nick,
+    avatar,
+    sex,
+    mobile,
+    delivery_mobile,
+    country,
+    province,
+    city,
+    remark,
+    tags,
+    groups,
+    pay_order,
+    total_fee,
+    refund_order,
+    refund_fee,
+    latest_market_time,
+    market_count,
+    level_id
+FROM micro_scrm_enterprise_{{.cond.EnterpriseID}}.enterprise_user
+WHERE id in ({{WhereIn .cond.UserIDs}});

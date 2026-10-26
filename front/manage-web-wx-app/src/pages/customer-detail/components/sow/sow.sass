@@ -1,0 +1,312 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+.sow
+  padding: vw(15) vw(15)
+
+  .new-sow
+    margin-bottom: vw(15)
+    padding: vw(15) vw(15) vw(25)
+    background-color: #fff
+
+    .top-box
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+      .title
+        font-size: vw(16)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #000000
+
+      .time-select
+        width: vw(170)
+        height: vw(30)
+        background-color: #F6F6F9
+        display: flex
+        align-items: center
+        padding: 0 vw(5)
+
+        .icon-1
+          width: vw(15)
+          height: vw(15)
+          margin-right: vw(5)
+
+        .placeholder
+          flex: 1
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #96979E
+          margin-left: vw(2)
+
+        .icon-2
+          width: vw(14)
+          height: vw(14)
+          transform: rotate(-90deg)
+
+    .edit-box
+      margin-top: vw(15)
+      margin-bottom: vw(25)
+      background-color: #F6F6F9
+      position: relative
+
+      .edit
+        height: vw(98)
+        padding: vw(10)
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+
+      .word-total
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #BDBEC8
+        display: flex
+        justify-content: flex-end
+        position: absolute
+        bottom: vw(10)
+        right: vw(10)
+
+    .btn
+      height: vw(42)
+      display: flex
+      justify-content: center
+      align-items: center
+      background-color: #000000
+      color: #ffffff
+      font-size: vw(14)
+      font-family: PingFangSC-Regular, PingFang SC
+      font-weight: 400
+
+      &.disabled
+        background-color: #cccccc
+
+  .sow-record
+    background-color: #fff
+    padding: vw(15)
+
+    .record-top
+      display: flex
+      align-items: center
+      justify-content: space-between
+
+      .title
+        font-size: vw(16)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #000000
+
+      .filter-list
+        display: flex
+        align-items: center
+
+        .filter-item
+          height: vw(22)
+          padding: 0 vw(10)
+          background-color: #fff
+          font-size: vw(11)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #404040
+          display: flex
+          align-items: center
+          justify-content: center
+          border: vw(1) solid #404040
+          margin-left: vw(10)
+
+          &.selected
+            color: #ffffff
+            background-color: #000000
+            border: none
+  
+    .bottom-tip, .loading-box
+      width: 100%
+      font-size: vw(14)
+      color: #96979E
+      text-align: center
+      margin: vw(15) 0
+
+    .record-item
+      margin-top: vw(15)
+      background-color: #F6F6F9
+      display: flex
+      flex-direction: column
+      align-items: flex-end
+      padding: vw(10) vw(15)
+      height: vw(135)
+
+      .top-info
+        width: 100%
+        display: flex
+        align-items: center
+
+        .icon
+          width: vw(14)
+          height: vw(14)
+          margin-right: vw(10)
+
+        .time
+          flex: 1
+          font-size: vw(12)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #404040
+          
+        .status
+          font-size: vw(12)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #CFB888
+
+          &.finished
+            color: #82D17B
+
+      .detail
+        flex: 1
+        width: 100%
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+        margin: vw(12) 0
+        word-break: break-all
+        overflow-y: scroll 
+
+      .btn-box
+        display: flex
+        justify-content: flex-end
+
+        .delete-btn
+          width: vw(64)
+          height: vw(28)
+          border: vw(1) solid #4A4A4A
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #4A4A4A
+          display: flex
+          align-items: center
+          justify-content: center
+          margin-right: vw(10)
+
+        .confirm-btn
+          width: vw(64)
+          height: vw(28)
+          border: vw(1) solid transparent
+          font-size: vw(12)
+          background-color: #000
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #fff
+          display: flex
+          align-items: center
+          justify-content: center
+
+    .empty-list
+      height: vw(233)
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+
+      .image
+        width: vw(86)
+        height: vw(86)
+
+      .word
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #4A4A4A
+        margin-top: vw(15)
+
+
+.form
+  width: 690rpx
+  background: #FFFFFF
+  margin: 0 auto 30rpx
+  padding: 30rpx 30rpx 50rpx
+
+  .form-item
+    display: flex
+    &:not(:last-child)
+      margin-bottom: 30rpx
+
+    .form-item__label
+      height: 60rpx
+      font-weight: 500
+      font-size: 30rpx
+      color: #000000
+      line-height: 60rpx
+      padding-right: 20rpx
+      white-space: nowrap
+    .form-item__value 
+      flex: 1
+      .theme
+        font-weight: 400
+        font-size: 24rpx
+        color: #000000
+        line-height: 40rpx
+        min-height: 60rpx
+        width: 100%
+        display: flex
+        align-items: center
+        max-height: 80rpx
+        overflow: hidden
+        position: relative
+        &.show
+          align-items: flex-start
+        .theme-text
+          // 两行省略
+          // overflow: hidden
+          // text-overflow: ellipsis
+          // display: -webkit-box
+          // -webkit-line-clamp: 2
+          // -webkit-box-orient: vertical
+          // width: 100%
+        .theme-btn
+          position: absolute
+          bottom: 0
+          right: 0
+          background: linear-gradient(to right, rgba(255,255,255,0) 0, rgba(255,255,255,1) 40rpx, rgba(255,255,255,1))
+          color: rgba(0,0,0,0.5)
+          display: flex
+          align-items: center
+          padding-left: 40rpx
+          &::after
+            content: ''
+            background: url("https://cdn-cos.coach.com.cn/uploads/2024/v4.2.4/icon_5.png") center/100% no-repeat
+            width: 28rpx
+            height: 18rpx
+            margin-left: 10rpx
+            transition: transform .3s
+        
+        &.opened
+          max-height: none
+          padding-bottom: 40rpx
+          .theme-btn::after
+            transform: rotate(180deg)
+  .btn
+    height: vw(42)
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #000000
+    color: #ffffff
+    font-size: vw(14)
+    font-family: PingFangSC-Regular, PingFang SC
+    font-weight: 400
+    margin-top: 40rpx
+
+    &.disabled
+      background-color: #cccccc

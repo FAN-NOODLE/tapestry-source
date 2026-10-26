@@ -1,0 +1,13 @@
+/** 根据状态取不同颜色 */
+function calcStatusInfo(status, key) {
+  // status详情
+  var statusInfo = [
+    { name: '待完成', class: 'is-error' },
+    { name: '已完成', class: 'is-success' },
+    { name: '已过期', class: 'is-load' }
+  ]
+  return statusInfo[status] ? statusInfo[status][key] : ''
+}
+module.exports = {
+  calcStatusInfo: calcStatusInfo
+}

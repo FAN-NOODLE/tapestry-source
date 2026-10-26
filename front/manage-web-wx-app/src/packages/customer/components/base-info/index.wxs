@@ -1,0 +1,20 @@
+function getNestedValue(item, detail, crmDetail) {
+  // 根据item.source选择数据源对象
+  var dataSource = item.source === 'detail' ? detail : crmDetail
+
+  // 处理嵌套属性或直接属性
+  if (item.key.indexOf('.') !== -1) {
+    // 处理嵌套属性路径
+    var value = item.key.split('.').reduce(function(current, prop) {
+      return current && current[prop] !== undefined ? current[prop] : null
+    }, dataSource)
+    return value || item.defaultValue || ''
+  } else {
+    // 处理直接属性
+    return dataSource[item.key] || item.defaultValue || ''
+  }
+}
+
+module.exports = {
+  getNestedValue: getNestedValue
+}

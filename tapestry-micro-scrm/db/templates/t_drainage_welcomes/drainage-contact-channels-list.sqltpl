@@ -1,0 +1,11 @@
+SELECT
+	id,
+	name
+FROM
+	drainage_contact_channels
+WHERE
+	deleted_at = 0
+    AND enterprise_id = :enterprise_id
+{{if ne .cond.ID 0}}
+    AND id = :id
+{{end}}

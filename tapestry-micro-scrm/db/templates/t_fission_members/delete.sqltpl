@@ -1,0 +1,6 @@
+UPDATE
+    `fission_members`
+SET
+    `deleted_at` = {{.cond.DeletedAt}}
+WHERE
+	`id` in ({{WhereIn .cond.DeleteIDs}})

@@ -1,0 +1,10 @@
+select
+    sum(num) as count
+from
+    fission_exchange_prize_records
+where
+    prize_id = ?
+and
+    user_id = ?
+and
+    deleted_at = 0

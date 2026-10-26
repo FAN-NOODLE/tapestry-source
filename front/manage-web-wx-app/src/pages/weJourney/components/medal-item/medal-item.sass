@@ -1,0 +1,85 @@
+@import '../../../../style/color-variable.sass'
+
+.medal-item
+  height: 100%
+  display: grid
+  grid-template: vw(91) 1fr vw(17) / vw(91)
+  align-content: space-between
+  position: relative
+
+  .medal-image-box
+    width: vw(85)
+    height: vw(85)
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: vw(13)
+
+    .medal-image
+      width: 100%
+      height: 100%
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+
+  .progress-box
+    display: flex
+    padding: 0 vw(5)
+    align-items: baseline
+    justify-content: center
+
+    .progress
+      width: vw(45)
+      height: vw(5)
+      display: flex
+      border-radius: vw(3)
+      background-color: rgba(244, 244, 244, 1)
+      margin-right: vw(5)
+
+      .foreground
+        width: 10%
+        background-color: rgba(255, 205, 2, 1)
+        border-radius: vw(3)
+
+
+    .word
+      display: flex
+      font-family: AlibabaPuHuiTiL
+      color: #33363C
+      align-items: baseline
+
+      .value
+        font-size: vw(12)
+
+      .total
+        font-size: vw(10)
+
+  .name
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    font-size: vw(12)
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+    color: #33363C
+    text-align: center
+    grid-area: 3 / 1 / 4 / 2
+
+  .new-icon
+    position: absolute
+    top: vw(4)
+    right: 0
+    height: vw(18)
+    width: vw(34)
+    border-radius: vw(9) vw(9) vw(9) vw(4)
+    border: vw(1) solid #FFFFFF
+    background-color: rgba(255, 205, 2, 1)
+    font-size: vw(10)
+    font-family: PingFangSC-Semibold, PingFang SC
+    font-weight: 600
+    color: #33363C
+    display: flex
+    align-items: center
+    justify-content: center

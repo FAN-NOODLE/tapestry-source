@@ -1,0 +1,16 @@
+SELECT
+    member_departments.`member_id`,
+    departments.`id` as department_id,
+    departments.`name` as department_name
+
+FROM
+    member_departments
+
+LEFT JOIN
+    departments ON member_departments.`department_id` = departments.`id`
+
+WHERE
+    member_departments.`deleted_at` = 0 AND departments.`deleted_at` = 0
+
+AND
+    member_departments.`member_id` IN ({{WhereIn .cond.memberIDs}})

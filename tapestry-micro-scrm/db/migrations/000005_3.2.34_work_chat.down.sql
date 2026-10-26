@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `chat_member`;
+DROP TABLE IF EXISTS `chat_msg`;
+DROP TABLE IF EXISTS `chat_receive_user`;
+DROP TABLE IF EXISTS `chat_remind_config`;
+DROP TABLE IF EXISTS `chat_sensitive`;
+DROP TABLE IF EXISTS `chat_settings`;
+DROP TABLE IF EXISTS `chat_sensitive_records`;
+DROP TABLE IF EXISTS `chat_overtime_records`;
+DROP TABLE IF EXISTS `chat_object`;
+DROP TABLE IF EXISTS `chat_msg_media`;

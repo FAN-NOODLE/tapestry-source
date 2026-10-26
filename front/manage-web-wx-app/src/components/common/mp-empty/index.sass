@@ -1,0 +1,135 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+.page-empty-page
+  display: flex
+  flex-direction: column
+  height: 100%
+  padding-bottom: vw(23)
+  background: transparent
+
+  flex-grow: 1
+  align-items: center
+  .empty-icon
+    margin-top: vw(30)
+    margin-bottom: vw(5)
+    display: flex
+    flex-direction: column
+    align-items: center
+    &:before
+      display: inline-block
+      content: ""
+      width: vw(172)
+      height: vw(172)
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
+  .center
+    width: 100%
+    position: absolute
+    left: 50%
+    top: 40%
+    transform: translate(-50%, -50%)
+  .center-empty-slogan
+    margin-top: vw(34)
+    color: #000!important
+  .empty-slogan
+    font-family: PingFangSC-Regular,PingFang SC
+    font-size: vw(12)
+    font-weight: 400
+    color: $color-a6
+    text-align: center
+  .slogan
+    color: #4A4A4A
+  .empty-btn
+    display: flex
+    align-items: center
+    justify-content: center
+    width: vw(135)
+    height: vw(36)
+    margin-top: vw(88)
+    font-size: vw(12)
+    font-weight: 500
+    color: #000
+    border: 1px solid #000
+    text-align: center
+  // 任务缺省
+  .empty-icon-task
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  .empty-icon-power
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2022/5/23/e6111cd779db0c2babd8d13d48908215.png')
+  // 员工缺省
+  .empty-icon-member
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  // 订单缺省
+  .empty-icon-order
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  // 门店缺省
+  .empty-icon-store
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  // 顾客管理却省
+  .empty-icon-customer
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  // 优惠卷
+  .empty-icon-coupon
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  //营销日历缺省
+  .empty-icon-date
+    &:before
+      background-image:url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+  //营销日历详情缺省
+  .empty-icon-marketing
+    &:before
+      background-image: url('https://crs-prod-1251064102.cos.ap-shanghai.myqcloud.com/tapestry-wxapp/empty-user.png')
+    // 物流缺省
+  .empty-icon-expressage
+    &:before
+      width: vw(72)
+      height: vw(72)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/empty-expressage.png')
+  // 订单缺省
+  .empty-icon-indent
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/empty-order.png')
+  .empty-icon-store
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/store_unsupport.png')
+  .empty-icon-no-data
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/material/no-data.png')
+  .empty-icon-error
+    &:before
+      width: vw(104)
+      height: vw(72)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v4.0.3.2/error.png')
+  .empty-icon-no-search
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/no-search-icon.png')
+  .empty-icon-no-task
+    &:before
+      width: vw(86)
+      height: vw(86)
+      background-image: url('https://cdn-cos.coach.com.cn/static/wxapp/v5.0.6/icon_empty.png')

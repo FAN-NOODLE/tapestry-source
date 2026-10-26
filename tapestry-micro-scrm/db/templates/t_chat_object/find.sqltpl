@@ -1,0 +1,10 @@
+SELECT
+	*
+FROM
+	`chat_object`
+WHERE
+	`from_userid` = :from_userid
+	AND `to_userid` = :to_userid
+	AND `enterprise_id` = :enterprise_id
+	AND deleted_at = 0
+	LIMIT 1;

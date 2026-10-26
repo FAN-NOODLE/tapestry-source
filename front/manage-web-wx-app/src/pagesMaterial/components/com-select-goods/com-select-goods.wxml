@@ -1,0 +1,56 @@
+
+<view bind:tap="handleShow">
+  <slot></slot>
+</view>
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="handleClose">
+  <view class="popup">
+    <view class="popup-close" bind:tap="handleClose"></view>
+    <view class="popup-header">
+      <view class="title">搜索添加商品</view>
+      <view class="search-wrap">
+        <view class="search-type" bind:tap="handleSearchTypeChange">
+          <view>{{types.list[types.active].title}}</view>
+          <view class="icon-down"></view>
+        </view>
+        <view class="search {{searchValue ? 'active' : ''}}">
+          <view class="search-icon"></view>
+          <input class="search-input" value="{{searchValue}}" placeholder="请输入{{types.list[types.active].placeholder}}查询" placeholder-class="placeholder" bind:input="handleInput" />
+          <view class="icon-clear" wx:if="{{searchValue}}" bind:tap="handleClearSearch"></view>
+        </view>
+        <view class="scan" bind:tap="handleScan"></view>
+      </view>
+    </view>
+    <scroll-view class="popup-content" scroll-y="{{true}}" bind:scrolltolower="loadMore">
+      <view wx:if="{{list.length > 0}}" class="list">
+        <view class="item" wx:for="{{list}}" wx:key="index" data-item="{{item}}" bind:tap="handleSelect">
+          <view class="item-image">
+            <image class="image" src="{{item.image_url||empty_image}}" mode="aspectFit" />
+          </view>
+          <view class="item-info">
+            <view class="item-name">{{item.product_name || '--'}}</view>
+            <view class="item-sku">
+              <text>款号: {{item.sku_item}}</text>
+              <text>颜色: {{item.color}}</text>
+            </view>
+          </view>
+          <view class="select {{selectionMap[item.upc_code] ? 'active' : ''}}"></view>
+        </view>
+      </view>
+      <view wx:if="{{list.length === 0}}" class="empty">
+        <view class="empty-icon"></view>
+        <view class="empty-text">暂无搜索内容</view>
+      </view>
+      
+    </scroll-view>
+  </view>
+</mp-popup>
+
+
+<!-- 搜索类型 -->
+<com-popup-search-type 
+  show="{{types.show}}" 
+  current="{{types.active}}"
+  list="{{types.list}}"
+  bind:confirm="handleSearchTypeConfirm"
+  bind:close="handleSearchTypeClose"
+></com-popup-search-type>

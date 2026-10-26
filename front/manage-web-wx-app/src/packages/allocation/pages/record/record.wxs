@@ -1,0 +1,41 @@
+function getStatusConfig(config) {
+  var status = config.status.toString()
+  var statusConfig = {}
+  var map = {
+    '0': {
+      className: 'status-1',
+      word: '分配中'
+    },
+    '1': {
+      className: 'status-2',
+      word: '分配成功'
+    },
+    '2': {
+      className: 'status-3',
+      word: '名分配失败'
+    }
+  }
+
+  statusConfig = map[status]
+
+  if (status === 2) {
+    statusConfig.word = config.errmsg
+  }
+
+  return statusConfig
+}
+/**
+ * @description:截断文字显示,限制两行，超出部分显示省略号
+ * @return {*}
+ */
+function ellipsisText(text, length) {
+  if (text.length > length) {
+    return text.substring(0, length) + '...'
+  } else {
+    return text
+  }
+}
+module.exports = {
+  getStatusConfig: getStatusConfig,
+  ellipsisText: ellipsisText
+}

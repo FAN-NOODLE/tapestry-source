@@ -1,0 +1,17 @@
+SELECT
+	count(
+	DISTINCT (`external_user_id`)) as count
+FROM
+	`relation_callback_records`
+WHERE
+	`create_time` >= :start_time
+	AND `create_time` < :end_time
+	AND `change_type` = "del_external_contact"
+	AND `to_user_name` = :corp_id
+	{{/* 不查询删了又加的删除记录 */}}
+	AND `add_relation_time` < :end_time
+{{if ne .cond.ChannelsState 0}}
+    AND `channel_id` = :channels_state
+{{else}}
+    AND `channel_id` != 0
+{{end }}

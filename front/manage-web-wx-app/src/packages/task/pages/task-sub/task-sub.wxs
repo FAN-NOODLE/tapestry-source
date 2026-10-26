@@ -1,0 +1,72 @@
+/** 组合群人数 比如：指定群人数大于1人。。。 */
+function getGroupInfo(logical) {
+  // 大于/小于/等于
+  var expressions = {
+    eq: '等于',
+    gt: '大于',
+    ge: '大于等于',
+    lt: '小于',
+    le: '小于等于'
+  }
+  return logical.remark + expressions[logical.expression] + logical.number
+}
+
+/** 根据状态取不同颜色 */
+function calcStatusInfo(status, key) {
+  // status详情
+  var statusInfo = [
+    { color: '#D1A7A7', name: '待完成', className: 'is-error' },
+    { color: '#BBD1A7', name: '已完成', className: 'is-success' },
+    { color: '#96979E', name: '未完成', className: 'is-load' }
+  ]
+  return statusInfo[status] ? statusInfo[status][key] : ''
+}
+
+/** 主任务-根据状态取不同颜色 */
+function calcMainStatusInfo(status, key) {
+  // status详情
+  var mainStatusInfo = [
+    { color: '#D1A7A7', name: '待完成', className: 'is-error' },
+    { color: '#BBD1A7', name: '已完成', className: 'is-success' },
+    { color: '#96979E', name: '已过期', className: 'is-load' }
+  ]
+  return mainStatusInfo[status] ? mainStatusInfo[status][key] : ''
+}
+// 获取已完成百分比
+function getPercent(finish_num, all_num) {
+  // 转换为数字
+  finish_num = Number(finish_num)
+  all_num = Number(all_num)
+  return Math.ceil((finish_num / all_num) * 100)
+}
+// 获取已完成百分比
+function getPercentLeft(finish_num, all_num) {
+  // 转换为数字
+  finish_num = Number(finish_num)
+  all_num = Number(all_num)
+  var percent = Math.ceil((finish_num / all_num) * 100)
+  if (percent > 89) {
+    percent = 90
+  } else if (percent < 10) {
+    percent = 10
+  }
+  return percent
+}
+// 获取进度条动画完成事件
+function getDuration(finish_num, all_num) {
+  // 转换为数字
+  finish_num = Number(finish_num)
+  all_num = Number(all_num)
+  var percent = Math.ceil((finish_num / all_num) * 100)
+  var duration = Math.ceil((2000 / percent))
+  console.log('duration', duration)
+  return duration
+}
+module.exports = {
+  getPercent: getPercent,
+  getGroupInfo: getGroupInfo,
+  calcStatusInfo: calcStatusInfo,
+  calcMainStatusInfo: calcMainStatusInfo,
+  getPercentLeft: getPercentLeft,
+  getDuration: getDuration
+}

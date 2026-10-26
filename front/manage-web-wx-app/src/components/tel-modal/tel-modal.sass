@@ -1,0 +1,148 @@
+/**
+  * CSS书写规范
+  *1.位置属性 (position, top, right, z-index, display, float等)　　
+  *2.大小 (width, height, padding, margin)　　
+  *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+  *4.背景 (background, border等)
+  *5.其他 (animation, transition等)
+ *  */
+
+@import '~@/style/color-variable'
+@import '~@/style/base/button'
+
+.container
+  width: 100%
+  padding: vw(15)
+  padding-top: vw(30)
+  padding-bottom: vw(11)
+  position: relative
+  .welcome
+    color: #33363C
+    height: 100%
+    line-height: vw(28)
+  .des
+    width: 100%
+    line-height: vw(17)
+    color: #C6C6C7
+  .phone-title, .code-title
+    width: 100%
+    height: vw(20)
+    color: #C6C6C7
+    line-height: vw(20)
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    font-size: vw(14)
+    font-family: PingFangSC-Regular,PingFang SC
+    font-weight: 400
+    margin-bottom: vw(10)
+    .error-text
+      color: #FD7474
+      margin-left: vw(14)
+  .phone-ctn
+    width: 100%
+    height: vw(44)
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    border: 1px solid #F0F0F0
+    border-radius: vw(2)
+    margin-bottom: vw(20)
+    &.phone-fouce
+      border-color: #4A4A4A
+    &.phone-error
+      border-color: #FD7F7F
+    .mark
+      font-size: vw(14)
+      font-family: PingFangSC-Regular,PingFang SC
+      font-weight: 400
+      width: vw(51)
+      height: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      color: #4A4A4A
+      position: relative
+      &::after
+        content: ''
+        width: vw(1)
+        height: vw(14)
+        background: #F0F0F0
+        position: absolute
+        right: 0
+        top: 50%
+        transform: translateY(-50%)
+    .phone-ipt
+      width: 100%
+      height: 100%
+      display: flex
+      align-items: center
+      color: #33363C
+      padding-left: vw(10)
+    .placeholder
+      color: #C6C6C7
+      font-size: vw(16)
+      font-family: PingFangSC-Regular,PingFang SC
+      font-weight: 400
+  .code-ctn
+    width: 100%
+    height: vw(44)
+    display: flex
+    justify-content: space-between
+    .code-area-box
+      width: vw(118+88)
+      height: 100%
+      position: relative
+    .code-area
+      width: 100%
+      height: 100%
+      display: flex
+      justify-content: space-between
+      .code-item
+        width: vw(44)
+        height: vw(44)
+        border-radius: vw(2)
+        border: vw(1) solid #F0F0F0
+        display: flex
+        justify-content: center
+        align-items: center
+        &.code-use
+          // color: #4A4A4A
+          border-color: #4A4A4A
+        &.last-code-use
+          border-color: #4A4A4A
+        &.error-code
+          border-color: #FD7474
+          color: #FD7474
+    .code-ipt
+      position: absolute
+      left: vw(-30)
+      top: 0
+      width: 0
+      height: 100%
+      display: flex
+      justify-content: space-between
+      letter-spacing: vw(10)
+    .get-code
+      width: vw(124)
+      height: vw(44)
+      display: flex
+      justify-content: center
+      align-items: center
+      color: #4A4A4A
+      border: vw(1) solid #4A4A4A
+      border-radius: vw(2)
+      &.use
+        color: #C6C6C7
+        border-color: #C6C6C7
+    .op-7
+      opacity: 0.7
+  .btn-group
+    margin-top: vw(50)
+    display: flex
+    justify-content: space-between
+    .btn
+      width: vw(165)
+      height: vw(38)
+      line-height: vw(38)
+

@@ -1,0 +1,30 @@
+SELECT
+    `id`,
+    `open_id`,
+    `nick_name`,
+    `sex`,
+    `province`,
+    `city`,
+    `country`,
+    `img_url`,
+    `privilege`,
+    `union_id`,
+    `enterprise_id`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`
+FROM `fission_mp_user`
+WHERE 1=1
+{{if ne .cond.EnterpriseID 0}}
+AND `enterprise_id` = :enterprise_id
+{{end }}
+{{if ne .cond.ID 0}}
+AND `id` = :id
+{{end }}
+{{if ne .cond.OpenID ""}}
+AND `open_id` = :open_id
+{{end }}
+{{if ne .cond.UnionID ""}}
+AND `union_id` = :union_id
+{{end }}
+LIMIT 1

@@ -1,0 +1,36 @@
+<view class="task" style="padding-top: {{navigationBarHeight}}">
+	<navigation-bar
+		bg-color="transparent"
+		fontSize="17"
+		color="#000000"
+		throughTop="{{true}}"
+		text="任务中心"
+		back
+		backActive="goback"
+	/>
+	<!-- tabs -->
+	<view class="task-header tabs">
+      <block wx:for="{{tabs}}" wx:key="id">
+        <view class="tabs-item {{currentTab === item.id ? 'is-active' :''}}">
+			<view class="bubble" 	
+				data-current="{{item.id}}" 
+				bindtap="clickTab">
+				{{item.label}}
+				<view class="bubble-item" wx:if="{{item.num}}">{{item.num}}</view>
+			</view>
+		</view>
+      </block>
+    </view>
+
+	<view class="task-body">
+		<!-- 任务计划 -->
+		<task-plan wx:if="{{currentTab === 0}}" id="taskPlan"></task-plan>
+		<!-- 播种计划 -->
+		<sow-plan wx:if="{{currentTab === 1}}" id="sowPlan" sowTime="{{sowTime}}" bind:sowRefresh="sowRefresh"></sow-plan>
+		<!-- 邀约计划 -->
+		<invitation-plan wx:if="{{currentTab === 2}}" id="invitationPlan"></invitation-plan>
+	</view>
+
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

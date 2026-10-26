@@ -1,0 +1,12 @@
+UPDATE
+    marketing_strategies
+SET
+    `strategy_status` = {{.cond.StrategyStatus}},
+    `updated_at` = {{.cond.UpdatedAt}},
+    {{if eq .cond.AbnormalPause 2}}
+    `abnormal_pause` = 0
+    {{end}}
+    {{if eq .cond.AbnormalPause 1}}
+    `abnormal_pause` = 1
+    {{end}}
+WHERE `id` IN ({{WhereIn .cond.StrategyIDs}});

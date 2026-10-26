@@ -1,0 +1,18 @@
+<view>
+  <!-- 遮罩 -->
+  <view
+    catchtouchmove="true"
+    class="{{ maskClass }}"
+    style="z-index: {{ zIndex ? zIndex : '' }}"
+  ></view>
+  <view catchtouchmove="true" style="z-index: {{ zIndex ? (zIndex + 1) : '' }}" catchtap="maskClick" class="{{ maskContainerClass }}">
+    <view
+      catchtouchmove="touchMove"
+      style="z-index: {{ zIndex ? (zIndex + 2) : '' }}"
+      catchtap="catchTap"
+      class="{{ showClass }} {{ roundClass }}"
+    >
+      <slot name="content"></slot>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+SELECT
+	count(
+	DISTINCT ( `external_user_id` )) as count
+FROM
+	`work_del_relation_channel_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`delete_time` >= :start_time
+	AND `delete_time` < :end_time
+	AND (`add_time` = 0 OR `add_time` > :end_time)
+	AND `enterprise_id` = :enterprise_id

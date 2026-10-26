@@ -1,0 +1,6 @@
+<view class="page-loading">
+  <view class="load-img" style="animation:bounceIn 1s linear infinite;">
+    <image src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.0.1/loading.png" mode="aspectFit" />
+  </view>
+  <text class="text font-12">{{loadingText}}</text>
+</view>

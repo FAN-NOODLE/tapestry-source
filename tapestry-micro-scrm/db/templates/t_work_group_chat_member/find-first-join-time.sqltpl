@@ -1,0 +1,14 @@
+SELECT
+	`join_time` as join_time
+FROM
+	`work_group_chat_member`
+WHERE
+	`deleted_at` = 0
+	AND `type` = 2
+	AND `userid` = '{{.cond.ExternalUserID}}'
+	AND `status` = 1
+	AND `group_chat_id` IN ({{ WhereIn .cond.GroupIDs }})
+	AND `enterprise_id` = {{.cond.EnterpriseID }}
+ORDER BY
+	id ASC
+	LIMIT 1

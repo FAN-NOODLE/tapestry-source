@@ -1,0 +1,7 @@
+{
+   "component": true,
+   "usingComponents": {
+       "toast": "../../../booking-activities/components/toast/toast"
+   }
+}
+  

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "选择顾问",
+  "usingComponents": {
+    
+    "mp-search": "../../../../components/common/mp-search/index",
+    "com-send-popup": "../../components/com-send-popup/com-send-popup"
+  }
+}

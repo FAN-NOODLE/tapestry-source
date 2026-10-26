@@ -1,0 +1,17 @@
+SELECT `dccl`.*, `t`.`name` AS `label_name`
+FROM `drainage_contact_channel_labels`  AS `dccl`, `work_external_tag` AS `t`
+
+WHERE `dccl`.`enterprise_id` = :enterprise_id
+AND `dccl`.`deleted_at` = 0
+AND `t`.`deleted_at` = 0
+AND `t`.`id` = `dccl`.`label_id`
+
+{{if ne .cond.ChannelID 0}}
+AND `dccl`.`channel_id` = :channel_id
+{{end }}
+{{if ne .cond.ChannelIdsCount 0}}
+AND `dccl`.`channel_id` IN ({{WhereIn .cond.ChannelIds}})
+{{end }}
+{{if ne .page.Limit 0}}
+LIMIT {{.page.Offset}}, {{.page.Limit}};
+{{end }}

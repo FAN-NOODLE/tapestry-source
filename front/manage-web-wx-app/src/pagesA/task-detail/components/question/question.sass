@@ -1,0 +1,88 @@
+@import '../../../../style/color-variable.sass'
+
+.popup
+  width: 100vw
+  background: #fff
+  position: relative
+  &-close
+    position: absolute
+    top: vw(15)
+    right: vw(12)
+    width: vw(20)
+    height: vw(20)
+    background: url('https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/close.png') center/100% no-repeat
+    z-index: 1
+  &-header
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100vw
+    height: vw(59)
+    position: relative
+    text-align: center
+    .level-title
+      height: vw(22)
+      font-size: vw(12)
+      font-family: PingFangSC-Regular, PingFang SC
+      font-weight: 600
+      color: #111
+  &-content
+    width: 100vw
+    padding: 0 vw(15)
+    .left-item
+      float: left
+      display: flex
+      align-items: center
+      margin-bottom: vw(20)
+      &-avatar
+        font-size: vw(26)
+        color: #C7AD7F
+      &-content
+        font-size: vw(12)
+        color: #C7AD7F
+        max-width: vw(259)
+        padding: vw(10)
+        background-color: #f7f7f7
+        position: relative
+        margin-left: 20px
+        &::before
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          left: -20px
+          content: ''
+          width: 0
+          height: 0
+          border-right: 10px solid #f7f7f7
+          border-bottom: 10px solid transparent
+          border-left: 10px solid transparent
+          border-top: 10px solid transparent
+    .right-item
+      float: right
+      display: flex
+      align-items: center
+      margin-bottom: vw(20)
+      &-avatar
+        font-size: vw(26)
+        color: #111
+        margin-left: vw(10)
+      &-content
+        font-size: vw(12)
+        color: #111
+        max-width: vw(259)
+        padding: vw(10)
+        background-color: #f7f7f7
+        position: relative
+        margin-left: 20px
+        &::before
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          right: -20px
+          content: ''
+          width: 0
+          height: 0
+          border-right: 10px solid transparent
+          border-bottom: 10px solid transparent
+          border-left: 10px solid #f7f7f7
+          border-top: 10px solid transparent

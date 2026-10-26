@@ -1,0 +1,12 @@
+SELECT
+	sms_template.`id`,
+	sms_template.`status`,
+	marketing_strategy_channels.strategy_id
+FROM
+	sms_template
+	LEFT JOIN marketing_strategy_channels ON marketing_strategy_channels.junior_id = sms_template.id
+WHERE
+  sms_template.`enterprise_id` = :enterprise_id
+  AND sms_template.deleted_at = 0
+  AND sms_template.`id` IN ({{WhereIn .cond.TemplateIDs}})
+  AND marketing_strategy_channels.`strategy_id` IN ({{WhereIn .cond.StrategyIDs}})

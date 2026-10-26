@@ -1,0 +1,6 @@
+update
+  chat_group_msg_task
+set
+  `task_status` = :task_status
+where
+  `id` = :id

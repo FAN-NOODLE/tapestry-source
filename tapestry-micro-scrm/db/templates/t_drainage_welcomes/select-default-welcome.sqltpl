@@ -1,0 +1,20 @@
+SELECT
+    `id`,
+    `content`,
+    `enterprise_id`,
+    `is_default`,
+    `channel_id`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`
+FROM
+	`drainage_welcomes`
+WHERE
+    1 = 1
+AND
+    deleted_at = 0
+AND
+    enterprise_id = ?
+AND
+    is_default = 1
+LIMIT 1;

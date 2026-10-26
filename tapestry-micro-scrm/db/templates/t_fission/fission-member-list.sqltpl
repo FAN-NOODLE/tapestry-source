@@ -1,0 +1,7 @@
+
+SELECT
+DISTINCT member_id,m.userid
+FROM `fission_members` fm INNER JOIN `members` m ON fm.member_id = m.id
+WHERE
+fm.enterprise_id =? AND  fm.activity_id = ?
+AND fm.deleted_at = 0

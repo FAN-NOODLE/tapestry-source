@@ -1,0 +1,3 @@
+INSERT INTO `marketing_strategy_trigger_relations`
+(`id`, `strategy_id`, `relation_id`, `created_at`, `updated_at`) VALUES
+(:id, :strategy_id, :relation_id, :created_at, :updated_at);

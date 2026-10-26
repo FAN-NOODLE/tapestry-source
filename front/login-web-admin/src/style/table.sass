@@ -1,0 +1,124 @@
+// 清除浮动
+.clearfix:after
+  display: block
+  content: ''
+  clear: both
+  height: 0
+
+// 错误按钮颜色
+.operation-error 
+  color: #F56C6C !important
+// 默认按钮颜色
+.operation-default
+  color: #606266 !important
+.operation-error:hover 
+  text-decoration: underline
+.operation-success:hover 
+  text-decoration: underline
+
+.main-title
+  padding-bottom: 18px
+  font-size: 20px
+  font-weight: 600
+  color: #33363C
+  .fr
+    float: right
+.main-content
+  position: relative 
+  background-color: #ffffff
+  padding: 20px
+  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.1)
+  .m-t-20 
+    margin-top: 20px
+  .title
+    width: 100%
+    position: absolute
+    top: -45px
+    .left 
+      float: left
+      font-size: 16px
+      color: #33363C
+      font-weight: 600
+      padding-bottom: 20px 
+    .right 
+      float: right
+      padding-right: 21px
+      input 
+        width: 95px
+        height: 40px
+        display: inline-block
+        line-height: 1
+        white-space: nowrap
+        cursor: pointer
+        border: 1px solid #dcdfe6
+        -webkit-appearance: none
+        text-align: center
+        box-sizing: border-box
+        outline: none
+        margin: 0
+        transition: 0.1s
+        font-weight: 500
+        -moz-user-select: none
+        -webkit-user-select: none
+        -ms-user-select: none
+        padding: 12px 20px
+        font-size: 14px
+        border-radius: 4px
+        color: #fff
+        background-color: #0486FE
+        margin-right: 10px
+  .page-block 
+    padding-top: 20px
+    .page-right 
+      float: right
+      font-size: 14px
+      .el-pagination 
+        font-weight: 400
+.main-search 
+  .search-input 
+    width: 224px
+    margin-right: 20px
+    margin-bottom: 10px
+  .search-select 
+    width: 224px
+    margin-right: 20px
+    margin-bottom: 10px
+.el-main 
+  background-color: #F0F2F6
+  box-sizing: border-box
+  -ms-flex-negative: 0
+  flex-shrink: 0
+  overflow: auto
+  padding: 30px
+.table-text-img
+  border-radius: 100%
+  vertical-align: middle
+  margin-right: 4px
+.empty-box
+  padding-top: 100px
+  .empty-data
+    display: block
+    color: #303133
+    padding-top: 13px
+    font-size: 14px
+    margin-bottom: 30px
+.choose-good-modal
+  tr
+    td
+      .cell
+        margin: 4px 0
+        height: 64px
+        line-height: 64px
+// 想去除底部的线，就以下类型两个二选一吧，自己根据实际情况加吧，总有一个会起效的 
+// 隐藏列表页面靠近分页的那条线
+.pagination-line-none
+  .el-table__row:last-child 
+    td
+      border-bottom: none
+// 隐藏列表页面最后一行的那条线,用了这条线，一并能解决缺省图下面的线，这个最常用
+.list-last-line-none::before
+  height: 0px  
+// 隐藏列表页面最后一行的操作区域那条线    
+.list-last-line-none .el-table__fixed::before, .list-last-line-none .el-table__fixed-right::before
+  height: 0px           
+  

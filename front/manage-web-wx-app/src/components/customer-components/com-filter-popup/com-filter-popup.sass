@@ -1,0 +1,147 @@
+@import '~@/style/color-variable'
+.popup
+  background-color: #fff
+  &__content
+    width: 100vw
+    height: 55vh
+
+  
+
+    .selection
+      padding: 0 vw(30)
+      margin-bottom: vw(15)
+
+      &__title
+        display: flex
+        align-items: center
+        font-size: vw(14)
+        font-weight: bold
+        color: #000
+        line-height: vw(20)
+        margin-top: vw(15)
+        padding-right: vw(10)
+        position: relative
+        .tips
+          width: vw(20)
+          height: vw(20)
+          margin-left: vw(5)
+        .expand 
+          position: absolute
+          right: 0
+          top: 50%
+          transform: translateY(-50%)
+          font-size: vw(11)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #000000
+          line-height: vw(17)
+          display: flex
+          align-items: center
+          justify-content: flex-end
+          padding: 20rpx 0
+
+          .icon
+            width: vw(10)
+            height: vw(6)
+            margin-left: vw(4)
+
+            &.rotate
+              transform: rotate(-180deg)
+        
+      &__content
+        &.min-h
+          max-height: vw(39)
+          overflow: hidden
+    .select-list
+      display: flex
+      flex-wrap: wrap
+    .select-item
+      border: vw(1) #A6A6A6 solid
+      font-size: vw(11)
+      font-family: PingFangSC-Regular, PingFang SC
+      font-weight: 400
+      color: #A6A6A6
+      display: flex
+      justify-content: center
+      align-items: center
+      min-width: vw(68)
+      height: vw(24)
+      border-radius: vw(12)
+      margin-top: vw(10)
+
+      .word
+        max-width: 100%
+        padding: 0 vw(5)
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        word-break: break-all
+        word-wrap: break-word
+
+
+      &.selected
+        background-color: #000000
+        color: #FFFFFF
+        border-color: #000000
+
+      &:not(:last-child)
+        margin-right: vw(10)
+  .select-date
+    width: 596rpx
+    height: 64rpx
+    border: 2rpx solid #A6A6A6
+    margin-top: 20rpx
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &__link
+      color: #A6A6A6
+
+    &__start,
+    &__end 
+      flex: 1
+      text-align: center
+      font-size: 22rpx
+      .placeholder
+        color: #A6A6A6
+
+  &__footer
+    padding: 40rpx 54rpx
+    display: flex
+    align-items: center
+
+    .btn
+      flex: 1
+      height: 72rpx
+      display: flex
+      align-items: center
+      justify-content: center
+      background-color: #000
+      color: #fff
+      font-size: 28rpx
+
+      &:nth-child(1) 
+        margin-right: 30rpx
+        background-color: #fff
+        border: 2rpx solid #000
+        color: #000
+      
+      &.disabled
+        background-color: #ccc
+
+  .tip-btn
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 24rpx
+    color: #A6A6A6
+    text-decoration: underline
+
+    &::after
+      content: ''
+      display: block
+      width: 28rpx
+      height: 28rpx
+      background: url(https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/tips.png) center/100% no-repeat
+

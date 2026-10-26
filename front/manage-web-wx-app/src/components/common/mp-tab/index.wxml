@@ -1,0 +1,6 @@
+<view
+  class="custom-class mp-tab__pane {{ active ? 'active':'inactive'}}"
+  style="{{ shouldShow ? '' : 'display: none;' }}"
+>
+  <slot wx:if="{{ shouldRender }}" />
+</view>

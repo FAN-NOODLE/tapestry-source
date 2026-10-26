@@ -1,0 +1,33 @@
+SELECT
+    cor.chat_msg_id,max(cor.created_at) as created_at,max(cm.id) as id
+FROM
+    `chat_overtime_records` as cor
+       LEFT JOIN chat_msg as cm on cm.id = cor.chat_msg_id
+    {{if ne "" .cond.CustomerName}}
+       LEFT JOIN micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external` as weu on weu.openid = cm.from_user
+    {{end}}
+WHERE
+    cor.enterprise_id = {{.cond.EnterpriseID}}
+        AND cor.deleted_at = 0
+    {{if gt .cond.ChatMsgIDsNum 0 }}
+        AND cor.chat_msg_id IN ({{WhereIn .cond.ChatMsgIDs}})
+    {{end}}
+    {{if ne "" .cond.KeyWords}}
+        AND cm.type = 'text'
+        AND `cm`.`content` -> "$.content" LIKE "%{{SafeStr .cond.KeyWords}}%"
+    {{end}}
+    {{if gt .cond.TimeEnd 0}}
+        AND cm.msg_at between {{.cond.TimeStart}} and {{.cond.TimeEnd}}
+    {{end}}
+    {{if ne "" .cond.CustomerName}}
+        AND weu.name like "%{{SafeStr .cond.CustomerName}}%"
+        AND weu.name !=""
+    {{end}}
+GROUP BY
+    chat_msg_id
+ORDER BY
+    cm.msg_at DESC
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};
+

@@ -1,0 +1,91 @@
+
+<wxs module="computed" src="./customer-item.wxs"></wxs>
+<view class="item" bind:tap="handleClick">
+  <view class="item-header">
+    <view wx:if="{{showSelect && item.is_finished != 1}}" class="icon-check-2 {{ item.checked ? 'active' : '' }}" catch:tap="handleSelect"></view>
+    <mp-image custom-class="item-avatar" round use-loading-slot src="{{item.avatar || defaultAvatar}}"></mp-image>
+    <view class="flex-1">
+      <view class="algin-center">
+        <view class="item-name item-name{{index||''}}" data-selector=".item-name{{index||''}}" data-content="{{item.name||''}}" catch:tap="handleShowTooltip">{{item.name}}</view>
+        <view class="item-remarks">
+          <view>
+            <text>备注名：</text>
+            <text class="text item-remarks2{{index||''}}" data-selector=".item-remarks2{{index||''}}" data-content="{{item.rel_remark||''}}" catch:tap="handleShowTooltip">{{item.rel_remark||'--'}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 客户标签：好友，会员，邀约，任务，券，专属 -->
+      <view wx:if="{{options.task_category == 1}}" class="top-two">
+        <view class="item-tag" data-type="{{ item.is_union == 0 ? 1 : 0 }}"></view>
+      </view>
+      <view wx:if="{{options.task_category != 1}}" class="top-two">
+        <view class="item-tag" data-type="{{ item.is_union == 0 ? 1 : 0 }}"></view>
+        <mp-level class="level" level="{{item.customer_card||0}}" size="small"></mp-level>
+        <!-- <image class="level" src="{{imageHost + computed.getLevelImage(item.customer_card)}}" /> -->
+        <image wx:if="{{ item.valid_reserve_at > 0 }}" class="invited" src="{{imageHost}}/2023/v4.0.5/icon_invited.png" />
+        <image wx:if="{{ item.task_finish_at > 0 }}" class="task" src="{{imageHost}}/2023/v4.0.5/icon_task.png" />
+        <image wx:if="{{ item.coupon_by_30_days_status == 1 }}" class="coupon-1" src="{{imageHost}}/2023/v4.0.5/icon_coupon_1.png" />
+        <image wx:elif="{{ item.coupon_status == 1 }}" class="coupon" src="{{imageHost}}/2023/v4.0.5/icon_coupon.png" />
+        <view wx:if="{{ item.is_key_sa === 1 }}" class="tag">专属</view>
+      </view>
+      <!-- 企业标签 -->
+      <view wx:if="{{item.tag_name.length}}" class="flex">
+        <view class="tag" wx:for="{{item.tag_name}}" wx:for-item="tag" wx:key="index">
+          <view class="tag-text">{{tag}}</view>
+        </view>
+      </view>
+    </view>
+    <!-- 右侧增加联状态 -->
+    <view wx:if="{{options.task_category == 0 && options.group_send_type == 1 && item.is_touch > 1 && item.is_finished != 1}}" class="item-status">
+      {{item.is_touch == 2 ? '好友已删除':'当天接受次数已达上限'}}
+    </view>
+    <!-- 朋友圈任务是好友，并且已完成，显示朋友圈已触达 -->
+    <view wx:if="{{options.task_category == 1 && options.expire_status == 1 && item.is_touch == 1 && item.is_union != 0}}" class="item-status">
+      朋友圈已触达
+    </view>
+  </view>
+  <view class="item-footer">
+    <view class="item-contact">
+      <view wx:if="{{options.dimension !== 1}}" class="contact" catch:tap="handleCall">
+        <view class="contact-icon icon-phone"></view>
+        <view class="contact-text">电话</view>
+      </view>
+      <view wx:if="{{item.is_union != 0}}" class="contact" catch:tap="handleSendMessage">
+        <view class="contact-icon icon-message"></view>
+        <view class="contact-text">发消息</view>
+      </view>
+      <view wx:if="{{item.work_external_user_id && item.is_union == 0}}" class="contact" catch:tap="handleAddUnion">
+        <view class="contact-icon icon-add"></view>
+        <view class="contact-text">加好友</view>
+      </view>
+      <view wx:if="{{options.dimension !== 1}}" class="contact" catchtap="handleRemark">
+        <view class="contact-icon icon-edit"></view>
+        <view class="contact-text">写备注</view>
+      </view>
+    </view>
+    <!-- 沟通任务 任务进行中，可以进行标记，任务已结束/已完成，不能再标记啦 -->
+    <view 
+      wx:if="{{options.task_category == 0 && options.dimension != 1}}" 
+      class="item-btn {{options.expire_status == 2 || item.is_finished == 1 ? 'disabled': ''}}"
+      catch:tap="handleTag">
+      {{item.is_finished == 0?'标记已联系':'已联系'}}
+    </view>
+  </view>
+  <view wx:if="{{item.remark}}" class="item-remark">备注：{{item.remark}}</view>
+  <!-- <view wx:if="{{type == 1 && showSelect && item.is_finished != 1}}" class="item-select icon-check {{ item.checked ? 'active' : '' }}" catch:tap="handleSelect"></view> -->
+</view>
+<mp-popup show="{{showPopup}}" bind:close="handlePopupClose">
+  <view class="call-tip-wrap">
+    <view class="content">电话联系客户后才能添加好友哦~</view>
+    <view class="confirm-btn" bindtap="handlePopupClose">知道了</view>
+  </view>
+</mp-popup>
+<!-- 备注备注 弹窗 -->
+<remark-popup
+  show="{{remarkPopup}}"
+  status="{{options.expire_status}}"
+  content="{{item}}"
+  bind:confirm="handleRemarkConfirm"
+/>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" placement="top"></mp-tooltip>

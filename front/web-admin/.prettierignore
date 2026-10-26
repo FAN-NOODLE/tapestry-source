@@ -1,0 +1,8 @@
+src/assets/*
+node_modules/*
+dist
+tests
+build
+.vscode
+generator
+.d.ts

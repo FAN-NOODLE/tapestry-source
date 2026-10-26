@@ -1,0 +1,12 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "任务详情",
+  "backgroundColor": "#f6f6f9",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "task-sub-item": "../../components/task-sub-item/task-sub-item",
+    "calendar": "../../../../components/task-components/calendar/calendar"
+  }
+}

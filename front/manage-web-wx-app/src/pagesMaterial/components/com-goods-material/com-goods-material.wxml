@@ -1,0 +1,120 @@
+  <!-- 初始状态 -->
+<view wx:if="{{!searchStatus}}" class="goods-material">
+  <view class="goods-material__header">
+    <view class="title">官网商品素材查询</view>
+  </view>
+  <view class="goods-material__content">
+    <view class="tab-wrap">
+      <com-tabs tabs="{{tabs.list}}" active="{{tabs.active}}" font-size="24" height="64" bind:change="handleTabChange"></com-tabs>
+    </view>
+    <!-- 商品信息查询 -->
+    <view wx:if="{{tabs.active===0}}" class="search-wrap">
+      <view class="search-type" bind:tap="handleSearchTypeChange">{{types.list[types.active].title}}</view>
+      <input class="search-input" type="text" placeholder="请输入{{types.list[types.active].placeholder}}查询" placeholder-class="placeholder" value="{{searchValue}}" bind:input="handleInput" />
+      <view wx:if="{{searchValue.length}}" class="icon-clear" bind:tap="handleClear"></view>
+    </view>
+    <!-- 条形码查询 -->
+    <view wx:if="{{tabs.active===1}}" class="search-wrap">
+      <input class="search-input" type="text" placeholder="请输入条形码查询相关数据" placeholder-class="placeholder" value="{{searchValue}}" bind:input="handleInput" />
+      <view wx:if="{{searchValue.length}}" class="icon-clear" bind:tap="handleClear"></view>
+      <view class="scan" bind:tap="handleScan"></view>
+    </view>
+    <view class="btn {{searchValue.length?'':'disabled'}}" bind:tap="handleSearch">立即查询</view>
+  </view>
+</view>
+<!-- 搜索结果 -->
+<view wx:else class="goods-material__result">
+  <view class="sticky">
+    <!-- 商品信息查询 -->
+    <view wx:if="{{tabs.active===0}}" class="search-wrap">
+      <view class="search-type" bind:tap="handleSearchTypeChange">{{types.list[types.active].title}}</view>
+      <input class="search-input" type="text" placeholder="请输入{{types.list[types.active].placeholder}}查询" placeholder-class="placeholder" value="{{searchValue}}" bind:input="handleInput" />
+      <view wx:if="{{searchValue.length}}" class="icon-clear" bind:tap="handleClear"></view>
+      <view class="search-btn {{searchValue.length?'':'disabled'}}" bind:tap="handleSearch">搜索</view>
+    </view>
+    <!-- 条形码查询 -->
+    <view wx:if="{{tabs.active===1}}" class="search-wrap">
+      <input class="search-input" type="text" placeholder="请输入条形码查询相关数据" placeholder-class="placeholder" value="{{searchValue}}" bind:input="handleInput" />
+      <view wx:if="{{searchValue.length}}" class="icon-clear" bind:tap="handleClear"></view>
+      <view class="scan" bind:tap="handleScan"></view>
+      <view class="search-btn {{searchValue.length?'':'disabled'}}" bind:tap="handleSearch">搜索</view>
+    </view>
+  </view>
+  <!-- 布局切换 -->
+  <com-select-grid current="{{gridIndex}}" bind:change="handleGideChange" ></com-select-grid>
+  <!-- 列表 -->
+  <view wx:if="{{status && list.length>0}}" class="list">
+    <mp-row gutter="{{gutter}}">
+      <mp-col 
+        wx:for="{{list}}" 
+        wx:key="index"
+        span="{{24/column}}"
+      >
+        <com-material-item 
+          item="{{item}}" 
+          data-index="{{index}}"
+          selection="{{selection}}"
+          enterType="{{enterType}}"
+          entryPoint="{{entryPoint}}"
+          custom-class="column-{{column}}"
+          bind:select="handleSelect"
+          bind:change="handleItemChange"
+          bind:preview="handlePreview"
+          bind:viewDetail="handleViewDetail"
+        ></com-material-item>
+      </mp-col>
+    </mp-row>
+    <!-- load-more -->
+    <mp-load-more status="{{status}}"></mp-load-more>
+  </view>
+  <!-- empty -->
+  <mp-empty wx:if="{{status && status !=='loading' && list.length==0}}" icon="no-data" content="暂无素材"></mp-empty>
+  <!-- 底部操作 -->
+  <mp-footer wx:if="{{enterType == 1}}" custom-class="goods-material__footer">
+    <view class="number">已选：{{selection.length}}
+      <view wx:if="{{selection.length === maxlength}}" class="tips">最多可选{{maxlength}}个</view>
+    </view>
+    <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空已选</view>
+    <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleSaveAll">批量保存</view>
+  </mp-footer>
+  <!-- 底部操作 -->
+  <mp-footer wx:if="{{enterType == 2}}" custom-class="footer">
+    <view class="number">已选：图片/视频({{selection.length}})
+      <view class="tips" wx:if="{{selection.length === maxlength}}">最多可选{{maxlength}}个图片/视频</view>
+    </view>
+    <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空</view>
+    <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleSendAll">确认并群发</view>
+  </mp-footer>
+</view>
+<!-- 批量保存  -->
+<!-- <com-popup-save 
+  id="com-popup-save" 
+  item="{{list[current]}}"
+  selection="{{selection}}"
+  enterType="{{enterType}}"
+  bind:select="handleSelect"
+  bind:save="handleSave"
+  bind:close="handleClose"
+></com-popup-save> -->
+
+<!-- 图片预览 -->
+<com-popup-preview 
+  id="com-popup-preview"
+  current="{{previewIndex}}"
+  item="{{list[current]}}"
+  selection="{{selection}}"
+  enterType="{{enterType}}"
+  entryPoint="{{entryPoint}}"
+  bind:select="handleSelect"
+  bind:save="handleSave"
+  bind:close="handleClose"
+></com-popup-preview>
+
+<!-- 搜索类型 -->
+<com-popup-search-type 
+  show="{{types.show}}" 
+  current="{{types.active}}"
+  list="{{types.list}}"
+  bind:confirm="handleSearchTypeConfirm"
+  bind:close="handleSearchTypeClose"
+></com-popup-search-type>

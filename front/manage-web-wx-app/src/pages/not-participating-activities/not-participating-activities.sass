@@ -1,0 +1,95 @@
+@import '~@/style/color-variable'
+@import '~@/style/mixin'
+.page-not-participating-activities
+	.title-wraper
+		position: sticky
+		top: 0
+		display: flex
+		height: vw(80)
+		border-bottom: vw(1) solid #EDEEF1
+		background: white
+		.left, .right
+			flex: 1
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+	.detail-wrap
+		padding: vw(15)
+		width: 100%
+		background: white
+		.title
+			font-size: vw(16)
+			font-weight: 600
+			color: rgba(51,54,60,1)
+		.list-box
+      padding: 0 vw(15)
+      background-color: #ffffff
+      min-height: vw(340 + 126)
+      .item-list
+        height: vw(40)
+        display: flex
+        width: 100%
+        flex-wrap: nowrap
+        align-items: center
+        justify-content: space-between
+        margin-bottom: vw(20)
+        .item-sort
+          width: vw(25)
+          height: vw(40)
+          color: #000000
+          line-height: vw(40)
+          margin-right: vw(10)
+          font-size: vw(10)
+          display: flex
+          align-items: center
+          justify-content: center
+          .sort-img
+            width: vw(25)
+            height: vw(25)
+            display: block
+        .item-avatar
+          width: vw(40)
+          height: vw(40)
+          display: block
+          border-radius: 50%
+          margin-right: vw(10)
+          overflow: hidden
+        .item-msg
+          .item-name
+            font-size: vw(14)
+            color: #33363C
+            line-height: vw(20)
+            margin-bottom: vw(3)
+          .item-department
+            font-size: vw(12)
+            color: #96979F
+            line-height: vw(17)
+        .item-btn
+          font-size: vw(14)
+          color: #33363C
+      .item-list:first-child
+        height: vw(55)
+        padding-top: vw(15)
+      .bottom-tip
+        font-size: vw(14)
+        color: #96979E
+        text-align: center
+        padding: vw(5) 0 vw(80) 0
+.customer-but
+  line-height: vw(20)
+  border-radius: vw(2)
+  font-size: vw(14)
+  padding: vw(4) vw(15)
+  border: vw(1) solid rgba(91,137,254,1)
+  margin-left: vw(10)
+.white-but
+  color: #4A4A4A
+.blue-but
+  background-color: #4A4A4A
+  color: #FEFFFE
+.m-l-0
+  margin-left: vw(0)!important
+.title-wraper
+  font-size: vw(16)
+  z-index: 2

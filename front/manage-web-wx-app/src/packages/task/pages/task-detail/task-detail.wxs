@@ -1,0 +1,58 @@
+/** 组合群人数 比如：指定群人数大于1人。。。 */
+function getGroupInfo(logical) {
+  // 大于/小于/等于
+  var expressions = {
+    'eq': '等于',
+    'gt': '大于',
+    'ge': '大于等于',
+    'lt': '小于',
+    'le': '小于等于'
+  }
+  return logical.remark + expressions[logical.expression] + logical.number
+}
+/** 根据状态取不同颜色 */
+function calcStatusInfo(status, key) {
+  // status详情
+  var statusInfo = [
+    { title: 'title-error', name: '待完成', className: 'is-error' },
+    { title: 'title-success', name: '已完成', className: 'is-success' },
+    { title: 'title-load', name: '已过期', className: 'is-load' }
+  ]
+  return statusInfo[status] ? statusInfo[status][key] : ''
+}
+// 获取标签顾客文案
+function getTagText(task_category, group_send_type, is_add_tag) {
+  // 沟通任务
+  if (task_category === 0) {
+    // 标签群发并且是生成标签
+    if (group_send_type === 0 && is_add_tag === 1) {
+      return '请将沟通内容发送给以下标签顾客'
+    } else {
+      return '请将沟通内容发送给以下顾客'
+    }
+  } else {
+    // 朋友圈任务
+    if (group_send_type === 0 && is_add_tag === 1) {
+      return '请将营销内容发送给以下标签顾客的朋友圈'
+    } else {
+      return '请将营销内容发送给以下顾客的朋友圈'
+    }
+  }
+}
+function getName(taskInfo) {
+  if (taskInfo.task_category === 1) {
+    return '朋友圈任务'
+  } else {
+    if (taskInfo.group_send_type === 2) {
+      return '企微沟通任务'
+    } else {
+      return '沟通任务'
+    }
+  }
+}
+module.exports = {
+  calcStatusInfo: calcStatusInfo,
+  getGroupInfo: getGroupInfo,
+  getTagText: getTagText,
+  getName: getName
+}

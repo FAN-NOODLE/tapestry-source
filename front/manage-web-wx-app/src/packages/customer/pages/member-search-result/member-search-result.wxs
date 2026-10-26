@@ -1,0 +1,13 @@
+/**
+ * @description: 数字大于10000，显示9999+
+ * @return {*}
+ */
+function formatNumber(num) {
+  if (num > 10000) {
+    return '9999+'
+  }
+  return num
+}
+module.exports = {
+  formatNumber: formatNumber
+}

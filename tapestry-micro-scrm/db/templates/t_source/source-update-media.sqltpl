@@ -1,0 +1,2 @@
+UPDATE  `source_{{.source.SourceType}}` SET `media_id` = :media_id, `media_expire_time` = :media_expire_time,
+`media_status` = :media_status, `media_fail_reason` = :media_fail_reason, `updated_at` = :updated_at WHERE `id` = :id AND `enterprise_id` = :enterprise_id AND `deleted_at` = 0;

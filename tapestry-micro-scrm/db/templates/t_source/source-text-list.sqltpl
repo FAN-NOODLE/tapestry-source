@@ -1,0 +1,58 @@
+SELECT
+    st.id,
+    st.content,
+    st.created_at,
+    st.updated_at,
+    s.group_id,
+    s.type,
+    s.`status` source_status,
+    s.admin_id,
+    s.`start_time`,
+    s.`end_time`,
+    scr.`type` as source_type,
+    IFNULL(group_concat(sc.`name`), "") AS category_names,
+    IFNULL(group_concat(sc.`id`), "") AS category_ids
+FROM source_text st
+LEFT JOIN source s ON s.id = st.id
+LEFT JOIN source_category_relation as scr on scr.source_id = st.id
+LEFT JOIN source_category as sc on sc.id = scr.category_id
+
+WHERE st.enterprise_id = :enterprise_id
+AND s.type = 1
+AND s.deleted_at = 0
+AND st.deleted_at = 0
+
+{{if .cond.CategoryIds}}
+    AND scr.category_id IN ({{WhereIn .cond.CategoryIds}})
+{{end}}
+
+{{if .cond.GroupIDList }}
+AND s.group_id IN ({{WhereIn .cond.GroupIDList}})
+{{end}}
+
+{{if .cond.Keyword}}
+   AND st.content LIKE '%{{SafeStr .cond.Keyword}}%'
+{{end}}
+
+{{if and .cond.JustMe .cond.AdminID}}
+    AND s.admin_id = {{.cond.AdminID}}
+{{end}}
+
+{{if and .cond.CreatedStart .cond.CreatedEnd}}
+    AND st.created_at >= {{.cond.CreatedStart}}
+    AND st.created_at <= {{.cond.CreatedEnd}}
+{{end}}
+
+{{if ne .cond.SourceStatus 2}}
+    AND s.status = {{.cond.SourceStatus}}
+{{end}}
+
+GROUP BY st.id
+
+{{if and .cond.Order .cond.Sort}}
+    ORDER BY s.{{.cond.Order}} {{.cond.Sort}}
+{{else}}
+    ORDER BY st.id DESC
+{{end}}
+
+LIMIT {{.page.Offset}}, {{.page.Limit}}

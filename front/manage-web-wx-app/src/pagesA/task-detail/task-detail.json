@@ -1,0 +1,13 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "子任务详情",
+  "backgroundColor": "#f9f9f9",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "confirm-popup": "../components/confirm-dialog/confirm-dialog",
+    "steps":"./components/steps/steps",
+    "question":"./components/question/question"
+  }
+}

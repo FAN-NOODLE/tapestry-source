@@ -1,0 +1,133 @@
+@import '~@/style/color-variable'
+
+.page-confirm
+  padding: vw(15) vw(15) vw(150)
+  .flex-start-center
+    display: flex
+    justify-content: flex-start
+    align-items: center
+  .font-500
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+  .m-r-10
+    margin-right: vw(10)
+  .content
+    width: vw(345)
+    padding: vw(10) vw(15)
+    background: white
+    // .top-status
+    //   height: vw(55)
+    //   position: relative
+    //   &.has-image
+    //     height: vw(123)
+    //   &::after
+    //     content: ""
+    //     clear: both
+    //     position: absolute
+    //     bottom: 0
+    //     left: vw(-15)
+    //     width: vw(346)
+    //     height: vw(1)
+    //     background: #F0F0F0
+    //   .status-box
+    //     position: absolute
+    //     top: vw(8)
+    //     right: vw(-21)
+    //     width: vw(75)
+    //     height: vw(32)
+    //     .txt
+    //       position: absolute
+    //       top: 0
+    //       left: 0
+    //       right: 0
+    //       color: #FFFFFF
+    //       line-height: vw(32)
+    //       text-align: center
+    //       font-size: vw(14)
+    //       margin-top: vw(-2)
+    //     .bg-icon
+    //       width: vw(75)
+    //       height: vw(32)
+    &.top-0
+      padding-top: 0
+    .top-img
+      width: vw(315)
+      height: vw(107)
+      background: #F7F7F7
+    .btn-wrapper
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: vw(20)
+      padding-bottom: vw(10)
+      .btn
+        width: vw(194)
+        line-height: vw(44)
+        border: vw(1) solid #000000
+        font-size: vw(14)
+        font-weight: bold
+        text-align: center       
+        &.gray
+          color: #96979E
+          border: 1px solid #96979E
+        &.active
+          color: white
+          background: #4A4A4A
+          border-color: #4A4A4A
+        &.opcity-6
+          opacity: 0.6
+    .form-item
+      padding: vw(15) 0
+      line-height: vw(20)
+      font-size: vw(14)
+      position: relative
+      &.has-line
+        &::after
+          content: ""
+          clear: both
+          width: vw(314)
+          height: vw(1)
+          background: #F0F0F0
+          position: absolute
+          bottom: 0
+          left: 0
+      .picker-box
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        .picker
+          height: vw(48)
+          opacity: 0
+      .label
+        flex-shrink: 0
+        color: #96979E
+        margin-right: vw(32)
+        .icon
+          width: vw(20)
+          height: vw(20)
+          margin-right: vw(6)
+      .value
+        color: #4A4A4A
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        word-break: break-all
+        .placeholder
+          color: #BDBEC8
+        .right-icon
+          width: vw(9)
+          height: vw(14)
+    .textarea-box
+      width: vw(315)
+      height: vw(119)
+      background: #F4F7FB
+      padding: vw(10)
+      margin-top: vw(18)
+      .textarea
+        font-size: vw(14)
+        line-height: vw(20)
+      .placeholder-textarea
+        color: #BDBEC8

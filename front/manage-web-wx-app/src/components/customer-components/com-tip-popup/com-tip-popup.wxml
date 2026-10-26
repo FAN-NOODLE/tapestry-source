@@ -1,0 +1,17 @@
+
+<mp-popup show="{{show}}" position="bottom" bind:close="onClose">
+  <view class="popup-container">
+    <view class="popup-header">
+      <view class="popup-header-name">{{title}}</view>
+      <view class="popup-header-close" bindtap="onClose"></view>
+    </view>
+    <view class="popup-content">
+      <block wx:for="{{list}}" wx:key="index">
+        <view wx:if="{{item.title}}" class="popup-content-title">{{item.title}}</view>
+        <view class="popup-content-text {{item.title ? '' : 'new'}}">
+          <text class="right-desp">{{item.content}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</mp-popup>

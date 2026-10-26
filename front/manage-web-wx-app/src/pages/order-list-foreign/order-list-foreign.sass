@@ -1,0 +1,176 @@
+@import 'src/style/color-variable.sass'
+
+.page-order-list
+    height: 100vh
+    display: flex
+    flex-direction: column
+
+    &-header
+        padding: vw(10) vw(15)
+        background: #FFFFFF
+
+        &-search
+            display: flex
+            align-items: center
+            background: #F6F6F6
+
+            image
+                width: vw(16)
+                height: vw(16)
+                margin: 0 vw(7) 0 vw(10)
+
+            &-placeholder
+                color: #A1A1A1
+
+            input
+                flex: 1
+                height: vw(38)
+                background: #F6F6F6
+                background-size: vw(16) vw(17)
+
+        &-tabs
+            display: flex
+            justify-content: center
+            align-items: center
+            color: #96979E
+            font-size: vw(14)
+            line-height: vw(20)
+            margin-top: vw(10)
+
+            .m-l-54
+                margin-left: vw(54)
+
+            .active
+                color: #4A4A4A
+                font-weight: 600
+
+            &-item
+                flex-direction: column
+
+                &-line
+                    width: vw(20)
+                    height: vw(2)
+                    background: #4A4A4A
+                    margin-top: vw(4)
+
+    &-tabs
+        width: 100%
+        display: flex
+        justify-content: space-around
+        font-size: vw(12)
+        color: #96979E
+        line-height: vw(17)
+        margin-top: vw(15)
+
+        &-item
+            flex-direction: column
+
+            &-line
+                width: vw(20)
+                height: vw(2)
+                background-color: #000000
+                margin-top: vw(5)
+
+        .active
+            font-weight: 600
+            color: #000000
+
+    &-content
+        flex: 1
+        overflow: hidden
+        padding-bottom: vw(30)
+
+        .scroll-view
+            height: 100%
+
+        &-item
+            background-color: #FFFFFF
+            position: relative
+            margin: vw(15) vw(15) 0
+
+            &-header
+                width: 100%
+                border-bottom: vw(1) solid #F0F0F0
+                padding: vw(10) 0 vw(9) vw(16)
+
+                &-customer
+                    display: flex
+                    align-items: center
+
+                    &-avatar
+                        width: vw(26)
+                        height: vw(26)
+                        border-radius: 50%
+                        overflow: hidden
+
+                    &-name
+                        color: #000000
+                        font-size: vw(14)
+                        line-height: vw(20)
+                        margin-left: vw(10)
+
+                &-status
+                    width: fit-content
+                    height: vw(33)
+                    color: #000000
+                    font-size: vw(14)
+                    line-height: vw(20)
+                    padding: vw(5) vw(14) vw(8) vw(19)
+                    position: absolute
+                    right: vw(-6)
+                    top: vw(8)
+
+            &-info
+                padding: vw(12) vw(15) vw(16)
+
+                &-item
+                    display: flex
+                    justify-content: space-between
+                    font-size: vw(14)
+                    line-height: vw(20)
+                    margin-bottom: vw(15)
+
+                    &:last-child
+                        margin-bottom: 0
+
+                    .price
+                        font-weight: 600
+
+                    &-label
+                        color: #A6A6A6
+
+                    &-value
+                        color: #000000
+                        display: flex
+                        align-items: center
+                        flex-direction: column
+
+                        &-tips
+                            color: #E45C5C
+                            font-size: vw(11)
+                            line-height: vw(16)
+                            text-align: right
+
+                        image
+                            width: vw(14)
+                            height: vw(15)
+                            margin-left: vw(5)
+                    
+                    .check-logistics
+                        flex-direction: row
+
+                &-operate
+                    width: 100%
+                    display: flex
+                    align-content: flex-end
+                    justify-content: flex-end
+                    margin-top: vw(15)
+
+                    &-send
+                        width: vw(68)
+                        height: vw(32)
+                        border: vw(1) solid #000000
+                        color: #000000
+                        font-size: vw(12)
+                        line-height: vw(17)
+

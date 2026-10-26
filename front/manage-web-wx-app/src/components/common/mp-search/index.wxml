@@ -1,0 +1,9 @@
+<view class="mp-search custom-class">
+  <view class="mp-search__content">
+    <image class="mp-search__icon" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.1.3/icon_search.png" />
+    <input class="mp-search__input" placeholder="{{placeholder}}" bindblur="onBlur"></input>
+  </view>
+  <view class="mp-search__right">
+    <slot></slot>
+  </view>
+</view>

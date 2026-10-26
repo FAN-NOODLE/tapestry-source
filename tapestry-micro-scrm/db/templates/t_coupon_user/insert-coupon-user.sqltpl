@@ -1,0 +1,3 @@
+INSERT INTO `coupon_user`
+(`id`, `enterprise_id`, `open_id`,`coupon_id`, `coupon_user_id`,`union_id`,`user_id`, `effective`, `start_time`, `end_time`, `status`, `source_id`, `source`,`action_id`,`action_type`,`created_at`,`updated_at`) VALUES
+(:id, :enterprise_id, :open_id,:coupon_id,:coupon_user_id,:union_id,:user_id, :effective, :start_time, :end_time, :status, :source_id, :source,:action_id,:action_type,:created_at,:updated_at);

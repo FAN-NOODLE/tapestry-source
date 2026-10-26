@@ -1,0 +1,17 @@
+SELECT
+    COUNT(`m`.`id`) AS total
+FROM
+    `chat_member` cm
+    LEFT JOIN `members` m ON ( `cm`.`member_id` = `m`.`id` )
+    {{if gt .cond.DepartmentID 0}}
+        LEFT JOIN `member_departments` md ON (`cm`.`member_id` = `md`.`member_id`)
+    {{end}}
+WHERE
+    `m`.`enterprise_id` = {{.cond.EnterpriseID}}
+    {{if gt .cond.MemberID 0}}
+        AND `m`.`id` = {{.cond.MemberID}}
+    {{end}}
+    {{if gt .cond.DepartmentID 0}}
+        AND `md`.`department_id` = {{.cond.DepartmentID}}
+        AND `md`.`deleted_at` = 0
+    {{end}};

@@ -1,0 +1,17 @@
+SELECT
+	id,
+	strategy_name,
+	enterprise_id,
+	mobile,
+	start_time,
+	end_time,
+	is_notice
+FROM
+	marketing_strategies
+WHERE
+    enterprise_id = :enterprise_id
+	AND deleted_at = 0
+	AND strategy_status in (2,3)
+	AND strategy_method in (1,3)
+	AND start_time != end_time
+	AND `status` = 2

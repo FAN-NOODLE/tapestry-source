@@ -1,0 +1,9 @@
+SELECT
+	count(`external_user_id`)  as count
+FROM
+	`work_external_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`join_time` >= :start_time
+	AND `join_time` < :end_time
+	AND `enterprise_id` = :enterprise_id
+	AND (`last_leave_time` = 0 OR `last_leave_time` < :start_time)

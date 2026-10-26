@@ -1,0 +1,1 @@
+UPDATE `member_departments` SET `deleted_at` = :deleted_at, `updated_at` = :deleted_at WHERE `enterprise_id` = :enterprise_id

@@ -1,0 +1,28 @@
+SELECT
+  `id`,
+  `activity_id`,
+  `source`,
+  `name`,
+  `start_at`,
+  `end_at`,
+  `need_num`,
+  `activity_type`,
+  `activity_status`,
+  `enterprise_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+FROM
+  `shop_activity`
+WHERE
+     `deleted_at` = 0
+    AND `enterprise_id` = {{.cond.EnterpriseID}}
+    {{if gt .cond.ActivityType 0}}
+        AND `activity_type` = {{.cond.ActivityType}}
+    {{end}}
+    {{if gt .cond.ActivityStatus 0}}
+        AND `activity_status` = {{.cond.ActivityStatus}}
+    {{end}}
+    {{if ne .cond.Name ""}}
+    AND `name` like '%{{SafeStr .cond.Name}}%'
+    {{end}}

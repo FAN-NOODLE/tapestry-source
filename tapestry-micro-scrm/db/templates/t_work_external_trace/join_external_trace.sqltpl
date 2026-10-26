@@ -1,0 +1,4 @@
+INSERT INTO `work_external_trace_{{.cond.EnterpriseID}}`
+(`id`, `external_user_id`, `enterprise_id`, `join_time`, `leave_time`, `last_leave_time`, `next_join_time`)
+VALUES
+(:id, :external_user_id, :enterprise_id, :join_time, :leave_time, :last_leave_time, :next_join_time);

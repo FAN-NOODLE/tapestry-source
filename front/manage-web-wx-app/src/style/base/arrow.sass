@@ -1,0 +1,31 @@
+@import '../mixin'
+@import '../color-variable'
+
+@mixin arrow($size: 7, $color: $color-black, $Y: 0)
+  display: inline-block
+  width: vw($size)
+  height: vw($size)
+  border-top: vw(2) solid $color
+  border-right: vw(2) solid $color
+  transform: rotate(135deg) translateY(vw($Y))
+@mixin arrow-right($size: 7, $color: $color-black)
+  display: inline-block
+  width: vw($size)
+  height: vw($size)
+  border-top: vw(1) solid $color
+  border-right: vw(1) solid $color
+  transform: rotate(45deg)
+@mixin arrow-top($size: 7, $color: $color-black)
+  display: inline-block
+  width: vw($size)
+  height: vw($size)
+  border-top: vw(1) solid $color
+  border-right: vw(1) solid $color
+  transform: rotate(-45deg)
+@mixin arrow-down($size: 7, $color: $color-black)
+  display: inline-block
+  width: vw($size)
+  height: vw($size)
+  border-top: vw(1) solid $color
+  border-right: vw(1) solid $color
+  transform: rotate(135deg)

@@ -1,0 +1,185 @@
+@import '../../../../style/color-variable.sass'
+
+$config-5: (left 148 14 rgba(255, 205, 3, 1)) (right 15 100 rgba(216, 98, 159, 1)) (right 42 241 rgba(243, 175, 110, 1)) (left 72 241 rgba(50, 204, 136, 1)) (left 21 100 rgba(128, 192, 230, 1))
+$config-4: (left 148 14 rgba(255, 205, 3, 1)) (right 0 133 rgba(243, 175, 110, 1)) (left 148 241 rgba(50, 204, 136, 1)) (left 16 133 rgba(128, 192, 230, 1))
+$config-3: (left 148 14 rgba(255, 205, 3, 1)) (right 35 145 rgba(50, 204, 136, 1)) (left 38 145 rgba(128, 192, 230, 1))
+$config-2: (left 40 47 rgba(255, 205, 3, 1)) (right 20 47 rgba(50, 204, 136, 1))
+$config-1: (left 140 163 rgba(255, 205, 3, 1)) ()
+@mixin index-position($n)
+  $config: null
+  @if $n == 5
+    $config: $config-5
+
+  @if $n == 4
+    $config: $config-4
+
+  @if $n == 3
+    $config: $config-3
+
+  @if $n == 2
+    $config: $config-2
+
+  @if $n == 1
+    $config: $config-1
+    
+     
+  @for $i from 1 through $n
+    $item: nth($config, $i)
+    .index-#{$i}
+      #{nth($item, 1)}: vw(nth($item, 2))
+      top: vw(nth($item, 3))
+
+      .title .title-word::before
+        background-color: nth($item, 4)
+
+.radar-chart
+  display: flex
+  justify-content: center
+  position: relative
+
+  &.style-1
+    height: vw(303)
+    padding-top: vw(68)
+
+  &.style-2
+    height: vw(207)
+    padding-top: vw(68)
+
+  &.style-3
+    height: vw(172)
+    padding-top: vw(15)
+
+  &.style-4
+    height: vw(147)
+    padding-top: vw(15)
+
+  &.style-5
+    height: vw(214)
+    padding-top: vw(21)
+
+  #chart2
+    margin-left: vw(76)
+  .fixed-mask
+    position: fixed
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    z-index: 10
+  .mask
+    position: absolute
+    width: 100%
+    height: 100%
+    left: 0
+    top: 0
+
+    .info-block
+      position: absolute
+      opacity: 0
+
+      .title, .point-index
+        display: flex
+        align-items: center
+
+      .title
+        position: relative
+
+        .title-word
+          font-size: vw(14)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #000000
+          position: relative
+
+          &::before
+            content: ''
+            width: vw(4)
+            height: vw(12)
+            position: absolute
+            left: vw(-8)
+            top: 50%
+            transform: translateY(-50%)
+            background-color: rgba(255, 205, 3, 1)
+            margin-right: vw(3)
+            z-index: 10
+
+        .icon
+          width: vw(22)
+          height: vw(22)
+
+        .popover
+          width: vw(100)
+          padding: vw(6)
+          position: absolute
+          bottom: vw(-5)
+          right: 0
+          background-color: rgba(0, 0, 0, 0.50)
+          font-size: vw(9)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #FFFFFF
+          transform: translateY(100%)
+          z-index: 20
+
+          &::after
+            content: ''
+            display: block
+            border: vw(5) solid transparent
+            border-bottom-color: rgba(0, 0, 0, 0.50)
+            position: absolute
+            top: vw(-10)
+            right: vw(8)
+
+          .time
+            margin-bottom: vw(5)
+
+          .title
+            margin-bottom: vw(2)
+
+          .column
+            display: grid
+            // 3个一行 每列宽度自适应
+            grid-template-columns: auto auto auto
+            margin-bottom: vw(5)
+
+      .point-index
+        height: vw(20)
+        .word
+          margin-top: vw(3)
+          font-size: vw(12)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          line-height: vw(20)
+          color: #C8C8C8
+          margin-right: vw(5)
+
+        .value
+          height: 100%
+          font-size: vw(16)
+          line-height: vw(20)
+          font-family: AlibabaPuHuiTiH
+          color: #FFCD02
+
+  .mask-5
+    @include index-position(5)
+
+  .mask-4
+    @include index-position(4)
+
+  .mask-3
+    @include index-position(3)
+
+  .mask-2
+    @include index-position(2)
+
+  .mask-1
+    @include index-position(1)
+
+  .two-canvas
+    .index-1
+      left: vw(50)
+      top: vw(127)
+
+    .index-2
+      right: vw(30)
+      top: vw(127)

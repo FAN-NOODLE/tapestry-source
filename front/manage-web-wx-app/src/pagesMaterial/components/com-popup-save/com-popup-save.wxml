@@ -1,0 +1,49 @@
+<wxs module="computed" src="./com-popup-save.wxs"></wxs>
+<popup show="{{show}}" mask="{{false}}" position="bottom" z-index="{{zIndex}}" bind:maskClick="hide">
+  <view slot="content" class="popup">
+    <view class="popup__close" bind:tap="hide"></view>
+    <view class="popup__header">
+      <view class="title">{{enterType === 1 ?'请选择图片':'请选择素材'}}</view>
+    </view>
+    <view class="select" 
+      bind:tap="handleSelect"
+      data-status="{{computed.status(selection, item)}}" 
+      data-item="{{item}}" 
+      data-is-merge-image="{{true}}" 
+      >
+      <view class="icon-select {{computed.checked(selection, item)}}"></view>
+      <text>全选</text>
+    </view>
+    <scroll-view class="popup__content" scroll-y>
+      <view class="popup__list">
+        <mp-row gutter="20">
+          <mp-col span="8" wx:for="{{item.merge_image}}" wx:for-item="child" wx:key="index">
+            <view class="item">
+              <view 
+                class="item__select {{computed.checked(selection, child)}}" 
+                data-item="{{child}}" 
+                data-status="{{computed.status(selection, child)}}" 
+                data-is-merge-image="{{false}}" 
+                bind:tap="handleSelect"
+              ></view>
+              <view class="item__image">
+                <image class="image"  data-index="{{index}}" src="{{child.url}}" mode="aspectFit" bind:tap="handlePreviewImage"></image>
+              </view>
+              <view class="item__title">
+                <view class="text">{{child.name}}</view>
+              </view>
+              <view wx:if="{{enterType === 1}}" class="item__btn" data-index="{{index}}" bind:tap="handleSave">保存</view>
+            </view>
+          </mp-col>
+        </mp-row>
+      </view>
+    </scroll-view>
+    <mp-footer custom-class="footer" fixed="{{false}}">
+      <view class="popup__footer">
+        <view class="number">已选：{{computed.getCheckedCount(item.merge_image, selection)}}</view>
+        <!-- <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空已选</view> -->
+        <view class="btn {{computed.getCheckedCount(item.merge_image, selection)>0?'':'disabled'}}" bind:tap="handleSaveAll">批量保存</view>
+      </view>
+    </mp-footer>
+  </view>
+</popup>

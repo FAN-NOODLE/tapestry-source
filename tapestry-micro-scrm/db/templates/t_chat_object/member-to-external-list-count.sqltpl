@@ -1,0 +1,19 @@
+SELECT
+	count(1) as total
+FROM
+	`chat_object` co
+	INNER JOIN micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external` weu ON ( `co`.`to_userid` = `weu`.`openid` )
+WHERE
+	`co`.`from_channel` = 1
+	AND `co`.`to_channel` IN ( 3, 4 )
+	AND `co`.`from_object_id` = {{.cond.MemberID}}
+	{{if ne "" .cond.Name}}
+        AND `weu`.`name` LIKE "%{{SafeStr .cond.Name}}%"
+    {{end}}
+    {{if gt .cond.AgreeStatus 0}}
+        AND `co`.`agree_status` = {{.cond.AgreeStatus}}
+    {{end}}
+    {{if gt .cond.IsReply 0}}
+        AND `co`.`is_reply` = {{.cond.IsReply}}
+    {{end}}
+	AND `co`.`enterprise_id` = {{.cond.EnterpriseID}}

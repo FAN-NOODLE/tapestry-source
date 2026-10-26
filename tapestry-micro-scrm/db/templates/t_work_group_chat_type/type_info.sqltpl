@@ -1,0 +1,7 @@
+select id,name,enterprise_id from work_group_chat_type where enterprise_id = :enterprise_id
+{{if ne .cond.ID 0}}  
+    {{if ne .cond.Opt 2}} and id = :id {{end}}
+{{end}}
+{{if ne .cond.Name ""}} and name = :name {{end}}
+{{if eq .cond.Opt 2}} and id != :id {{end}}
+and deleted_at = 0

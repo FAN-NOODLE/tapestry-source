@@ -1,0 +1,11 @@
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="handleClose">
+  <view class="popup">
+    <view class="popup-header">
+      <view class="btn cancel" bind:tap="handleClose">取消</view>
+      <view class="btn" bind:tap="handleConfirm">确定</view>
+    </view>
+    <view class="popup-content">
+      <view class="item {{current === index?'active':''}}" wx:for="{{list}}" wx:key="index" data-index="{{index}}" bind:tap="handleChange">{{item.title}}</view>
+    </view>
+  </view>
+</mp-popup>

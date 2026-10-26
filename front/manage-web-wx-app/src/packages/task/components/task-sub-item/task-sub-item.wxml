@@ -1,0 +1,94 @@
+<wxs module="computed" src="./task-sub-item.wxs"></wxs>
+<view class="task-item">
+  <view
+    class="task-item-cir {{ item.status === 1 ? 'finish' : 'no-finish' }}"
+    style="border-color: {{computed.calcStatusInfo(item.status, 'color')}}"
+  >
+    <image
+      wx:if="{{ item.status === 1}}"
+      class="duigou"
+      src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/duigou.png"
+    />
+  </view>
+  <view class="task-item-status">{{computed.calcStatusInfo(item.status, 'name')}}</view>
+  <view
+    class="task-item-box"
+    style="border-color: {{computed.calcStatusInfo(item.status, 'color')}}"
+  >
+    <view class="task-item-box-title"
+      >{{item.name}}
+      <!-- 任务类型 -->
+      <view wx:if="{{item.task_category === 0}}" class="name-tag" style="margin-right:10rpx"
+        >{{item.group_send_type === 2 ? '企微沟通任务':'沟通任务'}}</view
+      >
+      <view wx:else class="name-tag" style="margin-right:10rpx"
+        >朋友圈任务</view
+      >
+      <!-- 持续标记 -->
+      <view class="name-tag" wx:if="{{item.task_type === 2}}">持续任务 </view>
+    </view>
+    <!-- 朋友圈群发增加tips提示 -->
+    <view class="plan-tips" wx:if="{{ item.group_send_type !== 0 && item.status === 0}}">
+      <image
+        class="plan-tips-image"
+        src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/info.png"
+        bindtap="handleShowTooltip"
+        id="tooltip"
+        data-selector="#tooltip"
+      />
+    </view>
+    <view class="task-item-box-tips">
+      <text>描述：{{item.remark}}</text>
+    </view>
+    <view class="task-item-box-tips" wx:if="{{item.dimension === 1}}"
+      >{{computed.getGroupInfo(item.condition_info.logical)}}</view
+    >
+    <view class="task-item-box-sub_title">
+      <!-- // dimension 1.群/社群数据 2.用户标签/用户画像 3.导入顾客名单 4.顾客与导购&导购匹配关系 -->
+      <text wx:if="{{item.dimension === 1}}">指定群沟通（{{item.group_number}}）</text>
+      <text wx:elif="{{item.dimension === 2}}"
+        >指定标签顾客沟通（{{item.customer_num}}）</text
+      >
+
+      <text wx:else>指定客户沟通（{{item.customer_num}}）</text>
+      <!-- wx:if="{{item.task_category === 0 &&item.group_send_type === 1}}" -->
+      <text class="rate" wx:if="{{!(item.task_category === 0 &&item.group_send_type === 1)}}">触达率{{item.finish_rate}}%</text>
+    </view>
+    <!--  提醒 -->
+    <view class="task-item-box-remind" wx:if="{{item.status === 1 && item.close_tips === 0}}">
+      <view
+        class="task-item-box-remind-text"
+        data-item="{{item}}"
+        bindtap="handleViewTaskDetail"
+        data-name="消息提示内容"
+        data-content="{{item.plan_name}}_{{item.name}}"
+        data-type="{{item.task_category === 0 ? item.group_send_type === 2 ? '企微沟通任务':'沟通任务' : '朋友圈任务'}}"
+      >
+        <text>存在{{item.no_finished_num}}个未触达客户</text>
+        <view class="task-item-box-remind-btn">
+          <text>去查看</text>
+          <image
+            class="task-item-box-remind-btn-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/more.png"
+          />
+        </view>
+      </view>
+      <image
+        data-index="{{index}}"
+        data-id="{{item.id}}"
+        bindtap="handleHideRemind"
+        class="task-item-box-remind-icon"
+        src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/del.png"
+      />
+    </view>
+    <!-- 子任务有效期 -->
+    <view class="task-item-box-date">
+      <view>子任务有效期：</view>
+      <view>{{item.task_start_time_text}} ~ {{item.task_end_time_text}}</view>
+    </view>
+    <view class="tips" wx:if="{{item.group_send_type === 1}}">提示:任务状态更新会存在5-10分钟延迟</view>
+    <button class="btn" bindtap="handleViewTaskDetail" data-item="{{item}}">查看任务</button>
+  </view>
+</view>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" placement="auto" content-custom-class="tooltip-content"></mp-tooltip>

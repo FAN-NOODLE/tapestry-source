@@ -1,0 +1,8 @@
+SELECT
+  `id`
+FROM marketing_strategies
+WHERE
+  customer_group_id = ?
+AND
+  deleted_at = ?
+ORDER BY id ASC LIMIT 1

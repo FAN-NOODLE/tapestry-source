@@ -1,0 +1,11 @@
+<view class="select-sow-time">
+  <view class="value" bind:tap="handleClick">
+    <image class="icon" mode="widthFix" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.2.4/icon_2.png"></image>
+    <view wx:if="{{value}}" class="text">{{dateTimeText}}</view>
+    <view wx:else class="text placeholder">选择提醒时间</view>
+    <text class="icon-arrow-right {{showPopup?'show':''}}"></text>
+  </view>
+  
+</view>
+<time-picker show="{{showPopup}}" value="{{value*1000}}" minDate="{{minDate}}" bind:cancel="handleCancel" bind:confirm="handleConfirm">
+</time-picker>

@@ -1,0 +1,134 @@
+@import '~@/style/color-variable';
+
+.movable-area {
+  width: 100%;
+  height: auto;
+}
+
+.hide {
+  opacity: 0.5;
+}
+
+.com-upload {
+  .item {
+    width: 190rpx;
+    // height: 250rpx;
+    margin-right: 30rpx;
+    margin-bottom: 30rpx;
+
+    &--upload {
+      width: 176rpx;
+      height: 176rpx;
+      background: #FFFFFF;
+      border: 2rpx solid #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .item__icon {
+      width: 60rpx;
+      height: 60rpx;
+      position: relative;
+
+      &::before,
+      &::after {
+        content: "";
+        width: 60rpx;
+        height: 2rpx;
+        background-color: #000;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &::before {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    .item__text {
+      margin-top: 16rpx;
+      color: #9E9E9E;
+      font-size: 24rpx;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  &__tips {
+    padding-bottom: 30rpx;
+    font-size: 20rpx;
+    color: #9E9E9E;
+    line-height: 40rpx;
+  }
+
+  .select-all {
+    margin-top: 30rpx;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    height: 48rpx;
+
+    .select {
+      display: flex;
+      align-items: center;
+      margin-right: 24rpx;
+    }
+
+    .select__icon {
+      width: 24rpx;
+      height: 24rpx;
+      border: 2rpx solid #CCCCCC;
+      box-sizing: border-box;
+      margin-right: 12rpx;
+
+      &.active {
+        border-color: #000000;
+        background: #000000 imgUrl("/static/wxapp/v4.0.1/material/icon_select.png") no-repeat center center/100%;
+      }
+    }
+
+    .select__count {
+      color: #999;
+      padding-left: 40rpx;
+    }
+
+    .sort__tips {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 240rpx;
+      height: 48rpx;
+      background: #CCCCCC;
+      line-height: 48rpx;
+      text-align: center;
+      color: #000;
+      font-size: 24rpx;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30rpx;
+
+    .item ~ .item--upload {
+      margin-top: 14rpx;
+    }
+  }
+
+  &__list2 {
+    margin-top: 30rpx;
+
+    .select-all {
+      margin-bottom: 30rpx;
+    }
+  }
+}

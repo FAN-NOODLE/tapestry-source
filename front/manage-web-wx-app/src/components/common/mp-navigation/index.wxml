@@ -1,0 +1,27 @@
+<!-- components/common/mp-navigation/index.wxml -->
+
+<wxs src="./index.wxs" module="computed" />
+<view wx:if="{{ fixed && placeholder }}" style="height: {{ navbarHeight }}px;" />
+<view class="mp-navigation {{fixed ? 'mp-navigation--fixed':''}} custom-class" style="{{ computed.barStyle({ zIndex, opacity, backgroundColor, height: totalHeight, statusBarHeight, safeAreaInsetTop }) }}; {{ customStyle }}">
+		<view class="mp-navigation__content" style="{{ computed.barStyle({ height,lineHeight: height }) }}">
+				<view class="mp-navigation__left" bind:tap="onClickLeft">
+						<block wx:if="{{ leftArrow || leftText }}">
+								<mp-icon wx:if="{{ leftArrow }}" size="16px" name="back" use-svg="{{useSvg}}" custom-class="mp-navigation__arrow" />
+								<view wx:if="{{ leftText }}" class="mp-navigation__text" hover-class="mp-navigation__text--hover" hover-stay-time="70">
+										{{ leftText }}
+								</view>
+						</block>
+						<slot wx:else name="left" />
+				</view>
+				<view class="mp-navigation__title title-class" style="width:{{width}}px">
+						<block wx:if="{{ title }}">{{ title }}</block>
+						<slot wx:else name="title" />
+				</view>
+				<view class="mp-navigation__right" bind:tap="onClickRight">
+						<view wx:if="{{ rightText }}" class="mp-navigation__text" hover-class="mp-navigation__text--hover" hover-stay-time="70">
+								{{ rightText }}
+						</view>
+						<slot wx:else name="right" />
+				</view>
+		</view>
+</view>

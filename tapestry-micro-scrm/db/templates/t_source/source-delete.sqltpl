@@ -1,0 +1,7 @@
+UPDATE
+    `source`
+SET
+    deleted_at = unix_timestamp(now()),
+    updated_at = unix_timestamp(now())
+WHERE
+    id in ( {{WhereIn .IDs}} )

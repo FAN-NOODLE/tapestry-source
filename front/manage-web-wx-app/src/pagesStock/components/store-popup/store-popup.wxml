@@ -1,0 +1,113 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-header">
+      <div class="popup-header-name">选择门店</div>
+    </view>
+    <view class="popup-content">
+      <view class="header">
+        <view class="header-search">
+          <image
+            class="search-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/sousuo.png"
+          />
+          <input
+            class="search-input"
+            type="text"
+            placeholder="请输入门店编码/城市名称编号"
+            placeholder-style="color:##A1A1A1;font-size:24rpx;"
+            value="{{storeValue}}"
+            bindinput="changeInput"
+          />
+          <image
+            wx:if="{{storeValue}}"
+            catch:tap="clearSearch"
+            class="clear-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/clear.png"
+          />
+        </view>
+        <view class="header-choose">
+          <view class="check" catch:tap="checkStock">
+            <image
+              src="{{checkActive ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/radio-select.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/radio.png'}}"
+            />
+            仅看有库存门店
+          </view>
+          <view class="all" catch:tap="allCheckAll">
+            全选
+            <image
+              src="{{isAllChecked ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check-active.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check.png'}}"
+            />
+          </view>
+        </view>
+      </view>
+      <scroll-view
+        wx:if="{{childList && childList.length > 0}}"
+        class="store-tree"
+        scroll-y
+        enhanced="{{true}}"
+        bounces="{{false}}"
+        fast-deceleration="{{true}}"
+        show-scrollbar="{{false}}"
+      >
+        <view
+          class="store-tree-item"
+          wx:for="{{childList}}"
+          wx:for-item="city"
+          wx:for-index="cityIndex"
+          wx:key="cityIndex"
+        >
+          <view class="item-header" data-city-index="{{cityIndex}}" catch:tap="collapseItem">
+            <view class="left">
+              <image
+                class="left-icon"
+                src="{{city.isCollapse ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/up.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/down.png'}}"
+              />
+              <view class="left-city"
+                >{{city.city ? city.city:'--'}}<text wx:if="{{city.checkedNum > 0}}"
+                  >（已选{{city.checkedNum}}）</text
+                ></view
+              >
+            </view>
+            <view class="right">
+              <image
+                class="right-icon"
+                data-index="{{cityIndex}}"
+                src="{{city.allChecked ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check-active.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check.png'}}"
+                catch:tap="cityCheckAll"
+              />
+            </view>
+          </view>
+          <view class="item-content" wx:if="{{city.isCollapse}}">
+            <view
+              class="store-item {{store.checked ? 'active' : ''}}"
+              wx:for="{{city.children}}"
+              wx:for-index="storeIndex"
+              wx:for-item="store"
+              wx:key="storeIndex"
+              data-index="{{cityIndex}}"
+              data-store-index="{{storeIndex}}"
+              data-item="{{store}}"
+              style="margin-right:{{storeIndex % 2 === 0 ? '22rpx' : '0'}}"
+              catch:tap="handleCheck"
+              >{{store.third_store_code}}</view
+            >
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 列表缺省 -->
+      <view class="empty" wx:if="{{!childList || !childList.length}}">
+        <image
+          class="empty-image"
+          src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/no-stock.png"
+        />
+        <view class="empty-text">未找到相关门店信息</view>
+      </view>
+    </view>
+    <mp-footer fixed="{{false}}">
+      <view class="footer">
+        <view class="btn plain" bind:tap="handleCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确认 </view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

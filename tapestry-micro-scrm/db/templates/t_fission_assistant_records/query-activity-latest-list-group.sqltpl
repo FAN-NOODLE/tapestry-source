@@ -1,0 +1,28 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `fission_user_id`,
+  `assistant_user_id`,
+  `member_id`,
+  `add_member_status`,
+  `add_member_at`,
+  `join_chat_group_status`,
+  `join_chat_group_at`,
+  `score`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from fission_assistant_records
+where
+    enterprise_id = ?
+and
+    activity_id = ?
+and
+    add_member_status > 0
+and
+    join_chat_group_status > 0
+and
+    deleted_at = 0
+order by id asc
+LIMIT ?, ?

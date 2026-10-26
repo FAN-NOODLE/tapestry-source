@@ -1,0 +1,2 @@
+UPDATE `drainage_contact_channel_labels` SET `deleted_at` = ?
+WHERE `enterprise_id` = ? AND `channel_id` IN ({{WhereIn .ids}});

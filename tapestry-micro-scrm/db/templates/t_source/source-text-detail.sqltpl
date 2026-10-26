@@ -1,0 +1,9 @@
+SELECT
+source.id, source.group_id, source.type, source.enterprise_id, source.admin_id, source.created_at,
+source_text.content
+
+FROM source
+LEFT JOIN source_text on source_text.id = source.id
+
+WHERE source.id = {{.cond.ID}}
+AND source.deleted_at = 0

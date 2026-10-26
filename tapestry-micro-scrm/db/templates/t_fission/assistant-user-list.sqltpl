@@ -1,0 +1,8 @@
+
+SELECT
+    id as assistant_user_id,
+    name as nick_name,
+    avatar as img_url
+FROM
+	micro_scrm_enterprise_{{.enterpriseID}}.`wx_user_corp_external`
+  WHERE id IN  ( {{WhereIn .ids}})

@@ -1,0 +1,38 @@
+
+{{if .cond.UpdatedAt}}
+
+    UPDATE
+        `source_link` sl
+    LEFT JOIN
+        `source` s
+    ON
+        sl.id = s.id
+    SET
+        sl.`title`= :title,
+        sl.`description`= :description,
+        sl.`link_type`= :link_type,
+        sl.`cover_url`= :cover_url,
+        sl.`link_url`= :link_url,
+        sl.`author`= :author,
+        sl.`content`= :content,
+        sl.`updated_at`= :updated_at,
+        s.`group_id`= :group_id,
+        s.`updated_at`= :updated_at
+    WHERE
+        sl.`id`=:id;
+
+{{else}}
+
+    INSERT INTO `source_link`
+        (`id`, `title`, `description`, `link_type`, `cover_url`, `link_url`, `author`, `content`, `enterprise_id`, `created_at`, `updated_at`)
+    VALUES
+        (:id, :title, :description, :link_type, :cover_url, :link_url, :author, :content, :enterprise_id, :created_at, :updated_at);
+
+{{end}}
+
+
+
+
+
+
+

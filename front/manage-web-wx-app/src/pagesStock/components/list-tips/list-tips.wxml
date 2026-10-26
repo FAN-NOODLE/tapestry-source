@@ -1,0 +1,16 @@
+<mp-popup show="{{show}}" position="center" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-content">
+      <view class="tips" style="top:{{tableArea.top}}px">
+        <image class="tips-image" src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/tips.png" />
+        <text class="tips-text">点击可复制条形码</text>
+      </view>
+      <view class="code" style="top:{{tableArea.top + 35}}px">
+        <view class="code-text">195032122620</view>
+      </view>
+      <view class="button" bind:tap="handleCancel">
+        我知道了
+      </view>
+    </view>
+  </view>
+</mp-popup>

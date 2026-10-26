@@ -1,0 +1,10 @@
+SELECT
+    enterprise_id,
+    chat_msg_id
+FROM
+    `chat_overtime_records`
+WHERE
+    `enterprise_id` = {{.cond.EnterpriseID}}  AND
+    `chat_msg_id` = {{.cond.ChatMsgID}}  AND
+    `deleted_at` = 0
+LIMIT 1;

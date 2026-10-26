@@ -1,0 +1,33 @@
+SELECT
+    c.id,
+	c.name as code_name,
+	IFNULL(h.name, "") as channel_name,
+	c.channel_id,
+	c.config_id,
+	c.member_count,
+	c.sum_add_member_number,
+	c.qr_code_url,
+	c.created_at,
+	c.updated_at
+FROM
+	drainage_contacts as c
+	LEFT JOIN drainage_contact_channels as h
+	ON c.channel_id = h.id
+	WHERE c.deleted_at = 0
+	AND c.type = 1
+	AND c.enterprise_id =:enterprise_id
+	{{if ne .cond.Name ""}}
+	AND c.name LIKE :name
+	{{end}}
+    {{if ne .cond.ChannelId 0}}
+    AND c.channel_id = :channel_id
+    {{end}}
+    {{if ne .cond.IdsCount 0}}
+    AND `c`.`id` IN ({{WhereIn .cond.IDs}})
+    {{end }}
+
+    ORDER BY
+     c.created_at DESC
+    {{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+    {{end}};

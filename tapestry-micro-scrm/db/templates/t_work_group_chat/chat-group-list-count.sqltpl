@@ -1,0 +1,17 @@
+SELECT
+	count(id) as count
+FROM
+	`work_group_chat`
+WHERE
+	enterprise_id = {{.cond.EnterpriseID}}
+	AND deleted_at = 0
+	AND type = 1
+	{{if ne .cond.GroupName ""}}
+        AND name like '%{{SafeStr .cond.GroupName}}%'
+    {{end}}
+    {{if gt .cond.ChatIDCount 0}}
+        AND id IN ({{WhereIn .cond.ChatIDs}})
+    {{end}}
+    {{if gt .cond.FilterCount 0}}
+        AND id NOT IN ({{WhereIn .cond.Filter}})
+    {{end}};

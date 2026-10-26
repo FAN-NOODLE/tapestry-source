@@ -1,0 +1,5 @@
+SELECT
+  `appid`
+FROM micro_scrm_enterprise_{{.enterprise_id}}.`wx_app_config`
+WHERE app_type=? and `deleted_at` = 0 and bind_status = 1
+order by updated_at desc limit 1

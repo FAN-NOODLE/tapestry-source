@@ -1,0 +1,246 @@
+
+<!-- 竖屏 -->
+<view class="page-list" wx:if="{{!showLoading}}">
+  <navigation-bar
+    text="本店库存"
+    back="{{true}}"
+    bg-color="transparent"
+    color="#000000"
+    backActive="goback"
+  ></navigation-bar>
+  <view class="container">
+    <view class="header">
+      <!-- 本店店铺信息 -->
+      <view class="store">
+        <view class="left-icon">
+          <image
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/Coach-Logo.png"
+          />
+        </view>
+        <view class="store-content">
+          <view class="store-name">{{store.store_inventory_name || '--'}}</view>
+          <view class="store-info">
+            <view class="store-code">Ioccode：{{store.store_code || '--'}}</view>
+            <view class="store-tel">电话：{{store.store_phone || '--'}}</view>
+          </view>
+        </view>
+      </view>
+      <!-- 搜索区域 -->
+      <view class="search" wx:if="{{active == 0}}">
+        <view class="search-input disabled">
+          <input
+            type="text"
+            data-key="searchValue"
+            value="{{searchValue}}"
+            bindinput="changeInput"
+            disabled="{{true}}"
+          />
+        </view>
+        <view
+          class="search-input {{!tableData || !isSelect ? 'disabled' :''}}"
+          catch:tap="showColorSelect"
+        >
+          <input
+            type="text"
+            data-key="colorValue"
+            value="{{colorValue}}"
+            bindinput="changeInput"
+            disabled="{{true}}"
+          />
+          <image
+            wx:if="{{tableData.length > 0 || isSelect}}"
+            class="down-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/select.png"
+          />
+        </view>
+        <view
+          class="search-input {{!tableData || !isSelect ? 'disabled' :''}}"
+          catch:tap="showSizeSelect"
+        >
+          <input
+            type="text"
+            data-key="sizeValue"
+            value="{{sizeValue}}"
+            bindinput="changeInput"
+            disabled="{{true}}"
+          />
+          <image
+            wx:if="{{tableData.length > 0 || isSelect}}"
+            class="down-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/select.png"
+          />
+        </view>
+      </view>
+    </view>
+    <view class="data-container">
+      <view class="red">提示：列表仅展示全渠道有库存的商品</view>
+      <!-- 表格上方筛选区域 -->
+      <view class="top-buttons">
+        <view class="check" catch:tap="checkStock">
+          <image
+            src="{{checkActive ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check-active.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check.png'}}"
+          />
+          本门店有库存
+        </view>
+
+        <view class="exit" catch:tap="exitScreen">
+          <image
+            class="exit-icon"
+            src="https://cdn-cos.coach.com.cn/static/wxapp/v6.3.2/icon_screen_1.png"
+          />
+          <text>横屏</text>
+        </view>
+        <view class="refresh" catch:tap="refreshStock">
+          <image
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/shuaxin.png"
+          />
+          刷新查询
+        </view>
+      </view>
+      <view class="inventory-warning vertical-warning" wx:for="{{inventoryWarnings}}" wx:key="index">
+        <view class="inventory-warning__icon"><text class="inventory-warning__icon-text">!</text></view>
+        <view class="inventory-warning__text">{{item}}</view>
+      </view>
+      <!-- 表格区域 -->
+      <view class="table-data" id="tableDataArea">
+        <stock-table
+          id="stock-table"
+          headers="{{tableHeader}}"
+          data="{{tableData}}"
+          header-row-class-name="table-header"
+          cell-class-name="table-cell"
+          hasMore="{{hasMore}}"
+          storeCode="{{store.store_code}}"
+          emptyText="{{emptyMessage || '未找到相关商品信息'}}"
+          bind:imgError="imgError"
+          bind:loaded="imgLoaded"
+          bind:sortChange="sortChange"
+          bind:showSearchMore="showSearchMore"
+          bind:showImageInfo="showImageInfo"
+          bind:loadMoreData="loadMoreData"
+        >
+        </stock-table>
+      </view>
+    </view>
+  </view>
+  <!-- load-more -->
+  <mp-load-more status="{{loadStatus}}"></mp-load-more>
+  <view class="footer">
+    <view class="button" bind:tap="handleSubmit">{{from ==1?'返回首页':'返回素材库'}}</view>
+  </view>
+</view>
+<!-- loading -->
+<view class="page-loading" wx:if="{{showLoading}}">
+  <navigation-bar
+    text="本店库存"
+    back="{{true}}"
+    bg-color="#fff"
+    color="#000000"
+    backActive="goback"
+  ></navigation-bar>
+  <mp-loading loadingText="库存查询中… 请稍等" isHorizontal="{{isHorizontal}}"></mp-loading>
+</view>
+<!-- 选择颜色，尺寸 -->
+<select-popup
+  wx:if="{{showSelect}}"
+  show="{{showSelect}}"
+  type="{{type}}"
+  chooseIndex="{{type === 'color' ? colorIndex : sizeIndex}}"
+  list="{{type === 'color' ? colorList : sizeList}}"
+  bind:confirm="confirmSelect"
+  bind:cancel="cancelSelect"
+></select-popup>
+<!-- 复制条形码引导 -->
+<list-tips
+  wx:if="{{showListTips && tableData.length > 0}}"
+  show="{{showListTips}}"
+  tableArea="{{tableArea}}"
+  bind:cancel="tipsCancel"
+></list-tips>
+<!-- 图片预览 -->
+<image-preview
+  wx:if="{{showPreview}}"
+  show="{{showPreview}}"
+  img="{{previewImg}}"
+  bind:cancel="cancelPreview"
+></image-preview>
+
+<!-- 无门店提示 -->
+<store-warn-popup
+  wx:if="{{showWarnPopup}}"
+  show="{{showWarnPopup}}"
+  bind:confirm="handleShowStorePopup"
+></store-warn-popup>
+<!-- 选择门店 -->
+<single-store-popup
+  wx:if="{{showStorePopup}}"
+  show="{{showStorePopup}}"
+  list="{{storeCityList}}"
+  storeList="{{storeList}}"
+  bind:confirm="handleConfirmStore"
+  bind:close="handleCloseStore"
+></single-store-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>
+
+<!-- 横屏 -->
+<view class="horizontal-container" wx:if="{{isHorizontal}}">
+  <view class="horizontal-content">
+    <view class="horizontal-header">
+      <view class="tags" wx:if="{{active == 0}}">
+        <view class="tag">{{searchValue}}</view>
+        <view class="tag">{{colorValue}}</view>
+        <view class="tag">{{sizeValue}}</view>
+      </view>
+      <!-- 表格上方筛选区域 -->
+      <view class="top-buttons">
+        <view class="check" catch:tap="checkStock">
+          <image
+            src="{{checkActive ? 'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check-active.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/check.png'}}"
+          />
+          本门店有库存
+        </view>
+        <view class="refresh" catch:tap="refreshStock">
+          <image
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/shuaxin.png"
+          />
+          刷新查询
+        </view>
+      </view>
+      <view class="exit" catch:tap="exitScreen">
+        <image
+          class="exit-icon"
+          src="https://cdn-cos.coach.com.cn/static/wxapp/v6.3.2/icon_screen_2.png"
+        />
+        <text>退出横屏</text>
+      </view>
+    </view>
+    <view class="inventory-warning horizontal-warning" wx:for="{{inventoryWarnings}}" wx:key="index">
+      <view class="inventory-warning__icon"><text class="inventory-warning__icon-text">!</text></view>
+      <view class="inventory-warning__text">{{item}}</view>
+    </view>
+    <!-- 表格区域 -->
+    <view class="table-data" id="tableDataArea2">
+      <stock-table
+        table-id="table2"
+        headers="{{tableHeader}}"
+        data="{{tableData}}"
+        header-row-class-name="table-header"
+        cell-class-name="table-cell"
+        hasMore="{{hasMore}}"
+        minWidth="{{minWidth}}"
+        storeCode="{{store.store_code}}"
+        maskWidth="{{0}}"
+        emptyText="{{emptyMessage || '未找到相关商品信息'}}"
+        bind:imgError="imgError"
+        bind:loaded="imgLoaded"
+        bind:sortChange="sortChange"
+        bind:showSearchMore="showSearchMore"
+        bind:showImageInfo="showImageInfo"
+        bind:loadMoreData="loadMoreData"
+      >
+      </stock-table>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,32 @@
+/**
+  * CSS书写规范
+  *1.位置属性 (position, top, right, z-index, display, float等)　　
+  *2.大小 (width, height, padding, margin)　　
+  *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+  *4.背景 (background, border等)
+  *5.其他 (animation, transition等)
+ *  */
+@import '../../../style/color-variable'
+.page-custom-loading
+  display: flex
+  width: 100%
+  height: vw(30)
+  font-size: vw(12)
+  color: $color-a6
+
+  align-items: center
+  justify-content: center
+
+.loading-icon
+  width: vw(12)
+  height: vw(12)
+  margin-right: vw(5)
+  background: url('https://oss-crs.vchangyi.com/standard/bars_rotate.svg') no-repeat center center
+  background-size: cover
+  animation: rotate 0.8s steps(24) infinite
+
+@keyframes rotate
+  0%
+    transform: rotate(0deg)
+  to
+    transform: rotate(1turn)

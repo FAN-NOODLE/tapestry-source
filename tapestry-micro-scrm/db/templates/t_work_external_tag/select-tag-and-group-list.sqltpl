@@ -1,0 +1,25 @@
+SELECT
+    ET.`id` AS tag_id,
+    ET.`tag_id` AS work_tag_id,
+    ET.`name` AS tag_name,
+    ETG.`id` AS group_id,
+    ETG.`group_name`,
+    ETG.`group_id` AS work_group_id,
+    ETG.`updated_at` AS value_update_at,
+    COUNT( DISTINCT WEUR.`work_external_user_id` ) AS use_num
+FROM
+    `work_external_user_tag` AS UT
+LEFT JOIN `work_external_user_relation` WEUR ON WEUR.`id` = UT.`relation_id`
+RIGHT JOIN `work_external_tag` ET ON ET.`id` = UT.`external_tag_id` AND UT.`deleted_at` = 0
+INNER JOIN `work_external_tag_group` ETG ON ETG.`id` = ET.`group_id`
+WHERE
+    ET.`enterprise_id` = {{.enterprise_id}} AND
+    ET.`deleted_at` = 0 AND
+    ETG.`deleted_at` = 0
+    {{if eq .is_third_tag 1}}
+    AND (ETG.`is_third_tag`={{.is_third_tag}} OR ETG.`group_name`="任务标签")
+    {{end}}
+GROUP BY
+    ET.`id`
+ORDER BY
+    ET.`created_at` desc

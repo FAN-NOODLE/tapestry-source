@@ -1,0 +1,10 @@
+SELECT
+	*
+FROM
+	`chat_msg`
+WHERE
+	`enterprise_id` = :enterprise_id
+	AND `deleted_at` = 0
+ORDER BY
+    `id` DESC
+	LIMIT 1;

@@ -1,0 +1,165 @@
+<wxs module="computed" src="./invite-item.wxs" />
+<view class="item" data-status="{{item.status}}" bind:tap="handleViewDetail">
+  <view class="item-header">
+    <!-- 邀约状态 -->
+    <view class="item-status" data-status="{{item.status}}" data-title="{{statusList[item.status].status_name}}" data-content="{{statusList[item.status].desc}}" catch:tap="handleShowMessage">
+      <view>{{statusList[item.status].status_name}}</view>
+      <view class="tips"></view>
+    </view>
+    <!-- 订单记录 -->
+    <view wx:if="{{item.reserve_order_sales.length}}" class="item-btn" catch:tap="handleShowOrder">订单记录</view>
+  </view>
+  <view class="item-content">
+    <!-- 订单信息 -->
+    <view wx:if="{{item.status === 1}}" class="item-order-info">
+      <view class="item-row">
+        <view class="item-row__label">是否到店购买</view>
+        <view class="item-row__value">
+          <view class="label {{item.is_store || !item.isOneMonth ? 'disabled':''}}" data-value="1" catchtap="onChangeStatus">
+            <view class="radio {{item.is_store == 1 ? 'active':''}}"></view>
+            <text>是</text>
+          </view>
+          <view class="label {{item.is_store || !item.isOneMonth ? 'disabled':''}}" data-value="2" catchtap="onChangeStatus">
+            <view class="radio {{item.is_store == 2 ? 'active':''}}"></view>
+            <text>否</text>
+          </view>
+        </view>
+      </view>
+      <view class="item-row">
+        <view class="item-row__label">
+          <view>订单总金额</view>
+          <view class="tips" data-title="订单总金额" data-content="此处的订单总金额为含税金额" catch:tap="handleShowMessage"></view>
+        </view>
+        <view class="item-row__value">{{computed.formatMoney(item.reserve_order_price)}}</view>
+      </view>
+      <view class="item-row">
+        <view class="item-row__label">关联订单数</view>
+        <view class="item-row__value">{{item.relation_order_num || "--"}}单</view>
+      </view>
+    </view>
+    <!-- 基础信息 -->
+    <view class="item-row">
+        <view class="item-row__label">邀约单号</view>
+        <view class="item-row__value">{{item.reserve_number}}</view>
+        <view class="item-row__copy" catch:tap="handleCopy"></view>
+    </view>
+    <view class="item-row">
+        <view class="item-row__label">邀约时间</view>
+        <view class="item-row__value">{{item.create_time_str}}</view>
+    </view>
+    <view class="item-row">
+        <view class="item-row__label">顾客姓名</view>
+        <view class="item-row__value">{{item.user_name}}</view>
+    </view>
+    <view class="item-row">
+        <view class="item-row__label">会员卡号</view>
+        <view class="item-row__value">{{item.union_code||'--'}}</view>
+    </view>
+    <view class="item-row">
+        <view class="item-row__label">邀约导购</view>
+        <view class="item-row__value">{{item.member_name}}</view>
+    </view>
+    <block wx:if="{{opened}}">
+      <view class="item-row">
+          <view class="item-row__label">到店时间</view>
+          <view class="item-row__value">{{item.reserve_time_str}}</view>
+      </view>
+      <view class="item-row">
+          <view class="item-row__label">服务名称</view>
+          <view class="item-row__value">{{item.reserve_name}}</view>
+      </view>
+      <view class="item-row">
+          <view class="item-row__label">邀约门店</view>
+          <view class="item-row__value">{{item.store_name}}</view>
+      </view>
+      <view class="item-row">
+          <view class="item-row__label">客户留言</view>
+          <view class="item-row__value">{{item.user_remark   || "无"}}</view>
+      </view>
+    </block>
+      
+  </view>
+  <view class="item-footer" catch:tap="handleToggleOpened">
+    <view>{{opened?'收起':'展开'}}</view>
+    <view class="icon-down {{opened?'active':''}}"></view>
+  </view>
+</view>
+<!-- 信息提示框 -->
+<message-modal
+  show="{{ message.show }}"
+  description="{{message.title}}"
+  descriptionTwo="{{message.content}}"
+  bindclose="handleHideMessage"
+  noBtn="true"
+  isSingle="true"
+  reverse="true"
+  modalW="{{ 'width: 480rpx' }}"
+  descBox="{{ 'padding: 30rpx 0' }}"
+  descStyle="{{ 'font-size: 32rpx; margin-bottom: 22rpx;' }}"
+  isCatchFun="true"
+></message-modal>
+<!-- 订单列表弹框 -->
+<mp-popup show="{{show}}" position="bottom" bind:close="handleClose">
+  <view class="popup">
+    <view class="popup-close" bind:tap="handleClose"></view>
+    <view class="popup-header">订单记录</view>
+    <view class="popup-content">
+      <scroll-view class="scroll-view" scroll-y="{{true}}">
+        <block wx:for="{{item.reserve_order_sales}}" wx:for-item="order" wx:key="index">
+          <view class="order-item" wx:for="{{order.reserve_order_goods}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="goodsIndex">
+            <view class="order-item-header">订单编号：{{goods.relation_order_id}}</view>
+            <view class="order-item-content">
+              <mp-image custom-class="image" src="{{goods.goods_url}}" mode="aspectFit" data-index="{{index}}" data-goods-index="{{goodsIndex}}" bind:error="handleError"></mp-image>
+              <view class="info">
+                <view class="row">
+                  <view class="row__label">
+                    <text>商</text>
+                    <text>品</text>
+                    <text>名</text>
+                    <text>称</text>
+                  </view>
+                  <view class="row__value" bind:tap="handleTooltip">
+                    <text id="price" data-content="{{goods.goods_name}}">{{goods.goods_name}}</text>
+                  </view>
+                </view>
+                <view class="row">
+                  <view class="row__label">
+                    <text>款</text>
+                    <text>号</text>
+                  </view>
+                  <view class="row__value">{{goods.style}}</view>
+                </view>
+                <view class="row">
+                  <view class="row__label">
+                    <text>金</text>
+                    <text>额</text>
+                  </view>
+                  <view class="row__value">{{computed.formatMoney(goods.goods_price)}}</view>
+                </view>
+                <view class="row">
+                  <view class="row__label">
+                    <text>购</text>
+                    <text>买</text>
+                    <text>日</text>
+                    <text>期</text>
+                  </view>
+                  <view class="row__value">{{computed.formatDate(order.pay_time*1000, 'yyyy-MM-dd')}}</view>
+                </view>
+                <view class="row">
+                  <view class="row__label">
+                    <text>店</text>
+                    <text>铺</text>
+                  </view>
+                  <view class="row__value">{{order.store_code}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <view class="more">已经到底了哦~</view>
+      </scroll-view>
+    </view>
+  </view>
+</mp-popup>
+
+<mp-tooltip id="mp-tooltip"></mp-tooltip>

@@ -1,0 +1,10 @@
+<popup id="popup2" show="{{show}}" position="bottom" z-index="1000" bind:maskClick="hide">
+  <view slot="content" class="popup">
+    <view class="popup__close" bind:tap="hide"></view>
+    <view class="popup__title">展示方式 </view>
+    <scroll-view class="popup__content" scroll-y>
+      <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/material/showType1.png" mode="widthFix"></image>
+      <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/material/showType2.png" mode="widthFix"></image>
+    </scroll-view>
+  </view>
+</popup>

@@ -1,0 +1,1 @@
+SELECT id,name,name_en,`order`,third_id,third_parent_id,parent_id,enterprise_id,created_at,updated_at FROM `departments` WHERE `enterprise_id` = ? AND `deleted_at` = ?

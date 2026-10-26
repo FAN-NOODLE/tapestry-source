@@ -1,0 +1,10 @@
+INSERT INTO `work_relation_add_record`
+(
+`corp_id`,
+`add_time`,
+`user_id`,
+`external_user_id`,
+ `add_channel`
+ )
+VALUES
+( :corp_id, :add_time, :user_id, :external_user_id, :add_channel );

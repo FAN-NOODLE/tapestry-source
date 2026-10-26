@@ -1,0 +1,7 @@
+.idea/
+reports/
+app.yaml
+*.exe
+bin/
+vendor/
+*.log

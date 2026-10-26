@@ -1,0 +1,16 @@
+select
+    count(*) as count
+from
+    chat_group_msg_task
+where
+    enterprise_id = {{.cond.enterprise_id}}
+{{if .cond.index}}
+and
+    id < {{.cond.index}}
+{{end}}
+and
+    deleted_at = 0
+{{if .cond.status_list}}
+and
+    status in ({{WhereIn .cond.status_list}})
+{{end}}

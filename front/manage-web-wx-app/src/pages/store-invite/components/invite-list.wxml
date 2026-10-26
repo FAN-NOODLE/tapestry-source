@@ -1,0 +1,116 @@
+<wxs module="tools">
+/* 价格格式化 */
+function moneyString(str) {
+  str = str.toString()
+  if (!str) return //判空
+
+  //切割数组
+  //以.分隔为数组
+  var arr = str.split('.');
+
+  var left = arr[0];
+  var right = arr.length > 1 ? '.' + arr[1] : ''
+  //取第一项用正则判断，每隔3位加，
+  left = left.replace(getRegExp('\B(?=(\d{3})+$)', 'g'), ',')
+  return left + right;
+}
+
+function formatMoney(money) {
+    if (money) {
+        return '¥' + moneyString(money / 100)
+    }
+    return '--'
+
+}
+module.exports = {
+  formatMoney: formatMoney
+}
+</wxs>
+<view class="page-record-list" data-item="{{item}}" data-index="{{index}}" bindtap="goDetail">
+    <view class="status-box-left" catchtap="onTips">
+        <image class="bg-icon" src="{{statusList[item.status].status_bg}}" />
+        <view class="txt status-txt">{{statusList[item.status].status_name}}</view>
+    </view>
+
+    <!-- 注意：代码不要删除，只是暂时隐藏邀请评价，因为第三方有这个功能 -->
+    <!-- <view class="status-box-right" data-item="{{item}}" catchtap="inviteComments" style="opacity: {{item.is_comment === 2 ? 1 : 0.4}}" wx:if="{{isComment && singleChat}}">
+        <image class="edit-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/edit_icon.png" />
+        <view class="txt">邀请评价</view>
+    </view>
+    <view  catchtap="{{true}}" class="status-box-right" style="opacity: {{item.is_comment === 2 ? 1 : 0.4}}" wx:if="{{isComment && !singleChat}}">
+        <image class="edit-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/edit_icon.png" />
+        <button open-type="share" data-item="{{item}}" class="txt" >邀请评价</button>
+    </view> -->
+
+    <view class="order-box item-bottom m-t-45" wx:if="{{item.status === 1}}">
+        <view class="order-item item-bottom">
+            <view class="item-label">顾客类型</view>
+            <view class="item-box" catchtap="onChangeStatus"> 
+                <radio-group data-item="{{item}}" data-type="customer_status" bindchange="onChangeStatus">
+                    <radio disabled="{{customer_status || !item.isOneMonth}}" value='1' color="#000" class="radio-icon radio-mr" checked="{{customer_status == 1}}">新客</radio>
+                    <radio disabled="{{customer_status || !item.isOneMonth}}" value='2' color="#000" class="radio-icon" checked="{{customer_status == 2}}">老客</radio>
+                </radio-group>
+            </view>
+        </view> 
+        <view class="order-item item-bottom">
+            <view class="item-label">是否到店购买</view>
+            <view class="item-box" catchtap="onChangeStatus">
+                <radio-group data-item="{{item}}" data-type="is_store" bindchange="onChangeStatus">
+                    <radio disabled="{{is_store || !item.isOneMonth}}" value='1' color="#000" class="radio-icon radio-mr" checked="{{is_store == 1}}">是</radio>
+                    <radio disabled="{{is_store || !item.isOneMonth}}" value='2' color="#000" class="radio-icon" checked="{{is_store == 2}}">否</radio>
+                </radio-group> 
+            </view>
+        </view> 
+        <view class="order-item">
+            <view class="item-label ">订单金额  <image class="tips-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/tips_icon.png" catchtap="orderPriceTips" /></view>
+            <view class="item-value">{{tools.formatMoney(item.reserve_order_price)}}</view>
+        </view>
+    </view>
+    <view class="form-item {{item.status === 1 ? 'm-t-15' : 'm-t-45'}}">
+      <view class="label">邀约来源</view>
+      <view class="value">{{item.order_origin === 1 ? '到店邀约' : '邀请函'}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">邀约时间</view>
+        <view class="value">{{item.create_time_str}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">到店时间</view>
+        <view class="value">{{item.reserve_time_str}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">顾客姓名</view>
+        <view class="value">{{item.user_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">服务名称</view>
+        <view class="value">{{item.reserve_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">邀约导购</view>
+        <view class="value">{{item.member_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">邀约门店</view>
+        <view class="value">{{item.store_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">客户留言</view>
+        <view class="value">{{item.user_remark   || "无"}}</view>
+    </view>
+
+    <!-- 状态说明弹窗 -->
+    <message-modal
+        show="{{ isOpenTipsModal }}"
+        description="{{isShowPriceTips ? priceTips : statusList[item.status].status_name}}"
+        descriptionTwo="{{isShowPriceTips ? priceTipsTwo : statusList[item.status].desc}}"
+        bindclose="closeTipsModel"
+        noBtn="true"
+        isSingle="true"
+        reverse="true"
+        modalW="{{ 'width: 480rpx' }}"
+        descBox="{{ 'padding: 30rpx 0' }}"
+        descStyle="{{ 'font-size: 32rpx; margin-bottom: 22rpx;' }}"
+        isCatchFun="true"
+    ></message-modal>
+</view>   

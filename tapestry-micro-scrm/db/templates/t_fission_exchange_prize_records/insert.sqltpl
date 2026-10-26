@@ -1,0 +1,38 @@
+INSERT INTO `fission_exchange_prize_records`
+(
+    `id`,
+    `enterprise_id`,
+    `activity_id`,
+    `prize_id`,
+    `fission_user_id`,
+    `user_id`,
+    `cost_assistant_num`,
+    `deliver_name`,
+    `deliver_mobile`,
+    `deliver_address`,
+    `deliver_area`,
+    `deliver_area_code`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`,
+    `num`
+)
+VALUES
+(
+  :id,
+  :enterprise_id,
+  :activity_id,
+  :prize_id,
+  :fission_user_id,
+  :user_id,
+  :cost_assistant_num,
+  :deliver_name,
+  :deliver_mobile,
+  :deliver_address,
+  :deliver_area,
+  :deliver_area_code,
+  :created_at,
+  :updated_at,
+  :deleted_at,
+  :num
+);

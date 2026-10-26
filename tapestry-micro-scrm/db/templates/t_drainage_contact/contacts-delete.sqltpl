@@ -1,0 +1,4 @@
+UPDATE drainage_contacts
+SET
+deleted_at =:deleted_at
+WHERE id IN ({{WhereIn .ids}})

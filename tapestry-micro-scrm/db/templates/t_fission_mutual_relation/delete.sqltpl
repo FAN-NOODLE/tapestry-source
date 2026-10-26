@@ -1,0 +1,6 @@
+UPDATE
+    `fission_mutual_relation`
+SET
+    `deleted_at` = {{.cond.DeletedAt}}
+WHERE
+    `id` in ({{WhereIn .cond.DeleteIDs}})

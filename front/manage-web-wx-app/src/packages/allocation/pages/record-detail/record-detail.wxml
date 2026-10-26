@@ -1,0 +1,65 @@
+<wxs src="./record-detail.wxs" module="tools"></wxs>
+<view class="allocation-record-detail">
+  <view class="header">
+    <view class="title">分配ID：<text class="title-id">{{headerData.id}}</text></view>
+    <view class="status {{tools.getStatusConfig(headerData).className}}">{{headerData.errmsg}}</view>
+    <view class="desp-card">
+      <view class="card {{headerData.is_self === 1 ? 'myclass':''}}"
+        >{{headerData.is_self === 1 ?'我': headerData.member_name}}分配</view
+      >
+      <view class="card bg1">分配客户数：{{headerData.customers_numbers}}</view>
+      <view class="card bg2">接替导购：{{headerData.takeover_name}}</view>
+    </view>
+    <view class="container">
+      <view class="record-module">
+        <view class="label"
+          ><image
+            class="date-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/date-icon.png"
+          />创建时间：</view
+        >
+        <view class="content">{{headerData.created_at || '- -'}}</view>
+      </view>
+      <view class="record-module" wx:if="{{headerData.status !== 0 && headerData.updated_at}}">
+        <view class="label"
+          ><image
+            class="date-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/date-icon.png"
+          />完成时间：</view
+        >
+        <view class="content">{{headerData.status !== 0 && headerData.updated_at || '- -'}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="customer-table">
+    <view class="t-head">
+      <view class="th">顾客</view>
+      <view class="th">原顾问</view>
+      <view class="th">接替状态</view>
+      <view class="th">完成时间</view>
+    </view>
+    <view class="t-body">
+      <view class="tr" wx:for="{{customerList}}" wx:key="id">
+        <view class="td">{{item.external_name}}</view>
+        <view class="td">{{item.handover_name}}</view>
+        <view class="td {{tools.getStatus(item.status).className}}">{{tools.getStatus(item.status).word}}</view>
+        <view wx:if="{{item.takeover_time}}" class="td">
+          <view class="time">{{tools.getTime(item.takeover_time)[0]}}</view>
+          <view class="time">{{tools.getTime(item.takeover_time)[1]}}</view>
+        </view>
+        <view class="td" wx:else>--</view>
+      </view>
+    </view>
+  </view>
+  <!-- 到底提示 -->
+  <view class="bottom-tip" wx:if="{{customerList.length > 0 && !meta.isMore }}">已经到底了~</view>
+  <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+</view>
+<mp-empty
+  wx:if="{{currentList.length === 0 && !isLoading}}"
+  slogan="暂无搜索结果"
+  icon="customer"
+/>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

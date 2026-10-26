@@ -1,0 +1,13 @@
+SELECT
+	T.`tag_id` AS work_tag_id,
+	T.`id` AS tag_id,
+	COUNT(UT.id) AS use_num
+FROM
+	`work_external_user_tag` UT
+	RIGHT JOIN `work_external_tag` T ON T.id = UT.`external_tag_id` AND UT.`deleted_at` = 0
+WHERE
+	T.`enterprise_id` = {{.enterprise_id}} AND
+	T.`id` in ({{WhereIn .tag_id_list}}) AND
+	T.`deleted_at` = 0
+GROUP BY
+	T.`id`

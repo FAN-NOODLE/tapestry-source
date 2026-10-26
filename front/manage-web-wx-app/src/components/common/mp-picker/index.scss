@@ -1,0 +1,47 @@
+.popup {
+  background-color: #fff;
+
+  .popup-header {
+    padding: 48rpx 50rpx;
+    font-weight: 500;
+    font-size: 32rpx;
+    line-height: 45rpx;
+    display: flex;
+    color: #000000;
+
+    .popup-title {
+      flex: 1;
+    }
+
+    .popup-cancel {
+      color: #888888;
+    }
+  }
+
+  .popup-content {
+    padding-bottom: 100rpx;
+
+    .item {
+      height: 80rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(74,74,74,0.6);
+      font-size: 28rpx;
+      background: linear-gradient( 90deg, rgba(74,74,74,0.01) 0%, rgba(74, 74, 74,0.1) 53%, rgba(74,74,74,0.01) 100%);
+      background-size: 0 80rpx;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &:not(:last-child) {
+        margin-bottom: 20rpx;
+      }
+
+      &.active {
+        transition: all 0.3s ease;
+        color: #000000;
+        background-size: 100% 80rpx;
+      }
+    }
+  }
+}

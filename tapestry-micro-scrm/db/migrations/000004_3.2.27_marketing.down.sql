@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS `sms_sign`;
+DROP TABLE IF EXISTS `sms_template`;
+DROP TABLE IF EXISTS `sms_send_log`;
+DROP TABLE IF EXISTS `marketing_strategies`;
+DROP TABLE IF EXISTS `marketing_strategy_channels`;
+DROP TABLE IF EXISTS `marketing_strategy_conditions`;
+DROP TABLE IF EXISTS `marketing_trigger_lists`;
+DROP TABLE IF EXISTS `marketing_strategy_trigger_relations`;
+DROP TABLE IF EXISTS `marketing_strategy_records`;

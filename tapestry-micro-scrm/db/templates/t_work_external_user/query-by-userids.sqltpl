@@ -1,0 +1,21 @@
+select
+  `id`,
+  euid as `user_id`,
+  `unionid` as union_id,
+  `openid` as external_userid,
+  `name`,
+  `position`,
+  `avatar`,
+  `corp_name`,
+  `corp_full_name`,
+  `type`,
+  `sex` as gender,
+  `external_profile`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    micro_scrm_enterprise_{{.enterprise_id}}.`wx_user_corp_external`
+where id in ({{WhereIn .user_ids}})
+and
+    deleted_at = 0

@@ -1,0 +1,11 @@
+SELECT
+	id
+FROM
+	`work_external_user_relation`
+WHERE
+    `enterprise_id` = {{.cond.EnterpriseID}}
+AND    `work_external_user_id` = {{.cond.CustomerID}}
+AND    `member_id` in ({{WhereIn .cond.MembersID}})
+AND   `created_at` < {{.cond.StartTime}}
+AND  `deleted_at` = 0
+LIMIT 1

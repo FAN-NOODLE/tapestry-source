@@ -1,0 +1,1 @@
+SELECT `id` AS `source_id`, `media_id`, `media_expire_time` FROM `source_{{.sourceType}}` WHERE `id` = ? AND `enterprise_id` = ? AND `deleted_at` = 0 LIMIT 1;

@@ -1,0 +1,117 @@
+@import '../../../../style/color-variable'  
+
+.page-comment-height
+  height: 100vh
+.page-comment-pd
+  padding-bottom: vw(140)
+.page-comment
+  padding: vw(15) vw(15) vw(107)
+  background-color: #F7F7F7
+  box-sizing: border-box
+
+  .comment-box
+    padding: vw(20) vw(15) vw(32)
+    background: #fff
+    margin-bottom: vw(15)
+    .textarea-box
+      box-sizing: border-box
+      height: vw(119)
+      padding: vw(10)
+      background: #F6F5F5
+      margin-top: vw(25)
+      .textarea
+        box-sizing: border-box
+        width: 100%
+        height: vw(98)
+        font-size: vw(14)
+        line-height: vw(20)
+      .placeholder-textarea
+        color: #BDBEC8
+    .txt
+      font-size: vw(14)
+      line-height: vw(20)
+      padding-bottom: vw(10)
+    .from-item
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      margin-top: vw(15)
+      .label
+        font-size: vw(14)
+        color: #4A4A4A
+        line-height: vw(20)
+      .star-item
+        width: vw(19)
+        height: vw(19)
+        margin-right: vw(4)
+  .record-box
+    background-color: #fff
+    padding-bottom: vw(7)
+
+    .title      
+      color: #000
+      font-size: vw(14)
+      height: vw(46)
+      padding-left: vw(15)
+      border-bottom: 1px solid #F0F0F0
+      align-items: center
+      display: flex
+    .form-item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        font-size: vw(14)
+        padding: vw(10) vw(15)
+        .label
+          color: #A6A6A6
+        .value    
+          color: #000
+
+    .status-box-left 
+        position: relative
+        top: vw(14)
+        left: vw(-6)
+        width: vw(92)
+        height: vw(32)
+        margin-bottom: vw(19)
+        .txt
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            line-height: vw(32)
+            text-align: center
+            font-size: vw(14)
+            margin-top: vw(-2)
+            margin-right: vw(20)
+        .status-txt
+          color: #000
+        .bg-icon
+            width: vw(92)
+            height: vw(32)     
+
+  .footer-btn
+    .btn
+      line-height: vw(44)
+      background: #4A4A4A
+      text-align: center
+      font-size: vw(14)
+      color: #FFFFFF
+  .footer-btn-btm
+    width: 100%
+    padding: vw(30) vw(15)
+    background: #F7F7F7
+    position: fixed
+    bottom: 0
+    left: 0
+    z-index: 7       
+.empty
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  height: vw(200)
+  &-icon
+    margin-top: vw(10)
+    width: vw(66)
+    height: vw(66)  

@@ -1,0 +1,8 @@
+SELECT DISTINCT
+    channel_id
+FROM
+    `fission_activity`
+WHERE
+   enterprise_id = ?
+   AND deleted_at = 0;
+

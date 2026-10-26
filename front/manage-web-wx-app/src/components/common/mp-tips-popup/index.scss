@@ -1,0 +1,43 @@
+@import '~@/style/mixin';
+.mp-tips {
+  .icon-tips {
+    width: 40rpx;
+    height: 40rpx;
+    background: imgUrl('/static/wxapp/v4.0.1/tips.png') center/100% no-repeat;
+  }
+}
+.popup {
+  width: 520rpx;
+  padding: 60rpx 50rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  position: relative;
+
+  .popup-close {
+    position: absolute;
+    width: 96rpx;
+    height: 96rpx;
+    right: 0;
+    top: 0;
+    background: imgUrl('/static/wxapp/v5.0.6/icon_popup_close.png') center/36rpx 36rpx no-repeat;
+  }
+
+  .popup-content {
+    .popup-title {
+      font-weight: 400;
+      font-size: 32rpx;
+      color: #000000;
+      line-height: 45rpx;
+      text-align: center;
+    }
+
+    .popup-text {
+      font-weight: 400;
+      font-size: 28rpx;
+      color: #A6A6A6;
+      line-height: 40rpx;
+      margin-top: 20rpx;
+      text-align: center;
+    }
+  }
+}

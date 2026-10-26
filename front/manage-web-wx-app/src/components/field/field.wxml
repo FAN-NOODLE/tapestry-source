@@ -1,0 +1,11 @@
+<view class="component-field">
+    <view class="field-container {{ bottom ? 'bottom' : ''}}" style="height: {{height}}">
+        <view class="field">
+            <slot name="field"></slot>
+        </view>
+        <view class="value">
+            <slot name="value"></slot>
+            <text wx:if="{{arrow}}" class="tri"></text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,8 @@
+update `work_group_chat_member`
+SET
+  `nickname` = :nickname,
+  `invite_userid` = :invite_userid,
+  `updated_at` = :updated_at
+
+WHERE
+  `id` = :id

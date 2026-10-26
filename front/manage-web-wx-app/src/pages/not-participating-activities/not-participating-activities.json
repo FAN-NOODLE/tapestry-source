@@ -1,0 +1,11 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "未参加活动人数",
+	"backgroundColor": "#000000",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+    "message-modal": "../../components/message-modal/message-modal"
+	}
+}

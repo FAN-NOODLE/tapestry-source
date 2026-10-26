@@ -1,0 +1,176 @@
+@import '../../style/color-variable'
+@import '../../style/base/arrow'
+
+.page-my
+	width: 100%
+	padding-top: vw(50)
+	.card
+		width: vw(345)
+		height: vw(162)
+		background: rgba(255,255,255,1)
+		box-shadow: 0 vw(3) vw(17) 0 rgba(54,68,58,0.06)
+		border-radius: vw(2)
+		margin: auto
+		position: relative
+		.avatar
+			width: vw(60)
+			height: vw(60)
+			background-color: #f5f5f5
+			margin: auto
+			position: absolute
+			top: vw(-30)
+			left: vw(142)
+			border-radius: 50%
+		.name
+			height: vw(25)
+			font-size: vw(18)
+			font-family: PingFangSC-Medium,PingFang SC
+			font-weight: 500
+			color: #000000
+			position: absolute
+			top: vw(37)
+			left: 0
+			right: 0
+			text-align: center
+			line-height: vw(25)
+			margin: auto
+		.num
+			height: vw(17)
+			font-size: vw(14)
+			font-family: PingFangSC-Regular,PingFang SC
+			font-weight: 400
+			color: #96979E
+			position: absolute
+			top: vw(67)
+			left: 0
+			right: 0
+			text-align: center
+			line-height: vw(17)
+			margin: auto
+
+		.line
+			width: vw(315)
+			height: vw(1)
+			background-color: rgba(240, 240, 240, 1)
+			position: absolute
+			top: vw(109)
+			left: vw(15)
+		.qr-code-info
+			display: flex
+			height: vw(52)
+			line-height: vw(52)
+			position: absolute
+			top: vw(110)
+			bottom: vw(0)
+			.text
+				width: vw(144)
+				height: vw(22)
+				font-size: vw(16)
+				font-family: PingFangSC-Regular,PingFang SC
+				font-weight: 400
+				color: #4A4A4A
+				line-height: vw(22)
+				position: absolute
+				top: vw(15)
+				left: vw(15)
+			.code-img
+				width: vw(16)
+				height: vw(16)
+				position: absolute
+				bottom: vw(18)
+				left: vw(299)
+			.arrow-r
+				margin-left: vw(319)
+				margin-top: vw(22)
+				@include arrow-right(7, #4A4A4A)
+	.independent
+		margin-top: vw(15)
+		width: 100%
+		height: vw(52)
+		line-height: vw(52)
+		background: rgba(255,255,255,1)
+		font-size: vw(16)
+		font-family: PingFangSC-Regular,PingFang SC
+		font-weight: 400
+		color: rgba(51,54,60,1)
+		switch
+		transform: scale(0.7)
+	.logout
+		margin-top: vw(15)
+		background: rgba(255,255,255,1)
+		width: 100%
+		height: vw(52)
+		line-height: vw(52)
+		font-size: vw(16)
+		font-family: PingFangSC-Regular,PingFang SC
+		font-weight: 400
+		color: #4A4A4A
+		text-align: center
+		position: fixed
+		bottom: 0
+		left: 0
+.form-item-wrapper
+  margin: vw(25) auto 0
+.form-item
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: vw(345)
+  height: vw(52)
+  background: #FFFFFF
+  margin: 0 auto
+  padding: vw(15) vw(10)
+.right-icon
+	width: vw(9)
+	height: vw(14)
+.left-label
+	display: flex
+	justify-content: flex-start
+	align-items: center
+	font-size: vw(14)
+	color: #4A4A4A
+	line-height: vw(20)
+	.icon
+      width: vw(20)
+      height: vw(20)
+      margin-right: vw(6)
+	.big-icon
+      width: vw(21) !important
+      height: vw(21) !important
+      margin-right: vw(5)
+
+.form-item-order
+	margin: vw(15) vw(15) 0
+	padding: vw(15) vw(14) vw(20) vw(15)
+	background: #FFFFFF
+	box-shadow: vw(0) vw(3) vw(17) 0 rgba(54, 68, 58, .06)
+
+	&-header
+		justify-content: space-between
+		align-items: center
+
+		&-title
+			color: #000000
+			font-size: vw(16)
+			line-height: vw(22)
+
+		&-icon
+			width: vw(9)
+			height: vw(14)
+
+	&-main
+		margin-top: vw(18)
+		justify-content: space-around
+
+		&-item
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			font-size: vw(12)
+			color: #000000
+			line-height: vw(17)
+
+			image
+				width: vw(28)
+				height: vw(28)
+				margin-bottom: vw(8)

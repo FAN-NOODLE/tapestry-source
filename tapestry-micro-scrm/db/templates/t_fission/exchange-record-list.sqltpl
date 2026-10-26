@@ -1,0 +1,64 @@
+
+SELECT
+	fepr.fission_user_id,
+	fepr.deliver_address,
+	fepr.deliver_name,
+	fepr.deliver_area,
+	fepr.deliver_area_code,
+	fepr.deliver_mobile,
+	fepr.created_at AS exchange_time,
+	fp.name AS prize_name,
+	fp.pic  AS prize_pic,
+	fepr.prize_id,
+	fepr.num,
+	fepr.enterprise_id,
+	fa.name AS activity_name,
+	fa.id AS activity_id,
+    fmp.nick_name,
+     fmp.img_url,
+    fmp.id AS user_id
+FROM
+
+`fission_exchange_prize_records` fepr
+
+LEFT JOIN  `fission_activity`  fa ON  fa.id = fepr.activity_id
+
+LEFT JOIN  `fission_prize`  fp  ON fepr.prize_id = fp.id
+
+INNER JOIN `fission_mp_user` fmp ON fepr.user_id = fmp.id
+
+WHERE
+
+    fepr.enterprise_id = {{.cond.EnterpriseID}}
+
+    {{if ne .cond.Nickname ""}}
+    AND fmp.nick_name LIKE '%{{SafeStr .cond.Nickname}}%'
+    {{end}}
+
+    {{if ne .cond.ActivityID 0}}
+    AND fepr.activity_id = {{.cond.ActivityID}}
+    {{end}}
+
+    {{if ne .cond.UserID 0}}
+     AND fepr.user_id = {{.cond.UserID}}
+     {{end}}
+    {{if ne .cond.StartTime 0}}
+    AND fepr.created_at>= {{.cond.StartTime}}
+    {{end}}
+
+    {{if ne .cond.EndTime 0}}
+    AND fepr.created_at<= {{.cond.EndTime}}
+    {{end}}
+
+    {{if ne .cond.DeliverName ""}}
+    AND fepr.deliver_name LIKE '%{{SafeStr .cond.DeliverName}}%'
+    {{end}}
+    {{if ne .cond.DeliverMobile ""}}
+    AND  fepr.deliver_mobile LIKE '%{{SafeStr .cond.DeliverMobile}}%'
+    {{end}}
+    order by fepr.created_at  desc
+  {{if ne .page.Limit 0}}
+      LIMIT {{.page.Offset}}, {{.page.Limit}}
+  {{end}};
+
+

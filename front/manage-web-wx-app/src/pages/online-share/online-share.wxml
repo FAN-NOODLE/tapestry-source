@@ -1,0 +1,22 @@
+<!--pages/online-share/online-share.wxml-->
+<view class="online-share">
+	<popup show="{{popShow}}" zIndex="{{5001}}">
+		<view slot="content">
+			<view class="content">
+				{{fail?fail:'发送成功'}}
+			</view>
+			<navigator
+			 class="btn"
+			 hover-class="btn-hover"
+			 target="miniProgram"
+			 open-type="exit"
+			>
+				确定
+			</navigator>
+		</view>
+	</popup>
+</view>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

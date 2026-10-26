@@ -1,0 +1,8 @@
+SELECT DISTINCT
+	channel_id 
+FROM
+	drainage_welcomes 
+WHERE
+	enterprise_id = ?
+	AND deleted_at = 0 
+	AND channel_id != 0;

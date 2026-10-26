@@ -1,0 +1,12 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "幸运刮刮卡",
+	"backgroundColor": "#ffffff",
+	"backgroundTextStyle": "light",
+	"navigationStyle": "custom",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"writeOff-modal": "../../components/writeOff-modal/writeOff-modal"
+	}
+}

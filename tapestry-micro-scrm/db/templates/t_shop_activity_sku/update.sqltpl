@@ -1,0 +1,18 @@
+UPDATE
+  `shop_activity_sku`
+SET
+  `shop_activity_id` = :shop_activity_id,
+  `enterprise_id` = :enterprise_id,
+  `spu_id` = :spu_id,
+  `sku_id` = :sku_id,
+  `sku_status` = :sku_status,
+  `activity_stock_type` = :activity_stock_type,
+  `activity_stock_set` = :activity_stock_set,
+  `sku_picture` = :sku_picture,
+  `sell_price` = :sell_price,
+  `activity_price` = :activity_price,
+  `created_at` = :created_at,
+  `updated_at` = :updated_at,
+  `deleted_at` = :deleted_at
+WHERE
+    `id` = :id

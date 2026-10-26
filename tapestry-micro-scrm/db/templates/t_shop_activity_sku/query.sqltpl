@@ -1,0 +1,23 @@
+select
+  `id`,
+  `shop_activity_id`,
+  `enterprise_id`,
+  `spu_id`,
+  `sku_id`,
+  `sku_status`,
+  `activity_stock_type`,
+  `activity_stock_set`,
+  `sku_picture`,
+  `sell_price`,
+  `activity_price`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+  `shop_activity_sku`
+where
+    `enterprise_id` = ?
+and
+    `shop_activity_id` = ?
+and
+    `deleted_at` = ?

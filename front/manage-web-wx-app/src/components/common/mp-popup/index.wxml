@@ -1,0 +1,37 @@
+<!-- <wxs src="@filters/wxs/utils.wxs" module="utils" /> -->
+<wxs src="./index.wxs" module="computed" />
+<!-- 遮罩 -->
+<mp-overlay
+  wx:if="{{ overlay }}"
+  show="{{ show }}"
+  z-index="{{ zIndex }}"
+  custom-style="{{ overlayStyle }}"
+  duration="{{ duration }}"
+  bind:click="onClickOverlay"
+  lock-scroll="{{ lockScroll }}"
+  root-portal="{{ rootPortal }}"
+/>
+<!-- 内容 -->
+<root-portal wx:if="{{ rootPortal }}">
+  <view
+    wx:if="{{ inited }}"
+    class="custom-class mp-popup {{ classes }} mp-popup--{{ position }} {{ safeAreaInsetBottom ? 'mp-popup--safe' : '' }} {{ safeAreaInsetTop ? 'mp-popup--safeTop' : '' }} {{ safeAreaTabBar ? 'mp-popup--safeTabBar' : '' }}"
+    style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
+    bind:transitionend="onTransitionEnd"
+    catch:touchmove="lockScroll?'noop':''"
+  >
+    <slot></slot>
+  </view>
+</root-portal>
+
+<block wx:else>
+  <view
+    wx:if="{{ inited }}"
+    class="custom-class mp-popup {{ classes }} mp-popup--{{ position }} {{ safeAreaInsetBottom ? 'mp-popup--safe' : '' }} {{ safeAreaInsetTop ? 'mp-popup--safeTop' : '' }} {{ safeAreaTabBar ? 'mp-popup--safeTabBar' : '' }}"
+    style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
+    bind:transitionend="onTransitionEnd"
+  >
+    <slot></slot>
+  </view>
+</block>
+  

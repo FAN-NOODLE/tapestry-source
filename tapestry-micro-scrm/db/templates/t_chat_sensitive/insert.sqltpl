@@ -1,0 +1,4 @@
+INSERT INTO chat_sensitive
+(`id`, `sensitive_text`, `sensitive_type`, `trigger_num`, `enterprise_id`,`created_at`, `updated_at`)
+VALUES
+(:id, :sensitive_text, :sensitive_type, :trigger_num, :enterprise_id,unix_timestamp(now()), unix_timestamp(now()));

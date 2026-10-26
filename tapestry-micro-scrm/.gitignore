@@ -1,0 +1,17 @@
+.idea/
+.qoder/
+.run
+./logs/*
+target/bin/
+bin
+*.exe
+app.yaml
+vendor
+*.log
+vendor/
+./main.*
+test.*
+*.dll
+outputs/
+/.worktrees/
+work

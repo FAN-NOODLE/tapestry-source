@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "素材库",
+  "backgroundColor": "#F4F7FB",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "com-create-entry": "../../components/com-create-entry/com-create-entry",
+    "com-goods-material": "../../components/com-goods-material/com-goods-material",
+    "com-normal-material": "../../components/com-normal-material/com-normal-material"
+  }
+}

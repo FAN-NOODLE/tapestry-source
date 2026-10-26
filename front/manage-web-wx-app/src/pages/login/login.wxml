@@ -1,0 +1,69 @@
+<view class="page-login">
+  <navigation-bar text="WeClient Pro" throughTop="{{true}}" bg-color="transparent"></navigation-bar>
+  <image class="login-bg" src="https://img-crs.vchangyi.com/store-manage-wxapp/sy_guide_wxapp_login_bg.png" mode="widthFix" />
+  <view class="box p-l-30 p-r-30">
+    <view class="welcome font-20 font-sc-me">你好，欢迎登录</view>
+    <!-- <view class="des m-t-5 font-12 font-sc-re">此小程序仅为企业内部员工使用，请使用账号和验证码登陆</view> -->
+    <!-- 手机号 -->
+    <view class="phone-title font-14 font-sc-re label m-t-30">
+      <text class="title m-r-10">手机号码</text>
+      <text class="error-text" wx:if="{{phone.error && phone.msg}}">{{phone.msg}}</text>
+    </view>
+    <view class="phone-ctn m-t-10 {{phone.fouce ? 'phone-fouce' : ''}} {{phone.error ? 'phone-error' : ''}}">
+      <view class="mark font-sc-re font-14">+86</view>
+      <input type="number" cursor-spacing="{{158}}" bindinput="inputGetPhone" bindfocus="phoneFoucs" bindblur="getPhone" value="{{phone.value}}" maxlength="11" class="flex-1 phone-ipt font-sc-re p-l-10 font-16" placeholder="请输入你的手机号码" placeholder-class="placeholder" />
+    </view>
+    <!-- 验证码 -->
+    <view class="code-title font-14 font-sc-re label m-t-20">
+      <text class="title m-r-10">验证码</text>
+      <text class="error-text" wx:if="{{code.error && code.msg}}">{{code.msg}}</text>
+    </view>
+    <view class="code-ctn m-t-10 font-sc-re">
+      <view class="code-area-box flex-1">
+        <view class="code-area" bindtap="focusIpt">
+          <view class="code-item {{code.focus && code.value.length == 0 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[0]}}
+          </view>
+          <view class="code-item {{code.focus && code.value.length == 1 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[1]}}
+          </view>
+          <view class="code-item {{code.focus && code.value.length == 2 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[2]}}
+          </view>
+          <view class="code-item {{code.focus && code.value.length == 3 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[3]}}
+          </view>
+          <view class="code-item {{code.focus && code.value.length == 4 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[4]}}
+          </view>
+          <view class="code-item {{code.focus && code.value.length == 5 ? 'code-use' : ''}} {{code.focus && code.value.length == 6 ? 'last-code-use' : '' }} {{code.error ? 'error-code' : ''}}">
+            {{ code.value[5]}}
+          </view>
+        </view>
+        <input type="number" cursor-spacing="{{65}}" bindblur="verifyCode" bindinput="getInputCode" value="{{code.value}}" focus="{{code.focus}}" maxlength="6" class="code-ipt" />
+      </view>
+    </view>
+    <view>
+      <button bindtap="getCode" class="get-code {{code.click ? 'use' : '' }} font-14" hover-class="{{code.click ? '': 'op-7'}}">
+        {{ !code.click ? '获取验证码' : ('重新获取' + code.ms + 's')}}
+      </button>
+    </view>
+  </view>
+  <view class="footer">
+    <view class="login-desc">此小程序仅为受邀用户使用，请使用手机验证码登录</view>
+    <view class="version">{{version}}</view>
+    <!-- <view class="footer-records m-t-5">
+      <view class="records" bind:tap="goRecords" data-type="1">
+        <image class="icon" src="https://wesociastg.blob.core.chinacloudapi.cn/wesocial-uat/uploads/2021/3/15/350c3900cd536e6e4ccf83df0e1f25b7.png"></image>
+        <text class="font-10">沪ICP备08100043号-73</text>
+      </view>
+      <view class="records" bind:tap="goRecords" data-type="2">
+        <image class="icon" src="https://wesociastg.blob.core.chinacloudapi.cn/wesocial-uat/uploads/2021/3/15/e2a5cceef412298920e23d3275fac208.png"></image>
+        <text class="font-10">沪公网安备 31010602006113号</text>
+      </view>
+    </view> -->
+  </view>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

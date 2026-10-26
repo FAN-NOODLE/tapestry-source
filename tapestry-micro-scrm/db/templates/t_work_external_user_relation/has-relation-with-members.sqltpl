@@ -1,0 +1,17 @@
+select
+    `id`
+from
+    work_external_user_relation
+where
+    enterprise_id = {{.enterprise_id}}
+and
+    work_external_user_id = {{.work_user_id}}
+{{if .member_ids}}
+and
+    member_id in ({{WhereIn .member_ids}})
+{{end}}
+and
+    relation_status = 0
+and
+    deleted_at = 0
+order by id desc limit 1

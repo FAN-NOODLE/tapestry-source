@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="header">
+    <!-- tab -->
+    <com-tabs custom-class="tabs" active="{{active}}" tabs="{{tabs}}" bind:change="handleTabChange"></com-tabs>
+  </view>
+  <!-- 搜索 -->
+  <view class="search-wrap">
+    <view class="search">
+      <com-select value="{{searchParams.filterType}}" bind:change="handleFilterChange"></com-select>
+      <view class="search-input">
+        <view class="search-icon"></view>
+        <input
+          value="{{searchParams.keywords}}"
+          bindinput="handleInputChange"
+          class="search-input__value"
+          placeholder-class="search-input__placeholder"
+          placeholder="请输入昵称/备注内容搜索"
+        />
+        <view wx:if="{{searchParams.keywords.length}}" class="icon-clear" bind:tap="handleClear"></view>
+      </view>
+    </view>
+    <view class="search-btn" bind:tap="handleSearch">搜索</view>
+  </view>
+  <!-- 其他 -->
+  <view class="other flex">
+    <view class="other-title">明细数据</view>
+    <view class="other-tips">共{{meta.total}}位顾客</view>
+  </view>
+  <!-- 列表 -->
+  <view class="content">
+    <!-- 列表 -->
+    <view wx:if="{{list.length > 0}}" class="list">
+      <customer-item 
+        wx:for="{{list}}" 
+        wx:key="index" 
+        item="{{item}}" 
+        options="{{detail}}">
+      </customer-item>
+      <!-- 加载更多 -->
+      <mp-load-more status="{{meta.status}}"></mp-load-more>
+    </view>
+    <!-- 缺省 -->
+    <mp-empty custom-class="mp-empty" wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" icon="no-search" content="暂无顾客数据"></mp-empty>
+  </view>
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

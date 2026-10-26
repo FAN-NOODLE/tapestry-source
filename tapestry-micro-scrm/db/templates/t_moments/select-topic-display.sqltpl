@@ -1,0 +1,27 @@
+SELECT
+	mtm.id AS moment_topic_member_id,
+	mm.id AS moment_member_id,
+	mm.member_id AS member_id,
+	m.`name` AS user_name,
+	m.`userid` AS userid
+FROM
+	`moment_topic_members` AS mtm
+LEFT JOIN
+	`moment_members` AS mm ON mtm.`moment_member_id` = mm.`member_id`
+LEFT JOIN
+	`members` AS m ON m.id = mtm.moment_member_id
+WHERE
+	1 = 1
+AND
+	mtm.deleted_at = 0
+AND
+	mm.deleted_at = 0
+AND
+	m.deleted_at = 0
+AND
+	mtm.moment_topic_id = :id
+{{if .cond.EditMemberId}} AND mtm.`moment_member_id` = :moment_member_id {{end}}
+LIMIT
+	{{.page.Offset}}, {{.page.Limit}}
+
+

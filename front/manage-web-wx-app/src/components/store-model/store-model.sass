@@ -1,0 +1,68 @@
+/**
+  * CSS书写规范
+  *1.位置属性 (position, top, right, z-index, display, float等)　　
+  *2.大小 (width, height, padding, margin)　　
+  *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+  *4.背景 (background, border等)
+  *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+.page-store-model
+  position: relative
+  background: $color-white
+  padding: vw(15)
+  border-radius: vw(2)
+  box-sizing: border-box
+  margin-bottom: vw(15)
+  box-shadow: 0 vw(2) vw(7) 0 $color-store-shadow
+  border: vw(1) solid transparent
+  .mark
+    width: vw(30)
+    height: vw(30)
+    position: absolute
+    top: vw(-1)
+    right: vw(-1)
+  .content
+    position: relative
+    padding-bottom: vw(17)
+    display: flex
+    justify-content: flex-start
+    border-bottom: vw(1) dashed rgba(150, 151, 158, .49)
+    box-sizing: border-box
+    .qrcode
+      position: relative
+      width: vw(44)
+      height: vw(44)
+      margin-right: vw(10)
+    .store
+      .store-name
+        font-weight: 500
+        line-height: vw(25)
+        color: $color-store
+        margin-bottom: vw(4)
+        font-size: vw(18)
+        max-width: vw(200)
+      .store-number
+        line-height: vw(17)
+        color: $color-store-number
+        font-size: vw(12)
+    .icon-right
+      width: vw(24)
+      height: vw(24)
+      position: absolute
+      right: vw(-5)
+      top: vw(9)
+  .info
+    display: flex
+    justify-content: space-between
+    padding-top: vw(14)
+    color: $color-store-line
+    box-sizing: border-box
+    font-size: vw(14)
+    line-height: vw(20)
+    .name
+      word-break: break-all
+      max-width: vw(150)
+.border
+  border-radius: vw(2)
+  border-color: $color-store-border

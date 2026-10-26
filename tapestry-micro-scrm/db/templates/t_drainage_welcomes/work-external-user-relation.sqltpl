@@ -1,0 +1,38 @@
+SELECT
+	work_external_user_relation.id,
+    work_external_user_relation.enterprise_id,
+    work_external_user_relation.work_external_user_id,
+    work_external_user_relation.member_id,
+    work_external_user_relation.remark,
+    work_external_user_relation.description,
+    work_external_user_relation.createtime,
+    work_external_user_relation.remark_corp_name,
+    work_external_user_relation.remark_mobiles,
+    work_external_user_relation.add_way,
+    work_external_user_relation.state,
+    work_external_user_relation.oper_userid,
+    work_external_user_relation.relation_status,
+    work_external_user_relation.member_deleted_time,
+    work_external_user_relation.external_deleted_time,
+    work_external_user_relation.created_at,
+    work_external_user_relation.updated_at,
+    work_external_user_relation.deleted_at,
+    left(from_unixtime(work_external_user_relation.created_at), 10) as time,
+    left(from_unixtime(work_external_user_relation.external_deleted_time), 10) as external_deleted_time,
+    left(from_unixtime(work_external_user_relation.member_deleted_time), 10) as member_deleted_time,
+    IFNULL(drainage_contact_channels.name,'') as channels_name
+FROM
+	work_external_user_relation
+	LEFT JOIN `drainage_contacts` on drainage_contacts.id = work_external_user_relation.state
+	LEFT JOIN `drainage_contact_channels` on drainage_contact_channels.id = drainage_contacts.channel_id
+WHERE
+work_external_user_relation.deleted_at = 0
+AND drainage_contact_channels.id <> 0
+AND work_external_user_relation.created_at
+AND work_external_user_relation.state <> ''
+AND work_external_user_relation.enterprise_id = :enterprise_id
+{{if ne .cond.ChannelId 0}}
+    AND drainage_contacts.channel_id = {{.cond.ChannelId}}
+{{end}}
+AND work_external_user_relation.created_at between {{.cond.StartTime}} and {{.cond.EndTime}}
+

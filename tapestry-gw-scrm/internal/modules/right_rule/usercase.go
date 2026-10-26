@@ -1,0 +1,1 @@
+package right_rule

@@ -1,0 +1,20 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-header">
+      <div class="popup-header-name">近30天任务状况</div>
+      <div class="popup-header-close" bindtap="handleCancel"></div>
+    </view>
+    <view class="popup-content">
+      <view class="popup-content-title">一、已触达</view>
+      <view class="popup-content-text">
+        <view class="right-desp">企业内，近30天通过任务沟通被触达的顾客</view>
+      </view>
+      <view class="popup-content-title">二、未触达</view>
+      <view class="popup-content-text">
+        <view class="right-desp"
+          >企业内，近30天未出现在沟通任务名单中的顾客，或出现在任务名单中但未被触达的顾客</view
+        >
+      </view>
+    </view>
+  </view>
+</mp-popup>

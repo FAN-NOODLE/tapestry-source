@@ -1,0 +1,9 @@
+SELECT *
+FROM `members`
+WHERE `enterprise_id` = {{.cond.EnterpriseID}}
+  AND `userid` = '{{.cond.Userid}}'
+  {{if ne 0 .cond.Status}}
+    AND `status` = {{.cond.Status}}
+  {{end}}
+  AND `deleted_at` = {{.cond.DeletedAt}}
+  LIMIT 1;

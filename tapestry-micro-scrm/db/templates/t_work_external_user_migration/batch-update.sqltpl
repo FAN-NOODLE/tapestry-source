@@ -1,0 +1,6 @@
+update
+  `work_external_user_migration`
+set
+  `status` = {{.status}},
+  `updated_at` = {{.updated_at}}
+where `id` in ({{WhereIn .ids}})

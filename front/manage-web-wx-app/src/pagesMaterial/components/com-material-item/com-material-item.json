@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "com-popup-save": "../com-popup-save/com-popup-save",
+    "com-popup-preview": "../com-popup-preview/com-popup-preview"
+  }
+}

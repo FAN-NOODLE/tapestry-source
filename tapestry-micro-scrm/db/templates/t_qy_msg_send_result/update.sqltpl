@@ -1,0 +1,11 @@
+UPDATE qy_msg_send_result SET
+status = :status,
+send_time = :send_time,
+userid = :userid,
+updated_at = unix_timestamp(now())
+WHERE
+msg_id = :msg_id
+AND
+external_userid = :external_userid
+AND
+status <> 1

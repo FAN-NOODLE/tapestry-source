@@ -1,0 +1,11 @@
+SELECT
+	`member_id`,
+	`work_external_user_id`,
+	`remark`
+FROM
+	`work_external_user_relation`
+WHERE
+	`member_id` = {{.cond.MemberID}}
+	AND `work_external_user_id` IN ({{WhereIn .cond.ExternalIDList}})
+	AND `enterprise_id` = {{.cond.EnterpriseID}}
+	AND `deleted_at` = 0;

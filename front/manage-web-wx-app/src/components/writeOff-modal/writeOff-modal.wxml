@@ -1,0 +1,9 @@
+<view bindtap="closeModal" class="mask" hidden="{{!writeOffModal}}" catchtouchmove="{{true}}"></view>
+<view hidden="{{!writeOffModal}}" catchtouchmove="{{true}}" class="modalContent">
+   <view class="prize-name">{{couponObj.prize.prize_name}}</view>
+   <view class="prize-time">有效期：{{couponObj.activity.expired_time_str}}</view>
+   <image src="{{couponObj.qr_code}}" mode="aspectFit" class="qr-code" ></image>
+   <view class="wait" >
+      待核销
+   </view>
+</view>

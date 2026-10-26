@@ -1,0 +1,9 @@
+SELECT
+	*
+FROM
+	`chat_member`
+WHERE
+	`member_id` = :member_id
+	AND `enterprise_id` = enterprise_id
+	AND `deleted_at` = 0
+LIMIT 1;

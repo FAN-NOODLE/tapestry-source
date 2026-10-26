@@ -1,0 +1,50 @@
+@import '~@/style/color-variable'
+
+.customer
+    margin: 0 vw(20)
+    padding: vw(19) 0
+    position: relative
+    display: grid
+    grid-template-columns: vw(51) 1fr vw(52)
+    &::before
+       content: ""
+       width: 100%
+       height: vw(1)
+       background-color: #F0F0F0
+       position: absolute 
+       top: 0
+    .left-box
+        image
+            width: vw(51)
+            height: vw(51)
+            border-radius: 50%
+    .center-box
+        margin: 0 vw(16)
+        .box-text
+            @include fontStyle(14, 400, #000000, 20)
+            display: flex
+            align-items: center
+            &:nth-child(2)
+                margin: vw(10) 0
+                image
+                    width: vw(14)
+                    height: vw(17)
+            image
+                width: vw(16)
+                height: vw(16)
+                margin-right: vw(5)
+    .right-box
+        display: flex
+        height: 100%
+        align-items: center
+        .btn
+            @include fontStyle(14, 400, #FFF, 20)
+            display: flex
+            align-items: center
+            justify-content: center
+        .is-success
+            width: vw(52)
+            height: vw(26)
+            background: #33363C
+        .is-error
+            color: #96979E

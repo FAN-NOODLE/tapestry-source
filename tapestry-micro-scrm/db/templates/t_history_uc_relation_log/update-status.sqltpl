@@ -1,0 +1,4 @@
+update `history_uc_relation_log`
+set `status` = ?
+where
+  `id` = ?

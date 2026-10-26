@@ -1,0 +1,3 @@
+UPDATE `source_group` SET
+`group_name`= :group_name, `updated_at`= :updated_at
+WHERE (`id`=:id);

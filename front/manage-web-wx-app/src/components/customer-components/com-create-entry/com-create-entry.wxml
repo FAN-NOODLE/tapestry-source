@@ -1,0 +1,10 @@
+<mp-movable custom-class="entry" bottom="100" right="0">
+  <view wx:if="{{isCancel}}" class="com-create-entry {{show?'show':'hide'}}" bind:tap="onCancel">
+    <view class="com-create-entry__icon-close"></view>
+    <view class="com-create-entry__text">取消群发</view>
+  </view>
+  <view wx:else class="com-create-entry {{show?'show':'hide'}}" bind:tap="onClick">
+    <view class="com-create-entry__icon"></view>
+    <view class="com-create-entry__text">创建群发</view>
+  </view>
+</mp-movable>

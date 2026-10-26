@@ -1,0 +1,24 @@
+INSERT INTO `fission_chat_group`
+(
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `chat_id`,
+  `qr_code`,
+  `sort`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+)
+VALUES
+(
+  :id,
+  :enterprise_id,
+  :activity_id,
+  :chat_id,
+  :qr_code,
+  :sort,
+  :created_at,
+  :updated_at,
+  :deleted_at
+);

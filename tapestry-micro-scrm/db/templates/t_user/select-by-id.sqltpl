@@ -1,0 +1,10 @@
+SELECT
+  `id`,
+  `openid`,
+  `appid`,
+  `unionid`,
+  `euid`
+FROM
+	micro_scrm_enterprise_{{.enterprise_id}}.{{.table}}
+WHERE
+	id = ?

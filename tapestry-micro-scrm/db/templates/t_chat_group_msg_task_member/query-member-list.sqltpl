@@ -1,0 +1,28 @@
+select
+  `id`,
+  `enterprise_id`,
+  `msg_task_id`,
+  `member_id`,
+  `status`,
+  `task_status`,
+  `fail_msg`,
+  `msgid`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    chat_group_msg_task_member
+where
+    enterprise_id = {{.enterpriseID}}
+and
+    msg_task_id = {{.taskID}}
+and
+    deleted_at = 0
+{{if .status}}
+and
+    status in ({{WhereIn .status}})
+{{end}}
+{{if .taskStatus}}
+and
+    task_status in ({{WhereIn .taskStatus}})
+{{end}}

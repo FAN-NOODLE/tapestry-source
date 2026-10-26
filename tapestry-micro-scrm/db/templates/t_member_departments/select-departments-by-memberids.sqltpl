@@ -1,0 +1,1 @@
+select member_id,department_id,enterprise_id from member_departments where enterprise_id = ? and member_id in (?) and deleted_at = 0

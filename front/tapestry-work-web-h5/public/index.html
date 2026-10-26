@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="origin" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <!-- <script src="https://map.qq.com/api/gljs?v=1.exp&key=AGFBZ-CM7L4-7F3UY-DY7NO-5P3KV-FGFIY&libraries=tools"></script> -->
+  <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=5GABZ-3W6WZ-SZMXN-7EONY-2U3XJ-2EFZ7"></script>
+  <!-- <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&libraries=service&key=AGFBZ-CM7L4-7F3UY-DY7NO-5P3KV-FGFIY"></script> -->
+  <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+  <style type="text/css">
+    #Loading {
+      top:50%;
+      left:50%;
+      position: absolute;
+      -webkit-transform: translateY(-50%)  translateX(-50%);
+      transform: translateY(-50%)  translateX(-50%);
+      z-index:100;
+    }
+    @-webkit-keyframes ball-beat {
+      50% {
+        opacity: 0.2;
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75); }
+
+      100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1); } }
+
+    @keyframes ball-beat {
+      50% {
+        opacity: 0.2;
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75); }
+
+      100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1); } }
+
+    .ball-beat > div {
+      background-color: #4A4A4A;
+      width: 15px;
+      height: 15px;
+      border-radius: 100% !important;
+      margin: 2px;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      display: inline-block;
+      -webkit-animation: ball-beat 0.7s 0s infinite linear;
+      animation: ball-beat 0.7s 0s infinite linear; }
+    .ball-beat > div:nth-child(2n-1) {
+      -webkit-animation-delay: 0.35s !important;
+      animation-delay: 0.35s !important; }
+  </style>
+
+  <script>
+    (function flexible (window, document) {
+    var docEl = document.documentElement
+    var dpr = window.devicePixelRatio || 1
+  
+    // adjust body font size
+    function setBodyFontSize () {
+      console.log('dpr----->',dpr);
+      if (document.body) {
+        document.body.style.fontSize = (12 * dpr) + 'px'
+      }
+      else {
+        document.addEventListener('DOMContentLoaded', setBodyFontSize)
+      }
+    }
+    setBodyFontSize();
+  
+    // set 1rem = viewWidth / 10
+    function setRemUnit () {
+      console.log(docEl.clientWidth);
+      var rem = docEl.clientWidth / 10
+      docEl.style.fontSize = rem + 'px'
+    }
+  
+    setRemUnit();
+  
+    // reset rem unit on page resize
+    window.addEventListener('resize', setRemUnit)
+    window.addEventListener('pageshow', function (e) {
+      // if (e.persisted) {
+      //   setRemUnit();
+      // }
+      setRemUnit();
+    })
+  
+    // detect 0.5px supports
+    if (dpr >= 2) {
+      var fakeBody = document.createElement('body')
+      var testElement = document.createElement('div')
+      testElement.style.border = '.5px solid transparent'
+      fakeBody.appendChild(testElement)
+      docEl.appendChild(fakeBody)
+      if (testElement.offsetHeight === 1) {
+        docEl.classList.add('hairlines')
+      }
+      docEl.removeChild(fakeBody)
+    }
+  }(window, document))
+  </script>
+  
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app">
+    <div id="Loading">
+      <div class="loader-inner ball-beat">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <!-- built files will be auto injected -->
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <!-- <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script> -->
+  <!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script>
+      console.log("打开调试")
+      let vConsole = new window.VConsole();
+  </script> -->
+  <script>
+    (function () {
+        var src = 'https://unpkg.com/vconsole@latest/dist/vconsole.min.js';
+        // 需要调试的时候加载控制台
+        if (!/debug=1/.test(window.location)) return;
+        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+        document.write('<scr' + 'ipt >new window.VConsole();</scr' + 'ipt>');
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+Update
+
+ `chat_group_msg_task_member`
+
+set deleted_at = ?
+
+WHERE  enterprise_id = ?  AND msg_task_id= ?  AND member_id = ? AND deleted_at = 0

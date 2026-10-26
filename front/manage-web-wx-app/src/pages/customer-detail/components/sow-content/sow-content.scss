@@ -1,0 +1,29 @@
+@import '~@/style/color-variable';
+
+.sow-content {
+  width: 100%;
+  background-color: #F6F6F9;
+  position: relative;
+  height:  198rpx;
+  padding: 20rpx 30rpx 40rpx;
+
+  .edit{
+    width: 100%;
+    height: 100%;
+    font-size: vw(14);
+    font-weight: 400;
+    color: #000000;
+  }
+  .word-total{
+    font-size: vw(12);
+    font-weight: 400;
+    color: #BDBEC8;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 18rpx;
+    line-height: 40rpx;
+  }
+}
+

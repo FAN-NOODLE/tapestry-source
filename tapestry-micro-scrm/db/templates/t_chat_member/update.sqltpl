@@ -1,0 +1,6 @@
+UPDATE `chat_member`
+SET `last_chat_at` = :last_chat_at,
+`updated_at` = :update_at
+WHERE
+	`id` = :id
+	AND `deleted_at` = 0;

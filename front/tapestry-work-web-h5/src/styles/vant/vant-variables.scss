@@ -1,0 +1,96 @@
+// 一行toast样式重置
+.toast-one-row {
+  height: 47px;
+  min-width: 1px !important;
+  width: 78px !important;
+  border-radius: 3px !important;
+  font-size: 12px !important;
+  box-sizing: border-box !important;
+  background-color: rgba(0, 0, 0, .8) !important;
+}
+
+.van-field__control::placeholder {
+  font-weight: 400 !important;
+  color: #a6a6a6 !important;
+}
+.new-portrait-customer .van-tab {
+  padding: 0;
+}
+
+.van-radio-group--horizontal {
+  .van-radio--horizontal {
+    &:last-child {
+      margin-right: 0 !important;
+    }
+  }
+}
+.van-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.van-dialog.store-visit-confirm {
+  border-radius: 12px;
+
+  .van-dialog__header {
+    padding: 20px 24px;
+    position: relative;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    text-align: left;
+    
+  }
+  .van-dialog__content {
+    padding: 16px 24px;
+    font-size: 12px;
+    line-height: 130%;
+  }
+  .van-dialog__message {
+    padding: 0;
+    font-size: 12px;
+    line-height: 130%;
+    text-align: left;
+  }
+  .van-dialog__footer {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 24px 24px;
+    box-sizing: border-box;
+
+    .van-button {
+      height: 40px;
+      border-radius: 4px;
+
+      &:nth-child(1) {
+        border: 1px solid;
+        flex: 1;
+      }
+      &:nth-child(2) {
+        flex: none;
+        width: 150px;
+        margin-left: 8px;
+        background-color: #000;
+        color: #fff;
+      }
+
+      &.van-button--default {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 0 16px;
+      }
+
+      &.van-button--disabled {
+        opacity: 1;
+        background: rgba(222, 226, 230, 1) !important;
+        border-color: rgba(222, 226, 230, 1) !important;
+      }
+    }
+  }
+}

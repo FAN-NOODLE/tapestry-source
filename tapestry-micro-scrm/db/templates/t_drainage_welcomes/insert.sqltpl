@@ -1,0 +1,4 @@
+INSERT INTO `drainage_welcomes`
+(`id`, `content`, `enterprise_id`, `is_default`, `channel_id`,`type`,`created_at`, `updated_at`, `deleted_at`,`condition_content`)
+VALUES
+(:id, :content, :enterprise_id, :is_default, :channel_id,:type,:created_at, :updated_at, :deleted_at,:condition_content)

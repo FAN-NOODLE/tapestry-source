@@ -1,0 +1,65 @@
+function getTime(timeStr) {
+  return timeStr.split(' ')
+}
+function getStatusConfig(config) {
+  var status = config.status.toString()
+  var statusConfig = {}
+  var map = {
+    '0': {
+      className: 'status-1',
+      word: '分配中'
+    },
+    '1': {
+      className: 'status-2',
+      word: '分配成功'
+    },
+    '2': {
+      className: 'status-3',
+      word: '名分配失败'
+    }
+  }
+
+  statusConfig = map[status]
+
+  if (status === 2) {
+    statusConfig.word = config.errmsg
+  }
+
+  return statusConfig
+}
+// 1-接替完毕 2-等待接替 3-客户拒绝 4-接替成员客户达到上限 5 - 分配失败客户正在转接中 6 - 分配失败客户关系异常
+function getStatus(status) {
+  const statusStr = status.toString()
+  var map = {
+    '1': {
+      className: 'success',
+      word: '接替完毕'
+    },
+    '2': {
+      className: 'warning',
+      word: '等待接替'
+    },
+    '3': {
+      className: 'danger',
+      word: '客户拒绝'
+    },
+    '4': {
+      className: 'danger',
+      word: '接替成员客户达到上限'
+    },
+    '5': {
+      className: 'danger',
+      word: '分配失败客户正在转接中'
+    },
+    '6': {
+      className: 'danger',
+      word: '分配失败客户关系异常'
+    }
+  }
+  return map[statusStr]
+}
+module.exports = {
+  getTime: getTime,
+  getStatusConfig: getStatusConfig,
+  getStatus: getStatus
+}

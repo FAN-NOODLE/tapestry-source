@@ -1,0 +1,194 @@
+
+<wxs module="computed">
+
+/* eslint-disable */
+var REGEXP = getRegExp('{|}|"', 'g');
+var REGEXP1 = getRegExp('^-?\d+(\.\d+)?$');
+
+function addUnit(value) {
+  if (value == null) {
+    return undefined;
+  }
+
+  return REGEXP1.test('' + value) ? value + 'rpx' : value;
+}
+
+function keys(obj) {
+  return JSON.stringify(obj)
+    .replace(REGEXP, '')
+    .split(',')
+    .map(function(item) {
+      return item.split(':')[0]
+    })
+}
+function isArray(array) {
+  return array && array.constructor === 'Array'
+}
+function isObject(obj) {
+  return obj && obj.constructor === 'Object'
+}
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp('[A-Z]', 'g'), function (i) {
+      return '-' + i
+    })
+    .toLowerCase()
+
+  return newWord
+}
+
+function style(styles) {
+  if (isArray(styles)) {
+    return styles
+      .filter(function (item) {
+        return item != null && item !== ''
+      })
+      .map(function (item) {
+        return style(item)
+      })
+      .join(';')
+  }
+
+  if (isObject(styles)) {
+    return keys(styles)
+      .filter(function (key) {
+        return styles[key] != null && styles[key] !== ''
+      })
+      .map(function (key) {
+        return [kebabCase(key), [styles[key]]].join(':')
+      })
+      .join(';')
+  }
+
+  return styles
+}
+
+function tabClass(active, ellipsis) {
+  var classes = ['tab-class'];
+
+  if (active) {
+    classes.push('tab-active-class');
+  }
+
+  if (ellipsis) {
+    classes.push('mp-ellipsis');
+  }
+
+  return classes.join(' ');
+}
+
+function tabStyle(data) {
+  var titleColor = data.active
+    ? data.titleActiveColor
+    : data.titleInactiveColor;
+
+  var ellipsis = data.scrollable && data.ellipsis;
+
+  // card theme color
+  if (data.type === 'card') {
+    return style({
+      'border-color': data.color,
+      'background-color': !data.disabled && data.active ? data.color : null,
+      color: titleColor || (!data.disabled && !data.active ? data.color : null),
+      'flex-basis': ellipsis ? 88 / data.swipeThreshold + '%' : null,
+    });
+  }
+  
+  return style({
+    color: titleColor,
+    'flex-basis': ellipsis ? 88 / data.swipeThreshold + '%' : null,
+  });
+}
+
+function navStyle(color, type) {
+  return style({
+    'border-color': type === 'card' && color ? color : null,
+  });
+}
+
+function trackStyle(data) {
+  if (!data.animated) {
+    return '';
+  }
+
+  return style({
+    left: -100 * data.currentIndex + '%',
+    'transition-duration': data.duration + 's',
+    '-webkit-transition-duration': data.duration + 's',
+  });
+}
+
+function lineStyle(data) {
+  return style({
+    width: addUnit(data.lineWidth),
+    opacity: data.inited ? 1 : 0,
+    transform: 'translateX(' + data.lineOffsetLeft + 'px)',
+    '-webkit-transform': 'translateX(' + data.lineOffsetLeft + 'px)',
+    'background-color': data.color,
+    height: data.lineHeight !== -1 ? addUnit(data.lineHeight) : null,
+    'border-radius':
+      data.lineHeight !== -1 ? addUnit(data.lineHeight) : null,
+    'transition-duration': !data.skipTransition ? data.duration + 's' : null,
+    '-webkit-transition-duration': !data.skipTransition
+      ? data.duration + 's'
+      : null,
+  });
+}
+
+module.exports = {
+  tabClass: tabClass,
+  tabStyle: tabStyle,
+  trackStyle: trackStyle,
+  lineStyle: lineStyle,
+  navStyle: navStyle,
+};
+
+</wxs>
+<!-- <wxs src="./index.wxs" module="computed" /> -->
+<view class="custom-class mp-tabs">
+	<view class="mp-tabs__wrap {{ 'mp-tabs--' + type }} {{ scrollable?'mp-tabs__wrap--scrollable':'' }} {{ type === 'line' && border ? 'mp-hairline--top-bottom' : '' }} wrap-class">
+		<slot name="nav-left" />
+
+		<scroll-view
+			scroll-x="{{ scrollable }}"
+			scroll-with-animation="{{ scrollWithAnimation }}"
+			scroll-left="{{ scrollLeft }}"
+			class="mp-tabs__scroll mp-tabs__scroll--{{ type }}"
+			style="{{ color ? 'border-color: ' + color : '' }}"
+		>
+			<view class="mp-tabs__nav mp-tabs__nav--{{type}} {{ !ellipsis? 'mp-tabs__nav--complete':'' }} nav-class" style="{{ computed.navStyle(color, type) }}">
+				<view wx:if="{{ type === 'line' }}" class="mp-tabs__line" style="{{ computed.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth, inited }) }}" />
+				<view
+					wx:for="{{ tabs }}"
+					wx:key="index"
+					data-index="{{ index }}"
+					class="mp-tab {{ computed.tabClass(index === currentIndex, ellipsis) }} {{index === currentIndex ? 'mp-tab--active':''}} {{item.disabled ? 'mp-tab--disabled':''}} {{!ellipsis ? 'mp-tab--complete':''}}"
+					style="{{ computed.tabStyle({ active: index === currentIndex, ellipsis, color, type, disabled: item.disabled, titleActiveColor, titleInactiveColor, swipeThreshold, scrollable }) }}"
+					bind:tap="onTap"
+				>
+					<view class="mp-tab__text" style="{{ item.titleStyle }}">
+						<view class="{{ ellipsis ? 'mp-ellipsis' : '' }}">{{ item.title }}</view>
+            <view wx:if="{{item.info}}" class="mp-tab__num">{{item.info}}</view>
+					</view>
+				</view>
+			</view>
+		</scroll-view>
+
+		<slot name="nav-right" />
+	</view>
+	<view
+    class="mp-tabs__content"
+    bind:touchstart="onTouchStart"
+    bind:touchmove="onTouchMove"
+    bind:touchend="onTouchEnd"
+    bind:touchcancel="onTouchEnd"
+  >
+    <view
+      class="mp-tabs__track {{animated ? 'mp-tabs__track--animated' : '' }} "
+      style="{{ computed.trackStyle({ duration, currentIndex, animated }) }}"
+    >
+      <slot />
+    </view>
+  </view>
+</view>
+

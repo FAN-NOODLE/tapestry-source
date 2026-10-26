@@ -1,0 +1,16 @@
+SELECT id,euid as user_id,unionid as union_id,openid as external_userid,name,position,avatar,corp_name,corp_full_name,type,sex as gender,external_profile,created_at,updated_at
+FROM micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external`
+WHERE 1=1
+    {{if .cond.ExternalUserID}}
+    AND `openid` = :external_userid
+    {{end}}
+    {{if .cond.ID}}
+        AND `id` = :id
+    {{end }}
+    {{if .cond.Type}}
+        AND `type` = :type
+    {{end }}
+    {{if .cond.UnionID}}
+    AND `unionid` = :union_id
+    {{end }}
+LIMIT 1;

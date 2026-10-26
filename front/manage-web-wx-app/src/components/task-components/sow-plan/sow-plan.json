@@ -1,0 +1,11 @@
+{
+    "component": true,
+    "usingComponents": {
+        "calendar": "../calendar/calendar",
+        "tabs": "../tabs/tabs",
+        "filter-selection": "../filter-selection/filter-selection",
+        "message-modal": "../../message-modal/message-modal",
+        "custom-loading": "../../custom-loading/custom-loading"
+    }
+}
+   

@@ -1,0 +1,24 @@
+SELECT
+  `id`,
+  `enterprise_id`,
+  `group_id`,
+  `tag_id`,
+  `name`,
+  `order`,
+  `type`,
+  `member_id`,
+  `create_time`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+FROM `work_external_tag`
+WHERE
+  `enterprise_id` = {{.enterprise_id}}
+AND
+  `member_id` = {{.member_id}}
+AND
+  `name` in ({{WhereIn .tag_list}})
+AND
+  `type` = {{.type}}
+AND
+  `deleted_at` = {{.deleted_at}}

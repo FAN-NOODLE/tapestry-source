@@ -1,0 +1,49 @@
+<model-slot
+        wx:if="{{show}}"
+        title="接收提醒手机号码"
+        bindclose="close"
+        bindconfirm="confirm"
+        closeIcon="{{true}}">
+    <view class="container">
+        <!-- 手机号 -->
+        <view class="phone-title font-14 font-sc-re label m-t-30">
+            <text class="title m-r-10">手机号码</text>
+            <text class="error-text" wx:if="{{phone.error && phone.msg}}">{{phone.msg}}</text>
+        </view>
+        <view class="phone-ctn m-t-10 {{phone.fouce ? 'phone-fouce' : ''}} {{phone.error ? 'phone-error' : ''}}">
+            <view class="mark font-sc-re font-14">+86</view>
+            <input type="number" cursor-spacing="{{200}}" bindinput="inputGetPhone" bindfocus="phoneFoucs" bindblur="getPhone" value="{{phone.value}}" maxlength="11" class="flex-1 phone-ipt font-sc-re p-l-10 font-16" placeholder="请输入你的手机号码" placeholder-class="placeholder"/>
+        </view>
+        <!-- 验证码 -->
+        <view class="code-title font-14 font-sc-re label m-t-20">
+            <text class="title m-r-10">验证码</text>
+            <text class="error-text" wx:if="{{code.error && code.msg}}">{{code.msg}}</text>
+        </view>
+        <view class="code-ctn m-t-10 font-sc-re">
+            <view class="code-area-box flex-1">
+                <view class="code-area" bindtap="focusIpt">
+                    <view class="code-item {{code.focus && code.value.length == 0 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">{{ code.value[0]}}</view>
+                    <view class="code-item {{code.focus && code.value.length == 1 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">{{ code.value[1]}}</view>
+                    <view class="code-item {{code.focus && code.value.length == 2 ? 'code-use' : ''}} {{code.error ? 'error-code' : ''}}">{{ code.value[2]}}</view>
+                    <view class="code-item {{code.focus && code.value.length == 3 ? 'code-use' : ''}} {{code.focus && code.value.length == 4 ? 'last-code-use' : '' }} {{code.error ? 'error-code' : ''}}">{{ code.value[3]}}</view>
+                </view>
+                <input type="number" cursor-spacing="{{100}}" bindblur="verifyCode" bindinput="getInputCode" value="{{code.value}}" focus="{{code.focus}}" maxlength="4" class="code-ipt"/>
+            </view>
+            <button bindtap="getCode" class="get-code {{code.click ? 'use' : '' }} m-l-10 font-14" hover-class="{{code.click ? '': 'op-7'}}">{{ !code.click ? '获取验证码' : ('重新获取' + code.ms + 's')}}</button>
+        </view>
+
+        <view class="btn-group">
+            <view class="btn btn-empty" catchtap="cancel">取消</view>
+            <view wx:if="{{phone.value.length !== 0 && code.value.length === 4 && !phone.error && !code.error && complete}}"
+                  class="btn btn-solid"
+                  catchtap="sure"
+            >确定</view>
+            <view wx:if="{{phone.value.length === 0 || code.value.length < 4 || phone.error || code.error || !complete}}"
+                  class="btn btn-disable">确定</view>
+        </view>
+    </view>
+</model-slot>
+
+
+
+

@@ -1,0 +1,71 @@
+<view class="pages-consume-record">
+	<!-- 搜索 -->
+	<view class="search">
+		<view class="search-choose" id="chooseArea" catch:tap="handleShowPicker">
+			<view class="search-choose-item">{{pickerOptions[pickerValue].label}}</view>
+			<image class="image" src="https://img-crs.vchangyi.com/store-manage-wxapp/compass_triangle.png" />
+		</view>
+		<view class="search-content">
+			<image class="image" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.1.3/icon_search.png" />
+			<input bind:blur="handleSearch" class="search-placeholder" placeholder="请输入{{pickerOptions[pickerValue].label}}" />
+		</view>
+	</view>
+	<!-- 消费记录 -->
+	<view wx:if="{{list.length > 0}}" class="record-list">
+		<view class="list-item" wx:for="{{list}}" wx:key="order_no">
+			<view class="top-order-num">
+				<view class="top-order-num-label">订单编号:</view>
+				<view class="top-order-num-content">{{item.order_no}}</view>
+			</view>
+			<view class="list-content">
+				<view class="list-content-image">
+					<image
+					 class="image"
+					 src="{{item.sku_image}}"
+					 data-index="{{index}}"
+					 binderror="skuImgError"
+					/>
+				</view>
+				<view class="list-content-content">
+					<view class="content-item">
+						<view class="content-item-label">商品名称:</view>
+						<view class="content-item-content">{{item.sku_name}}</view>
+					</view>
+					<view class="content-item">
+						<view class="content-item-label">款号:</view>
+						<view class="content-item-content">{{item.style}}</view>
+					</view>
+					<view class="content-item">
+						<view class="content-item-label">员工ID:</view>
+						<view class="content-item-content">{{item.ssociate}}</view>
+					</view>
+					<view class="content-item">
+						<view class="content-item-label">金额:</view>
+						<view class="content-item-content">{{item.amount}}</view>
+					</view>
+					<view class="content-item">
+						<view class="content-item-label">购买日期:</view>
+						<view class="content-item-content">{{item.purchase_date_time}}</view>
+					</view>
+					<view class="content-item">
+						<view class="content-item-label">店铺:</view>
+						<view class="content-item-content">{{item.store_name}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	  <!-- 加载更多 -->
+		<mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+	</view>
+	<!-- 搜索空页面 -->
+	<mp-empty wx:if="{{list.length == 0 && !showLoading}}" icon="customer" content="暂无消费记录～" />
+</view>
+<!-- 加载组件 -->
+<page-loading wx:if="{{showLoading}}" />
+
+
+<!-- 弹窗选择器 - 修改客户沟通意愿 -->
+<mp-picker show="{{showPicker}}" current="{{pickerValue}}" options="{{pickerOptions}}" bind:cancel="handlePickerCancel" bind:confirm="handlePickerConfirm"></mp-picker>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

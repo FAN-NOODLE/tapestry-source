@@ -1,0 +1,46 @@
+SELECT DISTINCT (rc.`work_external_user_id`) as `work_external_user_id`,wu.*,rc.`member_num` FROM `micro_scrm_enterprise_{{.cond.EnterpriseID}}`.`wx_user_corp_external_repeat_customer` rc
+
+{{if and .cond.DepartmentID .cond.MemberID}}
+LEFT JOIN (
+SELECT member_departments.id,member_departments.member_id,work_external_user_relation.work_external_user_id FROM member_departments
+ LEFT JOIN work_external_user_relation on work_external_user_relation.member_id = member_departments.member_id
+  WHERE member_departments.deleted_at = 0
+AND member_departments.department_id = {{.cond.DepartmentID}} and member_departments.enterprise_id={{.cond.EnterpriseID}}
+AND work_external_user_relation.relation_status=0  AND work_external_user_relation.member_id={{.cond.MemberID}}
+) as c on c.work_external_user_id=rc.`work_external_user_id`
+
+{{else if .cond.DepartmentID}}
+LEFT JOIN (
+SELECT member_departments.id,member_departments.member_id,work_external_user_relation.work_external_user_id FROM member_departments
+ LEFT JOIN work_external_user_relation on work_external_user_relation.member_id = member_departments.member_id
+  WHERE member_departments.deleted_at = 0
+AND member_departments.department_id = {{.cond.DepartmentID}} and member_departments.enterprise_id={{.cond.EnterpriseID}}
+AND work_external_user_relation.relation_status=0
+) as c on c.work_external_user_id=rc.`work_external_user_id`
+
+{{else if .cond.MemberID }}
+
+LEFT JOIN work_external_user_relation on work_external_user_relation.work_external_user_id=rc.`work_external_user_id`
+
+{{end}}
+
+LEFT JOIN micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external` wu ON rc.`work_external_user_id` = wu.`id`
+
+
+WHERE wu.`deleted_at` =0
+
+{{if .cond.CustomerName}}
+AND  wu.nick like '%{{SafeStr .cond.CustomerName}}%'
+{{end}}
+
+{{if and .cond.DepartmentID .cond.MemberID}}
+AND c.id>0
+{{else if .cond.DepartmentID}}
+AND c.id>0
+{{else if .cond.MemberID }}
+AND work_external_user_relation.member_id = :member_id AND work_external_user_relation.relation_status=0
+{{end}}
+
+
+
+ORDER BY rc.work_external_user_id DESC LIMIT {{.page.Offset}}, {{.page.Limit}}

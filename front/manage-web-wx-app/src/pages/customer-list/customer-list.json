@@ -1,0 +1,24 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "顾客列表",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "disableScroll": false,
+  "usingComponents": {
+    "customer-list": "../../packages/customer/pages/list/list",
+    "mp-search": "../../components/common/mp-search/index",
+    "custom-loading": "../../components/custom-loading/custom-loading",
+    "com-customer-item": "../../components/customer-components/com-customer-item/com-customer-item",
+    "com-section": "../../components/customer-components/com-section/com-section",
+    "com-filter-popup": "../../components/customer-components/com-filter-popup/com-filter-popup",
+    "com-create-entry": "../../components/customer-components/com-create-entry/com-create-entry",
+    "navigation-bar": "../../components/navigation-bar/navigation-bar",
+    "com-search-entry":"../../components/customer-components/com-search-entry/com-search-entry"
+  },
+  "componentPlaceholder": {
+    "customer-list": "view"
+  }
+}

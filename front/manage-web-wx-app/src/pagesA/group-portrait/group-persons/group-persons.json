@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "群成员列表",
+    "usingComponents": {
+        "tabs": "../components/tabs/tabs",
+        "userList": "../components/user-list/user-list"
+    }
+  }

@@ -1,0 +1,11 @@
+SELECT
+    `id`,
+    `enterprise_id`,
+    `union_id`,
+    `open_id`
+FROM `coupon_user`
+WHERE
+deleted_at = 0
+AND
+user_id=0
+limit 1000

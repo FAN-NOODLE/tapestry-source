@@ -1,0 +1,37 @@
+SELECT
+	`id`,
+	`enterprise_id`,
+	`coupon_id`,
+	`coupon_stock_id`,
+	`coupon_name`,
+	`coupon_value`,
+	`coupon_mininumn`,
+	`coupon_status`,
+	`coupon_stock_status`,
+	`coupon_total`,
+	`use_day_limit`,
+	`max_quota`,
+	`is_send_num`,
+	`coupon_budget`,
+	`scope`,
+	`favor_type`,
+	`start_time`,
+	`end_time`,
+	`is_overlay`,
+	`overlay_coupons`,
+	`channel`,
+	`range`,
+	`range_hide`,
+	`tag_goods`,
+	`tag_name`,
+	`tag_rule_type`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`
+FROM
+	`wx_coupon`
+WHERE
+    `enterprise_id` = ?
+AND
+    `coupon_id` = ?
+LIMIT 1

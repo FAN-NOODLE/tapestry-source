@@ -1,0 +1,22 @@
+<wxs src="./gold-info.wxs" module="tools"></wxs>
+<view class="gold-info">
+  <image
+    class="gold"
+    src="{{imagePath}}/2023/v4.0.8/gold.png"
+  />
+  <view class="content">
+    <view class="left" bind:tap="goCoinsInfo">
+      <view class="gold-text">
+        金币
+        <text class="num">{{tools.goldRound(pageInfo.coins)}}</text>
+      </view>
+    </view>
+    <view class="right" wx:if="{{coins_settings_info.mall_is_open===1}}" bind:tap="getCoinsToken">
+      <view class="text">兑礼中心</view>
+      <image
+        class="arrow"
+        src="{{imagePath}}/2023/v4.0.8/arrow.png"
+      />
+    </view>
+  </view>
+</view>

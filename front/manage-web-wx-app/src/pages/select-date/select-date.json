@@ -1,0 +1,10 @@
+{
+  "navigationBarBackgroundColor": "#FEFFFE",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "选择日期",
+  "backgroundColor": "#000000",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+  }
+}

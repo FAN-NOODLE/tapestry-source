@@ -1,0 +1,23 @@
+SELECT
+    ET.`id` AS tag_id,
+    ET.`tag_id` AS work_tag_id,
+    ET.`name` AS tag_name,
+    ETG.`id` AS group_id,
+    ETG.`group_name`,
+    ETG.`group_id` AS work_group_id,
+    ETG.`updated_at` AS value_update_at,
+    COUNT(UT.`id`) AS use_num
+FROM
+    `work_external_user_tag` AS UT
+RIGHT JOIN `work_external_tag` ET ON ET.`id` = UT.`external_tag_id` AND UT.`deleted_at` = 0
+INNER JOIN `work_external_tag_group` ETG ON ETG.`id` = ET.`group_id`
+LEFT JOIN (SELECT id,tag_name,group_tag_name,MIN(is_extract) is_extract FROM `micro_scrm_enterprise_{{.enterprise_id}}`.`plan_task_downloaded_file` WHERE  deleted_at=0 GROUP BY tag_name,group_tag_name) c 
+ON ET.name =c.tag_name AND ETG.group_name =c.group_tag_name
+WHERE
+    ET.`enterprise_id` = {{.enterprise_id}} AND
+    ET.`deleted_at` = 0 AND
+    ETG.`deleted_at` = 0
+    AND c.id IS NOT NULL
+    AND ET.`type` = {{.type}}
+GROUP BY
+    ET.`id`

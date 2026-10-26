@@ -1,0 +1,38 @@
+SELECT
+	count(fa.id) as count
+FROM
+	`fission_activity` as fa
+LEFT JOIN
+    `drainage_contact_channels` as dcc
+ON
+    fa.channel_id = dcc.id
+WHERE
+	fa.enterprise_id = {{.cond.EnterpriseID}}
+	AND fa.deleted_at = 0
+	{{if ne .cond.Search.ActivityName ""}}
+        AND fa.name like '%{{SafeStr .cond.Search.ActivityName}}%'
+    {{end}}
+    {{if gt .cond.Search.ChannelID 0}}
+        AND fa.channel_id = {{.cond.Search.ChannelID}}
+    {{end}}
+    {{if gt .cond.Search.FissionType 0}}
+        AND fa.fission_type = {{.cond.Search.FissionType}}
+    {{end}}
+    {{if eq .cond.Search.Status 1}}
+            AND fa.start_time > {{.cond.Search.NowTime}}  AND fa.status = 1
+        {{else if eq .cond.Search.Status 2}}
+            AND fa.status = 2 AND  fa.end_time > {{.cond.Search.NowTime}}
+        {{else if eq .cond.Search.Status 3}}
+            AND fa.end_time <= {{.cond.Search.NowTime}}
+        {{else if eq .cond.Search.Status 4}}
+            AND (fa.start_time <= {{.cond.Search.NowTime}} AND fa.end_time >= {{.cond.Search.NowTime}}) AND fa.status = 1
+    {{end}}
+    {{if gt .cond.Search.StartTime 0}}
+       {{if eq .cond.Search.TimeType 1}}
+                AND ((fa.start_time >= {{.cond.Search.StartTime}} AND fa.end_time <= {{.cond.Search.EndTime}})
+                OR (fa.start_time <= {{.cond.Search.EndTime}} AND fa.start_time >= {{.cond.Search.StartTime}})
+                OR (fa.end_time <= {{.cond.Search.EndTime}} AND fa.end_time >= {{.cond.Search.StartTime}}) )
+           {{else}}
+               AND fa.created_at >= {{.cond.Search.StartTime}} AND fa.created_at <= {{.cond.Search.EndTime}}
+       {{end}}
+    {{end}};

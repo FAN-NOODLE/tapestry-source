@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	drainage_contact_channels
+WHERE
+	id = ?

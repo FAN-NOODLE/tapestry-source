@@ -1,0 +1,17 @@
+SELECT
+    COUNT(*) AS `total`
+FROM `coupon_user` AS `cu`
+LEFT JOIN `wx_coupon` AS `wc` ON `cu`.`coupon_id` = `wc`.`coupon_id` AND `wc`.`deleted_at` = 0
+WHERE `cu`.`enterprise_id` = :enterprise_id
+AND `cu`.`deleted_at` = 0
+{{if ne .cond.UserID 0}}
+AND `cu`.`user_id` = :user_id
+{{end }}
+
+{{if ne .cond.UserIdCnt 0}}
+AND `cu`.`user_id` IN ({{WhereIn .cond.UserIds}})
+{{end}}
+
+{{if ne .cond.UnionID ""}}
+AND `cu`.`union_id` = :union_id
+{{end}}

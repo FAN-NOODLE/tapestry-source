@@ -1,0 +1,1 @@
+update work_group_chat_type set deleted_at=unix_timestamp() where id = ? and enterprise_id = ?

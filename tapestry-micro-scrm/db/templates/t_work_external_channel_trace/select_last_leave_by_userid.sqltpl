@@ -1,0 +1,12 @@
+SELECT
+	*
+FROM
+	`work_external_channel_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`external_user_id` = ?
+	AND `enterprise_id` = ?
+	AND `add_channel` = ?
+	AND `leave_time` != 0
+ORDER BY
+	`id` DESC
+	LIMIT 1

@@ -1,0 +1,7 @@
+UPDATE
+    `work_external_tag`
+SET
+    `deleted_at` = {{.deleted_at}}
+WHERE
+    `enterprise_id` = {{.enterprise_id}} AND
+    `id` IN ({{WhereIn .tag_id_list}})

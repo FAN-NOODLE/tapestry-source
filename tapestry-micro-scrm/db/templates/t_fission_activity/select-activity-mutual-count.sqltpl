@@ -1,0 +1,16 @@
+SELECT
+	count(id) as count
+FROM
+	`fission_activity`
+WHERE
+	enterprise_id = {{.cond.EnterpriseID}}
+    AND deleted_at = 0
+    {{if ne .cond.ActivityName ""}}
+        AND name like '%{{SafeStr .cond.ActivityName}}%'
+    {{end}}
+    {{if gt .cond.MutualActivityCount 0}}
+       AND id IN ({{WhereIn .cond.MutualActivityIDs}})
+    {{end}}
+    {{if gt .cond.FilterCount 0}}
+       AND id NOT IN ({{WhereIn .cond.Filter}})
+    {{end}};

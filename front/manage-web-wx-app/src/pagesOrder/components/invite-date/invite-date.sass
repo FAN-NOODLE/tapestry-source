@@ -1,0 +1,107 @@
+@import '~@/style/color-variable'
+.invite-date
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 10
+  .mask
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: rgba(0,0,0,0.55)
+  .content
+    height: vw(400)
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    background: white
+    display: flex
+    justify-content: flex-start
+    .left-date
+      width: vw(90)
+      background: #F6F5F5
+      position: relative
+      padding-bottom: vw(51)
+      flex-shrink: 0
+      .blur-box
+        width: vw(90)
+        height: vw(51)
+        background: linear-gradient(180deg, #F6F5F5 0%, #F6F5F5 100%)
+        filter: blur(2px)
+        position: absolute
+        bottom: 0
+        left: 0
+        z-index: 2
+    .scroll
+      height: vw(349)
+      .item
+        width: vw(90)
+        text-align: center
+        font-size: vw(14)
+        line-height: vw(46)
+        font-weight: 400
+        color: #777777
+        &.active
+          font-family: PingFangSC-Medium, PingFang SC 
+          font-weight: 500
+          color: #4A4A4A
+          background: white
+    .top-title
+      display: flex
+      justify-content: space-between
+      height: vw(46)
+      line-height: vw(14)
+      align-items: center
+      padding-left: vw(20)
+      font-size: vw(14)
+      font-family: PingFangSC-Medium, PingFang SC
+      font-weight: 500
+      color: #4A4A4A
+      position: relative
+      .close-box
+        position: absolute
+        height: vw(46)
+        width: vw(46)
+        padding: vw(19) vw(13) vw(9)
+        top: 0
+        right: 0
+        .icon
+          width: vw(18)
+          height: vw(18)
+    .right-content
+      width: vw(285)
+      .store-invite-date
+        padding-left: vw(13)
+      .scroll-invite
+        height: vw(250)
+        .invite-item
+          display: flex
+          justify-content: space-between
+          align-items: center
+          padding: vw(13) vw(15) vw(15) vw(7)
+          &.none
+            display: none
+          &.active
+            background: #F6F5F5
+          .name
+            font-size: vw(14)
+            color: #4A4A4A
+          .invite
+            font-size: vw(12)
+            color: #BDBEC8
+      .sure-btn
+        width: vw(84)
+        line-height: vw(36)
+        background: #ffffff
+        border: vw(1) solid #000000
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+        text-align: center
+        margin: vw(10) 0 0 vw(185)

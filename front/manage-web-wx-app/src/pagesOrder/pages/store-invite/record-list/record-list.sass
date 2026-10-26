@@ -1,0 +1,188 @@
+@import '../../../../style/color-variable'
+
+.page-record-list
+  min-height: 100vh
+  background-color: #F6F7F9
+  padding-bottom: vw(40)
+  .m-t-15
+    margin-top: vw(15)
+  .m-t-45
+    margin-top: vw(45)
+  .top-select
+    display: flex
+    justify-content: space-around
+    align-items: center
+    height: vw(44)
+    background: #FFFFFF
+    position: sticky
+    top: 0
+    left: 0
+    z-index: 8
+    // padding: 0 vw(15)
+    .select-item
+      display: flex
+      justify-content: center
+      align-items: center
+      font-size: vw(12)
+      color: #4A4A4A
+      width: vw(80)
+      padding: vw(10) 0
+      position: relative
+      &.width-90
+        width: vw(90)
+      .time-style
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+      .font-500
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500 
+      .picker-box
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        .picker
+          height: vw(48)
+          opacity: 0
+      .up-down
+        width: vw(7)
+        height: vw(4)
+        margin-left: vw(4)
+        position: relative
+        top: vw(1)
+      .reset-icon
+        width: vw(10)
+        height: vw(10)
+        margin-left: vw(4)
+        position: relative
+        top: vw(1)
+  .content-list
+    padding: vw(15) vw(15) 0
+    .item
+      // width: vw(345)
+      background: #FFFFFF
+      padding: vw(15)
+      margin-bottom: vw(15)
+      position: relative
+      &::after
+        content: ""
+        clear: both
+        width: vw(347)
+        height: vw(1)
+        background: #F0F0F0
+        position: absolute
+        top: vw(46)
+        left: 0
+      .form-item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        font-size: vw(14)
+        line-height: vw(20)
+        .label
+          color: #96979E
+          flex-shrink: 0
+          margin-right: vw(30)
+      // .status-box    
+      //   display: flex
+      //   justify-content: space-between
+        
+      .status-box-left 
+        position: absolute
+        top: vw(8)
+        left: vw(-6)
+        width: vw(75)  
+        height: vw(32)
+        .txt
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          color: #FFFFFF
+          line-height: vw(32)
+          text-align: center
+          font-size: vw(14)
+          margin-top: vw(-2)
+        .status-txt
+          color: #000  
+        .bg-icon
+          width: vw(75)
+          height: vw(32)
+      .status-box-right
+        position: absolute
+        top: vw(7)
+        right: vw(-6)
+        width: vw(92)
+        height: vw(32)
+        display: flex
+        align-items: center
+        .txt
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          color: #000
+          line-height: vw(33)
+          text-align: center
+          font-size: vw(14)
+          // margin-top: vw(-2)
+        .edit-icon
+          width: vw(16)
+          height: vw(16)   
+      .order-box
+        font-size: vw(14) 
+        padding: vw(15)  
+        background-color: #F3F4F6
+        .order-item
+          display: flex
+          justify-content: space-between
+          flex-direction: row
+        .item-label
+          flex-shrink: 0
+          color: #96979E 
+          display: flex
+          .tips-icon 
+            width: vw(20)
+            height: vw(20)
+            margin-left: vw(5)  
+        .item-value
+          color: #000
+          word-break: break-all 
+        .star-box 
+          display: flex  
+          .star-item
+              display: flex
+              align-items: center 
+              margin-left: vw(4)
+              .star-icon
+                width: vw(17)
+                height: vw(16)
+        .item-box
+          display: flex 
+          .radio-icon 
+            .wx-radio-input  
+              width: vw(17)
+              height: vw(16)
+            .wx-radio-input.wx-radio-input-checked::before
+              font-size: vw(18)
+          .radio-mr
+            margin-right: vw(24)   
+      .item-bottom
+        margin-bottom: vw(15)
+    .item-bg
+      background-image: url("https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/list_bg.png")
+      background-repeat: no-repeat  
+      background-size: vw(200) vw(200)
+      background-position: bottom right    
+  .empty
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    height: vw(200)
+    &-icon
+      margin-top: vw(10)
+      width: vw(66)
+      height: vw(66)

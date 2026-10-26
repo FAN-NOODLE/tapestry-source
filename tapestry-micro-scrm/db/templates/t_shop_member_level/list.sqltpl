@@ -1,0 +1,18 @@
+select
+    id,
+    enterprise_id,
+    level,
+    level_id,
+    level_name,
+    created_at,
+    updated_at
+from
+    `shop_member_level`
+where
+    enterprise_id = {{.cond.EnterpriseID}}
+    {{if gt .cond.LevelCount 0 }}
+        AND level_id  in ({{WhereIn .cond.LevelIDs}})
+    {{end}}
+    AND deleted_at = 0
+ORDER BY
+    level DESC;

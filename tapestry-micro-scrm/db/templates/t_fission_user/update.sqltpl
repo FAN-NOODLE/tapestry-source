@@ -1,0 +1,17 @@
+update
+    fission_user
+set
+  `enterprise_id` = :enterprise_id,
+  `activity_id` = :activity_id,
+  `user_id` = :user_id,
+  `total_assistant_num` = :total_assistant_num,
+  `cur_assistant_num` = :cur_assistant_num,
+  `contact_id` = :contact_id,
+  `fission_num` = :fission_num,
+  `run_away_num` = :run_away_num,
+  `join_group_num` = :join_group_num,
+  `leave_group_num` = :leave_group_num,
+  `created_at` = :created_at,
+  `updated_at` = :updated_at
+where
+    `id` = :id

@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "usingComponents": {
+        "half-screen-dialog": "../../../../components/half-screen-dialog/half-screen-dialog",
+        "toast": "../../../booking-activities/components/toast/toast",
+        "appointment-map": "../appointment-map/appointment-map"
+    }
+ }
+   

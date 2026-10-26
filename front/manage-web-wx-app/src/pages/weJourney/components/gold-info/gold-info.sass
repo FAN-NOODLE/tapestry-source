@@ -1,0 +1,54 @@
+@import '../../../../style/color-variable.sass'
+
+.gold-info
+  position: relative
+  height: vw(39)
+  margin: vw(15) 0
+  font-weight: 400
+  color: #000
+  .gold
+    position: absolute
+    left: vw(-3)
+    z-index: 2
+    width: vw(41)
+    height: vw(50)
+  .content
+    position: absolute
+    left: vw(21)
+    top: 50%
+    transform: translateY(-50%)
+    display: flex
+    justify-content: space-between
+    width: calc( 100% - 42rpx )
+    height: 100%
+    background: linear-gradient(270deg, #F7F7F7 0%, #FFE680 100%)
+    z-index: 1
+    padding-right: vw(7)
+    .left
+      display: flex
+      align-items: center
+      padding-left: vw(27)
+      .gold-text
+        font-size: vw(12)
+        .num
+          font-size: vw(20)
+          font-weight: 600
+    .right
+      position: relative
+      display: flex
+      align-items: center
+      .text
+        font-size: vw(14)
+        font-weight: 600
+      .arrow
+        width: vw(13)
+        height: vw(13)
+      &::after
+        content: ''
+        position: absolute
+        bottom: vw(12)
+        z-index: -1
+        width: 95%
+        height: vw(4)
+        background: #FFCD00
+        border-radius: vw(16)

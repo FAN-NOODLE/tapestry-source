@@ -1,0 +1,4 @@
+
+UPDATE `marketing_strategy_trigger_count` SET  `count` = `count` + 1
+
+WHERE strategy_id = :id

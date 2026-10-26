@@ -1,0 +1,17 @@
+<mp-popup show="{{show}}" position="center" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-content">
+      <image
+        class="left-warn"
+        src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/info.png"
+      />
+      <view class="warn-tips">
+        检测到您当前无门店归属请选择您要查询的门店
+      </view>
+    </view>
+    <view class="footer">
+      <view class="btn plain" bind:tap="handleCancel">取消</view>
+      <view class="btn" bind:tap="handleConfirm">去选择门店 </view>
+    </view>
+  </view>
+</mp-popup>

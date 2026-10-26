@@ -1,0 +1,106 @@
+<wxs module="computed">
+  var formatDate = function (timestamp, format) {
+  if (!format) {
+    format = 'yyyy-MM-dd hh:mm:ss';
+  }
+  timestamp = parseInt(timestamp);
+  var realDate = getDate(timestamp);
+
+  function timeFormat(num) {
+    return num < 10 ? '0' + num : num;
+  }
+  var date = [
+    ['M+', timeFormat(realDate.getMonth() + 1)],
+    ['d+', timeFormat(realDate.getDate())],
+    ['h+', timeFormat(realDate.getHours())],
+    ['m+', timeFormat(realDate.getMinutes())],
+    ['s+', timeFormat(realDate.getSeconds())],
+    ['q+', Math.floor((realDate.getMonth() + 3) / 3)],
+    ['S+', realDate.getMilliseconds()],
+  ];
+  var reg1 = getRegExp('(y+)', 'i').exec(format);
+  // console.log(reg1[0]);
+  if (reg1) {
+    format = format.replace(
+      reg1[1],
+      (realDate.getFullYear() + '').substring(4 - reg1[1].length),
+    );
+  }
+  for (var i = 0; i < date.length; i++) {
+    var k = date[i][0];
+    var v = date[i][1];
+
+    var reg2 = getRegExp('(' + k + ')').exec(format);
+    if (reg2) {
+      format = format.replace(
+        reg2[1],
+        reg2[1].length === 1 ? v : ('00' + v).substring(('' + v).length),
+      );
+    }
+  }
+  return format;
+};
+
+function showValue(value) {
+    if(!value.length) {
+      return ''
+    }
+
+    if(value.length === 1) {
+      return formatDate(value[0])
+    }
+
+    return formatDate(value[0], 'yyyy-MM-dd hh:mm:ss') + '\n' + formatDate(value[1], 'yyyy-MM-dd hh:mm:ss')
+  }
+module.exports = {
+  formatDate: formatDate,
+  showValue: showValue
+};
+</wxs>
+<slot wx:if="{{useSlot}}" bind:tap="show"></slot>
+<view wx:else class="custom-class select" bind:tap="show">
+  <view wx:if="{{!innerValue.length}}" class="select__placeholder">{{computed.showValue(innerValue)}}</view>
+  <view wx:else class="select__value">
+    <text>{{computed.showValue(innerValue)}}</text>
+  </view>
+  <!-- <input class="select__value" value="{{computed.showValue(innerValue)}}" disabled="{{true}}" placeholder="选择素材有效期" placeholder-class="select__placeholder" /> -->
+  <view class="select__icon"></view>
+</view>
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <view class="popup__header">
+      <view class="result {{ current == 0 ? 'active' : '' }}" data-index="{{0}}" bind:tap="handleInputChange">
+        <text wx:if="{{innerValue[0]}}" class="result__input">{{computed.formatDate(innerValue[0], formatter)}}</text>
+        <text wx:else class="result__placeholder">请选择开始时间</text>
+      </view>
+      <view>-</view>
+      <view class="result {{ current == 1 ? 'active' : '' }}" data-index="{{1}}" bind:tap="handleInputChange">
+        <text wx:if="{{innerValue[1]}}" class="result__input">{{computed.formatDate(innerValue[1], formatter)}}</text>
+        <text wx:else class="result__placeholder">请选择结束时间</text>
+      </view>
+    </view>
+    <view class="popup__content">
+        <view class="title">
+          <view>年</view>
+          <view>月</view>
+          <view>日</view>
+          <view>时</view>
+          <view>分</view>
+          <view>秒</view>
+        </view>
+      <view class="date">
+        <picker-view indicator-style="height: 50px;" style="width: 100%; height: 250px;" value="{{columnIndex}}" bindchange="handleDateChange">
+          <picker-view-column wx:for="{{columns}}" wx:for-item="column" wx:key="index">
+            <view wx:for="{{column.values}}" wx:key="index" style="line-height: 50px; text-align: center;">{{item}}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+    <mp-footer fixed="{{false}}">
+      <view class="popup__footer">
+        <view class="btn plain" bind:tap="handleCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确定</view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

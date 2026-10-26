@@ -1,0 +1,23 @@
+SELECT
+    a.name as external_user_name,
+    a.avatar as external_user_avatar,
+    a.openid as external_user_id,
+    b.remark as external_user_remark,
+    c.name as member_name,
+    c.avatar as member_avatar,
+    c.userid as member_user_id,
+    c.id as member_id
+FROM
+    micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external` AS `a`
+JOIN
+    `work_external_user_relation` AS `b`
+ON
+    `a`.`id` = `b`.`work_external_user_id`
+JOIN
+    `members` AS `c`
+ON
+    `b`.`member_id` = `c`.`id`
+WHERE
+    `a`.`openid` = '{{.cond.EXternalUserID}}' AND
+    `c`.`userid` = '{{.cond.MemberUserID}}'
+LIMIT 1;

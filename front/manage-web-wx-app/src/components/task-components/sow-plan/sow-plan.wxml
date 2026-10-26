@@ -1,0 +1,92 @@
+<view class="sow-plan ">
+	<!-- 日历 -->
+	<calendar id="calendar" calendarTime="{{start_time}}" bind:changeDay="changeDay" pageType="2" status="{{calendarStatus}}" />
+	<!-- 导航栏tabs -->
+	<tabs 
+        custom-tab-header="custom-tab-header"
+        custom-tab-item="custom-tab-item"
+        list="{{tabList}}" 
+        currentIndex="{{tabIndex}}" 
+        bind:changeTab="tabChange">
+        <!-- 搜索框 -->
+        <view class="search-box">
+            <view class="search-box-left">
+                <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/search.png" />
+                <input class="text" type="text" maxlength="20" value="{{searchValue}}" bindblur="handleSearch" placeholder="请输入顾客姓名" placeholder-style="color: rgb(197, 200, 205)" />
+            </view>
+           
+            <view class="search-box-right" bindtap="handleFilter">
+                筛选
+                <image class="arrow" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw2.png" />
+            </view>
+        </view>
+
+        <!-- 详细内容 -->
+        <block wx:if="{{!(!pageInfo.loading && list.length === 0)}}">
+            <!-- 播种列表 -->
+            <view class="card sow-plan-item" wx:for="{{list}}" wx:key="index">
+                <view class="sow-plan-item-status {{item.status === 1 ? 'is-error': 'is-success'}}">
+                    {{item.status === 1 ? '待完成': '已完成'}}
+                </view>
+                <view class="sow-plan-item-admin" wx:if="{{item.is_ksa === 1}}">专属</view>
+                <view class="sow-plan-item-title">播种提醒时间: {{item.remind_time_str}}</view>
+                <view class="sow-plan-item-sub_title">{{item.content}}</view>
+                <view class="sow-plan-item-detail">
+                    <view class="line">
+                        <view class="label">顾客姓名：</view>
+                        <view class="value">
+                            <text>{{item.username}}</text>
+                        </view>
+                    </view>
+                    <view class="line">
+                        <view class="label">备注名：</view>
+                        <view class="value">
+                            <text>{{item.nickname || '--'}}</text>
+                        </view>
+                    </view>
+                    <view class="line">
+                        <view class="label">会员等级：</view>
+                        <view class="value">
+                            <text>{{item.grade || '--'}}</text>
+                        </view>
+                    </view>
+                    <!-- <view class="line">
+                        <text>顾客生日：</text>
+                        <text>{{item.birthday || '--'}}</text>
+                    </view> -->
+                </view>
+                <view class="sow-plan-item-btns">
+                    <button class="btn" data-item="{{item}}" bindtap="handleCommunicate">联系顾客</button>
+                    <button 
+                        class="btn primary" 
+                        bindtap="openModel" 
+                        wx:if="{{item.status === 1}}"
+                        data-item="{{item}}"
+                        data-id="{{item.id}}"
+                        >确认完成</button>
+                </view>
+            </view>
+            <!-- 自定义加载中 -->
+            <custom-loading isLoading="{{pageInfo.loading}}" hasMore="{{pageInfo.hasMore}}"></custom-loading>
+        </block>
+        <!-- 当数据为空时展示 -->
+        <mp-empty wx:else icon="task" content="暂无任务"></mp-empty>
+	</tabs>
+
+    <!-- 筛选弹窗 -->
+    <filter-selection 
+        id="filterSelection"
+        result="{{filterResult}}"
+        keys="{{['manage_type', 'card_type', 'clt_type', 'tag_list', 'impression_tag_list']}}"
+        bind:onScroll="onScroll" 
+        bind:confirm="confirm" />
+
+    <!-- 二次确认弹框 -->
+    <message-modal
+        show="{{ showModel }}"
+        description="确认已完成该播种任务？"
+        bindclose="closeModel"
+        bindcancel="closeModel"
+        bindsure="onFinish"
+    ></message-modal>
+</view>

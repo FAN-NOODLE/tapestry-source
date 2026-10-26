@@ -1,0 +1,258 @@
+@import '~@/style/color-variable.sass'
+@import '~@/style/base/arrow'
+.icon-check
+  width: 90rpx
+  height: 88rpx
+  position: relative
+
+  &::after
+    content: ""
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: imgStatic('2023/v4.0.5/icon_check_1.png') center/100% no-repeat
+    opacity: 1
+    z-index: 1
+  &::before
+    content: ""
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: imgStatic('2023/v4.0.5/icon_check_2.png') center/100% no-repeat
+    opacity: 0
+    z-index: 0
+
+  &.active
+    &::after
+      opacity: 0
+      z-index: 0
+    &::before
+      opacity: 1
+      z-index: 1
+
+
+.icon-arrow-down 
+  width: 34rpx
+  height: 34rpx
+  transform: rotate(180deg)
+  @include icon('2023/v4.0.5/icon_arrow_up.png')
+  transition: all 0.3s
+  &.up 
+    transform: rotate(0)
+
+.com-item
+  background-color: #fff
+  box-shadow: 0 vw(3) vw(17) 0 rgba(54,68,58,0.06)
+  display: flex
+  flex-direction: column
+  padding: vw(15)
+  position: relative
+
+
+  .icon-check
+    position: absolute
+    top: -12rpx
+    right: -12rpx
+
+  &__label
+    width: 96rpx
+    height: 36rpx
+    background: #000000
+    border-radius: 0rpx 0rpx 18rpx 0rpx
+    position: absolute
+    top: 0
+    left: 0
+    font-size: 20rpx
+    font-weight: 400
+    color: #FFFFFF
+    text-align: center
+    line-height: 36rpx
+
+  &:not(last-child)
+    margin-bottom: vw(15)
+
+  &__header
+    position: relative
+    display: flex
+    align-items: center
+    padding-bottom: 20rpx
+    border-bottom: vw(1) solid #F2F2F2
+
+    .avatar
+      height: vw(40)
+      width: vw(40)
+      border-radius: 50%
+      margin-right: vw(10)
+    
+    .flex-1
+      flex: 1
+      overflow: hidden
+      padding-left: 15rpx
+    .top-one
+      display: flex
+      align-items: center
+      height: 40rpx
+      line-height: 40rpx
+      padding-right: 60rpx
+      position: relative
+
+      .name
+        font-size: vw(16)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #676767
+        margin-right: vw(10)
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        max-width: 168rpx
+
+      .line
+        width: 2rpx
+        height: 26rpx
+        background-color: #676767
+        margin: 0 10rpx
+      .remark
+        flex: 1
+        display: flex
+        overflow: hidden
+        &-label
+          font-size: 20rpx
+          color: #676767
+        &-value
+          font-size: 28rpx
+          flex: 1
+          overflow: hidden
+          display: flex
+        &-text
+          max-width: 100%
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+      .phone-icon
+        width: vw(18)
+        height: vw(18)
+        margin-right: vw(10)
+        position: absolute
+        right: -12rpx
+        top: 50%
+        transform: translateY(-50%)
+
+    .top-two
+      margin-top: vw(5)
+      width: 100%
+      display: flex
+      align-items: center
+      position: relative
+      padding-bottom: 4rpx
+      .number 
+        position: absolute
+        right: 0
+        bottom: 0
+        font-size: 20rpx
+        font-weight: 400
+        color: #676767
+        line-height: 28rpx
+      .tag
+        width: vw(36)
+        height: vw(18)
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: #404040
+        font-size: vw(10)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #FFFFFF
+      .level, .tag
+        height: vw(18)
+        display: flex
+        justify-content: center
+        align-items: center
+      .level
+        width: vw(38)
+        margin-right: vw(6)
+        flex-shrink: 0
+      .invited
+        width: vw(50)
+        height: vw(18)
+        margin-right: vw(6)
+      .task
+        width: vw(50)
+        height: vw(18)
+        margin-right: vw(6)
+
+      .coupon 
+        width: vw(20)
+        height: vw(18)
+        margin-right: vw(6)
+      .coupon-1
+        width: vw(23)
+        height: vw(18)
+        margin-right: vw(6)
+  &__content
+    flex: 1
+    display: flex
+    flex-wrap: wrap
+    overflow: hidden
+    padding-top: 20rpx
+
+  &__col
+    display: flex
+    align-items: center
+    font-size: vw(12)
+    font-family: PingFangSC-Regular, PingFang SC
+    font-weight: 400
+    color: #676767
+    overflow: hidden
+
+    &:nth-child(1),
+    &:nth-child(2)
+      margin-bottom: 20rpx
+      
+
+    &:nth-child(2n+1)
+      width: vw(171)
+
+    &:nth-child(2n)
+      flex: 1
+    
+    .icon
+      width: vw(12)
+      height: vw(12)
+      margin-right: vw(5)
+      flex-shrink: 0
+
+    .label
+      flex-shrink: 0
+    
+    .value
+      flex: 1
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  &__card:not(:last-child)
+    border-bottom: 1rpx dashed #cccccc
+    padding-bottom: 20rpx
+    margin-bottom: 20rpx
+  &__group
+    &.collapse
+      max-height: vw(110)
+      overflow: hidden
+
+  &__footer
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 20rpx
+    margin-bottom: -20rpx
+    padding: 20rpx 0
+
+    .btn
+      display: flex
+      align-items: center

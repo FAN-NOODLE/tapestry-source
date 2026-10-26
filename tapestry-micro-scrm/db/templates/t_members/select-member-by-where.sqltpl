@@ -1,0 +1,17 @@
+select
+    m.userid
+from
+    members as m
+INNER JOIN
+    member_departments as md on m.id = md.member_id
+WHERE
+    m.enterprise_id = {{.cond.EnterpriseID}} AND
+    m.deleted_at=0
+    {{if gt .cond.MemberID 0}}
+        AND m.id={{.cond.MemberID}}
+    {{end}}
+    {{if gt .cond.DepartmentID 0}}
+        AND md.department_id={{.cond.DepartmentID}}
+    {{end}}
+GROUP BY
+    userid

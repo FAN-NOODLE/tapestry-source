@@ -1,0 +1,8 @@
+SELECT
+	count(id) as count
+FROM
+	sms_send_log
+WHERE
+	`deleted_at` = 0
+	AND `enterprise_id` = :enterprise_id
+ORDER BY `id` DESC

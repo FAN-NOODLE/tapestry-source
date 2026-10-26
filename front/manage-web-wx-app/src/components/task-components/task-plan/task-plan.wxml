@@ -1,0 +1,78 @@
+<wxs module="tools" src="./task-plan.wxs"></wxs>
+<view class="task-plan">
+  <!-- 日历 -->
+  <calendar
+    id="calendar"
+    bind:changeDay="changeDay"
+    pageType="1"
+    status="{{calendarStatus}}"
+    calendarTime="{{start_time}}"
+  />
+  <!-- 导航栏tabs -->
+  <tabs list="{{tabList}}" currentIndex="{{tabIndex}}" bind:changeTab="tabChange">
+    <view class="task-plan-content">
+      <!-- 搜索框 -->
+      <view class="search-box">
+        <image
+          class="search-box-icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/search.png"
+        />
+        <input
+          type="text"
+          maxlength="20"
+          value="{{searchValue}}"
+          bindblur="handleSearch"
+          placeholder="请输入任务计划名称"
+          placeholder-style="color: rgb(197, 200, 205)"
+        />
+      </view>
+
+      <!-- 详细内容 -->
+      <block wx:if="{{planList.length !== 0}}">
+        <!-- 任务列表 -->
+        <view class="card task-plan-item" wx:for="{{planList}}" wx:key="index">
+          <view class="task-plan-item-status {{tools.calcStatusInfo(item.status, 'class')}}">
+            {{tools.calcStatusInfo(item.status, 'name')}}
+          </view>
+          <!-- todo: 右侧提醒 -->
+          <view class="task-plan-item-remind" wx:if="{{item.status ===1 && item.close_tips === 0}}">
+            <view
+              class="task-plan-item-remind-text"
+              data-item="{{item}}"
+              data-name="消息提示内容"
+              data-content="{{item.name}}"
+              bindtap="viewTask"
+            >
+              <text>子任务存在未触达客户</text>
+              <view class="task-plan-item-remind-btn">
+                <text>去查看</text>
+                <image
+                  class="task-plan-item-remind-btn-icon"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/more.png"
+                />
+              </view>
+            </view>
+            <image
+              data-index="{{index}}"
+              data-id="{{item.id}}"
+              bindtap="hideRemind"
+              class="task-plan-item-remind-icon"
+              src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/del.png"
+            />
+          </view>
+          <view class="task-plan-item-title">
+            {{item.name}}
+            <!-- todo:持续标记 -->
+            <view wx:if="{{item.task_type == 2}}" class="name-tag">持续任务</view>
+          </view>
+          <view class="task-plan-item-sub_title">
+            任务有效期：{{start_day ? start_day : item.start + ' ' + '至' + ' ' + item.end}}
+          </view>
+          <view class="task-plan-item-btn" data-item="{{item}}" bindtap="viewTask">查看任务</view>
+        </view>
+      </block>
+      <!-- 当数据为空时展示 -->
+      <mp-empty wx:else icon="task" content="暂无任务" />
+    </view>
+  </tabs>
+</view>

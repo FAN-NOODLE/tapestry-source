@@ -1,0 +1,20 @@
+SELECT
+	a.enterprise_id,
+	a.name,
+	a.chat_id,
+	b.group_chat_id,
+	b.userid,
+	c.id as member_id
+FROM
+	`work_group_chat` AS `a`
+	JOIN `work_group_chat_member` AS `b` ON `a`.`id` = `b`.`group_chat_id`
+	JOIN `members` AS `c` ON `b`.`userid` = `c`.`userid`
+WHERE
+	`a`.`enterprise_id` = {{.enterprise_id}}
+	AND `c`.`enterprise_id` = {{.enterprise_id}}
+	AND `a`.`chat_id` = '{{.chat_id}}'
+	AND `a`.`deleted_at` = 0
+	AND `b`.`type` = 1
+	AND `b`.`status` = 1
+	AND `b`.`deleted_at` = 0
+	AND `c`.`deleted_at` = 0;

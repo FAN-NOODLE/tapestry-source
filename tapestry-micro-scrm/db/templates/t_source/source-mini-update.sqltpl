@@ -1,0 +1,24 @@
+{{if .cond.GroupID}}
+    UPDATE `source` s
+    LEFT JOIN `source_mini_program` sub ON s.id = sub.id
+    SET
+        s.group_id = :group_id,
+        sub.`mini_program_id` = :mini_program_id,
+        sub.`title` = :title,
+        sub.`cover_url` = :cover_url,
+        sub.`path` = :path,
+        sub.`updated_at` = :updated_at
+    WHERE s.`id`=:id
+
+{{else}}
+
+    UPDATE `source_mini_program`
+    SET
+        `mini_program_id` = :mini_program_id,
+        `title` = :title,
+        `cover_url` = :cover_url,
+        `path` = :path,
+        `updated_at` = :updated_at
+    WHERE `id`=:id
+
+{{end}}

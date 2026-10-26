@@ -1,0 +1,20 @@
+select
+    `id`,
+    `enterprise_id`,
+    `name`,
+    `type`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`
+from
+    `user_group`
+where
+    `enterprise_id` = {{.cond.EnterpriseID}}
+{{if .cond.Search}}
+and
+    `name` like "%{{SafeStr .cond.Search}}%"
+{{end}}
+and
+    `deleted_at` = 0
+LIMIT
+    {{.page.Offset}}, {{.page.Limit}}

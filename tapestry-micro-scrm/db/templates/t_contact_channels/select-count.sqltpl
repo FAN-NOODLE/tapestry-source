@@ -1,0 +1,13 @@
+SELECT
+COUNT(*) AS `total`
+FROM `drainage_contact_channels`
+WHERE
+`enterprise_id` = :enterprise_id
+AND `deleted_at` = 0
+{{if ne .cond.ChannelName ""}}
+    AND `name` LIKE '%{{SafeStr .cond.ChannelName}}%'
+{{end }}
+{{if ne .cond.ChannelID 0}}
+    AND `id` = {{.cond.ChannelID}}
+{{end }}
+;

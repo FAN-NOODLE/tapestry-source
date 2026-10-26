@@ -1,0 +1,600 @@
+{
+  "placeholder": "REDACTED_FOR_SOURCE_SHARING",
+  "locations": [
+    {
+      "path": "front/manage-web-wx-app/README.md",
+      "line": 28,
+      "reason": "documentation_credential"
+    },
+    {
+      "path": "front/manage-web-wx-app/README.md",
+      "line": 31,
+      "reason": "documentation_credential"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/lib/cdp.config.js",
+      "line": 4,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/lib/cdp.config.js",
+      "line": 5,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/lib/config.js",
+      "line": 15,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/pages/weJourney/points/points.js",
+      "line": 159,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/pages/weJourney/utils.js",
+      "line": 140,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/utils/mock/withdrawal.js",
+      "line": 131,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/utils/upload/cos.js",
+      "line": 39,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/manage-web-wx-app/src/utils/upload/cos.js",
+      "line": 40,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/tapestry-work-web-h5/src/utils/env-config.ts",
+      "line": 10,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/tapestry-work-web-h5/src/utils/env-config.ts",
+      "line": 14,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/tapestry-work-web-h5/src/utils/env-config.ts",
+      "line": 30,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/tapestry-work-web-h5/src/utils/env-config.ts",
+      "line": 33,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "front/tapestry-work-web-h5/src/utils/env-config.ts",
+      "line": 46,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "micro-download/internal/common/source/source_restful.go",
+      "line": 37,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-authority/src/app/Common/Constant.php",
+      "line": 41,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/App/V1/EnterpriseAdmin/ResetPasswordController.php",
+      "line": 32,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Callback/TesterController.php",
+      "line": 72,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V1/Auth/InstallAppController.php",
+      "line": 39,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V1/Auth/InstallAppController.php",
+      "line": 40,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V1/Auth/UcCallbackController.php",
+      "line": 20,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V2/Auth/InstallAppController.php",
+      "line": 38,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V2/Auth/InstallAppController.php",
+      "line": 39,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V2/Auth/InstallSessionArchivingAppController.php",
+      "line": 32,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V2/Auth/InstallSessionArchivingAppController.php",
+      "line": 33,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Http/Controllers/Service/V2/Auth/UcCallbackController.php",
+      "line": 21,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/app/Jobs/SendEmailJob.php",
+      "line": 14,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/composer.json",
+      "line": 84,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/composer.json",
+      "line": 129,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-boss/src/database/seeds/DatabaseSeeder.php",
+      "line": 16,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/app/Http/Controllers/App/V1/Common/AgentQYLoginController.php",
+      "line": 20,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/app/Http/Controllers/App/V1/Common/AgentQYLoginController.php",
+      "line": 22,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/app/Http/Controllers/App/V1/Common/AgentQYLoginController.php",
+      "line": 76,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/app/Http/Controllers/App/V1/Reserve/WechatMiniLoginController.php",
+      "line": 38,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/app/Http/Controllers/App/V1/Reserve/WechatMiniLoginController.php",
+      "line": 41,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/composer.json",
+      "line": 85,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-assistant/src/composer.json",
+      "line": 130,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/composer.json",
+      "line": 61,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/composer.json",
+      "line": 104,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/BaseTest.php",
+      "line": 21,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/BaseTest.php",
+      "line": 38,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/V1/Admin/IndexTest.php",
+      "line": 23,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/V1/Admin/IndexTest.php",
+      "line": 49,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/V1/Admin/IndexTest.php",
+      "line": 50,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-console/src/tests/App/V1/Admin/IndexTest.php",
+      "line": 51,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/download/delivery/http/auto_download_test.go",
+      "line": 22,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/download/delivery/http/auto_download_test.go",
+      "line": 23,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/user/delivery/http/handle.go",
+      "line": 181,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/user/delivery/http/handle.go",
+      "line": 496,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/user/delivery/http/handle.go",
+      "line": 498,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/modules/user/sendcloud_entity.go",
+      "line": 7,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/pkg/common/client.go",
+      "line": 119,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-gw-scrm/internal/pkg/sdk/common.go",
+      "line": 63,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-gw-scrm/pkg/micro-scrm-sdk/microScrm/base.go",
+      "line": 24,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-gw-work-scrm/internal/pkg/http/client.go",
+      "line": 45,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-gw-work-scrm/internal/pkg/sdk/common.go",
+      "line": 58,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-gw-work-scrm/internal/pkg/sdk/microscrm/base.go",
+      "line": 26,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/db/migrations/000010_3.4.20_fission_activity.up.sql",
+      "line": 213,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/http/handle/online_warehouse/order.go",
+      "line": 298,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/job/online_warehouse/order_notice.go",
+      "line": 97,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/job/test.go",
+      "line": 19,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/service/store_visit/main.go",
+      "line": 276,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/service/store_visit/main.go",
+      "line": 962,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/service/store_visit/main.go",
+      "line": 1375,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/app/service/store_visit/main.go",
+      "line": 1464,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/config/coach_kos_test.go",
+      "line": 17,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/modules/command/delivery/job/sftp_config.go",
+      "line": 39,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/helper/rc4_encode.go",
+      "line": 10,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/http/client.go",
+      "line": 45,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/kms/tencent_client_test.go",
+      "line": 14,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/kms/tencent_client_test.go",
+      "line": 15,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/sdk/cgema/client_test.go",
+      "line": 28,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/sdk/common.go",
+      "line": 57,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/sdk/work/work.go",
+      "line": 34,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/internal/pkg/sdk/work/work.go",
+      "line": 403,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-micro-scrm/scripts/generate_kos_weclient_customer_doc.py",
+      "line": 359,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-micro-scrm/scripts/test_generate_kos_weclient_customer_doc.py",
+      "line": 40,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-micro-scrm/source/crmSftpKey/dev/private.asc",
+      "line": 1,
+      "reason": "private_key_file_content"
+    },
+    {
+      "path": "tapestry-micro-scrm/source/crmSftpKey/prod/private.asc",
+      "line": 1,
+      "reason": "private_key_file_content"
+    },
+    {
+      "path": "tapestry-micro-scrm/source/crmSftpKey/uat/private.asc",
+      "line": 1,
+      "reason": "private_key_file_content"
+    },
+    {
+      "path": "tapestry-work/src/app/Console/Commands/TestCommand.php",
+      "line": 97,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Console/Commands/TestCommand.php",
+      "line": 152,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Console/Commands/TestCommand.php",
+      "line": 153,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Console/Commands/TestCommand.php",
+      "line": 154,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Http/Controllers/Service/V1/Enterprise/UcCallbackController.php",
+      "line": 21,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Http/Controllers/Service/V1/SubscribeMessage/SendMessageController.php",
+      "line": 57,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Cmq/TopicDemo.php",
+      "line": 88,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Cmq/TopicDemo.php",
+      "line": 89,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Qy_callback/callbackverify.php",
+      "line": 5,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Qy_callback/callbackverify.php",
+      "line": 6,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Qy_callback/Sample.php",
+      "line": 6,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Library/Qy_callback/Sample.php",
+      "line": 7,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/CoachCore/Config.php",
+      "line": 11,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/CoachCore/Config.php",
+      "line": 22,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/CoachCore/Config.php",
+      "line": 30,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/CoachCore/ConfigSW.php",
+      "line": 14,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/CoachCore/ConfigSW.php",
+      "line": 22,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/KsCore/Config.php",
+      "line": 29,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/KsCore/Config.php",
+      "line": 34,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/SwCoupon/SwCouponClient.php",
+      "line": 24,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/SwCoupon/SwCouponClient.php",
+      "line": 25,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/SwCoupon/SwCouponClient.php",
+      "line": 32,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/Active/CRM/SwCoupon/SwCouponClient.php",
+      "line": 33,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/CDP/Coach/Config.php",
+      "line": 9,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/CDP/Coach/Config.php",
+      "line": 15,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/CDP/Coach/Request.php",
+      "line": 99,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/EcHub/Config.php",
+      "line": 9,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/EcHub/Config.php",
+      "line": 10,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/EcHub/Config.php",
+      "line": 15,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/EcHub/Config.php",
+      "line": 16,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/MaPlan/Coach/Config.php",
+      "line": 11,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/MaPlan/Coach/Config.php",
+      "line": 13,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Sdk/MaPlan/Coach/Config.php",
+      "line": 18,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/app/Services/SettlementCallbackService.php",
+      "line": 103,
+      "reason": "same_credential_value"
+    },
+    {
+      "path": "tapestry-work/src/app/Services/SettlementCallbackService.php",
+      "line": 104,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/composer.json",
+      "line": 83,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/composer.json",
+      "line": 127,
+      "reason": "credential_literal"
+    },
+    {
+      "path": "tapestry-work/src/tests/TestCase.php",
+      "line": 30,
+      "reason": "same_credential_value"
+    }
+  ]
+}

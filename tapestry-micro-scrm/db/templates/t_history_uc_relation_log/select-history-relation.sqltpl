@@ -1,0 +1,13 @@
+select
+  `id`,
+  `to_user_name`,
+  `create_time`,
+  `change_type`,
+  `user_id`,
+  `external_user_id`,
+  `state`,
+  `status`
+from `history_uc_relation_log`
+where
+  `status` = ?
+LIMIT ?,?

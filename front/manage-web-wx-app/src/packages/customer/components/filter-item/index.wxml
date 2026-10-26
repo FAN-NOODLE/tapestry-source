@@ -1,0 +1,64 @@
+<wxs src="./index.wxs" module="computed"></wxs>
+
+<view class="item">
+  <view class="item-head">
+    <view class="item-title">
+      <text>{{item.label}}</text>
+      <slot name="title"></slot>
+      <image class="icon-tips" wx:if="{{item.tips && item.tips.length}}" data-item="{{o}}" bind:tap="handleTips"  src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/tips.png" />
+    </view>
+    <view class="expand" wx:if="{{showExpand}}" bind:tap="handleExpand">
+      {{ expand ? '折叠' : '展开' }}
+      <image class="icon {{expand ? 'rotate' : ''}}" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+    </view>
+    <slot wx:else name="more"></slot>
+  </view>
+  <view class="item-content {{expand ? '' : showExpand ? 'min':''}}">
+    <!-- 特殊样式 -->
+    <block wx:if="{{item.key === 'card_type' && options.length > 3}}">
+      <view class="text">Acquisition</view>
+      <mp-row gutter="12">
+        <block wx:for="{{options}}" wx:for-item="s" wx:for-index="i" wx:key="i">
+          <mp-col wx:if="{{i<2}}" span="{{6}}">
+            <view class="select {{ computed.isSelected(s.key, innerValue) ?'active':''}}" data-key="{{s.key}}" bind:tap="handleSelect">{{s.value}}</view>
+          </mp-col>
+        </block>
+          
+      </mp-row>
+      <view class="text">Retention</view>
+      <mp-row gutter="12">
+        <block wx:for="{{options}}" wx:for-item="s" wx:for-index="i" wx:key="i">
+          <mp-col wx:if="{{i>=2}}" span="{{6}}">
+            <view class="select {{ computed.isSelected(s.key, innerValue) ?'active':''}}" data-key="{{s.key}}" bind:tap="handleSelect">{{s.value}}</view>
+          </mp-col>
+        </block>
+      </mp-row>
+    </block>
+      
+    <!-- 单选择 -->
+    <mp-row wx:elif="{{item.type === 1||item.type === 2}}" gutter="12">
+      <mp-col span="{{computed.isLong(s.value) ? 12 : item.span}}" wx:for="{{options}}" wx:for-item="s" wx:for-index="i" wx:key="i">
+        <view class="select {{ computed.isSelected(s.key, innerValue) ?'active':''}}" data-key="{{s.key}}" bind:tap="handleSelect">{{s.value}}</view>
+      </mp-col>
+    </mp-row>
+    <!-- 选择时间范围 -->
+    <view wx:if="{{item.type === 3}}" class="input-range" bind:tap="handleSelectDate">
+      <input class="input" value="{{computed.formatDate(innerValue[0], 'yyyy/MM/dd')}}" disabled="{{true}}" placeholder="开始时间" placeholder-class="placeholder" />
+      <view class="line"></view>
+      <input class="input" value="{{computed.formatDate(innerValue[1], 'yyyy/MM/dd')}}" disabled="{{true}}" placeholder="结束时间" placeholder-class="placeholder" />
+    </view>
+    <!-- 输入范围 -->
+    <view wx:if="{{item.type === 4}}" class="input-range">
+      <input class="input" type="number" value="{{innerValue.start_number}}" placeholder="请输入" placeholder-class="placeholder" data-key="start_number" bind:input="handleInput" />
+      <view class="line"></view>
+      <input class="input" type="number" value="{{innerValue.end_number}}" placeholder="请输入" placeholder-class="placeholder" data-key="end_number" bind:input="handleInput" />
+    </view>
+  </view>
+</view>
+
+<!-- <com-tip-popup
+  show="{{showTip}}" 
+  title="{{item.label}}" 
+  list="{{item.tips}}" 
+  bind:close="handleTips"
+></com-tip-popup> -->

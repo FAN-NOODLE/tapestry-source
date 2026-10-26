@@ -1,0 +1,18 @@
+<view class="item">
+  <view wx:if="{{item.self_relation_status == 0}}" class="icon-check {{selected ? 'active':'active1'}}" data-item="{{item}}" bind:tap="handleSelect"></view>
+  <view class="item-user" bind:tap="handleViewDetail">
+    <view class="item-avatar">
+      <mp-image src="{{item.avatar}}"></mp-image>
+    </view>
+    <view class="item-name">{{item.name||item.nick}}</view>
+    <view class="item-tag" wx:if="{{item.self_relation_status == 0}}">好友</view>
+    <view class="item-tag gray" wx:else>非好友</view>
+  </view>
+  <view class="item-footer">
+    <view class="flex-1 flex">
+      <view class="phone" bind:tap="handleCall">电话</view>
+      <view class="message" bind:tap="handleSendMessage">发消息</view>
+    </view>
+    <view class="btn {{item.is_contact == 1? 'disabled':''}}" data-item="{{item}}" bind:tap="handleContact">{{item.is_contact == 1?'已联系':'标记已联系'}}</view>
+  </view>
+</view>

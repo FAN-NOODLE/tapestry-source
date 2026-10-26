@@ -1,0 +1,24 @@
+SELECT
+  `id`,
+  `enterprise_id`,
+  `chat_id`,
+  `name`,
+  `type`,
+  `owner_member_id`,
+  `notice`,
+  `create_time`,
+  `status`,
+  `dissolve_time`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`,
+  `member_num`,
+  `admin_list`,
+  `chat_type_id`,
+  `channel_id`,
+  `chat_target`,
+  `operator_member_id`
+ FROM `work_group_chat` WHERE `deleted_at` = :deleted_at AND `enterprise_id` = :enterprise_id
+{{if ne .cond.ChatID "" }} AND `chat_id` = :chat_id {{end }}
+{{if .cond.ID}} AND `id` = :id {{end }}
+LIMIT 1;

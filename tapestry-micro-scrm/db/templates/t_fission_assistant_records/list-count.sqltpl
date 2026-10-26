@@ -1,0 +1,7 @@
+select
+    count(*) as count
+from fission_assistant_records
+where
+    activity_id = {{.cond.activity_id}}
+and
+    fission_user_id = {{.cond.user_id}}

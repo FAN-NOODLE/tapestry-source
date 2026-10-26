@@ -1,0 +1,42 @@
+SELECT
+	`id`,
+	`enterprise_id`,
+	`admin_id`,
+	`template_id`,
+	`template_name`,
+	`template_sign_id`,
+	`message_template`,
+	`template_content`,
+	`template_html`,
+	`message_str`,
+	`status`,
+	`type`,
+	`fail_reason`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`
+FROM
+	sms_template
+WHERE
+`deleted_at` = 0
+ AND `enterprise_id` = :enterprise_id
+{{if eq .cond.SearchType 1}}
+    AND `template_id` LIKE '%{{SafeStr .cond.SearchText}}%'
+{{end}}
+{{if eq .cond.SearchType 2}}
+    {{if ne .cond.SearchText ""}}
+        AND `template_name` LIKE '%{{SafeStr .cond.SearchText}}%'
+    {{end}}
+{{end}}
+{{if eq .cond.SearchType 3}}
+    AND `message_template` LIKE '%{{SafeStr .cond.SearchText}}%'
+{{end}}
+{{if ne .cond.Status 0}}
+    AND `status` = :third_sign_status
+{{end}}
+{{if ne .cond.TemplateIdCnt 0}}
+    AND `id` IN ({{WhereIn .cond.TemplateIds}})
+{{end}}
+ORDER BY `created_at` DESC
+LIMIT
+	{{.page.Offset}}, {{.page.Limit}}

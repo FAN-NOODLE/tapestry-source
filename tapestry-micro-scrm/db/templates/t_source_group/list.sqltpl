@@ -1,0 +1,9 @@
+SELECT
+	`id`,
+    `enterprise_id`,
+    `group_name`
+FROM
+	`source_group`
+WHERE `enterprise_id` = :enterprise_id
+AND `deleted_at` = 0
+ORDER BY `id` ASC

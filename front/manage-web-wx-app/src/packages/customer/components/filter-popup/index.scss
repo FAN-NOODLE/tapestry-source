@@ -1,0 +1,447 @@
+@import '~@/style/color-variable';
+@import '~@/style/mixin';
+.popup {
+  height: 95vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  
+  .popup-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .popup-aside {
+    width: 180rpx;
+    height: 100%;
+    background: #F6F5F5;
+  }
+
+  .popup-main {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .popup-footer {
+    width: 750rpx;
+    padding: 30rpx 0;
+    box-sizing: border-box;
+    box-shadow: 0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.15);
+
+    .flex {
+      padding: 0 30rpx;
+    }
+  }
+
+  .group-item {
+    width: 180rpx;
+    height: 92rpx;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    color: #A6A6A6;
+    transition: all 0.3s;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4rpx;
+      height: 100%;
+      background: #F6F5F5;
+      transition: all 0.3s;
+    }
+
+    &.active {
+      background: #FFFFFF;
+      font-weight: bold;
+      font-size: 28rpx;
+      color: #000000; 
+
+      &::after {
+        content: "";
+        background: #000000;
+      }
+    }
+  }
+
+  .group {
+    padding: 20rpx 22rpx 0 16rpx;
+
+    .group-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22rpx;
+      color: #A6A6A6;
+      line-height: 30rpx;
+
+      &::after,
+      &::before {
+        content: "";
+        flex: 1;
+        height: 2rpx;
+        background-color: #F0F0F0;
+      }
+
+      &::after {
+        margin-left: 16rpx;
+      }
+      &::before {
+        margin-right: 16rpx;
+      }
+    }
+
+    .group-content {
+      margin-top: 22rpx;
+    }
+
+    &:first-child {
+      padding-top: 30rpx;
+    }
+    &:last-child {
+      padding-bottom: 30rpx;
+    }
+  }
+
+  .scroll-view {
+    width: 100%;
+    height: 100%; 
+  }
+
+  .switch {
+    width: 136rpx;
+    height: 40rpx;
+    border-radius: 20rpx;
+    border: 2rpx solid #000000;
+    display: flex;
+    position: relative;
+
+    .switch-item {
+      flex: 1;
+      height: 100%;
+      font-size: 22rpx;
+      color: #000000;
+      z-index: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active {
+        color: #fff;
+      }
+    }
+
+    &::after {
+      content: "";
+      width: 50%;
+      height: 100%;
+      border-radius: 20rpx;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #000;
+      transition: all 0.3s;
+    }
+
+    &.active-1::after {
+      left: 0;
+    }
+    &.active-2::after {
+      left: 50%;
+    }
+  }
+
+  .tip-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24rpx;
+    color: #A6A6A6;
+    text-decoration: underline;
+    padding: 30rpx;
+
+    &::after{
+      content: '';
+      display: block;
+      width: 28rpx;
+      height: 28rpx;
+      background: url(https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/tips.png) center/100% no-repeat
+    }
+  }
+
+  .flex {
+    display: flex;
+    .btn {
+      flex: 1;
+      height: 80rpx;
+      background: #000000;
+      color: #fff;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28rpx;
+      min-width: 156rpx;
+
+      &.plain {
+        color: #000;
+        background-color: #fff;
+      }
+
+      &.disabled {
+        background-color: #A6A6A6;
+      }
+      
+      &:not(:last-child) {
+        margin-right: 20rpx;
+      }
+
+      &:nth-child(3) {
+        width: 336rpx;
+        flex: auto;
+      }
+    }
+  }
+
+  .tips {
+    font-weight: 400;
+    font-size: 18rpx;
+    color: #A6A6A6;
+    line-height: 25rpx;
+    margin-top: 4rpx;
+    text-align: right;
+    position: relative;
+    padding-right: 102rpx;
+
+    .num {
+      padding: 0 5rpx;
+      color: #000;
+    }
+
+    .tips-num {
+      position: absolute;
+      right: 30rpx;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 216rpx;
+      text-align: center;
+    }
+  }
+
+  .btn-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    color: #000000;
+    line-height: 36rpx;
+    text-decoration-line: underline;
+    margin-top: 20rpx;
+
+    &::after {
+      content: "";
+      width: 14rpx;
+      height: 14rpx;
+      background: url("https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png") center/100% no-repeat;
+      transform: rotate(-90deg);
+      margin-left: 10rpx;
+    }
+  }
+
+  .selected {
+    display: flex;
+    align-items: center;
+    margin-top: -30rpx;
+    &.hide {
+      display: none;
+    }
+    
+    .selected-label {
+      font-weight: 400;
+      font-size: 28rpx;
+      color: #999999;
+      line-height: 40rpx;
+      padding-left: 30rpx;
+    }
+
+    .selected-value {
+      flex: 1;
+      overflow: hidden;
+      margin-left: 16rpx;
+      height: 80rpx;
+
+      .scroll-view {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        height: 80rpx;
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .item {
+        margin: 20rpx 16rpx 20rpx 0;
+        height: 40rpx;
+        background: #4A4A4A;
+        border-radius: 20rpx;
+        color: #fff;
+        font-size: 20rpx;
+        padding: 0 16rpx;
+        border-radius: 40rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        position: relative;
+
+        .item-del {
+          position: absolute;
+          top: -6rpx;
+          right: -6rpx;
+          width: 24rpx;
+          height: 24rpx;
+          background: imgUrl('/static/wxapp/v5.0.6/icon_del.png') center/100% no-repeat;
+        }
+      }
+    }
+  }
+
+}
+
+.remark {
+  font-size: 20rpx;
+  color: #666666;
+  line-height: 28rpx;
+  margin-top: 20rpx;
+  margin-left: 10rpx;
+
+  .num {
+    color: #000;
+    font-weight: bold;
+    padding: 0 5rpx;
+  }
+}
+
+.popup-message {
+  width: 650rpx;
+  background: #FFFFFF;
+  position: relative;
+  padding: 30rpx;
+  box-sizing: border-box;
+
+  .popup-close {
+    position: absolute;
+    width: 96rpx;
+    height: 96rpx;
+    right: 0;
+    top: 0;
+    background: imgUrl('/static/wxapp/v5.0.6/icon_popup_close.png') center/36rpx 36rpx no-repeat;
+  }
+
+  .popup-content {
+    padding-top: 50rpx;
+
+    .icon {
+      width: 100rpx;
+      height: 100rpx;
+      margin: auto;
+      background: imgUrl('/static/wxapp/v5.0.6/icon_fail.png') center/100% no-repeat;
+      margin-bottom: 30rpx;
+    }
+    .icon-success {
+      width: 100rpx;
+      height: 100rpx;
+      margin: auto;
+      background: imgUrl('/static/wxapp/v5.0.6/icon_success.png') center/100% no-repeat;
+      margin-bottom: 30rpx;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 32rpx;
+      color: #000000;
+      line-height: 45rpx;
+      text-align: center;
+    }
+
+    .text {
+      text-align: center;
+      font-weight: 400;
+      font-size: 28rpx;
+      color: #000000;
+      line-height: 40rpx;
+    }
+  }
+  
+  .popup-footer {
+    display: flex;
+    margin-top: 50rpx;
+
+    .btn {
+      flex: 1;
+      height: 72rpx;
+      background: #000000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28rpx;
+      box-sizing: border-box;
+
+      &.plain {
+        color: #000;
+        background-color: #fff;
+        border: 1rpx solid;
+      }
+
+      &:nth-child(2) {
+        margin-left: 20rpx;
+      }
+    }
+  }
+
+  .btn-text {
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 30rpx;
+    font-size: 28rpx;
+    color: #000000;
+    line-height: 36rpx;
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: "";
+    position: relative;
+    background: imgUrl('/static/wxapp/common/icon_loading.png') center/100% no-repeat;
+    animation: circle infinite 0.75s linear;
+    width: 24rpx;
+    height: 24rpx;
+    margin-left: 4rpx;
+  }
+
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0)
+  }
+  
+  100% {
+    transform: rotate(360deg)
+  }
+}

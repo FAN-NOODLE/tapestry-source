@@ -1,0 +1,12 @@
+SELECT
+ a.`id` as relation_id,
+ a.`work_external_user_id` as work_external_user_id,
+ b.`openid` as external_userid,
+ c.`userid` as member_userid,
+ c.`name` as member_name,
+ a.`description` as description
+FROM `work_external_user_relation` as a
+  left join micro_scrm_enterprise_{{.enterprise_id}}.wx_user_corp_external as b on a.work_external_user_id = b.id
+  left join members as c on a.member_id = c.id
+WHERE
+a.id = {{.id}}

@@ -1,0 +1,105 @@
+@import '~@/style/color-variable'
+
+.custom-dialog
+  background-color: transparent
+  .close
+    width: 100%
+    height: vw(42)
+    display: flex
+    justify-content: flex-end
+    padding-right: vw(17)
+    .close-icon
+      @include renderImg('2022/v2.8.0/close.png')
+      width: vw(22)
+      height: vw(23)
+  .header
+    height: vw(80)
+    background-color: #fff
+    opacity: 0.7
+    @include flex
+    flex-direction: column
+    .title
+      @include fontStyle(18, 500, #000000, 25)
+    .sub-title
+      margin-top: vw(4)
+      @include fontStyle(14, 500, #000000, 20)
+  .body
+    background: #fff
+    position: relative
+    padding: vw(43) vw(15) vw(16) vw(15)
+    .is-check
+      background: #622A15
+    .success-check
+      background: #A3A3A3
+    .over-check
+      background: #CECECE
+    .status
+      width: vw(82)
+      height: vw(32)
+      position: absolute
+      top: 0
+      right: 0
+      @include flex
+      @include fontStyle(14, 400, #FFF, 20)
+    .text-mg
+      margin: 0 vw(25)
+    .title
+      @include fontStyle(14, 500, #000000, 20)
+      margin-bottom: vw(15)
+    .content
+      @include fontStyle(14, 400, #000000, 20)
+      display: flex
+      margin-bottom: vw(10)
+      .content-label
+        flex-shrink: 0
+    .code-box
+      @include flex
+      flex-direction: column
+      .content
+        // margin-bottom: vw(6)
+      image
+        width: vw(160)
+        height: vw(160)
+      .cover-mask
+        position: relative
+        overflow: hidden
+        padding-bottom: vw(30)
+        &::after
+          content: ''
+          position: absolute
+          top: 0
+          width: vw(160)
+          height: vw(160)
+          background-color: rgba(255, 255, 255, 0.9)
+    .look-map
+      margin: vw(5) vw(39) 0 0
+      display: flex
+      justify-content: flex-end
+      &-text
+        @include underline
+        @include fontStyle(14, 400, #000000, 18)
+    .split-line
+      margin: vw(20) vw(20) vw(26) vw(20)
+      height: vw(1)
+      background-image: linear-gradient(to left, transparent 0%, transparent 50%,#D0D0D0  50%,#D0D0D0  100%)
+      background-size: vw(10) vw(1)
+      background-repeat: repeat-x
+    .isIosBottom
+        padding-bottom: vw(16) !important
+    .btns
+      margin-top: vw(45)
+      display: flex
+      justify-content: space-between
+      button
+        margin-right: vw(15)
+        width: 100%
+        height: vw(36)
+        @include fontStyle(14, 400, #FFFFFF, 0)
+        @include flex
+        &:last-child
+          margin-right: 0
+      .is-update
+        background: #000000
+      .is-cancel
+        border: vw(1) solid #000000
+        color: #000000

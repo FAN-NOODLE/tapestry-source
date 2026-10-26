@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "com-popup-search-type": "../com-popup-search-type/com-popup-search-type"
+  }
+}

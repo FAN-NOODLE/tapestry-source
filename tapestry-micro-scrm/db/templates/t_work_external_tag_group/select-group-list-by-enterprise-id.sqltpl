@@ -1,0 +1,6 @@
+SELECT
+    TG.*
+FROM
+    `work_external_tag_group`  AS  TG
+WHERE
+    TG.`enterprise_id` = :enterprise_id

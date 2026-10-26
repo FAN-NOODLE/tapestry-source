@@ -1,0 +1,1 @@
+SELECT `id`,`enterprise_id`,`admin_id`,`type`,`status`,`created_at`,`updated_at` FROM `department_update_records` WHERE `enterprise_id` = ? AND `deleted_at` = 0 AND `status` = 2 ORDER BY `updated_at` DESC LIMIT 1;

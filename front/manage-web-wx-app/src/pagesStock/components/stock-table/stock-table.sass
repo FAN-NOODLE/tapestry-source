@@ -1,0 +1,173 @@
+page
+  font-weight: 400
+
+::-webkit-scrollbar
+  width: 0
+  height: 0
+  color: transparent
+
+.table
+  width: 100%
+  height: 100%
+  &__head
+    position: sticky
+    top: 0
+    left: 0
+    display: grid
+    grid-auto-flow: column
+    grid-gap: 0
+    z-index: 66
+    font-size: 22rpx
+    color: #7F7F7F
+    will-change: transform
+    background-color: #F6F7F9
+    &__td
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 20rpx 10rpx
+      box-sizing: border-box
+      &__text
+        display: inline
+        .sort-icon
+          width: 10rpx
+          height: 20rpx
+
+  &__row
+    position: relative
+    display: grid
+    grid-auto-flow: column
+    grid-gap: 0
+    &:nth-child(odd)
+      background-color: #F6F7F9
+    &:nth-child(odd)  &__td:last-child
+      background-color: #F6F7F9
+    &__td
+      display: flex
+      justify-content: center
+      align-items: center
+      min-height: 64rpx
+      padding: 20rpx 10rpx
+      font-size: 24rpx
+      word-break: break-word
+      word-wrap: break-word
+      box-sizing: border-box
+      &__text
+        display: inline
+
+      &__image
+        width: 80rpx !important
+        height: 80rpx !important
+        position: relative
+        .num
+          width: 28rpx
+          height: 28rpx
+          border-radius: 50%
+          position: absolute
+          top: 0
+          left: 0
+          background: rgba(0,0,0,0.5)
+          color: #fff
+          font-size: 20rpx
+          display: flex
+          align-items: center
+          justify-content: center
+          z-index: 1
+      &__search
+        .search-image
+          position: relative
+          top: -1rpx
+          width: 10rpx
+          height: 12rpx
+      &__link
+        color: #419DD7
+        text-decoration: underline
+      &__icon
+        .phone-image
+          width: 44rpx
+          height: 44rpx
+  .left
+    justify-content: flex-start
+    padding-left: 30rpx
+  .right
+    justify-content: flex-end
+  // 排序图标旋转180度
+  .rotate
+    transform: rotate(180deg)
+  .normal
+    transform: rotate(0deg)
+  .last
+  .fixed-right
+    position: sticky
+    z-index: 10
+    right: 0
+    background: #fff
+    box-shadow: -4px 0 10px -5px rgba(0,0,0,.11)
+  .fixed-left
+    position: sticky
+    z-index: 10
+    left: 0
+    background: #fff
+    box-shadow: 4px 0 10px -5px rgba(0,0,0,.11)
+.empty
+  text-align: center
+  &-image
+    width: 280rpx
+    height: 280rpx
+  &-text
+    margin-top: 20rpx
+    font-size: 24rpx
+    color: #7F7F7F
+    white-space: pre-line
+.loading-image
+  width: 80rpx !important
+  height: 80rpx !important
+
+
+.mask 
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: 392rpx
+  height: 100%
+  box-shadow: 0rpx 0rpx 10rpx 2rpx #32C5FF
+  border-radius: 4rpx
+  border: 2rpx solid #32C5FF
+  // opacity: 0.3
+  z-index: 67
+  background: url('https://cdn-cos.coach.com.cn/uploads/common/icon_11.png') center/100% no-repeat
+  overflow: hidden
+
+  .mask-text
+    position: absolute
+    top: 45%
+    left: 50%
+    transform: translate(-50%, -50%)
+    color: #fff
+    font-size: 24rpx
+    background: #000000
+    opacity: 0.7
+    padding: 20rpx
+    text-align: center
+    white-space: nowrap
+
+
+.loading
+  position: relative
+  border: 2px solid #fff
+  border-top-color: rgba(0, 0, 0, 0.4)
+  border-right-color: rgba(0, 0, 0, 0.4)
+  border-bottom-color: rgba(0, 0, 0, 0.4)
+  border-radius: 100%
+  animation: circle infinite 0.75s linear
+  width: 30rpx
+  height: 30rpx
+
+@keyframes circle
+  0%
+    transform: rotate(0)
+  
+  100%
+    transform: rotate(360deg)
+  

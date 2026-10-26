@@ -1,0 +1,4 @@
+SELECT id as object_id, enterprise_id, userid, name, avatar, status  FROM `members`
+WHERE
+    `userid` IN ({{WhereIn .user_ids}})
+AND `enterprise_id` = {{.enterprise_id}};

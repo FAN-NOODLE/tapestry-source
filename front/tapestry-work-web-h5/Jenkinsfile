@@ -1,0 +1,89 @@
+pipeline {
+	agent any
+	stages{
+		stage('scm') {
+		  steps{
+    		  echo "准备发布的分支或tag:${branch}"
+    		  checkout([
+    			  $class: 'GitSCM',
+    			  branches: [[name: "${branch}"]],
+    			  doGenerateSubmoduleConfigurations: false,
+    			  extensions: [],
+    			  submoduleCfg: [],
+    			  userRemoteConfigs: [[
+    				  url: '${git}',
+    				  credentialsId: '5bd64c05-cabd-44cc-b81e-a76e8af7cfb8'
+    			  ]]
+    		  ])
+		  }
+		}
+		stage('Pre'){
+		    steps{
+		        script{
+    			// 腾讯云容器域名
+    			env.domainName = "harbor.vchangyi.com"
+    			// 命名空间
+    			env.namespace = "${params.namespace}"
+    			// docker镜像名
+    			env.dockerImage = "web-${params.admin_name}"
+    			// 定义tag
+    			env.tag = branch.replaceAll('/','.') + '.' + env.BUILD_ID
+    			// 镜像地址
+    			env.dockerAddress = "${env.domainName}/${env.namespace}/${env.dockerImage}:${env.tag}"
+    			// 设置颜色字体
+    			echo "镜像地址：${env.dockerAddress}"
+    		  }   
+		    }
+		}
+		stage('Build js') {
+		    agent { 
+		        docker { 
+                    image 'harbor.vchangyi.com/changyi-images/node:14.17.5' 
+										args '-u root'
+                    reuseNode true
+                } 
+            }
+		    steps {
+		        sh 'ls -la'
+		        sh 'pwd'
+                echo 'JenkinsFile 文件执行开始'
+                sh 'node -v'
+                sh 'chmod 777 ./deploy/pack.sh'
+                sh "./deploy/pack.sh"
+		    }
+		}
+		stage('Build Image') {
+		    steps{
+		        sh """
+                #!/bin/bash
+                cd deploy
+                # 创建镜像
+                docker build -t ${env.tag} .
+                # 登陆
+                docker login -u "prod-oulaiya" -p "<sY+{6^YLN3's>Ez" ${env.domainName}
+                docker tag ${env.tag} ${env.dockerAddress}
+                docker push ${env.dockerAddress}
+                """
+                echo "镜像发布地址：${env.dockerAddress}"
+                echo "==========镜像制作完成==========" 
+		    }
+		}
+		stage('Deploy') {
+			steps {
+			    script{
+			        if (env.branch == "origin/prod-tapestry") {
+			            sh "sed -i s#IMAGE_ADDRESS#$env.dockerAddress#g deploy/k8s/deployment.yaml"
+			            sh 'kubectl --kubeconfig ~/.kube/prod-tapestry-front apply -f deploy/k8s/'
+			            sh 'kubectl --kubeconfig ~/.kube/prod-tapestry-front get pod -n default'
+			        }
+			        
+			        if (env.branch == "origin/uat-tapestry") {
+			            sh "sed -i s#IMAGE_ADDRESS#$env.dockerAddress#g deploy/k8s/deployment.yaml"
+			            sh 'kubectl --kubeconfig ~/.kube/uat-tapestry-front apply -f deploy/k8s/'
+			            sh 'kubectl --kubeconfig ~/.kube/uat-tapestry-front get pod -n default'
+			        }
+			    }
+			}
+		}
+	}
+}

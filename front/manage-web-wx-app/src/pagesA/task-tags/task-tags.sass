@@ -1,0 +1,361 @@
+@import '../../style/color-variable.sass'
+@import "../../style/code-fun.wxss"
+.page
+  background-color: #f7f7f7
+  width: 100%
+  height: 100%
+  .fixed
+    position: fixed
+    left: 0
+    top: 0
+    z-index: 9
+    .group_4
+      padding: 22rpx 116rpx 10rpx 136rpx
+      width: 750rpx
+      .group_1
+        height: 47rpx
+        .section_4
+          width: 56rpx
+          background-color: #000000
+          border-radius: 3rpx
+          height: 6rpx
+          position: absolute
+          bottom: 0
+          left: 50%
+          transform: translateX(-50%)
+          &.hide
+            display: none
+
+      .font_2
+        font-size: 28rpx
+        font-family: PingFangSC
+        line-height: 26rpx
+        color: #777777
+
+      .pos_3
+        position: absolute
+        right: 116rpx
+        top: 50%
+        transform: translateY(-50%)
+
+  .section_3
+    background-color: #ffffff
+    width: 750rpx
+
+  .group_6
+    margin-top: 88rpx
+    padding: 40rpx 30rpx 98rpx
+    .scroll-view
+      height: calc( 100vh - 200px )
+      margin-top: 36rpx
+    .text_3
+      font-size: 30rpx
+      line-height: 28rpx
+
+    .list-item_1
+      margin-right: 4px
+      padding: 0 28rpx
+      background-color: #ffffff
+      margin-bottom: vw(15)
+      .group_7
+        position: relative
+        padding: 30rpx 0
+        border-bottom: solid 4rpx #eeeeee
+        box-sizing: border-box
+        .wrap_7
+          flex-shrink: 0
+          margin-right: vw(10)
+        .wrap_8
+          display: flex
+          flex-direction: column
+          flex-shrink: 1
+          overflow: hidden
+        .image_7
+          border-radius: 50%
+          width: 64rpx
+          height: 64rpx
+        .user-info
+          overflow: hidden
+          display: flex
+          align-items: center
+        .tags
+          display: flex
+          margin-top: vw(11)
+          flex-shrink: 1
+          flex-wrap: wrap
+          .tag
+            min-width: vw(40)
+            height: vw(20)
+            background: #F7F7F7
+            margin: 0 vw(5) vw(5) 0
+            font-size: vw(10)
+            font-family: PingFangSC-Regular, PingFang SC
+            font-weight: 400
+            color: #333
+            display: flex
+            align-items: center
+            justify-content: center
+            padding: vw(3) vw(5)
+            box-sizing: border-box
+        .text_4
+          line-height: 36rpx
+          overflow: hidden
+          text-overflow: ellipsis
+          margin-right: vw(5)
+          flex-shrink: 1
+          white-space: nowrap
+
+        .image_8
+          margin-left: 8rpx
+          width: 78rpx
+          height: 36rpx
+          flex-shrink: 0
+
+        .image_9
+          margin-left: 12rpx
+
+      .group_12
+        padding: vw(10) 0
+        .equal-division_1
+          .equal-division-item
+            padding: 12rpx 0
+            .image_10
+              border-radius: 50%
+              width: 32rpx
+              height: 32rpx
+
+            .image_11
+              width: 34rpx
+              height: 32rpx
+
+            .image_12
+              width: 32rpx
+              height: 32rpx
+
+            .text_6
+              font-size: 20rpx
+              line-height: 20rpx
+
+          .m-r-22
+            margin-right: vw(22)
+          .m-r-30
+            margin-right: vw(30)
+
+          .space-x-6
+            & > view:not(:first-child),
+            & > text:not(:first-child),
+            & > image:not(:first-child)
+              margin-left: 12rpx
+
+        .text-wrapper
+          padding: 0rpx
+          width: 124rpx
+          height: 48rpx
+          border: solid 2rpx #000000
+          .text_7
+            line-height: 1
+
+        .font_3
+          font-size: 22rpx
+          font-family: PingFangSC
+          line-height: 22rpx
+          color: #000000
+
+      .space-x-20
+        & > view:not(:first-child),
+        & > text:not(:first-child),
+        & > image:not(:first-child)
+          margin-left: 40rpx
+
+      .text-wrapper_2
+        margin-top: vw(5)
+        margin-bottom: vw(10)
+        padding: 24rpx 0 16rpx
+        background-color: #f7f7f7
+        .font_1
+          font-size: 28rpx
+          font-family: PingFangSC
+          line-height: 26rpx
+          color: #000000
+
+        .text_14
+          margin: 0 20rpx
+          font-size: 26rpx
+          line-height: 32rpx
+          text-align: justify
+      .text-wrapper_3
+        padding: 0
+        width: 124rpx
+        height: 48rpx
+        border: solid 2rpx #cccccc
+        .font_3
+          font-size: 22rpx
+          font-family: PingFangSC
+          color: #000000
+
+        .text_15
+          color: #cccccc
+          line-height: 1
+
+  .space-y-18
+    & > view:not(:first-child),
+    & > text:not(:first-child),
+    & > image:not(:first-child)
+      margin-top: 36rpx
+
+  .font_1
+    font-size: 28rpx
+    font-family: PingFangSC
+    line-height: 26rpx
+    color: #000000
+
+.call-tip-wrap
+  width: vw(284)
+  height: vw(150)
+  background: #FFFFFF
+  box-sizing: border-box
+  padding: vw(48) vw(0) vw(16)
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  .content
+    font-size: vw(14)
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+    color: #000000
+    line-height: vw(20)
+  .confirm-btn
+    width: vw(128)
+    height: vw(36)
+    line-height: vw(36)
+    background: #000000
+    font-size: vw(14)
+    font-weight: 500
+    color: #FFFFFF
+    text-align: center
+
+.loading-tips
+  padding: 36rpx 0
+  color: #a7a7a7
+  text-align: center
+  font-size: vw(12)
+  margin-top: 3rpx !important
+
+.filter-wrap
+  width: 100%
+  margin: 0 auto 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  .search-btn
+    width: vw(47)
+    height: vw(47)
+    background: #FFFFFF
+    box-shadow: 0 vw(6) vw(12) 0 rgba(222,224,227,0.5)
+    font-size: vw(12)
+    font-family: PingFangSC-Regular, PingFang SC
+    font-weight: 400
+    color: #000000
+    line-height: vw(47)
+    text-align: center
+  .filter-content
+    height: vw(47)
+    position: relative
+    padding: vw(15) 0 vw(15) vw(15)
+    background: #FFFFFF
+    box-shadow: 0 vw(6) vw(12) 0 rgba(222,224,227,0.5)
+    display: flex
+    z-index: 1
+    .select-content
+      position: relative
+      border-right: vw(1) solid #EEEEEE
+      width: vw(80)
+      text-align: left
+      margin-right: vw(9)
+      .select-wrap
+        background: #fff
+        width: vw(80)
+        position: relative
+        bottom: vw(-22)
+        left: vw(-15)
+        border-top-left-radius: vw(6)
+        border-top-right-radius: vw(6)
+        .icon
+          position: absolute
+          top: vw(-7)
+          left: vw(15)
+          border-top: vw(4) solid transparent
+          border-left: vw(4) solid transparent
+          border-right: vw(4) solid transparent
+          border-bottom: vw(4) solid #fff
+        .li
+          height: vw(33)
+          line-height: vw(33)
+          background: #fff
+          text-align: center
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #000000
+          &.on
+            background: #F0F0F0
+
+          &:first-of-type
+            background: red
+            border-top-left-radius: vw(6)
+            border-top-right-radius: vw(6)
+      .select-icon
+        position: absolute
+        right: vw(6)
+        top: 50%
+        transform: translateY(-50%)
+        width: vw(8)
+        height: vw(4)
+      .select-type
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+    .search-content
+      position: relative
+      display: flex
+      align-items: center
+      .search-icon
+        width: vw(17)
+        height: vw(17)
+        margin-right: vw(5)
+      .search-placeholder
+        width: vw(135)
+        font-size: vw(12)
+        flex-grow: 1
+        padding-right: vw(32)
+        box-sizing: content-box
+      .close-icon
+        width: vw(24)
+        height: vw(24)
+        position: absolute
+        right: vw(5)
+        top: 50%
+        transform: translateY(-50%)
+.empty
+  min-height: calc( 100vh - 340rpx )
+.contract-status
+  position: absolute
+  right: vw(-20)
+  display: flex
+  align-items: center
+  height: vw(21)
+  background: #C7AD7F
+  border-radius: vw(100) 0 0 vw(100)
+  padding: 0 vw(5)
+  &-text
+    font-size: vw(9)
+    font-weight: 300
+    color: #FFFFFF
+  &-image
+    position: absolute
+    right: vw(3)
+    top: vw(21)
+    width: vw(4)
+    height: vw(4)

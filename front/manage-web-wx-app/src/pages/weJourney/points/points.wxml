@@ -1,0 +1,182 @@
+<wxs src="./points.wxs" module="tools"></wxs>
+<view class="page-points">
+	<navigation-bar
+		bg-color="transparent"
+		fontSize="17"
+		color="#000000"
+		throughTop="{{true}}"
+		text="WeJourney"
+		back
+		backActive="goback"
+		backBoxWidth="{{80}}"
+	/>
+
+	<view class="container">
+		<view class="header" style="padding-top: {{navigationBarHeight}}">
+			<view class="ranking-box">
+				<view class="rank">当前等级已超过<view class="word">{{gradePoints.percentage}}%</view>导购</view>
+			</view>
+	
+			<view class="info">
+				<view class="title">
+					<view>{{gradePoints.level_name}}</view>
+					<view class="footprint" bind:tap="showPopupFootprint">查看成长足迹</view>
+				</view>
+				<view class="time">等级升级时间：{{gradePoints.level_updated_at}}</view>
+				<view class="rule" bindtap="toRules">规则说明</view>
+			</view>
+	
+			<view
+				class="content"
+				prop="{{fLen}}"
+				change:prop="{{tools.currentChange}}" 
+				bindtouchstart="{{tools.touchstart}}"
+				catchtouchmove="{{tools.touchmove}}"
+				bindtouchend='{{tools.touchend}}'
+			>
+				<view class="progress-box">
+					<view class="scroll-box" style="left: 0">
+						<view class="progress" style="width: {{progressWidth}}rpx">
+							<view class="foreground" style="width: {{foregroundWidth}}rpx"></view>
+							<view class="background"></view>
+						</view>
+	
+						<view class="level-box">
+							<view
+								wx:for="{{levelArr}}"
+								wx:key="id"
+								class="level not-obtain"
+								data-name="{{item.level_name}}"
+								style="background-image: url({{index < fLen ? item.level_icon : tools.getLevelIcon(index)}})"
+							>
+								<view wx:if="{{index >= fLen}}" class="word">{{index + 1}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+	
+				<view class="detail-info">
+					<view class="detail-container" style="left: 0">
+						<view wx:for="{{levelArr}}" wx:key="id" class="info-container">
+							<view class="title">当前等级需满足以下条件：</view>
+							<view class="content" change:prop="{{tools.propObserver}}" prop="{{index}}">
+								<view class="word">{{item.word}}</view>
+								<view class="icon" data-index="{{index}}" bindtap="{{tools.foldTap}}"></view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		</view>
+
+	<view class="points-list">
+		<view class="nav">
+			<view class="nav-item {{listIndex == 0?'active':''}}" data-index="0" bindtap="{{tools.navTap}}">获取积分</view>
+			<view class="nav-item {{listIndex == 1?'active':''}}" data-index="1" bindtap="{{tools.navTap}}">积分明细</view>
+      <!-- todo:金币明细 -->
+      <view class="nav-item {{listIndex == 2?'active':''}}" data-index="2" bindtap="{{tools.navTap}}">金币明细</view>
+		</view>
+    <!-- todo:金币提醒 -->
+    <view class="gold-remind" wx:if="{{listIndex == 2}}">
+      <view class="gold-remind__text">获取积分的同时可以收获等额金币哦~</view>
+    </view>
+		<!-- 获取积分列表 -->
+		<scroll-view id="task" wx:if="{{listIndex == 0}}" class="list" scroll-y="{{true}}" data-name="task" scroll-with-animation="{{true}}" scroll-top="{{scrollTop.task}}" bind:scroll="handleScroll">
+			<block wx:if="{{settingList.length > 0}}">
+				<block wx:for="{{settingList}}" wx:key="rule_category_id">
+					<view class="list-item">
+						<image class="icon" src="{{item.icon}}"></image>
+						<view class="title title-box">
+							<text>{{item.title}}{{item.rule_value}}{{item.unit}}</text>
+							<view class="popover-tip" wx:if="{{item.tip}}">
+								<popover placement="bottom" offsetY="{{offsetY}}" offsetX="{{offsetX}}" custom-content="custom-content">
+									<view class="popover-action">{{item.tip}}</view>
+									<view slot="reference" class="tip-icon-box">
+										<view class="popover-tip-icon"></view>
+									</view>
+								</popover>
+							</view>
+						</view>
+						<view wx:if="{{item.integral && !item.hideNeedPoint}}" class="points">
+							<text class="points__text">{{item.integral_type === 2 ? '-' : '+'}}{{item.integral}}积分</text>
+							<text wx:if="{{item.astrict_type && item.max_integral}}">
+								<text>(已获得</text>
+								<text class="points__now">{{item.now_integral}}</text>
+								<text>/</text>
+								<text class="font-10">{{item.max_integral}}</text>
+								<text>)</text>
+							</text>
+						</view>
+						<view wx:if="{{item.link}}" class="btn" data-item="{{item}}" data-name="去完成" data-content="{{item.title}}{{item.rule_value}}{{item.unit}}" bindtap="goPage">
+							去完成</view>
+					</view>
+				</block>
+					
+				<!-- 查看更多 -->
+				<view class="load-more">
+					<view>没有更多了</view>
+				</view>
+				<view wx:if="{{showMore.task && settingList.length > 5}}" class="load-more fixed" data-name="task" bind:tap="loadMore">
+					<view class="icon-more">查看更多</view>
+				</view>
+			</block>
+			<view wx:else class="empty-page">
+				<block wx:if="{{!isLoading}}">
+					<image class="empty-image" src="{{imagePath}}2023/v3.3/empty-page.png" />
+					<view class="empty-word">暂无内容，敬请期待~</view>
+				</block>
+			</view>
+		</scroll-view>
+
+		<!-- 积分列表 -->
+		<block wx:if="{{listIndex == 1}}">
+			<scroll-view id="point" wx:if="{{pointsList.length > 0}}" class="list" bindscrolltolower="scrollToLower" data-name="point" scroll-with-animation="{{true}}" scroll-top="{{scrollTop.point}}" bind:scroll="handleScroll" scroll-y>
+				<view wx:for="{{pointsList}}" wx:key="id" class="list-item">
+					<image class="icon" src="{{item.icon}}"></image>
+					<view class="title">{{item.points_remark}}</view>
+					<view class="time">{{item.created_at}}</view>
+					<view class="points">{{item.points > 0 ? '+' : ''}}{{tools.formatPoint(item.points)}}积分</view>
+				</view>
+				<view wx:if="{{isLoading}}" class="loading-word">正在加载中</view>
+				<view wx:elif="{{pageInfo.total === pointsList.length}}" class="nomore">没有更多了</view>
+				<view wx:if="{{showMore.point && pointsList.length>5}}" class="load-more fixed" data-name="point" bind:tap="loadMore">
+					<view class="icon-more">查看更多</view>
+				</view>
+			</scroll-view>
+			<view wx:else class="empty-page">
+				<block wx:if="{{!isLoading}}">
+					<image class="empty-image" src="{{imagePath}}2023/v3.3/empty-page.png" />
+					<view class="empty-word">暂无内容，敬请期待~</view>
+				</block>
+			</view>
+		</block>
+    <!-- todo:金币列表 -->
+		<block wx:if="{{listIndex == 2}}">
+			<scroll-view id="coins" wx:if="{{coinsList.length > 0}}" class="list" bindscrolltolower="scrollToLower" data-name="coins" scroll-with-animation="{{true}}" scroll-top="{{scrollTop.coins}}" bind:scroll="handleScroll" scroll-y>
+				<view wx:for="{{coinsList}}" wx:key="id" class="list-item">
+					<image class="icon" src="{{imagePath}}/2023/v4.0.8/gold-list.png"></image>
+					<view class="title">{{item.coins_remark}}</view>
+					<view class="time">{{item.created_at}}</view>
+					<view class="points" style="color:{{tools.getCoinsColor(item.coins)}}">{{tools.getCoinsNum(item.coins)}}</view>
+				</view>
+				<view wx:if="{{isLoading}}" class="loading-word">正在加载中</view>
+				<view wx:elif="{{coinsPageInfo.total === coinsList.length}}" class="nomore">没有更多了</view>
+				<view wx:if="{{showMore.coins && coinsList.length>5}}" class="load-more fixed" data-name="coins" bind:tap="loadMore">
+					<view class="icon-more">查看更多</view>
+				</view>
+			</scroll-view>
+			<view wx:else class="empty-page">
+				<block wx:if="{{!isLoading}}">
+					<image class="empty-image" src="{{imagePath}}2023/v3.3/empty-page.png" />
+					<view class="empty-word">暂无内容，敬请期待~</view>
+				</block>
+			</view>
+		</block>
+	</view>
+	<!-- 足迹  -->
+	<com-popup-footprint show="{{showPopupFootprint}}" list="{{levelRecord}}"></com-popup-footprint>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,164 @@
+@import '~@/style/color-variable'
+
+.top-fixed-box
+  position: sticky
+  top: 0
+  background-color: #ffffff
+  z-index: 2
+  radio .wx-radio-input.wx-radio-input-checked
+    border: none
+    background: #4A4A4A
+  .search-bar
+    width: 100%
+    padding: vw(15)
+    height: vw(65)
+    position: relative
+    background-color: #ffffff
+    .input-box
+      background: #F6F6F9
+      height: vw(35)
+      border-radius: vw(2)
+      input
+        padding-left: vw(35)
+        height: vw(35)
+        line-height: vw(35)
+        display: flex
+        align-items: center
+        width: vw(300)
+    .icon-search
+      width: vw(15)
+      height: vw(15)
+      position: absolute
+      top: vw(25)
+      left: vw(25)
+    .code-ipt
+      font-size: vw(12)
+      font-family: PingFangSC-Regular,PingFang SC
+      font-weight: 400
+      color: #33363C
+    .input-placeholder
+      color: rgba(198,198,199,1)
+    .search-cacel
+      width: vw(45)
+      height: vw(35)
+      position: absolute
+      right: vw(15)
+      top: vw(15)
+      display: flex
+      align-items: center
+      justify-content: center
+      z-index: 2
+      .cacel-icon
+        width: vw(15)
+        height: vw(15)
+  .bread-crumbs-box
+    border-top: vw(1) solid $color-f0
+    border-bottom: vw(1) solid $color-f0
+    font-size: vw(14)
+    padding: vw(10) vw(4)
+    background-color: #ffffff
+    .bread-crumbs
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      .bread-crumbs-item
+        display: flex
+        align-items: center
+        .select-img-left
+          width: vw(15)
+          height: vw(15)
+          transform: rotate(180deg)
+        .contents-name
+          margin: 0 vw(10)
+          color:#a6a6a6
+        .active
+          color: #4A4A4A
+          font-weight: 500
+.empty
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  height: vw(139)
+  &-icon
+    margin-top: vw(10)
+    width: vw(66)
+    height: vw(66)
+  &-desc
+    margin-top: vw(16)
+    font-size: vw(13)
+    font-family: PingFangSC-Regular, PingFang SC
+    font-weight: 400
+    color: #A1A1A1
+    line-height: vw(18)
+
+.store-list-box
+  padding-bottom: vw(120)
+  .item-list
+    display: flex
+    align-items: center
+    height: vw(50)
+    border-bottom: solid vw(1) #F0F0F0
+    color: #33363C
+    font-size: vw(14)
+    .label
+      font-family: PingFangSC-Light, PingFang SC
+      font-weight: 300
+      color: #4A4A4A
+    .right
+      margin-left: auto
+      width: vw(40)
+      height: vw(40)
+      display: flex
+      justify-content: center
+      align-items: center
+      image
+        width: vw(14)
+        height: vw(14)
+  .item-list:last-child
+    border-bottom: none
+  .select-item
+    .label
+      font-family: PingFangSC-Medium, PingFang SC
+      font-weight: 500
+  .select-img-box
+    height: vw(14)
+    width: vw(9)
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    .select-img
+      width: vw(20)
+      height: vw(20)
+  .store-btn-box
+    height: vw(60)
+    width: 100%
+    position: fixed
+    bottom: 0
+    padding: vw(10)
+    background-color: #ffffff
+    box-shadow: 0 0 vw(8) 0 rgba(0,0,0,.1)
+    .cacel-btn,.sure-btn
+      width: vw(165)
+      height: vw(38)
+      font-size: vw(14)
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      border-radius: vw(2)
+    .cacel-btn
+      border: solid vw(1) #4A4A4A
+      color: #4A4A4A
+      margin-right: vw(15)
+    .sure-btn
+      background-color: #4A4A4A
+      color: #ffffff
+  .ipx-btn-box
+    height: vw(80)
+.p-l-15
+  padding-left: vw(15)
+.p-r-15
+  padding-right: vw(15)
+.bg-white
+  background: #ffffff
+

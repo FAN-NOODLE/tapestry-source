@@ -1,0 +1,8 @@
+UPDATE drainage_contacts
+SET name =:name,
+channel_id =:channel_id,
+auto_friend =:auto_friend,
+updated_at =:updated_at,
+member_count =:member_count
+WHERE id=:id
+AND enterprise_id=:enterprise_id

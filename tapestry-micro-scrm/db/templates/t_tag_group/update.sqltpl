@@ -1,0 +1,10 @@
+UPDATE
+    `tag_group`
+SET
+    `enterprise_id` = :enterprise_id,
+    `group_id` = :group_id,
+    `group_name` = :group_name,
+    `type` = :type,
+    `updated_at` = :updated_at
+WHERE
+    `id` = :id

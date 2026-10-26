@@ -1,0 +1,6 @@
+SELECT
+	`id`,
+	`type`
+FROM
+	`mini_program`
+WHERE `id` = ?

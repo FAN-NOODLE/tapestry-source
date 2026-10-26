@@ -1,0 +1,1 @@
+UPDATE `customer_relation_guide` SET `deleted_at` = :deleted_at WHERE `third_user_id` = :third_user_id AND enterprise_id = :enterprise_id

@@ -1,0 +1,8 @@
+<!-- components/common/mp-movable/index.wxml -->
+<movable-area class="movable-area">
+		<movable-view class="movable-view" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" animation="{{animation}}" style="width:{{elementWidth}}px;height:{{elementHeight}}px" x="{{x}}" y="{{y}}" direction="{{direction}}">
+				<view id="movable-view" class="custom-class">
+						<slot></slot>
+				</view>
+		</movable-view>
+</movable-area>

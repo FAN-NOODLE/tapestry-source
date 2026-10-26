@@ -1,0 +1,366 @@
+@import '../../../style/color-variable.sass'
+
+.page-medal
+	background-color: #fff
+	padding-bottom: vw(20)
+	min-height: 100vh
+	
+	.page-top
+		height: vw(238)
+		background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/bg_medal_header.png')
+		background-size: 100% 100%
+		background-repeat: no-repeat
+
+		.title
+			padding-left: vw(26)
+			font-size: vw(24)
+			font-family: PingFangSC-Semibold, PingFang SC
+			font-weight: bold
+			color: #33363C
+			margin-bottom: vw(20)
+
+		.content
+			padding-left: vw(26)
+			font-size: vw(12)
+			line-height: vw(17)
+			margin-top: vw(19)
+			.data-box
+				font-size: vw(22)
+				font-weight: bold
+				line-height: vw(30)
+		.tag
+			height: vw(23)
+			background-color: rgba(255, 205, 2, 0.1)
+			border-radius: vw(12)
+			padding: 0 vw(5)
+			font-size: vw(12)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 400
+			color: #FFCD02
+			line-height: vw(23)
+			margin-top: vw(6)
+			display: inline-block
+
+	.year-box
+		height: vw(97)
+		background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/bg_medal_year.png')
+		background-size: 100% 100%
+		background-repeat: no-repeat
+		white-space: nowrap
+		
+		::-webkit-scrollbar
+			display: none
+		.year-item
+			display: inline-block
+			position: relative
+			color: #A6A6A6
+			&__content
+				width: vw(103)
+				height: vw(73)
+				display: flex
+				flex-direction: column
+				align-items: center
+				justify-content: center
+			&__label
+				font-size: vw(14)
+				font-family: PingFangSC-Regular, PingFang SC
+				font-weight: 400
+				line-height: vw(20)
+				position: relative
+				&::after
+					content: ''
+					width: 100%
+					height: vw(9)
+					position: absolute
+					bottom: vw(-2)
+					left: 50%
+					transform: translateX(-50%)
+					background: #FFCD02
+					border-radius: vw(6)
+					z-index: -1
+					opacity: 0
+					transition: opacity 0.3s
+			&__value
+				font-size: vw(10)
+				font-family: PingFangSC-Semibold, PingFang SC
+				font-weight: 400
+				line-height: vw(14)
+				margin-top: vw(5)
+			&:not(:last-child)::after
+				content: ''
+				width: vw(1)
+				height: vw(25)
+				background-color: #e5e5e5
+				position: absolute
+				right: 0
+				top: 50%
+				transform: translateY(-50%)
+			&.active
+				color: #33363C
+				.year-item__label
+					height: vw(22)
+					font-size: vw(16)
+					font-weight: bold
+					line-height: vw(22)
+					z-index: 0
+					&::after
+						opacity: 1
+
+		&.flex-center 
+			display: flex
+			align-items: center
+			justify-content: center
+
+			.year-item
+				flex: 1
+				.year-item__content
+					width: 100%
+	
+	.common-medal-list
+		padding: vw(16) vw(20)
+
+		.title-box
+			font-size: vw(14)
+			font-family: PingFangSC-Medium, PingFang SC
+			font-weight: 400
+			color: #D9D9D9
+			position: relative
+			text-align: center
+			width: vw(244)
+			height: vw(20)
+			margin: auto
+			line-height: vw(20)
+			background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/bg_title.png')
+			background-size: contain
+			background-position: center
+			background-repeat: no-repeat
+
+		.medal-list
+			padding: 0 vw(10)
+			display: grid
+			grid-template-columns: repeat(3, vw(85))
+			gap: vw(33) 0
+			grid-auto-rows: vw(133)
+			justify-content: space-between
+			margin-top: vw(25)
+
+		.more
+			text-align: center
+			wwidth: vw(304)
+			height: vw(43)
+			line-height: vw(43)
+			margin: auto
+			font-size: vw(12)
+			color: #7F7F7F
+			display: flex
+			align-items: center
+			justify-content: center
+			margin-top: vw(9)
+			&__icon
+				width: vw(11)
+				height: vw(11)
+				margin-left: vw(4)
+			&.no
+				color:#A6A6A6
+	
+	.empty
+		padding-top: vw(60)
+		text-align: center
+		&__image
+			width: vw(125)
+			height: vw(125)
+			margina: auto
+		&__text
+			font-size: vw(12)
+			margin-top: vw(6)
+
+	.popup
+		position: fixed
+		top: 0
+		left: 0
+		width: 100vw
+		height: 100vh
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: flex-end
+
+		.background
+			width: 100%
+			height: 100%
+			background-color: #000000
+			opacity: 0
+			position: absolute
+			top: 0
+			left: 0
+
+		.footer
+			width: vw(30)
+			height: vw(2)
+			border-radius: 50%
+			position: absolute
+			bottom: vw(180)
+			left: 50%
+			transform: translateX(-50%)
+			background: linear-gradient(90deg, rgba(250,244,227,0.19) 0%, #FFEEC9 50%, rgba(242,230,195,0.28) 100%)
+			box-shadow: 0 0 vw(12) 0 #FFD358
+			filter: blur(vw(0.5))
+
+		.popup-medal
+			width: vw(215)
+			height: vw(215)
+			opacity: 0
+
+			.image
+				width: 100%
+				height: 100%
+		
+		.grow-box
+			height: vw(180)
+			width: 100%
+			background-color: transparent
+			
+	.page-container
+		z-index: 1
+	.screen
+		
+		.medal-info
+			display: flex
+			flex-direction: column
+			align-items: center
+
+			.time
+				font-size: vw(14)
+				font-family: PingFangSC-Semibold, PingFang SC
+				font-weight: 600
+				color: #FFCD02
+				margin-top: vw(30)
+				height: vw(20)
+
+			.name
+				font-size: vw(24)
+				font-weight: 600
+				font-family: PingFangSC-Regular, PingFang SC
+				color: #000000
+				margin: vw(5) vw(10) 0 vw(10)
+				text-align: center
+		
+			.ranking
+				font-size: vw(12)
+				font-family: PingFangSC-Regular, PingFang SC
+				font-weight: 400
+				color: #A6A6A6
+				margin-top: vw(5)
+
+		.swiper-box
+			height: vw(363)
+			position: relative
+			@include renderImg('2023/v3.3/medal-swiper-bg.png')
+
+			.scroll-box
+				display: flex
+				align-items: center
+				overflow: hidden
+				position: absolute
+				top: vw(56)
+				left: 0
+				padding-left: vw(77)
+				padding-right: vw(77)
+				height: 270px
+
+				.swiper-item
+					width: 155px
+					height: 155px
+					padding: vw(10)
+					margin-bottom: vw(20)
+					box-sizing: border-box
+					position: relative
+
+					&.current
+						position: relative
+						// width: 215px
+						// height: 215px
+
+						&::after
+							content: ''
+							width: vw(117)
+							height: vw(10)
+							background: rgba(122,122,122,0.6)
+							opacity: 0.2
+							filter: blur(vw(4))
+							position: absolute
+							bottom: vw(-20)
+							left: 50%
+							transform: translateX(-50%)
+
+					.swiper-item-image
+						width: 100%
+						height: 100%
+
+					.rare-icon
+						width: vw(85)
+						height: vw(43)
+						position: absolute
+						top: vw(-12)
+						right: vw(-25)
+
+					.lock-icon
+						width: vw(38)
+						height: vw(38)
+						position: absolute
+						bottom: vw(10)
+						right: vw(30)
+
+				&.animation-left
+					transition: left 0.8s
+
+
+					.animation-item
+						transition: all 1s
+
+		.line-word
+			font-size: vw(14)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 400
+			color: #000000
+			display: flex
+			justify-content: center
+			@include renderImg('2023/v3.3/medal-item-icon-1.png')
+			background-size: vw(290) vw(3)
+			background-position: center
+			background-repeat: no-repeat
+			margin-bottom: vw(30)
+
+		.prize
+			display: flex
+			justify-content: center
+			gap: 0 vw(110)
+			margin-bottom: vw(80)
+
+			.points, .object
+				display: flex
+				flex-direction: column
+				align-items: center
+
+				.icon
+					width: vw(28)
+					height: vw(28)
+
+				.word
+					font-size: vw(12)
+					font-family: PingFangSC-Regular, PingFang SC
+					font-weight: 400
+					color: #4A4A4A
+					margin-top: vw(10)
+
+		.summary
+			display: flex
+			justify-content: center
+			font-size: vw(12)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 400
+			color: #999999
+
+			.num
+				color: rgba(255, 205, 2, 1)
+

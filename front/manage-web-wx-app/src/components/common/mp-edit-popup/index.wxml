@@ -1,0 +1,53 @@
+<mp-popup wx:if="{{type==1}}" show="{{show}}" bind:close="handleCancel">
+  
+  <view class="popup">
+    <view class="popup-close" bind:tap="handleCancel"></view>
+    <view class="popup-header">{{title}}</view>
+    <view class="popup-content">
+      <textarea 
+        class="textarea" 
+        value="{{content}}"
+        placeholder="{{placeholder}}"
+        placeholder-class="placeholder"
+        show-confirm-bar="{{false}}"
+        hold-keyboard="{{false}}"
+        auto-height="{{false}}"
+        maxlength="{{maxlength}}"
+        bind:input="handleInput"
+        bind:blur="handleBlur"
+        >
+      </textarea>
+      <view class="limit">{{length}}/{{maxlength}}</view>
+    </view>
+    <view class="popup-footer">
+      <view class="btn" bind:tap="handleConfirm">确定</view>
+    </view>
+  </view>
+</mp-popup>
+
+<!-- 文本 -->
+<mp-popup wx:if="{{type==2}}" show="{{show}}" position="center" bind:close="handleClose">
+  <view class="popup-2">
+    <view class="popup-close" bind:tap="handleCancel"></view>
+    <view class="popup-header">{{title}}</view>
+    <view class="popup-content">
+      <view class="input-wrap">
+        <input 
+          class="input" 
+          value="{{content}}" 
+          maxlength="{{maxlength}}" 
+          placeholder="{{placeholder}}" 
+          placeholder-class="placeholder"
+          cursor-spacing="{{100}}"
+          bind:input="handleInput" />
+        <text class="len">{{length}}/{{maxlength}}</text>
+      </view>
+      <slot></slot>
+    </view>
+
+    <view class="popup-footer">
+      <view class="btn plain" bind:tap="handleCancel">{{cancelText}}</view>
+      <view class="btn" bind:tap="handleConfirm">{{confirmText}}</view>
+    </view>
+  </view>
+</mp-popup>

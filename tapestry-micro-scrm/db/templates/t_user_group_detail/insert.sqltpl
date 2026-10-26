@@ -1,0 +1,27 @@
+INSERT INTO `user_group_detail`
+(
+    `id`,
+    `enterprise_id`,
+    `user_group_id`,
+    `tag_group_id`,
+    `tag_id`,
+    `include_type`,
+    `created_at`,
+    `updated_at`,
+    `user_group_type`,
+    `file_id`,
+    `department_id`
+) VALUES
+(
+    :id,
+    :enterprise_id,
+    :user_group_id,
+    :tag_group_id,
+    :tag_id,
+    :include_type,
+    :created_at,
+    :updated_at,
+    :user_group_type,
+    :file_id,
+    :department_id
+);

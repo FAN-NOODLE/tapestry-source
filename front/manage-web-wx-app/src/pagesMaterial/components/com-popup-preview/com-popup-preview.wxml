@@ -1,0 +1,55 @@
+<wxs module="computed" src="./com-popup-preview.wxs"></wxs>
+<mp-popup show="{{show}}" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <view class="popup__header">
+      <view class="popup__title">{{current+1}}/{{list.length}}</view>
+    </view>
+    <view class="popup__body">
+      <view class="popup__close" bindtap="hide"></view>
+      <scroll-view style="height:100%">
+        <swiper wx:if="{{show}}" class="swiper" current="{{current}}" autoplay="{{false}}" bind:change="handleChange">
+          <block wx:for="{{list}}" wx:for-item="child" wx:key="index">
+            <swiper-item class="swiper-item">
+              <view class="swiper-item__inner">
+                <view 
+                  wx:if="{{enterType == 3 ? item.type==2 : (item.type==2||item.type==8)}}" 
+                  class="select {{computed.checked(selection, child)}}" 
+                  data-index="{{index}}"
+                  data-item="{{child}}"
+                  data-status="{{computed.status(selection, child)}}"
+                  data-is-merge-image="{{false}}" 
+                  bind:tap="handleSelect"></view>
+                <!-- 图片素材 ｜ 朋友圈素材 图片 -->
+                <image wx:if="{{item.type == 2 || (item.type == 7 && item.merge_image.length)}}" class="image" src="{{child.url}}" mode="aspectFit"></image>
+                <!-- 视频素材 -->
+                <video wx:if="{{item.type == 5}}" class="image" src="{{child.url}}" bind:play="handlePlay"></video>
+                <!-- 朋友圈素材 视频 -->
+                <video wx:if="{{item.type == 7 && item.original_url && item.merge_image.length==0 }}" class="image" src="{{child.original_url}}"></video>
+                <!-- 商品素材 图片 -->
+                <image wx:if="{{item.type == 8 && child.type === 2}}" class="image" src="{{child.url}}" mode="aspectFit"></image>
+                <!-- 商品素材 视频 -->
+                <video wx:if="{{item.type == 8 && child.type === 5}}" class="image" src="{{child.url}}" bind:play="handlePlay"></video>
+                <!-- 保存转发数量 图片素材｜商品素材 -->
+                <view wx:if="{{showCount && (item.type==2||item.type==8)}}" class="count">
+                  <view class="count-item {{item.type==8 ?'hide':''}}">{{computed.setCount(child.collect_num)}}</view>
+                  <view class="count-item">{{computed.setCount(child.forwarding_times)}}</view>
+                  <view class="count-item">{{computed.setCount(child.download_times)}}</view>
+                </view>
+                <!-- 收藏 -->
+                <view wx:if="{{item.type==2}}" class="collect {{child.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </scroll-view>
+      <view wx:if="{{showTips && list.length>1}}" class="mask" bind:tap="handleHideTips">
+        <view class="mask-icon"></view>
+        <view class="mask-text">左滑查看下一张</view>
+      </view>
+    </view>
+    <view class="popup__footer">
+      <view wx:if="{{item.type==2 || item.type==8}}" class="popup__name">{{computed.setName(list[current].name)}}</view>
+      <view wx:if="{{enterType===1}}" class="btn" bind:tap="handleSave">保存</view>
+    </view>
+  </view>
+</mp-popup>

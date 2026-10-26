@@ -1,0 +1,8 @@
+UPDATE
+    `chat_sensitive`
+SET
+    `deleted_at` = unix_timestamp(now())
+WHERE
+    `id` = :id
+AND
+    `deleted_at` = 0

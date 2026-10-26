@@ -1,0 +1,18 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "顾客列表",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "disableScroll": false,
+  "usingComponents": {
+    "filter-popup": "../../components/filter-popup/index",
+    "com-customer-item": "../../components/com-customer-item/index",
+    "com-section": "../../../../components/customer-components/com-section/com-section",
+    "com-create-entry": "../../../../components/customer-components/com-create-entry/com-create-entry",
+    "com-search-entry":"../../../../components/customer-components/com-search-entry/com-search-entry"
+    
+  }
+}

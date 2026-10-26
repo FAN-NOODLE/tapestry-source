@@ -1,0 +1,77 @@
+<wxs module="tools" src="./task-sub.wxs"></wxs>
+<view class="container" wx:if="{{!showLoading}}">
+  <!-- 头部 -->
+  <view class="header card">
+    <!-- 进度条 -->
+    <view class="tag-progress">
+      <view class="tag-progress-chart">
+        <progress
+          class="chart-progress"
+          percent="{{tools.getPercent(mainTaskInfo.finish_num, mainTaskInfo.task_num)}}"
+          active
+          stroke-width="4"
+          activeColor="#000000"
+          border-radius="14"
+          duration="{{tools.getDuration(mainTaskInfo.finish_num, mainTaskInfo.task_num)}}"
+        />
+        <view
+          class="tag-progress-chart-tag"
+          style="left:{{tools.getPercentLeft(mainTaskInfo.finish_num, mainTaskInfo.task_num)}}%"
+          >{{tools.getPercent(mainTaskInfo.finish_num, mainTaskInfo.task_num)}}%
+        </view>
+      </view>
+      <view class="tag-progress-text">
+        <text>已完成任务数：</text>
+        <text class="tag-progress-text-finish">{{mainTaskInfo.finish_num}}</text>
+        <text>/{{mainTaskInfo.task_num}}</text>
+      </view>
+    </view>
+    <!-- 状态图标 -->
+    <view class="status {{tools.calcMainStatusInfo(option.status*1, 'className')}}"
+      >{{tools.calcMainStatusInfo(option.status*1, 'name')}}</view
+    >
+    <!-- 标题 -->
+    <view class="title" style="width:85%">{{mainTaskInfo.name}}</view>
+    <!-- 任务周期 -->
+    <view class="sub_title {{continued ? 'calendar-mg' : ''}}" hidden="{{!mainTaskInfo.start}}">
+      <view>任务有效期：</view>
+      <view>{{mainTaskInfo.start + ' ' + '至' + ' ' + mainTaskInfo.end}}</view>
+    </view>
+
+    <!-- 日历 指定天数渲染日历 -->
+    <calendar
+      id="calendar"
+      bind:changeDay="changeDay"
+      custom-calendar="custom-calendar"
+      pageType="1"
+      status="{{0}}"
+      calendarTime="{{routerParams.start_time}}"
+      otherParams="{{routerParams}}"
+      wx:if="{{false}}"
+    />
+  </view>
+
+  <!-- 任务详情 -->
+  <view class="content">
+    <!-- 描述 -->
+    <view class="tips">
+      <text>描述：{{mainTaskInfo.remark}}</text>
+    </view>
+
+    <view class="list">
+      <view class="line" />
+      <task-sub-item wx:for="{{childTaskInfo.list}}" wx:key="index" item="{{item}}"></task-sub-item>
+    </view>
+
+    <!-- 当数据为空时展示 -->
+    <mp-empty
+      wx:if="{{!childTaskInfo.list.length}}"
+      icon="task"
+      content="暂无任务内容"
+    />
+  </view>
+</view>
+<!-- 加载组件 -->
+<page-loading wx:if="{{showLoading}}" />
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

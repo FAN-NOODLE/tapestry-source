@@ -1,0 +1,16 @@
+UPDATE
+    `fission_prize`
+SET
+  `enterprise_id` = :enterprise_id,
+  `activity_id` = :activity_id,
+  `name` = :name,
+  `pic` = :pic,
+  `stocks` = :stocks,
+  `exchange_num` = :exchange_num,
+  `need_num` = :need_num,
+  `limit_num` = :limit_num,
+  `sort` = :sort,
+  `created_at` = :created_at,
+  `updated_at` = :updated_at
+WHERE
+	`id` = :id;

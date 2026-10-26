@@ -1,0 +1,159 @@
+@import '~@/style/color-variable'
+.select
+  padding: 30rpx 0
+  display: flex
+  align-items: center
+  text-align: right
+
+  &__value
+    flex: 1
+
+  &__icon
+    width: 40rpx
+    height: 40rpx
+    background: imgUrl("/static/wxapp/v4.0.1/material/icon_right_gray.png") no-repeat center center /100%
+        
+.footer
+  box-shadow: 0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.15)
+.popup
+  width: 750rpx
+  height: 80vh
+  background: #F4F7FB
+  box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222, 224, 227, 0.5)
+  display: flex
+  flex-direction: column
+  overflow: hidden
+  .popup-content
+    flex: 1
+    display: flex
+    overflow: hidden
+    .popup-aside
+      width: 232rpx
+
+      .popup-aside-item
+        width: 232rpx
+        height: 120rpx
+        padding: 20rpx 32rpx
+        box-sizing: border-box
+        font-size: 28rpx
+        color: #777777
+        line-height: 40rpx
+        box-sizing: border-box
+        display: flex
+        align-items: center
+        justify-content: center
+
+        &.active
+          color: #404040
+          background: #ffffff
+          font-weight: bold
+        
+
+        .aside-item-text
+          word-wrap: break-word
+        
+      
+    
+    .popup-main
+      flex: 1
+      overflow: hidden
+      background: #fff
+      box-sizing: border-box
+      padding: 20rpx 40rpx 20rpx 30rpx
+
+      .item-title
+        height: 80rpx
+        border-radius: 16rpx
+        color: #777777
+        padding: 0 30rpx
+        box-sizing: border-box
+        font-size: 28rpx
+        position: relative
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        &__text
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+        
+
+        &::before
+          content: ""
+          width: 28rpx
+          height: 28rpx
+          margin-right: 6rpx
+          display: block
+          visibility: hidden
+          transform-origin: center center
+          transform: rotateZ(-90deg)
+          transition: all 0.3s ease-in-out
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_arrow_down_2.png") center/ 100% no-repeat
+        
+
+        &.has-child
+          &::before
+            visibility: visible
+        
+
+        &.hide-icon
+          &::before
+            visibility: hidden
+          
+        
+
+        &.active
+          background: #F4F7FB
+          color: #777777
+          font-weight: 500
+        
+        &[data-key="1"]
+          color: #000
+          font-weight: bold
+        &[data-key="2"]
+          padding-left: 60rpx
+        &[data-key="3"]
+          padding-left: 90rpx
+      
+        &.disabled
+          color: #ccc
+
+      .item-content
+        height: 0
+        overflow: hidden
+        transition: all 0.3s ease-in-out
+      
+      .item.expand
+        &>.item-content
+          height: auto
+        
+        &>.item-title::before
+          transform: rotateZ(0deg)
+        
+      
+    
+  
+  .popup-footer
+    width: 750rpx
+    padding: 30rpx
+    box-sizing: border-box
+    background: #ffffff
+    display: flex
+    justify-content: space-between
+    .btn
+      width: 326rpx
+      height: 80rpx
+      background: #000
+      box-sizing: border-box
+      font-size: 26rpx
+      color: #fff
+      display: flex
+      align-items: center
+      justify-content: center
+      &.plain
+        color: #000
+        background-color: #fff
+        border: 2rpx solid #000
+      
+    
+  

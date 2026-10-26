@@ -1,0 +1,8 @@
+UPDATE
+    `fission_chat_group`
+SET
+    `qr_code` = :qr_code,
+    `sort` = :sort,
+    `updated_at` = :updated_at
+WHERE
+	`id` =:id;

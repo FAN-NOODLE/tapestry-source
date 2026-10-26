@@ -1,0 +1,19 @@
+INSERT INTO `shop_member_level` (
+  `id`,
+  `enterprise_id`,
+  `level_id`,
+  `level`,
+  `level_name`,
+  `created_at`,
+  `updated_at`
+)
+VALUES
+	(
+	  :id,
+      :enterprise_id,
+      :level_id,
+      :level,
+      :level_name,
+      :created_at,
+      :updated_at
+    )

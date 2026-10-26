@@ -1,0 +1,14 @@
+function isChecked(selection, id, crowd) {
+  console.log(11111, id, crowd.crowd_id)
+
+
+  var item = selection[`${crowd.crowd_id}`]
+  console.log(item)
+
+  if (!item) return -1
+  return item.value.indexOf(id) * 1
+}
+
+module.exports = {
+  isChecked: isChecked
+}

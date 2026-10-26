@@ -1,0 +1,14 @@
+SELECT
+	`id`,
+	`third_sign_id`,
+	`third_sign_status`,
+	`third_sign_type`,
+	`sign_name`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`
+FROM
+	sms_sign
+WHERE
+	deleted_at = 0
+GROUP BY `id` DESC

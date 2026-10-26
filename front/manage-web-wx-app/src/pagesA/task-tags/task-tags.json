@@ -1,0 +1,12 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "子任务详情",
+	"backgroundColor": "#ffffff",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"disableScroll": true,
+	"usingComponents": {
+		"remark-popup": "../components/remark-popup/remark-popup"
+  }
+}

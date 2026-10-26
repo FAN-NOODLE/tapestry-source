@@ -1,0 +1,8 @@
+SELECT
+    members.id as member_id
+FROM
+	uc_member
+    LEFT JOIN members on members.userid = uc_member.mem_userid
+WHERE
+	uc_member.mem_uid in (:mem_uid)
+    AND members.enterprise_id = :enterprise_id

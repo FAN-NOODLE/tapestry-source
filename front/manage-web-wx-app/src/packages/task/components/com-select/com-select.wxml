@@ -1,0 +1,14 @@
+<view class="search-select">
+  <view class="search-select__value" catch:tap="handleToggle">{{list[current].label}}</view>
+  <view wx:if="{{show}}" class="search-select__options">
+    <view 
+      class="options {{ current === index ? 'active' : '' }}" 
+      wx:for="{{list}}" 
+      wx:key="index" 
+      data-index="{{index}}" 
+      catch:tap="handleChange"
+      >{{item.label}}
+    </view>
+  </view>
+</view>
+<view wx:if="{{show}}" class="select-mask" catch:tap="handleToggle"></view>

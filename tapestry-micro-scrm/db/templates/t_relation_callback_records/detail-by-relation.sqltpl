@@ -1,0 +1,38 @@
+SELECT
+	id,
+	to_user_name,
+	from_user_name,
+	create_time,
+	msg_type,
+	event,
+	change_type,
+	user_id,
+	external_user_id,
+	state,
+	welcome_code,
+	fail_reason,
+	chat_id,
+	status,
+	status_trace,
+	channel_id
+FROM
+	`relation_callback_records`
+WHERE
+1=1
+{{if ne .cond.ToUserName ""}}
+    AND `to_user_name` = :to_user_name
+{{end }}
+{{if ne .cond.ChangeType ""}}
+    AND `change_type` = :change_type
+{{end }}
+{{if ne .cond.UserID ""}}
+    AND `user_id` = :user_id
+{{end }}
+{{if ne .cond.ExternalUserID ""}}
+    AND `external_user_id` = :external_user_id
+{{end }}
+{{if ne .cond.ChannelID 0}}
+    AND `channel_id` = :channel_id
+{{end }}
+ORDER BY create_time DESC
+LIMIT 1

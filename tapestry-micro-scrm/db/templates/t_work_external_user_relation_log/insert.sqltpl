@@ -1,0 +1,21 @@
+INSERT INTO `work_external_user_relation_log` (
+	`id`,
+	`enterprise_id`,
+	`work_external_user_id`,
+	`member_id`,
+	`state`,
+	`relation_status`,
+	`created_at`,
+	`updated_at`
+)
+VALUES
+(
+    :id,
+    :enterprise_id,
+    :work_external_user_id,
+    :member_id,
+    :state,
+    :relation_status,
+    :created_at,
+    :updated_at
+);

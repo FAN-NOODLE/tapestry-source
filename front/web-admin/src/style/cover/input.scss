@@ -1,0 +1,32 @@
+#crs-scrm{
+  input::-webkit-input-placeholder {
+    color: $color-placeholder;
+  }
+  input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $color-placeholder;
+  }
+  input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $color-placeholder;
+  }
+  input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $color-placeholder;
+  }
+  textarea::-webkit-input-placeholder {
+    color: $color-placeholder;
+  }
+  textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $color-placeholder;
+  }
+  textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $color-placeholder;
+  }
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $color-placeholder;
+  }
+}

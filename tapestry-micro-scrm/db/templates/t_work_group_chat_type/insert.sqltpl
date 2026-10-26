@@ -1,0 +1,1 @@
+insert into work_group_chat_type (enterprise_id,name,created_at,updated_at) values (:enterprise_id,:name, unix_timestamp(), unix_timestamp())

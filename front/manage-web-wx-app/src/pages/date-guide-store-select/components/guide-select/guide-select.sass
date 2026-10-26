@@ -1,0 +1,211 @@
+@import '~@/style/color-variable'
+
+.guide-box
+  .top-fixed-box
+    position: sticky
+    top: 0
+    background-color: #ffffff
+    z-index: 2
+    // 搜索模块
+    .search-bar
+      width: 100%
+      padding: vw(15)
+      height: vw(65)
+      position: relative
+      background-color: #ffffff
+      .input-box
+        background: #F6F6F9
+        height: vw(35)
+        border-radius: vw(2)
+        input
+          padding-left: vw(35)
+          height: vw(35)
+          line-height: vw(35)
+          display: flex
+          align-items: center
+          width: vw(300)
+      .icon-search
+        width: vw(15)
+        height: vw(15)
+        position: absolute
+        top: vw(25)
+        left: vw(25)
+      .code-ipt
+        font-size: vw(12)
+        font-family: PingFangSC-Regular,PingFang SC
+        font-weight: 400
+        color: #33363C
+      .input-placeholder
+        color: rgba(198,198,199,1)
+      .search-cacel
+        width: vw(45)
+        height: vw(35)
+        position: absolute
+        right: vw(15)
+        top: vw(15)
+        display: flex
+        align-items: center
+        justify-content: center
+        z-index: 2
+        .cacel-icon
+          width: vw(15)
+          height: vw(15)
+    .all-guide-box
+      display: flex
+      justify-content: flex-start
+      padding: 0 vw(15)
+      align-items: center
+      .pre-check
+        width: vw(12)
+        height: vw(12)
+        margin-right: vw(10)
+      .all-guide
+        height: vw(35)
+        font-size: vw(14)
+        line-height: vw(35)
+        color: #4A4A4A
+    .choose-store-tip
+      height: vw(37)
+      font-size: vw(12)
+      background-color: #F6F6F9
+      line-height: vw(37)
+      padding-left: vw(15)
+  .h-150
+    height: vw(150)
+  .guide-list-box
+    background: #ffffff
+    padding: 0 vw(15)
+    margin-top: vw(10)
+    .item-list
+      &.no-checked
+        position: relative
+        &::after
+          content: ""
+          width: vw(345)
+          height: vw(1)
+          background: #f0f0f0
+          position: absolute
+          bottom: vw(0)
+          left: vw(30)
+      .item-top
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .pre-check
+          width: vw(12)
+          height: vw(12)
+          flex-shrink: 0
+        .right
+          padding: vw(15) 0 vw(15) vw(25)
+        .left
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          font-size: vw(14)
+          font-family: PingFangSC-Light, PingFang SC
+          font-weight: 300
+          color: #4A4A4A
+          line-height: vw(20)
+          padding: vw(15) 0
+          .checked
+            font-family: PingFangSC-Medium, PingFang SC
+            font-weight: 500
+          .icon
+            width: vw(8)
+            height: vw(6)
+            margin-right: vw(6)
+            flex-shrink: 0
+      .child-item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding-left: vw(20)
+        .left
+          display: flex
+          justify-content: flex-start
+          align-items: center
+          font-size: vw(14)
+          font-family: PingFangSC-Light, PingFang SC
+          font-weight: 300
+          color: #4A4A4A
+          line-height: vw(20)
+          flex-wrap: wrap
+          padding-bottom: vw(15)
+          .checked
+            font-family: PingFangSC-Medium, PingFang SC
+            font-weight: 500
+          view
+            margin-top: vw(5)
+          .type-box
+            border: solid vw(1) #4A4A4A
+            width: vw(62)
+            height: vw(20)
+            font-size: vw(12)
+            text-align: center
+            margin-right: vw(10)
+        .pre-check
+          width: vw(12)
+          height: vw(12)
+          flex-shrink: 0
+        .right
+          padding: vw(5) 0 vw(15) vw(25)
+      .tag
+        width: vw(38)
+        height: vw(20)
+        font-size: vw(12)
+        text-align: center
+        &.on-duty
+          border: vw(1) solid #4A4A4A
+          color: #4A4A4A
+        &.leaving
+          border: vw(1) solid #96979E
+          color: #96979E
+    .item-list:last-child
+      border-bottom: none
+    .select-item
+      color: #4A4A4A
+    .select-img-box
+      height: vw(72.5)
+      width: vw(30)
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      .select-img
+        width: vw(18)
+        height: vw(18)
+  .store-btn-box
+    height: vw(60)
+    width: 100%
+    position: fixed
+    bottom: 0
+    padding: vw(10)
+    background-color: #ffffff
+    box-shadow: 0 0 vw(8) 0 rgba(0,0,0,.1)
+    .cacel-btn,.sure-btn
+      width: vw(165)
+      height: vw(38)
+      font-size: vw(14)
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      border-radius: vw(2)
+    .cacel-btn
+      border: solid vw(1) #4A4A4A
+      color: #4A4A4A
+      margin-right: vw(15)
+    .sure-btn
+      background-color: #4A4A4A
+      color: #ffffff
+  .ipx-btn-box
+    height: vw(80)
+  .empty
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    height: vw(139)
+    &-icon
+      margin-top: vw(10)
+      width: vw(66)
+      height: vw(66)
+

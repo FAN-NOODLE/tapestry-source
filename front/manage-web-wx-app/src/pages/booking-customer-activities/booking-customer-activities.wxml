@@ -1,0 +1,55 @@
+<view class="booking-customer-container">
+    <view class="booking-customer-top-box">
+        <!-- icon -->
+        <view class="icon" />
+        <!-- 主图 -->
+        <view class="main-image" />
+        <!-- 文案 -->
+        <view class="main-content">
+            <view class="tips">进博会期间亲临COACH品牌展厅，即有机会赢取展会特定版皮牌，数量有限快来预约吧！</view>
+            <button class="btn {{detail.activity_status !== 1 ? 'disabled' : ''}}" bindtap="openPopup" wx:if="{{detail.btnText}}">{{detail.btnText}}</button>
+        </view>
+        <!-- 跳转公众号二维码 -->
+        <view class="go-content">
+            <view class="row">
+                <image class="left-shop-content" src="https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/shop_icon.png" />
+                <view class="right-content">
+                    <view class="title">经典C标 添赋心意</view>
+                    <view class="tips">寻找现代都市中的复古摩登，演</view>
+                    <view class="tips">绎百变潮流</view>
+                    <view class="go" bindtap="goMiniProgram">探索新系列商品</view>
+                </view>
+            </view>
+            <view class="row" >
+                <image class="left-wx-content" src="https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/wx_icon.png" />
+                <view class="right-content">
+                    <view class="title">关注COACH微信公众号</view>
+                    <view class="tips">您可以在历史消息查看最新线</view>
+                    <view class="tips">上/线下品牌特惠活动</view>
+                    <view class="go" bindtap="handleToWebSite">立即关注
+                        <!-- <view class="follow">立即关注</view> 
+                        <official-account></official-account> -->
+                    </view>
+                </view>
+            </view>
+            
+        </view>
+
+        <!-- 预约弹窗(新增修改) -->
+        <appointment-popup id="appointmentPopup" info="{{detail}}" bind:handleSuccess="handleSuccess" />
+
+        <!-- 预约弹窗(查看) -->
+        <look-appointment-popup id="lookAppointmentPopup" info="{{detail}}" bind:operationSuccess="operationSuccess" />  
+    </view>
+
+    <!-- 活动说明 -->
+    <view class="explain {{isIPhoneX ? 'isIosBottom': ''}}">
+        <view class="title">活动说明</view>
+        <view class="content" wx:for="{{tips}}" wx:key="index">{{item}}</view>
+    </view>
+</view>
+
+
+<com-model-privacy ></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

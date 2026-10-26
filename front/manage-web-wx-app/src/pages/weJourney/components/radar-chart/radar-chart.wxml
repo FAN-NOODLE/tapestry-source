@@ -1,0 +1,30 @@
+<view class="radar-chart {{'style-' + style}}">
+<!-- todo: 全屏遮罩点击关闭popover -->
+<view class="fixed-mask" wx:if="{{isTapPopover}}" bindtap="tapChart"></view>
+  <canvas id="chart" type="2d" style="width: {{size}}rpx; height: {{size}}rpx;"></canvas>
+  <canvas wx:if="{{isShowChart}}" id="chart2" type="2d" style="width: {{size}}rpx; height: {{size}}rpx; margin-left: 152rpx;"></canvas>
+  <view class="mask mask-{{chartArr.length}} {{isShowChart ? 'two-canvas' : ''}}">
+    <view wx:for="{{chartArr}}" wx:key="id" class="info-block index-{{item.id + 1}}">
+      <view class="title">
+        <view class="title-word">{{item.title}}</view>
+        <image data-index="{{index}}" bindtap="showPopover" src="../../../../images/static/custom-title2.png" class="icon" />
+        <view wx:if="{{tapIdx === index}}" class="popover">
+          <view>更新时间：</view>
+          <view class="time">{{item.time}}</view>
+          <view class="title">{{item.subTitle}}</view>
+          <view class="column">
+            <block wx:for="{{item.inviteRule}}" wx:key="index" wx:for-item="columnItem">
+              <view class="column-item">{{columnItem.condition}}</view>
+              <view class="column-item">{{columnItem.value}}</view>
+              <view class="column-item">{{columnItem.rule_give}}</view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="point-index">
+        <view class="word">指数</view>
+        <view class="value">{{item.value}}</view>
+      </view>
+    </view>
+  </view>
+</view>

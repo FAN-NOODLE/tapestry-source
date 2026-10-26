@@ -1,0 +1,141 @@
+<wxs module="computed" src="./select.wxs" />
+<view wx:if="{{!isLoading && detail}}" class="container">
+  <view class="content">
+    <view class="info">
+      <view class="row title">
+        <view class="col">
+          <text class="label">品名：</text>
+          <text class="value">{{detail.product_name||'--'}}</text>
+        </view>
+      </view>
+      <view class="row">
+        <view wx:if="{{detail.store_code}}" class="col">
+          <text class="label">门店code：</text>
+          <text class="value">{{detail.store_code||'--'}}</text>
+        </view>
+        <view class="col">
+          <text class="label">UPC：</text>
+          <text class="value">{{detail.upc_code||'--'}}</text>
+        </view>
+        <view class="col">
+          <text class="label">颜色：</text>
+          <text class="value">{{detail.color||'--'}}</text>
+        </view>
+        <view class="col">
+          <text class="label">吊牌价：</text>
+          <text class="value">
+            <text wx:if="{{detail.sku_tag_price && detail.sku_tag_price !=0}}">¥{{detail.sku_tag_price}}</text>
+            <text wx:else>--</text>
+          </text>
+        </view>
+        <view class="col">
+          <text class="label">款式：</text>
+          <text class="value">{{detail.style_code||'--'}}</text>
+        </view>
+        <view wx:if="{{detail.store_code}}" class="col">
+          <text class="label">零售价：</text>
+          <text class="value">
+            <text wx:if="{{detail.store_price && detail.store_price != 0}}">¥{{detail.store_price}}</text>
+            <text wx:else>--</text>
+          </text>
+        </view>
+      </view>
+      <view class="row">
+        <view class="col">
+          <text class="label">产品分类：</text>
+          <text class="value">{{detail.department||'--'}}</text>
+        </view>
+      </view>
+      <view class="row">
+        <view class="col">
+          <text class="label">廓形说明：</text>
+          <text class="value">{{detail.silhouette_desc||'--'}}</text>
+        </view>
+      </view>
+    </view>
+    <view id="desc" wx:if="{{detail.short_description_zh || detail.long_description_zh}}" class="desc {{isExpand?'expanded':''}}">
+      <view wx:if="{{detail.short_description_zh}}" class="row">
+        <view class="label">短描述：</view>
+        <view class="value">{{detail.short_description_zh}}</view>
+      </view>
+      <view wx:if="{{detail.long_description_zh}}" class="row">
+        <view class="label">长描述：</view>
+        <view class="value">
+          <rich-text nodes="{{detail.long_description_zh}}"></rich-text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{showExpand}}" class="expand {{isExpand?'expanded':''}}" bind:tap="handleExpand">{{isExpand?'收起':'展开'}}</view>
+    <view wx:if="{{options.from != 2}}" class="btn" bind:tap="handleSearch">商品库存查询</view>
+  </view>
+  <view wx:if="{{detail.merge_image.length}}" class="list">
+    <view class="select" 
+      data-status="{{computed.status(selection, detail)}}" 
+      data-item="{{detail}}" 
+      data-is-merge-image="{{true}}" 
+      bind:tap="handleSelect">
+      <view class="icon-select {{computed.checked(selection, detail)}}"></view>
+      <text>全选</text>
+    </view>
+    <mp-row gutter="20">
+      <mp-col span="8" wx:for="{{detail.merge_image}}" wx:key="index">
+        <view class="item">
+          <view 
+            class="item__select {{computed.checked(selection, item)}}" 
+            data-item="{{item}}" 
+            data-status="{{computed.status(selection, item)}}" 
+            data-is-merge-image="{{false}}" 
+            bind:tap="handleSelect"
+          ></view>
+          <view class="item__image" data-index="{{index}}" bind:tap="previewImage">
+            <mp-image wx:if="{{item.type==2}}" custom-class="image" src="{{item.url}}" mode="aspectFit"></mp-image>
+            <block wx:if="{{item.type === 5}}">
+              <mp-image src="{{video_cover_url}}" custom-class="image" mode="aspectFill" />
+              <view class="mark" />
+            </block>
+            <view class="count">
+              <view class="count-item">{{computed.setCount(item.forwarding_times)}}</view>
+              <view class="count-item">{{computed.setCount(item.download_times)}}</view>
+            </view>
+          </view>
+          <view class="item__title">
+            <view class="text">{{computed.setName(item.name)}}</view>
+          </view>
+        </view>
+      </mp-col>
+    </mp-row>
+  </view>
+  <!-- 底部操作 -->
+  <mp-footer wx:if="{{(enterType == 1||enterType == 3) && detail.merge_image.length}}" custom-class="footer">
+    <view class="number">已选：{{selection.length}}
+      <view wx:if="{{selection.length === maxlength}}" class="tips">最多可选{{maxlength}}个素材</view>
+    </view>
+    <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空已选</view>
+    <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleSaveAll">批量保存</view>
+  </mp-footer>
+  <!-- 底部操作 -->
+  <mp-footer wx:if="{{enterType == 2 && detail.merge_image.length}}" custom-class="footer-send">
+    <view class="number">已选：图片/视频({{selection.length}})
+      <view class="tips" wx:if="{{selection.length === maxlength}}">最多可选{{maxlength}}个图片/视频</view>
+    </view>
+    <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">清空</view>
+    <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleSendAll">确认并群发</view>
+  </mp-footer>
+</view>
+<mp-empty wx:if="{{ !isLoading && !detail }}" icon="no-data" content="未查询到该商品"></mp-empty>
+<page-loading wx:if="{{isLoading}}" />
+<!-- 图片预览 -->
+<com-popup-preview 
+  id="com-popup-save-preview"
+  current="{{previewIndex}}"
+  item="{{detail}}"
+  selection="{{selection}}"
+  enterType="{{enterType}}"
+  entryPoint="{{entryPoint}}"
+  libraryType="{{libraryType}}"
+  from="{{Number(options.from)}}"
+  bind:select="handleSelect"
+  bind:save="handleSave"
+></com-popup-preview>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

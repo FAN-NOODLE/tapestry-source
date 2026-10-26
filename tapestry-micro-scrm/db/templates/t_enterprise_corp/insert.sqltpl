@@ -1,0 +1,1 @@
+INSERT INTO `enterprise_corp` (`enterprise_id`, `corp_id`, `domain`, `hash`, `tag_init_status`, `reason`) VALUES (:enterprise_id, :corp_id, :domain, :hash, :tag_init_status, :reason);

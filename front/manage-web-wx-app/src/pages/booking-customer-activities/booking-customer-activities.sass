@@ -1,0 +1,141 @@
+
+@import '../../style/color-variable'
+
+
+/* 外面的边框可以这样 */
+radio
+  display: flex
+  align-items: center
+  .wx-radio-input
+    height: vw(10)
+    width: vw(10)
+    border-radius: 50%
+    border: vw(1) solid #979797 //替换边框 隐藏原有边框
+
+radio 
+  .wx-radio-input.wx-radio-input-checked 
+    border: vw(1) solid #979797 !important
+    background-color: #FFF
+
+/* 中间圆点   选中的背景需要是xml中设置 */
+radio 
+  .wx-radio-input.wx-radio-input-checked
+    &::before 
+      border-radius: 50%
+      /* 圆角 */
+      width: vw(6)
+      /* 选中后对勾大小，不要超过背景的尺寸 */
+      height: vw(6)
+      /* 选中后对勾大小，不要超过背景的尺寸 */
+      text-align: center
+      font-size: 0
+      /* 对勾大小 30rpx */
+      color: #FFF
+      /* 对勾颜色 白色 */
+      background-color: #8B8B8B
+      transform: translate(-50%, -50%) scale(1)
+      -webkit-transform: translate(-50%, -50%) scale(1)
+
+.booking-customer-container
+    height: 100vh
+    display: flex
+    overflow-y: scroll      
+    flex-direction: column
+    justify-content: space-between
+    @include renderImg('2023/v4.0.3.2/bg.png?t=2')
+    .booking-customer-top-box
+        @include flex(flex-start, center)        
+        flex-direction: column
+        .icon
+            width: vw(150)
+            height: vw(56)
+            margin-top: vw(50)
+            @include renderImg('2023/v4.0.3.2/coach-logo.png')
+        .main-image
+            width: vw(314)
+            height: vw(170)
+            margin: vw(25) 0
+            @include renderImg('2023/v4.0.3.2/center-img.png?t=2')
+        .main-content
+            margin: 0 vw(37)
+            display: flex
+            flex-direction: column
+            align-items: center
+            .tips
+                @include fontStyle(12, 400, #FFF, 17)
+                font-family: PingFangSC-Regular, PingFang SC
+                text-align: center
+            .btn
+                margin-top: vw(15)
+                width: vw(135)
+                height: vw(36)
+                background-color: #fff
+                @include fontStyle(14, 400, #000000, 20)
+                @include flex
+            .disabled
+                color: #000000
+                background-color: #C6C6C6
+        .go-content
+            width: 100%
+            margin-top: vw(32)
+            display: grid
+            grid-template-columns: 50% 50%
+            .row
+                margin-left: vw(26)
+                display: flex
+                .left-shop-content
+                    margin-top: vw(2)
+                    width: vw(12)
+                    height: vw(11)
+                .left-wx-content
+                    margin-top: vw(2)
+                    width: vw(14)
+                    height: vw(11)
+                .right-content
+                    margin-left: vw(7)
+                    .title
+                        @include fontStyle(12, 500, #FFF, 17)
+                    .tips
+                        margin-top: vw(2)
+                        @include fontStyle(9, 300, #FFF, 13)
+                    .go
+                        position: relative
+                        margin-top: vw(11)
+                        display: inline-flex
+                        @include fontStyle(10, 500, #FFF, 14)
+                        &::after
+                            content: ""
+                            width: 100%
+                            height: vw(1)
+                            background-color: #FFF
+                            position: absolute 
+                            bottom: 0
+                    .account-box
+                        position: relative
+                        height: vw(17)
+                        width: vw(60)
+                        margin-top: vw(10)
+                        overflow: hidden
+                        .follow
+                            height: vw(17)
+                            width: vw(60)
+                            position: absolute
+                            z-index: 2
+                            top: 0
+                            pointer-events: none
+                            background-color: #fff
+                            @include fontStyle(9, 400, #000000, 0)
+                            @include flex
+    .explain
+        margin-top: vw(27)  
+        width: 100%
+        padding: vw(18) vw(30)
+        background: #FFFFFF
+        opacity: 0.8
+        .title
+            @include fontStyle(12, 500, #000000, 20)
+        .content
+            @include fontStyle(10, 400, #000000, 20)
+            margin-bottom: vw(1)
+    .isIosBottom
+        @include iosBottom

@@ -1,0 +1,317 @@
+<wxs module="computed" src="./com-material-item.wxs"></wxs>
+
+<!-- 文本素材 1 -->
+<view wx:if="{{item.type==1}}" class="custom-class com-item com-item--text">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <!-- 置顶 -->
+  <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+  <!-- 文本 -->
+  <view 
+    wx:if="{{enterType === 2 || enterType === 3}}"
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__content">
+    <view class="text">
+      <text>{{item.content}}</text>
+    </view>
+  </view>
+  <view class="com-item__footer">
+    <view wx:if="{{showCount}}" class="total">
+      <view class="total-item">{{computed.setCount(item.collect_num)}}</view>
+      <view class="total-item">{{computed.setCount(item.copy_times)}}</view>
+    </view>
+    <view class="flex">
+      <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+      <view wx:if="{{enterType === 1}}" class="btn copy" data-text="{{item.content}}" bind:tap="handleCopy">复制</view>
+    </view>
+  </view>
+</view>
+<!-- 图片素材(单张素材和组合素材) 2 -->
+<view wx:if="{{item.type==2}}" class="custom-class com-item com-item--image">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{item.merge_image.length>1}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="select-num" wx:if="{{is_group && enterType == 2 && computed.status(selection, item, enterType) !=0}}"><text class="num-text">已选({{computed.getCheckedLength(selection, item)}})</text></view>
+  <view class="com-item__image" data-index="{{0}}" bind:tap="handlePreview">
+    <!-- 置顶 -->
+    <view class="top">
+      <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+      <view wx:if="{{is_group}}" class="image-number">{{merge_count}}张</view>
+    </view>
+    <mp-image src="{{item.url}}" custom-class="image" mode="aspectFit" />
+    <view wx:if="{{showCount}}" class="count">
+      <view class="count-item">{{computed.setCount(item.collect_num)}}</view>
+      <view class="count-item">{{computed.setCount(forwarding_times)}}</view>
+      <view class="count-item">{{computed.setCount(download_times)}}</view>
+    </view>
+  </view>
+  <view class="com-item__title">
+    <text class="text">{{computed.setName(item.name)}}</text>
+  </view>
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    <view wx:if="{{is_group && (enterType === 1 ||enterType === 3)}}" class="com-item__save" bind:tap="handleSavePopup">
+      <text wx:if="{{computed.getCheckedLength(selection, item)}}">保存({{computed.getCheckedLength(selection, item)}})</text>
+      <text wx:else>选择保存</text>
+    </view>
+    <view wx:if="{{!is_group && (enterType === 1 ||enterType === 3)}}" class="com-item__save" bind:tap="handleSave">保存</view>
+  </view>
+</view>
+<!-- 链接素材 3 -->
+<view wx:if="{{item.type==3}}" class="custom-class com-item com-item--link">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    wx:if="{{enterType === 2 || enterType === 3}}"
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__image">
+    <!-- 置顶 -->
+    <view class="top">
+      <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+    </view>
+    <mp-image custom-class="image" mode="aspectFit" src="{{item.cover_url}}"></mp-image>
+  </view>
+  <view class="com-item__content">
+    <view class="title">{{item.title}}</view>
+    <view class="desc">{{item.description}}</view>
+
+    <view class="com-item__footer">
+      <view wx:if="{{showCount}}" class="total-item">{{item.collect_num}}</view>
+      <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    </view>
+  </view>
+</view>
+<!-- 小程序素材 4 -->
+<view wx:if="{{item.type==4}}" class="custom-class com-item com-item--wechat">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    wx:if="{{enterType === 3}}"
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__header">
+    <view class="wechat-icon"></view>
+    <view class="flex-1">
+      <view class="wechat-title">{{item.app_name}}</view>
+      <view class="wechat-name">{{item.title}}</view>
+    </view>
+  </view>
+  <view class="com-item__image">
+    <!-- 置顶 -->
+    <view class="top">
+      <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+    </view>
+    <mp-image custom-class="image" mode="aspectFit" src="{{item.cover_url}}"></mp-image>
+  </view>
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    <view wx:if="{{showCount}}" class="total-item">{{item.collect_num}}</view>
+  </view>
+</view>
+<!-- 视频素材 5 -->
+<view wx:if="{{item.type==5}}" class="custom-class com-item com-item--video">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    wx:if="{{enterType === 3}}"
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view 
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__image" data-index="{{0}}" bind:tap="handlePreview">
+    <!-- 置顶 -->
+    <view class="top">
+      <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+    </view>
+    <!-- <video src="{{item.url}}" controls="{{false}}" show-center-play-btn="{{false}}" class="image" mode="aspectFit"  /> -->
+    <mp-image custom-class="image" mode="aspectFill" src="{{video_cover_url}}"></mp-image>
+    <view wx:if="{{showCount}}" class="count">
+      <view class="count-item">{{computed.setCount(item.collect_num)}}</view>
+      <view class="count-item">{{computed.setCount(item.forwarding_times)}}</view>
+      <view class="count-item">{{computed.setCount(item.download_times)}}</view>
+    </view>
+    <view class="mask"></view>
+  </view>
+  <view class="com-item__title">
+    <text class="text">{{computed.setName(item.name)}}</text>
+  </view>
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    <view wx:if="{{enterType === 1 ||enterType === 3}}" class="com-item__save" bind:tap="handleSave">保存</view>
+  </view>
+</view>
+<!-- 文件素材 6 -->
+<view wx:if="{{item.type==6}}" class="custom-class com-item com-item--file">
+	<view wx:if="{{item.member_name || item.member_avatar}}" class="com-item__uploader">
+		<image class="avatar" src="{{item.member_avatar || default_avatar}}"></image>
+		<text class="name">{{item.member_name || 'Coach KOS team'}}</text>
+	</view>
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    wx:if="{{enterType === 3}}"
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{false}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__content">
+    <!-- 置顶 -->
+    <view class="top">
+      <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view>
+    </view>
+    <view class="file-image">
+      <image class="image" src="{{fileType[item.file_type]}}" mode="aspectFit"></image>
+    </view>
+    <view class="file-name">{{item.name}}</view>
+    <view wx:if="{{showCount}}" class="count">
+      <view class="count-item">{{computed.setCount(item.collect_num)}}</view>
+    </view>
+  </view>
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    <view class="btn preview" bind:tap="handlePreview">预览</view>
+  </view>
+</view>
+<!-- 朋友圈素材 7 -->
+<view wx:if="{{item.type==7}}" class="custom-class com-item com-item--circle">
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  <view 
+    wx:if="{{enterType === 2 || enterType === 3}}" 
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{enterType === 3 ? false:item.merge_image.length>0}}"
+    bind:tap="handleSelect"
+  ></view>
+  <view class="com-item__header">
+    <view class="user">
+      <view class="avatar">
+        <image class="image" src="{{item.member_avatar||default_avatar}}"></image>
+      </view>
+      <view class="flex-1">
+        <view class="name">{{item.member_name||'Coach KOS team'}} <view wx:if="{{enterType !== 3 && item.is_top}}" class="is-top">置顶</view></view>
+        <view class="time">{{start_time}}</view>
+      </view>
+    </view>
+    <view wx:if="{{showCount}}" class="count">
+      <view class="count-item">{{computed.setCount(item.collect_num||0)}}</view>
+      <view class="count-item">{{computed.setCount(item.download_times||0)}}</view>
+      <view class="count-item">{{computed.setCount(item.forwarding_times||0)}}</view>
+    </view>
+  </view>
+  <view class="com-item__content">
+    <!-- 文本内容 -->
+    <view wx:if="{{item.text_content}}" class="text">
+      <text>{{item.text_content}}</text>
+      <text class="copy" data-text="{{item.text_content}}" bind:tap="handleCopy"></text>
+    </view>
+    <!-- 图片列表 -->
+    <view wx:if="{{item.merge_image.length}}" class="image-list">
+      <block wx:for="{{item.merge_image}}" wx:key="index">
+        <view class="image-item" data-index="{{index}}" bind:tap="handlePreview">
+          <mp-image custom-class="image" src="{{item.url}}" mode="aspectFit"  />
+        </view>
+      </block>
+    </view>
+    <!-- 视频 -->
+    <view wx:elif="{{item.original_url}}" class="image-list">
+      <view class="image-item" data-index="{{0}}" bind:tap="handlePreview">
+        <mp-image custom-class="image" src="{{video_cover_url}}" mode="aspectFit"  />
+        <view class="mask"></view>
+      </view>
+    </view>
+  </view>
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" bind:tap="handleCollect"></view>
+    <view wx:if="{{enterType === 1 || enterType === 3}}" class="btn" bind:tap="handleSave">{{btnText}}</view>
+    <view wx:if="{{enterType === 1 || enterType === 3}}" class="btn friends" bind:tap="handleShare">转发朋友圈</view>
+  </view>
+</view>
+<!-- 商品素材 8 -->
+<view wx:if="{{item.type==8}}" class="custom-class com-item com-item--image" bind:tap="handleViewDetail">
+  <view wx:if="{{item.is_new}}" class="com-item__new"></view>
+  
+  <!--有图片的时候显示选择框 -->
+  <view 
+    wx:if="{{item.merge_image.length>0}}" 
+    class="com-item__select {{computed.checked(selection, item, enterType)}}" 
+    data-status="{{computed.status(selection, item, enterType)}}"
+    data-is-merge-image="{{enterType==3 ? false : true}}"
+    catch:tap="handleSelect"
+  ></view>
+  <!-- 群发素材显示的选中数量 -->
+  <view wx:if="{{item.merge_image.length>1 && enterType == 2 && computed.status(selection, item, enterType) != 0}}" class="select-num"><text class="num-text">已选({{computed.getCheckedLength(selection, item)}})</text></view>
+  <!-- 图片展示区域 catch:tap="handlePreview" 取消列表的图片预览 -->
+  <view class="com-item__image" data-index="{{0}}">
+    <!-- 数量超过1 -->
+    <view class="top">
+      <view wx:if="{{item.merge_image.length>1}}" class="image-number">{{merge_count}}张</view>
+    </view>
+    <!-- 是视频 -->
+    <block wx:if="{{item._item_type === 5}}">
+      <mp-image src="{{video_cover_url}}" custom-class="image" mode="aspectFill" />
+      <view class="mark" />
+    </block>
+    <!-- 是视频 -->
+    <mp-image wx:elif="{{item.url}}" src="{{item.url}}" custom-class="image" mode="aspectFit" />
+    <!-- 缺省图 -->
+    <mp-image wx:else src="{{empty_image}}" custom-class="image" mode="aspectFit" />
+    <!-- 保存/转发数据 -->
+    <view wx:if="{{item.merge_image.length>0 && showCount}}" class="count">
+      <view class="count-item">{{computed.setCount(item.collect_num)}}</view>
+      <view class="count-item">{{computed.setCount(forwarding_times)}}</view>
+      <view class="count-item">{{computed.setCount(download_times)}}</view>
+    </view>
+  </view>
+  <!-- 素材标题 -->
+  <view class="com-item__title">
+    <text class="text">{{computed.setName(item.name)}}</text>
+  </view>
+  <!-- 操作按钮 -->
+  <view class="com-item__footer">
+    <view class="collect {{item.is_collect?'active':''}}" catch:tap="handleCollect"></view>
+    <view wx:if="{{(enterType === 1 ||enterType === 3) && item.merge_image.length === 0}}" class="com-item__save" catch:tap="handleViewDetail">查看详情</view>
+    <view wx:if="{{(enterType === 1 ||enterType === 3) && item.merge_image.length > 0}}" class="com-item__save" catch:tap="handleViewDetail">
+      <text wx:if="{{computed.getCheckedLength(selection, item)}}">保存({{computed.getCheckedLength(selection, item)}})</text>
+      <text wx:else>选择保存</text>
+    </view>
+  </view>
+    
+</view>

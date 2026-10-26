@@ -1,0 +1,14 @@
+/**
+ * @description:截断文字显示,限制两行，超出部分显示省略号
+ * @return {*}
+ */
+function ellipsisText(text, length) {
+  if (text.length > length) {
+    return text.substring(0, length) + '...'
+  } else {
+    return text
+  }
+}
+module.exports = {
+  ellipsisText: ellipsisText
+}

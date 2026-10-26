@@ -1,0 +1,18 @@
+SELECT count(work_external_user_relation.member_id)
+FROM `work_external_user_relation`
+LEFT JOIN members on members.id = work_external_user_relation.member_id
+{{if .cond.DepartmentID}}
+LEFT JOIN member_departments on member_departments.member_id = work_external_user_relation.member_id
+{{end}}
+WHERE `work_external_user_relation`.`enterprise_id` = {{.cond.EnterpriseID}}
+AND `work_external_user_id` = {{.cond.UserWorkID}}
+AND work_external_user_relation.relation_status = 0
+{{if .cond.MemberID}}
+AND work_external_user_relation.member_id = :member_id
+{{end}}
+{{if .cond.DepartmentID}}
+AND member_departments.department_id = :department_id
+AND member_departments.deleted_at = 0
+{{end}}
+AND members.deleted_at = 0
+AND work_external_user_relation.deleted_at = 0;

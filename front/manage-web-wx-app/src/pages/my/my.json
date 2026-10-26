@@ -1,0 +1,13 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "我的",
+	"backgroundColor": "#ffffff",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"avatar": "../../components/avatar/avatar",
+		"message-modal": "../../components/message-modal/message-modal",
+		"tel-modal": "../../components/tel-modal/tel-modal"
+	}
+}

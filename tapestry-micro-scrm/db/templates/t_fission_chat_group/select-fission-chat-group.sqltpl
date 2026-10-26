@@ -1,0 +1,12 @@
+select
+    chat_id,id,qr_code,sort
+FROM
+    fission_chat_group
+WHERE
+    enterprise_id = {{.enterpriseID}}
+    {{if gt .activityID 0}}
+       AND  activity_id = {{.activityID}}
+    {{end}}
+    {{if eq .withDel  false}}
+       AND deleted_at = 0
+    {{end}}

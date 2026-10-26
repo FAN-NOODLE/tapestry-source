@@ -1,0 +1,15 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "会员查询结果",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "default",
+  "usingComponents": {
+    
+    "com-customer-item": "../../../../components/customer-components/com-customer-item/com-customer-item",
+    "com-create-entry": "../../../../components/customer-components/com-create-entry/com-create-entry",
+    "navigation-bar": "../../../../components/navigation-bar/navigation-bar"
+  }
+}

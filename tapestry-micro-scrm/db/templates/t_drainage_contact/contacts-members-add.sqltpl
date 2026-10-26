@@ -1,0 +1,3 @@
+INSERT INTO drainage_contact_members ( id, contact_id, enterprise_id, member_id, third_id, created_at, updated_at, deleted_at )
+VALUES
+	(:id, :contact_id, :enterprise_id, :member_id, :third_id, :created_at, :updated_at, :deleted_at )

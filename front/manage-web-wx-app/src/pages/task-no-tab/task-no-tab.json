@@ -1,0 +1,15 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "任务中心",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "light",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+		"navigation-bar": "../../components/navigation-bar/navigation-bar",
+    "task-plan": "../../components/task-components/task-plan/task-plan",
+    "invitation-plan": "../../components/task-components/invitation-plan/invitation-plan",
+    "sow-plan": "../../components/task-components/sow-plan/sow-plan"
+  }
+}

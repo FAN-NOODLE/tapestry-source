@@ -1,0 +1,7 @@
+UPDATE
+  `work_external_user_relation`
+SET
+  `description` = ?,
+  `updated_at` = ?
+WHERE
+  id = ?

@@ -1,0 +1,22 @@
+SELECT
+	`id`,
+	`member_id`,
+	`name`,
+	`sign`,
+	`avatar`,
+	`background`,
+	`enterprise_id`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`,
+	`mark`
+FROM
+	moment_members
+WHERE
+	1 = 1
+AND
+    `enterprise_id` = :enterprise_id
+AND
+    `member_id` IN ({{WhereIn .memberIds}})
+AND
+    `deleted_at` = 0

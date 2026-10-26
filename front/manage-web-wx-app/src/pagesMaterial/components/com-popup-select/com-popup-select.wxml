@@ -1,0 +1,23 @@
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <view class="popup__close" bind:tap="hide"></view>
+    <view class="popup__title">请选择新增素材类型</view>
+    <view class="popup__content">
+      <block wx:for="{{list}}" wx:key="index">
+        <block wx:if="{{item.show}}">
+          <view wx:if="{{item.type != 7}}" class="item" hover-class="none" data-url="{{item.url}}" bind:tap="navigateTo">
+            <image class="item-image" src="{{item.icon}}"></image>
+            <view class="item-title">{{item.title}}</view>
+            <view class="item-right"></view>
+          </view>
+          <view wx:else class="item">
+            <image class="item-image" src="{{item.icon}}"></image>
+            <view class="item-title">{{item.title}}</view>
+            <view class="item-btn" hover-class="none" data-url="{{item.url}}&file_type=1" bind:tap="navigateTo">上传图片</view>
+            <view class="item-btn" hover-class="none" data-url="{{item.url}}&file_type=2" bind:tap="navigateTo">上传视频</view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+</mp-popup>

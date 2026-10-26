@@ -1,0 +1,14 @@
+SELECT
+    TG.`group_id` AS work_group_id,
+    TG.`group_name`,
+    TG.`id` AS group_id,
+	COUNT(UT.`id`) AS use_num
+FROM
+	`work_external_tag_group` AS TG
+	LEFT JOIN `work_external_tag` T ON T.`group_id` = TG.`id`
+	LEFT JOIN `work_external_user_tag` UT ON UT.`external_tag_id` = T.`id` AND UT.`deleted_at` = 0
+WHERE
+	TG.`enterprise_id` = :enterprise_id
+ 	AND TG.`id` = :tag_group_id
+GROUP BY
+	TG.`id`

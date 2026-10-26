@@ -1,0 +1,170 @@
+pipeline {
+    agent any
+
+    parameters {
+        // 代码库地址
+        string defaultValue: 'ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/project/tapestry/backend/gw-console.git', description: '代码库地址', name: 'gitUrl', trim: true
+        // git用户凭证
+        string defaultValue: '5bd64c05-cabd-44cc-b81e-a76e8af7cfb8', description: 'git用户凭证', name: 'gitCredentialsId', trim: true
+        // 发布的分支或tag
+        gitParameter branch: '', branchFilter: 'origin/tapestry-.*', defaultValue: 'tapestry-dev', description: '发布的分支或tag', name: 'branch', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '', type: 'PT_BRANCH'
+        // docker仓库地址
+        string defaultValue: 'harbor.vchangyi.com', description: 'docker仓库地址', name: 'dockerHub', trim: true
+        // docker仓库镜像空间
+        string defaultValue: 'tapestry', description: 'docker仓库镜像空间', name: 'dockerNamespace', trim: true
+        // 镜像名字
+        string defaultValue: 'gw-console', description: '镜像名字', name: 'dockerImageName', trim: true
+        // docker仓库用户
+        string defaultValue: 'qiuapeng', description: 'docker仓库用户', name: 'dockerUser', trim: true
+        // docker仓库用户密码
+        string defaultValue: 'DUyP3e6YGoo2TMdMio', description: 'docker仓库用户密码', name: 'dockerPass', trim: true
+        // 企微群机器人
+        string defaultValue: 'e05f07c3-df66-4b6e-8d39-4d2a90aee691', description: '企微群机器人', name: 'weChatKey', trim: true
+    }
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                echo "开始拉取代码  当前发布分支： ${params.branch}"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${params.branch}"]],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    gitTool: 'Default',
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[credentialsId: "{params.gitCredentialsId}",url: "${params.gitUrl}"]]
+                ])
+            }
+        }
+
+        stage('Pre Build') {
+            steps {
+                script{
+                    // 定义tag
+                    env.tag = branch.replaceAll('/','-') + '-' + env.BUILD_ID
+                    // 镜像地址
+                    env.dockerAddress = "${params.dockerHub}/${params.dockerNamespace}/${params.dockerImageName}:${env.tag}"
+                    // 打印镜像版本
+                    echo "镜像地址：${env.dockerAddress}"
+
+                    // 处理手动构建分支
+                    switch (env.branch){
+                        case "origin/tapestry-dev":
+                            env.branch = "tapestry-dev"
+                            break;
+                        case "origin/tapestry-uat":
+                            env.branch = "tapestry-dev"
+                            break;
+                        case "origin/tapestry-prod":
+                            env.branch = "tapestry-prod"
+                            break;
+                    }
+                    sendMessageToWeChat('构建开始')
+                }
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                sh "docker build -t ${env.dockerAddress} -f deploy/build/Dockerfile ."
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                sh """
+                    docker login -u ${params.dockerUser} -p ${params.dockerPass} ${params.dockerHub}
+                    docker push ${env.dockerAddress}
+                    docker rmi ${env.dockerAddress}
+                """
+            }
+        }
+
+		stage('Deploying') {
+			steps {
+			    script{
+			        def appEnv = ""
+			        def k8sConf = ""
+			        switch (env.branch){
+                        case "tapestry-dev":
+                            appEnv = "dev"
+                            k8sConf = "tapestry-dev"
+                            break;
+                        case "tapestry-uat":
+                            appEnv = "uat"
+                            k8sConf = "tapestry-backend-uat"
+                            break;
+                        case "tapestry-prod":
+                            appEnv = "prod"
+                            k8sConf = "tapestry-backend-prod"
+                            break;
+                        default:
+                            throw new RuntimeException('部署环境或k8s配置文件为空,停止部署')
+                    }
+
+                    sh """
+                        sed -i s#TAG_VERSION#$env.tag#g deploy/k8s/${appEnv}/deployment.yaml
+                        kubectl --kubeconfig ~/.kube/${k8sConf} apply -f deploy/k8s/${appEnv}
+                        kubectl --kubeconfig ~/.kube/${k8sConf} get pod -n tapestry
+                    """
+			    }
+			}
+		}
+    }
+
+    post{
+        // 成功
+        success{
+            sendMessageToWeChat('成功')
+        }
+        // 失败
+        failure{
+            sendMessageToWeChat('失败')
+        }
+        // 不稳定
+        unstable{
+            sendMessageToWeChat('不稳定')
+        }
+    }
+}
+
+// git提交人员和提交信息
+class MyChange {
+   String author;
+   String msg;
+}
+@NonCPS
+def getChanges()
+{
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++)
+    {
+        def entries = changeLogSets[0].items
+        for (int j = 0; j < entries.length; j++)
+        {
+            def entry = entries[0]
+            def change = new MyChange()
+            change.author = entry.author
+            change.msg = entry.msg
+            return change
+        }
+    }
+
+}
+
+// 企微消息推送
+// message String 消息标题
+def sendMessageToWeChat(message) {
+    def change = getChanges()
+    sh"""
+    curl https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${params.weChatKey} \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "msgtype": "markdown",
+            "markdown": {
+                "content": "### 代码发布通知「${message}」\n >项目名称：${params.dockerImageName} \n >发布人：${change.author} \n >发布信息：${change.msg} \n >发布分支：${params.branch} \n >镜像地址：${env.dockerAddress} \n >查看部署详情：[点击跳转](${env.BUILD_URL}/console) \n"
+            }
+        }'
+    """
+}

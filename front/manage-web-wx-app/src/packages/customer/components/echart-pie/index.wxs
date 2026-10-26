@@ -1,0 +1,15 @@
+function getColor(index) {
+  return [
+    '#E8CE9F',
+    '#F2B183',
+    '#F28383',
+    '#E89FC2',
+    '#8FDBBF',
+    '#75E0FF',
+    '#98A3D9'
+  ][index % 6]
+}
+
+module.exports = {
+  getColor: getColor
+}

@@ -1,0 +1,20 @@
+/* components/common/mp-col/index.wxss */
+
+.mp-col {
+  box-sizing: border-box;
+  float: left;
+}
+// 循环创建 1-24 的栅格样式 和 偏移样式
+@for $i from 1 through 24 {
+  .mp-col--#{$i} {
+    width: percentage($i / 24);
+  }
+
+  .mp-col--offset-#{$i} {
+    margin-left: percentage($i / 24);
+  }
+}
+
+.mp-col--4_8 {
+  width: percentage(4.8 / 24);
+}

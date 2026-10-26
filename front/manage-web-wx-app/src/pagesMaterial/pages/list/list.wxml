@@ -1,0 +1,23 @@
+<view class="container">
+  <!-- header -->
+  <view class="header">
+    <!-- <navigation-bar text="素材库" bg-color="#ffffff" color="#000000"></navigation-bar> -->
+    <!-- 素材类型 -->
+    <com-tabs tabs="{{tabs}}" active="{{current}}" skip-transition="{{true}}" height="100" line-height="2" line-width="375" bind:change="handleTypeChange"></com-tabs>
+  </view>
+  <!-- 内容部分 -->
+  <view class="content">
+    <com-normal-material wx:if="{{current===0}}" id="com-normal-material"></com-normal-material>
+    <com-goods-material wx:if="{{current===1}}" entryPoint="{{entryPoint}}" id="com-goods-material"></com-goods-material>
+  </view>
+</view>
+
+
+<!-- 创建素材入口 -->
+<com-create-entry wx:if="{{current == 0 && canUpload}}" bottom="{{250}}" id="com-create-entry" bind:click="handleCreate"></com-create-entry>
+<!-- 我的收藏 -->
+<com-create-entry id="com-create-entry-2"  type="2" bottom="{{300}}" bind:show="handleShow" bind:click="handleViewCollect"></com-create-entry>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,13 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "WeJourney",
+	"backgroundColor": "#F6F6F9",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"popover": "../../../components/popover/popover",
+		"radar-chart": "../components/radar-chart/radar-chart",
+    "gold-info":"../components/gold-info/gold-info"
+	}
+}

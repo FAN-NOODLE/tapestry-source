@@ -1,0 +1,168 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+.member-info
+  .customer-tag
+    margin-top: vw(15)
+    padding: vw(10) 0
+    background-color: #fff
+
+    .title-box
+      margin-bottom: vw(10)
+      display: flex
+      align-items: center
+      padding: 0 vw(15)
+
+      .title
+        font-size: vw(16)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #33363C
+        margin-right: vw(7)
+      
+      .icon
+        width: vw(20)
+        height: vw(20)
+
+    .tag-list
+      display: flex
+      flex-wrap: wrap
+      padding: 0 vw(5) 0 vw(10)
+
+      .tag-item
+        height: vw(30)
+        background: #000000
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #FFFFFF
+        display: flex
+        align-items: center
+        padding-left: vw(10)
+        padding-right: vw(5)
+        margin-right: vw(10)
+        margin-bottom: vw(10)
+        
+        .icon
+          width: vw(20)
+          height: vw(20)
+          margin-left: vw(8)
+
+  .customer-impression
+    padding: vw(20) vw(15)
+    background-color: #fff
+    margin-top: vw(15)
+
+    .title-box
+      display: flex
+      align-items: center
+      margin-bottom: vw(15)
+
+      .title
+        font-size: vw(16)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #33363C
+        margin-right: vw(7)
+
+      .icon-box
+        flex: 1
+        display: flex
+        align-items: center
+      
+        .icon
+          width: vw(20)
+          height: vw(20)
+
+      .arrow
+        width: vw(14)
+        height: vw(14)
+        transform: rotate(180deg)
+
+    .impression-list
+      background-color: #F3F4F6
+      position: relative
+
+      .item-box:not(:last-child)::after
+        content: ''
+        display: block
+        height: vw(1)
+        background-image: linear-gradient(to right, #CCCCCC 55%, #F3F4F6 55%)
+        background-size: vw(8) 100%
+        background-repeat: repeat-x
+        width: calc( 100% - 60rpx )
+        margin-left: vw(15)
+
+  .other-detail
+    margin-top: vw(15)
+    background-color: #fff
+    padding: vw(20) vw(15)
+    display: grid
+    grid-template: auto unquote('/') 1fr
+    gap: vw(15)
+
+    .row
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+      .label
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #96979E
+
+      .value
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+        display: flex
+        align-items: center
+
+        .icon
+          width: vw(14)
+          height: vw(14)
+          margin-left: vw(5)
+
+  .module-page
+    display: flex
+    padding: vw(20) vw(15)
+    margin-top: vw(10)
+    background-color: #fff
+
+    .module-box
+      flex: 1
+      height: vw(117)
+      margin-right: vw(10)
+      background-color: #F6F7F9
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+
+      .image
+        width: vw(44)
+        height: vw(44)
+        margin-bottom: vw(5)
+      
+      .title
+        display: flex
+        align-items: center
+
+        .word
+          font-size: vw(14)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #33363C
+          margin-right: vw(5)
+
+        .icon
+          width: vw(9)
+          height: vw(14)

@@ -1,0 +1,25 @@
+UPDATE `sms_sign` SET
+{{if ne .cond.ThirdSignId 0}}
+    `third_sign_id` = :third_sign_id,
+{{end}}
+{{if ne .cond.ThirdSignStatus 0}}
+    `third_sign_status` = :third_sign_status,
+{{end}}
+{{if ne .cond.ThirdSignType 0}}
+    `third_sign_type` = :third_sign_type,
+{{end}}
+{{if ne .cond.SignName ""}}
+    `sign_name` = :sign_name,
+{{end}}
+{{if ne .cond.DeletedAt 0}}
+    `deleted_at` = :deleted_at,
+{{end}}
+`updated_at` = :updated_at
+WHERE
+`deleted_at` = 0
+{{if ne .cond.Id 0}}
+    AND `id` = :id
+{{end}}
+{{if ne .cond.ThirdSignId 0}}
+    AND `third_sign_id` = :third_sign_id
+{{end}}

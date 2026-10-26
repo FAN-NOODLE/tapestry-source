@@ -1,0 +1,27 @@
+select
+  ur.`id`,
+  ur.`enterprise_id`,
+  ur.`work_external_user_id`,
+  ur.`member_id`,
+  ur.`remark`,
+  ur.`description`,
+  ur.`createtime`,
+  ur.`remark_corp_name`,
+  ur.`remark_mobiles`,
+  ur.`add_way`,
+  ur.`state`,
+  ur.`oper_userid`,
+  ur.`relation_status`,
+  ur.`member_deleted_time`,
+  ur.`external_deleted_time`,
+  ur.`created_at`,
+  ur.`updated_at`,
+  ur.`deleted_at`
+from work_external_user_relation as ur
+left join members on members.id = ur.member_id and members.enterprise_id = ur.enterprise_id
+where
+members.enterprise_id = ?
+and
+ur.work_external_user_id = ?
+and
+members.userid = ?

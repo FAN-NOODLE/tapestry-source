@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "顾客详情",
+  "usingComponents": {
+    "member-info": "./components/member-info/member-info",
+    "sow": "./components/sow/sow",
+    "invite-list": "./components/invite-list/invite-list",
+    "binding-relation": "./components/binding-relation/binding-relation"
+  }
+}

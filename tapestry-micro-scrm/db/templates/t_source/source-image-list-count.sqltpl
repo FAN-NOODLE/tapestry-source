@@ -1,0 +1,39 @@
+SELECT
+   count(DISTINCT (img.id))
+FROM source_image as img
+LEFT JOIN source as s on img.id = s.id
+LEFT JOIN source_category_relation as scr on scr.source_id = img.id
+LEFT JOIN source_category as sc on sc.id = scr.category_id
+
+WHERE
+s.enterprise_id  = :enterprise_id
+
+{{if .cond.CategoryIds}}
+    AND scr.category_id IN ({{WhereIn .cond.CategoryIds}})
+{{end}}
+
+{{if .cond.GroupIDList}}
+AND s.group_id IN ({{WhereIn .cond.GroupIDList}})
+{{end}}
+
+{{if .cond.JustMe}}
+AND admin_id = :admin_id
+{{end}}
+{{if .cond.Keyword}}
+AND img.name LIKE '%{{SafeStr .cond.Keyword}}%'
+{{end}}
+{{if and .cond.CreateStart .cond.CreateEnd}}
+AND s.created_at BETWEEN :create_start AND :create_end
+{{end}}
+
+{{if ne .cond.MediaExpireTime 0}}
+ AND (img.`media_expire_time` = 0 OR `img`.`media_expire_time` < {{.cond.MediaExpireTime}})
+{{end }}
+
+{{if ne .cond.SourceStatus 2}}
+    AND s.status = {{.cond.SourceStatus}}
+{{end}}
+
+AND s.deleted_at = 0
+AND img.deleted_at = 0
+

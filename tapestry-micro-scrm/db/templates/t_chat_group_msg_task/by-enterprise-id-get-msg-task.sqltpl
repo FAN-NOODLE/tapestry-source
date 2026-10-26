@@ -1,0 +1,25 @@
+select
+  `id`,
+  `enterprise_id`,
+  `name`,
+  `type`,
+  `send_type`,
+  `status`,
+  `task_status`,
+  `fail_msg`,
+  `send_time`,
+  `last_send_msg`,
+  `content`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    chat_group_msg_task
+where `enterprise_id` = ?
+  AND status in (1, 6)
+  AND task_status not in (3, 5)
+  AND send_time <= UNIX_TIMESTAMP()
+  AND ( ( `type` = 2 AND `task_status` IN ( 1, 4 )) OR ( `task_status` = 4 ) OR (type=1 and task_status=2 and status=6))
+  AND `deleted_at` = 0
+  ORDER BY `created_at` DESC
+

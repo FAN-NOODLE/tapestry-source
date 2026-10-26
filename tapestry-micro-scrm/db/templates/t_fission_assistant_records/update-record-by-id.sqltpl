@@ -1,0 +1,26 @@
+UPDATE
+	`fission_assistant_records`
+	SET
+	{{if ne .cond.AddMemberStatus 0}}
+	add_member_status = :add_member_status,
+	{{if eq .cond.AddMemberStatus 2}}
+	add_member_at = 0,
+	{{end}}
+	{{end}}
+	{{if ne .cond.AddMemberAt 0}}
+	add_member_at = :add_member_at,
+	{{end}}
+	{{if ne .cond.JoinChatGroupStatus 0}}
+    join_chat_group_status = :join_chat_group_status,
+    {{if eq .cond.JoinChatGroupStatus 2}}
+    join_chat_group_at = 0,
+    {{end}}
+    {{end}}
+    {{if ne .cond.JoinChatGroupAt 0}}
+    join_chat_group_at = :join_chat_group_at,
+    {{end}}
+    score = :score,
+    updated_at = :update_at
+WHERE
+    deleted_at = 0
+    AND id = :id

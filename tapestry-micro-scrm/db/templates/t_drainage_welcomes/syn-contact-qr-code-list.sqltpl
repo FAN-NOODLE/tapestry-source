@@ -1,0 +1,23 @@
+SELECT
+	contact_qr_code.id,
+	contact_qr_code.enterprise_id,
+	contact_qr_code.name,
+	contact_qr_code.channel_id,
+	contact_qr_code.channel,
+	contact_qr_code.type as contact_type,
+	contact_qr_code.source_type,
+	contact_qr_code.is_verify,
+	contact_qr_code.official_url,
+	contact_qr_code.config_id,
+	contact_qr_code_params.object,
+	contact_qr_code_params.object_extra,
+	contact_qr_code_params.type as params_type,
+	contact_qr_code.created_at,
+	contact_qr_code.updated_at,
+	contact_qr_code.deleted_at
+FROM
+	contact_qr_code
+LEFT JOIN contact_qr_code_params on contact_qr_code.id = contact_qr_code_params.contact_qr_code_id
+WHERE
+	contact_qr_code.deleted_at = 0
+    AND contact_qr_code.enterprise_id = :enterprise_id

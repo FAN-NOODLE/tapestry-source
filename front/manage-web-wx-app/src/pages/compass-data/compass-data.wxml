@@ -1,0 +1,536 @@
+<wxs module="tool">
+	module.exports.adjustLabel = function(label) {
+	var arr = (label+'').split("-")
+	return arr
+	}
+</wxs>
+<wxs module="util">
+	var sub = function(val) {
+	return val.substring(0, 4)
+	}
+	module.exports.sub = sub;
+</wxs>
+<view class="custom-made-page">
+	<!-- <navigation-bar
+	 bg-color="{{bgColor}}"
+	 fontSize="18"
+	 color="#000000"
+	 throughTop="{{true}}"
+	 text="数据罗盘"
+	/> -->
+	<view class="shade-load" wx:if="{{shadeShow}}">
+		<mp-navigation title="数据罗盘"></mp-navigation>
+		<image src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif" />
+	</view>
+	<view wx:else>
+		<!-- 顶部tabs -->
+		<view class="tab-fixed">
+			<mp-navigation title="数据罗盘"></mp-navigation>
+			<view class="tab-wrap">
+				<view
+				 class="tab-item {{tabIndex == item.type? 'active ' : ''}}"
+				 wx:for="{{tabbars}}"
+				 wx:key="item"
+				 bindtap="switchTab"
+				 data-type="{{index+1}}"
+				 data-index="{{item.type}}"
+				>
+					{{item.text}}
+					<view wx:if="{{tabIndex == item.type}}" class="bor-active" />
+					<view class="bor-r" wx:if="{{index !== tabbars.length-1 }}" />
+				</view>
+			</view>
+		</view>
+		<!-- 内容部分 -->
+		<view class="page-content" wx:if="{{tabIndex!==3}}">
+			<!-- 顶部tabs -->
+			<view class="select-wrap">
+				<!-- 筛选 -->
+				<view class="{{selDate?'select-box2 active':'select-box2'}}">
+					<view class="box2-border">
+						<!-- 时间 -->
+						<view bindtap="openDateSel" class="cover">
+							<view class="label_box" wx:if="{{tool.adjustLabel(dateVal.label).length === 2}}">
+								自定义
+							</view>
+							<view class="label_box" wx:else>{{tool.adjustLabel(dateVal.label)[0]}}</view>
+							<image class="icon-right adjust" src="https://img-crs.vchangyi.com/store-manage-wxapp/compass_triangle.png" />
+						</view>
+						<!-- 分割线 -->
+						<view class="bd-r" />
+						<!-- 门店 -->
+						<view
+						 wx:if="{{range===3 && role!==2}}"
+						 bindtap="openOrgaSel"
+						 index-range="{{range}}"
+						 class="cover"
+						>
+							{{department_ids.length>0 ? department_ids.length+'个部门' : '全部部门'}}
+							<image class="icon-right" src="~@/images/customer/store-icon.png" />
+						</view>
+						<view wx:if="{{range==0 && role!==2}}" class="cover">
+							<!-- {{storeName}} -->
+							{{storeName.length>5 ? util.sub(storeName)+'...':storeName}}
+							<image class="icon-right" src="~@/images/customer/store-icon.png" />
+						</view>
+						<view
+						 wx:if="{{range!==3 && range!==0 && role!==2}}"
+						 bindtap="openOrgaSel"
+						 index-range="{{range}}"
+						 class="cover"
+						>
+							{{store_ids.length>0 ? store_ids.length+'个门店' : '全部门店'}}
+							<image class="icon-right" src="~@/images/customer/store-icon.png" />
+						</view>
+						<!-- 分割线 -->
+						<view class="bd-r" />
+						<!-- 导购 -->
+						<view wx:if="{{role !== 1 && role !== 3}}" bindtap="openGuideSel" class="cover">
+							<text wx:if="{{worker_ids.length == 0}}">全部导购</text>
+							<text wx:else class="word-wrap">{{worker_ids.length}}个导购</text>
+							<image class="icon-right" src="~@/images/customer/person-icon.png" />
+						</view>
+						<view wx:else class="cover">
+							{{baName.length>5 ? util.sub(baName)+'...':baName}}
+							<image class="icon-right" src="~@/images/customer/person-icon.png" />
+						</view>
+					</view>
+					<view class="select-info" wx:if="{{selDate}}">
+						<view
+						 class="{{item.checked ? 'active cover': 'cover'}}"
+						 wx:for="{{dateList}}"
+						 wx:key="index"
+						 data-index="{{item.value}}"
+						 bindtap="dateChecked"
+						>
+							{{item.label}}
+							<image
+							 wx:if="{{item.checked}}"
+							 class="tick"
+							 src="~@/images/customer/duihao-icon.png"
+							 mode="aspectFill"
+							/>
+						</view>
+					</view>
+					<view class="definition-time" wx:if="{{!selDate && dateVal.value == 5}}">
+						自定义日期：{{tool.adjustLabel(dateVal.showData)[0]+'-'+tool.adjustLabel(dateVal.showData)[1]}}
+					</view>
+				</view>
+			</view>
+			<view wx:if="{{!selDate}}">
+				<!-- 更新时间 -->
+				<view class="update-date">数据更新时间：{{ updateDate }}</view>
+				<!-- 社群数据 -->
+				<scroll-view wx:if="{{tabIndex == 1}}" class="content-box" scroll-y="{{true}}">
+					<view class="data-box">
+						<view class="box-title">社群数据</view>
+						<view class="surround-box">
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{1}}" bindtap="handleTipExpress">
+									<view>累计群成员数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{community_data.cumulative_group_number}}</view>
+								<view wx:if="{{tipsIndex===1}}" class="express-content content-1" bindtap="handleHideTipExpress">
+									截止当前查询条件下，有效的群（不包括删除的群）累计群成员总数
+								</view>
+							</view>
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{2}}" bindtap="handleTipExpress">
+									<view>退群率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{community_data.leave_group_percentage}}</view>
+								<view wx:if="{{tipsIndex===2}}" class="express-content content-2" bindtap="handleHideTipExpress">
+									截止当前查询条件下，退群人数与退群前累计群成员数的占比
+								</view>
+							</view>
+						</view>
+						<view class="surround-box">
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{3}}" bindtap="handleTipExpress">
+									<view>新入群人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{community_data.number_of_newcomers}}</view>
+								<view wx:if="{{tipsIndex===3}}" class="express-content content-1" bindtap="handleHideTipExpress">
+									截止当前查询条件下，在查询时间内入群（有效群）的用户的总数
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="data-box">
+						<!-- 总数 -->
+						<view class="surround-box m-t-0">
+							<view class="first-box" style="width:30%; padding: 15px 5px 15px 10px">
+								<view class="item-title" data-index="{{5}}" bindtap="handleTipExpress">
+									<view class="second-title">群总数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.group_number}}</view>
+								<view wx:if="{{tipsIndex===5}}" class="express-content content-4" bindtap="handleHideTipExpress">
+									截止当前查询条件下，有效的群（不包括删除的群）累计总数
+								</view>
+							</view>
+							<view class="first-box" style="width:30%; padding: 15px 5px 15px 10px">
+								<view class="item-title" data-index="{{6}}" bindtap="handleTipExpress">
+									<view class="second-title">累计群成员数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.cumulative_group_number}}</view>
+								<view wx:if="{{tipsIndex===6}}" class="express-content content-5" bindtap="handleHideTipExpress">
+									截止当前查询条件下，有效的群（不包括删除的群）累计群成员总数
+								</view>
+							</view>
+							<view class="first-box" style="width:30%; padding: 15px 5px 15px 10px">
+								<view class="item-title" data-index="{{7}}" bindtap="handleTipExpress">
+									<view class="second-title">新入群人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.number_of_newcomers}}</view>
+								<view wx:if="{{tipsIndex===7}}" class="express-content content-6" bindtap="handleHideTipExpress">
+									截止当前查询条件下，在查询时间内入群（有效群）的用户的总数
+								</view>
+							</view>
+						</view>
+						<!-- 退群 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{8}}" bindtap="handleTipExpress">
+									<view class="second-title">退群人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.leave_group_number}}</view>
+								<view wx:if="{{tipsIndex===8}}" class="express-content content-7" bindtap="handleHideTipExpress">
+									截止当前查询条件下，在查询时间累计退群（有效群）的用户的总数
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{9}}" bindtap="handleTipExpress">
+									<view class="second-title">退群率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.leave_group_percentage}}</view>
+								<view wx:if="{{tipsIndex===9}}" class="express-content content-8" bindtap="handleHideTipExpress">
+									截止当前查询条件下，退群人数与退群前累计群成员数的占比
+								</view>
+							</view>
+						</view>
+						<!-- 群成员 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{10}}" bindtap="handleTipExpress">
+									<view class="second-title">群成员加好友数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.add_friend_number}}</view>
+								<view wx:if="{{tipsIndex===10}}" class="express-content content-9" bindtap="handleHideTipExpress">
+									截止当前查询条件下，已添加导购好友且已入群的累计客户数总和
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{11}}" bindtap="handleTipExpress">
+									<view class="second-title">群成员加好友率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_data.add_friend_percentage}}</view>
+								<view wx:if="{{tipsIndex===11}}" class="express-content content-9" bindtap="handleHideTipExpress">
+									截止当前查询条件下，添加导购好友且已入群的客户数与累计群成员数的占比
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="data-box">
+						<view class="box-title">社群活动数据</view>
+						<!-- 活动群数 -->
+						<view class="first-box first-surround-box" style="width:100%; padding: 15px 25px">
+							<view class="new-first-box" style="height:78px">
+								<view
+								 class="item-title"
+								 data-index="{{14}}"
+								 bindtap="handleTipExpress"
+								 style="justify-content: center"
+								>
+									<view class="second-title">活动群数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font" style="text-align: center">
+									{{community_activity_data.activity_group_number}}
+								</view>
+								<view wx:if="{{tipsIndex===14}}" class="express-content content-7" bindtap="handleHideTipExpress">
+									截止当前查询条件下，与裂变活动相关联的群总数
+								</view>
+							</view>
+						</view>
+						<!-- 群活动参与 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{15}}" bindtap="handleTipExpress">
+									<view class="second-title">群活动参与人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_activity_data.participate_number}}</view>
+								<view wx:if="{{tipsIndex===15}}" class="express-content content-9" bindtap="handleHideTipExpress">
+									截止当前查询条件下，参与群裂变活动的累计人数总和
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{16}}" bindtap="handleTipExpress">
+									<view class="second-title">群活动参与率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">
+									{{community_activity_data.participate_percentage}}
+								</view>
+								<view wx:if="{{tipsIndex===16}}" class="express-content content-5" bindtap="handleHideTipExpress">
+									截止当前查询条件下，参加群活动人数与累计群成员占比
+								</view>
+							</view>
+						</view>
+						<!-- 群活动进群 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{17}}" bindtap="handleTipExpress">
+									<view class="second-title">群活动进群人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{community_activity_data.into_group_number}}</view>
+								<view wx:if="{{tipsIndex===17}}" class="express-content content-9" bindtap="handleHideTipExpress">
+									截止当前查询条件下，统计通过群活动进群的人数总和
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{18}}" bindtap="handleTipExpress">
+									<view class="second-title">活动进群绑定率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">
+									{{community_activity_data.into_group_percentage}}
+								</view>
+								<view wx:if="{{tipsIndex===18}}" class="express-content content-9" bindtap="handleHideTipExpress">
+									截止当前查询条件下，通过群活动进群的人绑定微信会员的比例
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="h-30"></view>
+				</scroll-view>
+				<!-- 好友数据 -->
+				<scroll-view wx:if="{{tabIndex == 2}}" class="content-box" scroll-y="{{true}}">
+					<view class="data-box BA-data-box" wx:if="{{role !== 1 && role !== 3}}">
+						<view class="BA-data-left">
+							<view class="data-left-img" />
+							导购人数
+						</view>
+						<view class="BA-data-right">{{buddy_data.ba_number}}</view>
+					</view>
+					<view class="data-box">
+						<view class="box-title">好友数据</view>
+						<view class="surround-box">
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{19}}" bindtap="handleTipExpress">
+									<view>新增好友</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{buddy_data.new_add_buddy_number}}</view>
+								<view wx:if="{{tipsIndex===19}}" class="express-content content-12" bindtap="handleHideTipExpress">
+									截止当前查询条件下，新增的好友总人数
+								</view>
+							</view>
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{20}}" bindtap="handleTipExpress">
+									<view>累计好友数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{buddy_data.grand_total_number}}</view>
+								<view wx:if="{{tipsIndex===20}}" class="express-content content-13" bindtap="handleHideTipExpress">
+									截止当前查询条件下，导购的累计总好友数
+								</view>
+							</view>
+						</view>
+						<view class="surround-box">
+							<view class="first-box" style="width:46%">
+								<view class="item-title" data-index="{{21}}" bindtap="handleTipExpress">
+									<view>好友流失率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{buddy_data.buddy_churn_percentage}}</view>
+								<view wx:if="{{tipsIndex===21}}" class="express-content content-1" bindtap="handleHideTipExpress">
+									截止当前查询条件下，删除或拉黑好友与好友总人数的比例
+								</view>
+							</view>
+							<view class="first-box" style="width:47%">
+								<view class="item-title" data-index="{{22}}" bindtap="handleTipExpress">
+									<view>好友入群率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type1" />
+									</view>
+								</view>
+								<view class="box-first-font">{{buddy_data.buddy_into_percentage}}</view>
+								<view wx:if="{{tipsIndex===22}}" class="express-content content-13" bindtap="handleHideTipExpress">
+									截止当前查询条件下，已入群的好友数与全部好友数的比例
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="data-box">
+						<!-- 新增好友 -->
+						<view class="surround-box m-t-0">
+							<view class="first-box" style="width:46%; padding: 15px 10px 15px 25px">
+								<view class="item-title" data-index="{{23}}" bindtap="handleTipExpress">
+									<view class="second-title">新增好友会员绑定率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.new_buddy_member_binding_number}}</view>
+								<view wx:if="{{tipsIndex===23}}" class="express-content content-15" bindtap="handleHideTipExpress">
+									截止当前查询条件下，新增的好友总人数与新增好友中已绑定微信会员的比例
+								</view>
+							</view>
+							<view class="first-box" style="width:46%; padding: 15px 5px 15px 10px">
+								<view class="item-title" data-index="{{24}}" bindtap="handleTipExpress">
+									<view class="second-title">新增好友入群率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.new_buddy_into_number}}</view>
+								<view wx:if="{{tipsIndex===24}}" class="express-content content-11" bindtap="handleHideTipExpress">
+									截止当前查询条件下，新增的好友总人数与新增好友中已入群的比例
+								</view>
+							</view>
+						</view>
+						<!-- 好友入群 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{25}}" bindtap="handleTipExpress">
+									<view class="second-title">好友入群数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.buddy_into_number}}</view>
+								<view wx:if="{{tipsIndex===25}}" class="express-content content-14" bindtap="handleHideTipExpress">
+									截止当前查询条件下，已入群的好友数
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{26}}" bindtap="handleTipExpress">
+									<view class="second-title">好友入群率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.buddy_into_percentage}}</view>
+								<view wx:if="{{tipsIndex===26}}" class="express-content content-14" bindtap="handleHideTipExpress">
+									截止当前查询条件下，已入群的好友数与全部好友数的比例
+								</view>
+							</view>
+						</view>
+						<!-- 好友流失 -->
+						<view class="second-surround-box" style="width:100%;">
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{27}}" bindtap="handleTipExpress">
+									<view class="second-title">好友流失人数</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.buddy_churn_number}}</view>
+								<view wx:if="{{tipsIndex===27}}" class="express-content content-5" bindtap="handleHideTipExpress">
+									截止当前查询条件下，删除或拉黑好友的人数
+								</view>
+							</view>
+							<view class="partition-img">
+								<image src="~@/images/customer/dian-icon.png" />
+							</view>
+							<view class="second-box new-second-box">
+								<view class="item-title" data-index="{{28}}" bindtap="handleTipExpress">
+									<view class="second-title">好友流失率</view>
+									<view class="tip-box">
+										<view class="tip-express tip-express-type2" />
+									</view>
+								</view>
+								<view class="box-second-font">{{buddy_data.buddy_churn_percentage}}</view>
+								<view wx:if="{{tipsIndex===28}}" class="express-content content-14" bindtap="handleHideTipExpress">
+									截止当前查询条件下，删除或拉黑好友与好友总人数的比例
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="h-30"></view>
+				</scroll-view>
+				<view
+				 class="shade-load shade-load-new"
+				 style="background: transparent"
+				 wx:if="{{tipsIndex!==''&&shadeShowNew}}"
+				 bindtap="handleHideTipExpress"
+				/>
+			</view>
+		</view>
+    <view class="page-content" wx:if="{{tabIndex==3}}">
+      <achievements role="{{role}}" dateVals="{{dateVals}}"/>
+    </view>
+    <!-- TODO 蔻驰v3.1 -->
+		<!-- <view class="ranking-new font-12" bindtap="goRanking" wx:if="{{tabIndex == 1}}">
+			查看TOP50排行榜
+			<image class="ranking-image m-l-5" src="https://img-crs.vchangyi.com/store-manage-wxapp/arraw-right-white-12-24.png" />
+		</view> -->
+	</view>
+</view>
+
+<com-model-privacy ></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

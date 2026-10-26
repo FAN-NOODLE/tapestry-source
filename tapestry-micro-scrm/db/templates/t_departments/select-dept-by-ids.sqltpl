@@ -1,0 +1,1 @@
+select id,name from departments where enterprise_id = ? and deleted_at = 0 and id in (?)

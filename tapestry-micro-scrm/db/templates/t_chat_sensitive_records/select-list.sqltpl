@@ -1,0 +1,7 @@
+SELECT chat_msg_id, created_at
+FROM `chat_sensitive_records`
+WHERE `sensitive_id` = {{.cond.ID}} AND `deleted_at` = 0
+ORDER BY `created_at` DESC
+{{if ne .page.Limit 0}}
+LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

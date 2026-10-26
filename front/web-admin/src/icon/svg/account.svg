@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>椭圆形 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="8" cy="8" r="6.66666667"></circle>
+    </defs>
+    <g id="账户" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.703148251">
+        <g id="账户1备份" transform="translate(-1129.000000, -266.000000)">
+            <g id="编组-3" transform="translate(1109.000000, 56.000000)">
+                <g id="编组-38" transform="translate(20.000000, 162.000000)">
+                    <g id="椭圆形-4" transform="translate(0.000000, 48.000000)">
+                        <g id="椭圆形-3">
+                            <circle id="Oval备份" fill="#909399" cx="8" cy="8" r="8"></circle>
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="椭圆形" fill="#909399" opacity="0.800432478" xlink:href="#path-1"></use>
+                            <g id="编组-21" mask="url(#mask-2)" fill="#FFFFFF">
+                                <g transform="translate(2.666667, 2.933333)" id="形状结合">
+                                    <path d="M5.4,6.5 C8.38233765,6.5 10.8,8.91766235 10.8,11.9 L10.8,13 L5.43565193e-13,13 L5.43565193e-13,11.9 C5.43199962e-13,8.91766235 2.41766235,6.5 5.4,6.5 Z M5.4,-7.20490334e-14 C6.89116882,-7.20490334e-14 8.1,1.23121694 8.1,2.75 C8.1,4.26878306 6.89116882,5.5 5.4,5.5 C3.90883118,5.5 2.7,4.26878306 2.7,2.75 C2.7,1.23121694 3.90883118,-7.20490334e-14 5.4,-7.20490334e-14 Z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

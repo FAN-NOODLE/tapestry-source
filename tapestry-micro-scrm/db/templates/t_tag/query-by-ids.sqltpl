@@ -1,0 +1,15 @@
+select
+  `id`,
+  `enterprise_id`,
+  `tag_id`,
+  `name` as `tag_name`,
+  `group_id` as `tag_group_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    `work_external_tag`
+where
+    `id` in ({{WhereIn .id_list}})
+and
+    `deleted_at` = 0

@@ -1,0 +1,6 @@
+UPDATE
+	`work_external_channel_trace_{{.cond.EnterpriseID}}`
+	SET  `next_join_time` = :next_join_time
+WHERE
+	`id` = :update_id
+

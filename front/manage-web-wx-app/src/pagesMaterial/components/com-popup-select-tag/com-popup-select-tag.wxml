@@ -1,0 +1,21 @@
+<view class="custom-class select" bind:tap="show">
+  <input class="select__value" value="{{name}}" disabled="{{true}}" placeholder="选择素材标签" placeholder-class="select__placeholder" />
+  <view class="select__icon"></view>
+</view>
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <scroll-view class="popup__content" scroll-y>
+      <view class="list">
+        <block wx:for="{{list}}" wx:key="index">
+          <view class="item {{item.checked?'active':''}}" data-index="{{index}}" bind:tap="handleClick">{{item.name}}</view>
+        </block>
+      </view>
+    </scroll-view>
+    <mp-footer fixed="{{false}}">
+      <view class="footer">
+        <view class="btn plain" bind:tap="handleCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确认</view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

@@ -1,0 +1,44 @@
+@import '~@/style/color-variable'
+
+@mixin divider()
+  position: relative
+  &::after
+    content: ""
+    width: 100%
+    height: vw(1)
+    background-color: #000000
+    position: absolute 
+    left: 0
+    bottom: 0
+  
+.appointment-map
+  width: 100vw
+  padding: 0 vw(30)
+  &-content
+    width: 100%
+    border-radius: vw(2)
+    background-color: #FFFFFF
+    .header
+      padding: vw(17) vw(16) vw(17) vw(25)
+      
+      @include fontStyle(18, 500, #000000, 25)
+      display: flex
+      justify-content: space-between
+      @include divider
+    .body
+      width: 100%
+      @include divider
+      &-img
+        width: 100%
+        height: vw(332)
+        margin: vw(7) 0
+      
+    .footer
+      padding: vw(28) vw(22)
+      &-btn
+        height: vw(36)
+        background-color: #000
+        @include flex
+        @include fontStyle(12, 400, #FFF, 0)
+
+

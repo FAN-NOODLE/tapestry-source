@@ -1,0 +1,24 @@
+SELECT
+    sum(user_num) as user_num,
+    sum(fission_num) as fission_num,
+    sum(run_away_num) as run_away_num,
+    sum(join_group_num) as join_group_num,
+    sum(leave_group_num) as leave_group_num
+FROM
+    `fission_activity`
+WHERE
+	enterprise_id = {{.cond.EnterpriseId}}
+	AND deleted_at = 0
+	{{if ne .cond.SearchText ""}}
+        AND name like '%{{SafeStr .cond.SearchText}}%'
+    {{end}}
+    {{if eq .cond.Status 1}}
+        AND start_time > {{.cond.NowTime}} AND status = 1
+    {{else if eq .cond.Status 2}}
+        AND status = 2 AND end_time > {{.cond.NowTime}}
+    {{else if eq .cond.Status 3}}
+        AND end_time <= {{.cond.NowTime}}
+    {{else if eq .cond.Status 4}}
+         AND (start_time <= {{.cond.NowTime}} AND end_time >= {{.cond.NowTime}}) AND status = 1
+    {{end}}
+GROUP BY enterprise_id

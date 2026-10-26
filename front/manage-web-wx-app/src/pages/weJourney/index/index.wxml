@@ -1,0 +1,164 @@
+<wxs module="tools">
+  function formatPoint(value) {
+    if (value) {
+		return Math.round(value)
+	}
+	return 0
+  }
+
+  module.exports = {
+    formatPoint: formatPoint
+  }
+</wxs>
+<view class="page-index" wx:if="{{!isLoading}}">
+  <!-- 会员信息 -->
+  <view class="member-info">
+    <view class="info-bg"></view>
+    <image class="avatar" src="{{pageInfo.avatar}}"></image>
+    <view class="name">{{pageInfo.name}}</view>
+    <view class="info">
+      <image class="icon" src="{{pageInfo.level_icon}}"></image>
+      <view class="level">{{pageInfo.level}}</view>
+    </view>
+  </view>
+  <!-- 积分和奖章信息 -->
+  <view class="points-info">
+    <!-- 背景 -->
+    <view class="bgc"></view>
+    <!-- 积分信息 -->
+    <view class="points" bindtap="toPointsPage">
+      <view class="label">当前积分</view>
+      <view class="points-value">{{tools.formatPoint(pageInfo.point_value || 0)}}</view>
+    </view>
+    <!-- 奖章信息 -->
+    <view class="medal" bindtap="goMedalPage">
+      <view class="word-box">
+        <view class="word">
+          已获得奖章
+          <view wx:if="{{isShowRedDot}}" class="red-dot"></view>
+        </view>
+        <view class="word">{{medalNum}}</view>
+      </view>
+      <view class="light"></view>
+    </view>
+    <!-- 进度条 -->
+    <view class="progress">
+      <view class="progress-background"></view>
+      <view class="progress-foreground">
+        <view class="icon"></view>
+      </view>
+    </view>
+    <!-- 底部信息 -->
+    <view class="footer">
+      <view class="points-progress">
+        {{tools.formatPoint(pageInfo.point_value)}}/{{tools.formatPoint(pageInfo.max_level_value)}}
+      </view>
+      <view wx:if="{{pageInfo.is_last_level == 0}}" class="next-level" bindtap="toPointsPage">
+        <view class="word">下一等级{{pageInfo.max_level}}</view>
+        <image class="icon" src="../../../images/customer/back.png"></image>
+      </view>
+      <view wx:if="{{pageInfo.is_last_level == 1}}" class="next-level" bindtap="toPointsPage">
+        <view class="word">已达到最高等级</view>
+        <image class="icon" src="../../../images/customer/back.png"></image>
+      </view>
+    </view>
+  </view>
+  <!-- todo:金币信息,兑礼中心入口 -->
+  <gold-info pageInfo="{{pageInfo}}"></gold-info>
+  <view class="title">能力图谱</view>
+  <!-- 能力图谱 -->
+  <view class="ability">
+    <block wx:if="{{levelArr.length > 0}}">
+      <radar-chart id="radar-chart" chartArr="{{levelArr}}" bindanimateEnd="animateEnd"></radar-chart>
+      <view wx:if="{{isShowList}}" class="list">
+        <view class="header">能力指标</view>
+        <view wx:for="{{levelArr}}" wx:key="id" class="item item-{{id}}">
+          <view class="label">{{item.title}}：</view>
+          <view class="detail">{{item.word}}</view>
+          <view class="value">{{item.value}}</view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-page">
+        <block wx:if="{{!isLoading}}">
+          <image class="empty-image" src="{{imagePath}}2023/v3.3/empty-page.png" />
+          <view class="empty-word">暂无数据，敬请期待~</view>
+        </block>
+      </view>
+    </block>
+  </view>
+  <!-- 积分任务 -->
+  <view class="point">
+    <view class="title point-title">
+      <text>积分任务</text>
+      <view wx:if="{{pageInfo.is_last_level == 1}}" class="point-more" bindtap="toPointsPage">查看更多</view>
+      <view wx:else class="point-more" bindtap="toPointsPage">做任务更快升级到{{pageInfo.max_level}}</view>
+    </view>
+    <view class="point-content">
+      <view wx:if="{{settingList.length > 0}}" class="point-list">
+        <block wx:for="{{settingList}}" wx:key="rule_category_id">
+          <view class="point-item">
+            <image class="point-item__icon" src="{{item.icon}}"></image>
+            <view class="flex-1">
+              <view class="point-item__title">
+                <text>{{item.title}}{{item.rule_value}}{{item.unit}}</text>
+                <view class="popover-tip" wx:if="{{item.tip}}">
+                  <popover placement="bottom" custom-content="custom-content">
+                    <view class="popover-action">{{item.tip}}</view>
+                    <view slot="reference" class="tip-icon-box">
+                      <view class="popover-tip-icon"></view>
+                    </view>
+                  </popover>
+                </view>
+              </view>
+              <view wx:if="{{item.integral && !item.hideNeedPoint}}" class="point-item__tips">
+                <text class="point-item__text">{{item.integral_type === 2 ? '-' : '+'}}{{item.integral}}积分</text>
+                <text wx:if="{{item.astrict_type && item.max_integral}}">
+                  <text>(已获得</text>
+                  <text class="point-item__now">{{item.now_integral}}</text>
+                  <text>/</text>
+                  <text class="font-10">{{item.max_integral}}</text>
+                  <text>)</text>
+                </text>
+              </view>
+            </view>
+            <view wx:if="{{item.link}}" class="point-item__btn" data-item="{{item}}" bindtap="goPage">
+              去完成</view>
+          </view>
+        </block>
+        <!-- 查看更多 -->
+				<view class="load-more">
+					<view>没有更多了</view>
+				</view>
+      </view>
+      <view wx:else class="empty-page">
+        <block wx:if="{{!isLoading}}">
+          <image class="empty-image" src="{{imagePath}}2023/v3.3/empty-page.png" />
+          <view class="empty-word">暂无内容，敬请期待~</view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <!-- 新获得奖章领取弹窗 -->
+  <view wx:if="{{showMedalPopup}}" class="popup">
+    <view class="content">
+      <image class="medal-background" src="{{imagePath}}2023/v3.3/background-single.png" />
+      <image wx:if="{{listLength !== 1}}" class="medal-background multiple" src="{{imagePath}}2023/v3.3/background-multiple.png" />
+      <image class="medal-image" src="{{newMedalInfo.light_icon}}" />
+      <view class="medal-info">
+        <view class="medal-name">{{newMedalInfo.medal_name}}</view>
+        <view class="medal-time">{{newMedalInfo.received_time}}获得</view>
+        <view class="button" bindtap="drawMedal">领取奖章</view>
+        <view class="tips">奖章已放入您的奖章墙内，快去看看吧～</view>
+      </view>
+    </view>
+    <view class="close-btn">
+      <image class="close-image" bindtap="closeMedal" src="{{imagePath}}2023/v3.3/close-btn.png" />
+    </view>
+  </view>
+</view>
+<!-- 加载组件 -->
+<page-loading wx:if="{{isLoading}}"></page-loading>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

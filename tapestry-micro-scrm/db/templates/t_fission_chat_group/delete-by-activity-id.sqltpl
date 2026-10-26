@@ -1,0 +1,6 @@
+UPDATE
+    `fission_chat_group`
+SET
+    `deleted_at` = :deleted_at
+WHERE
+    `activity_id` = :id;

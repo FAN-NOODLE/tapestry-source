@@ -1,0 +1,8 @@
+Update
+	`work_del_relation_channel_trace_{{.cond.EnterpriseID}}`
+SET
+   `add_time` = :add_time,
+   `add_channel` = :add_channel,
+   `change` = :change
+WHERE
+	`id` = :id

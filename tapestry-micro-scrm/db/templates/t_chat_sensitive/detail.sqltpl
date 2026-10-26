@@ -1,0 +1,5 @@
+SELECT id, enterprise_id, sensitive_text, sensitive_type, trigger_num, created_at
+FROM chat_sensitive
+WHERE `id` = ?
+AND `deleted_at` = 0
+LIMIT 1;

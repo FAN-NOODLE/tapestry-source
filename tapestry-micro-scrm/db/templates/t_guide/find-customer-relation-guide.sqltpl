@@ -1,0 +1,8 @@
+SELECT
+    `user_id`, `crg`.`enterprise_id`, `members_id`,
+    `m`.`userid` AS `member_userid`, `m`.`name` AS `member_username`
+FROM `customer_relation_guide` AS `crg`
+LEFT JOIN `members` AS `m` ON `m`.`id` = `crg`.`members_id` AND `m`.`deleted_at` = 0
+WHERE `crg`.`enterprise_id` = ?
+AND `crg`.`user_id` = ?
+AND `crg`.`deleted_at` = 0

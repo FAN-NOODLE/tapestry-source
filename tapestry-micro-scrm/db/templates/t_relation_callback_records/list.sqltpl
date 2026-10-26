@@ -1,0 +1,18 @@
+select *
+from relation_callback_records
+where
+    1
+{{if .cond.Status}}
+  and `status` = {{.cond.Status}}
+{{end}}
+{{if eq .cond.StatusTrace -1}}
+   and `status_trace` = 0
+{{end}}
+{{if gt .cond.ID 0}}
+   and `id` <= {{.cond.ID}}
+{{end}}
+{{if .cond.ToUserName}}
+  and `to_user_name` = "{{.cond.ToUserName}}"
+{{end}}
+order by `id` asc
+LIMIT {{.page.Offset}}, {{.page.Limit}}

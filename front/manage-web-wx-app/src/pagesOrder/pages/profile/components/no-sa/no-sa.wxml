@@ -1,0 +1,14 @@
+<popup show="{{show}}">
+    <view slot="content">
+        <view class="no-sa-popup">
+            <view class="no-sa-popup-content">
+                <image class="no-sa-popup-content-close" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" bind:tap="_handleClose" />
+                <view class="no-sa-popup-content-title">尊敬的客户：</view>
+                <view>
+                    诚挚的感谢您对Coach的热爱与支持，Cosch专属顾问服务旨在为顾客提供更专业以及个性化的品牌体验，请移步至Coah店铺咨询，开启专属顾问服务之旅。
+                </view>
+                <view>希望您与品牌有段美好旅程，我们将竭诚为您服务。</view>
+            </view>
+        </view>
+    </view>
+</popup>

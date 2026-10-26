@@ -1,0 +1,30 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `prize_id`,
+  `fission_user_id`,
+  `user_id`,
+  `cost_assistant_num`,
+  `deliver_name`,
+  `deliver_mobile`,
+  `deliver_address`,
+  `deliver_area`,
+  `deliver_area_code`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`,
+  `num`
+from
+    fission_exchange_prize_records
+where
+    enterprise_id = {{.cond.enterprise_id}}
+and
+    activity_id = {{.cond.activity_id}}
+and
+    user_id = {{.cond.user_id}}
+and
+    deleted_at = 0
+order by id desc
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

@@ -1,0 +1,23 @@
+SELECT
+	`m`.`userid` AS `member_userid`,
+	`weur`.`state`,
+	`weur`.`relation_status`,
+	`weur`.`createtime`,
+	`weur`.`member_deleted_time`,
+	`weur`.`external_deleted_time`,
+	`weur`.`id` AS `relation_id`
+FROM `work_external_user_relation` AS `weur`, `members` AS `m`
+WHERE `weur`.`enterprise_id` = :enterprise_id AND `m`.`deleted_at` = 0 AND `weur`.`deleted_at` = 0
+	AND `weur`.`member_id` = `m`.`id`
+
+{{if ne .cond.WorkExternalUserID 0}}
+AND `weur`.`work_external_user_id` = :work_external_user_id
+{{end }}
+
+{{if ne .cond.UserID ""}}
+AND `m`.`userid` = {{.cond.UserID}}
+{{end }}
+
+{{if ne .cond.UserIDCnt 0}}
+AND `m`.`userid` IN ({{WhereIn .cond.UserIds}})
+{{end }}

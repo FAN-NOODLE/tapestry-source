@@ -1,0 +1,21 @@
+SELECT
+	`weu`.`name`,
+	`weu`.`id`,
+	`weu`.`chat_id`,
+	`weu`.`owner_member_id`
+FROM
+	`chat_object` co
+	INNER JOIN `work_group_chat` weu ON ( `co`.`to_object_id` = `weu`.`id` )
+WHERE
+	`co`.`from_channel` = 1
+	AND `co`.`to_channel` = 5
+	AND `co`.`from_object_id` = {{.cond.MemberID}}
+	{{if ne "" .cond.Name}}
+        AND `weu`.`name` LIKE "%{{SafeStr .cond.Name}}%"
+    {{end}}
+	AND `co`.`enterprise_id` = {{.cond.EnterpriseID}}
+ORDER BY
+	`co`.`last_chat_at` DESC,
+	`co`.`id` DESC
+	LIMIT {{.page.Offset}},
+	{{.page.Limit}};

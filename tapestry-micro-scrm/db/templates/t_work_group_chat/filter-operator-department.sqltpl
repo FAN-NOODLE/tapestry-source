@@ -1,0 +1,11 @@
+select m.userid
+from members m
+         inner join member_departments md on m.id = md.member_id
+where m.enterprise_id = ?
+    {{if ne .cond.Operator ""}}
+  and m.name like '%{{.cond.Operator}}%'
+    {{end}}
+    {{if .cond.DepartmentID}}
+  and md.department_id = {{.cond.DepartmentID}}
+    {{end}}
+

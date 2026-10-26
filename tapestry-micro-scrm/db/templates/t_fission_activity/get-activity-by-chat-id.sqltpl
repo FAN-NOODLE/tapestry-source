@@ -1,0 +1,27 @@
+select
+    id
+FROM
+    fission_activity
+WHERE
+    1 = 1
+    {{if ne .cond.EnterpriseID 0}}
+        AND enterprise_id = {{.cond.EnterpriseID}}
+    {{end}}
+    {{if ne .cond.ActivityRunAt 0}}
+        AND start_time <= {{.cond.ActivityRunAt}}
+        AND end_time >= {{.cond.ActivityRunAt}}
+    {{end}}
+    {{if ne .cond.ActivityExchangeRunAt 0}}
+        AND exchange_end_time >= {{.cond.ActivityExchangeRunAt}}
+    {{end}}
+     AND fission_type = 2
+     AND EXISTS (
+        SELECT *
+        FROM fission_chat_group
+        WHERE
+        fission_activity.id = fission_chat_group.activity_id
+        AND chat_id = {{.cond.ChatID}}
+        {{if eq .cond.WithDel false}}
+            AND deleted_at = 0
+        {{end}}
+    )

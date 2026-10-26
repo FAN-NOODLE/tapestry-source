@@ -1,0 +1,23 @@
+{{if .add_channel}}
+    SELECT
+        `name` as channel,
+        `enterprise_id`,
+        `id`
+    FROM
+        `drainage_contact_channels`
+    WHERE
+        enterprise_id = {{.enterprise_id}}
+        AND deleted_at = 0
+        {{if gt .filter_count 0}}
+            AND id NOT IN ({{WhereIn .filter}})
+        {{end}}
+    ORDER BY `id` DESC;
+ {{else}}
+     SELECT id,name as channel,enterprise_id
+     FROM `drainage_contact_channels`
+     WHERE
+     deleted_at=0
+     AND
+     enterprise_id={{.enterprise_id}}
+     ORDER BY `id` DESC;
+{{end}}

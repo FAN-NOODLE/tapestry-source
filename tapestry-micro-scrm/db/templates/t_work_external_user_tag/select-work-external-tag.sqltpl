@@ -1,0 +1,7 @@
+SELECT
+    `weut`.`relation_id`,
+    `wet`.`name` AS `tag_name`,
+    `wet`.`tag_id`
+FROM `work_external_user_tag` AS `weut`
+LEFT JOIN `work_external_tag` AS `wet` ON `wet`.`id` = `weut`.`external_tag_id`
+WHERE `weut`.`enterprise_id` = ? AND `relation_id` = ? AND `weut`.`deleted_at` = ?

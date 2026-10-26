@@ -1,0 +1,15 @@
+<view class="binding-relation">
+  <view wx:for="{{relationList}}" wx:key="member_id" class="relation-item">
+    <image class="avatar" src="{{item.thumb_avatar}}" />
+    <view class="relation-detail">
+      <view class="top">
+        <view class="title">{{item.sa_user_name}}</view>
+        <view wx:if="{{item.is_key_sa === 1}}" class="tag">主顾问</view>
+      </view>
+      <view class="center">添加时间：{{item.created_at}}</view>
+      <view class="bottom">所属店铺：{{item.department_name}}</view>
+    </view>
+  </view>
+  <view class="bottom-tip" wx:if="{{relationList.length > 0 && !meta.isMore }}">已经到底了~</view>
+  <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+</view>

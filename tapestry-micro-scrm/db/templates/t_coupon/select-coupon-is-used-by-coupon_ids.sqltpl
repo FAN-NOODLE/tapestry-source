@@ -1,0 +1,1 @@
+SELECT distinct `msc`.`wx_coupon_id` FROM `marketing_strategy_coupons` as msc LEFT JOIN `marketing_strategies` AS ms ON `msc`.`strategy_id` = `ms`.`id` WHERE `ms`.`strategy_status` IN (1,2,3) AND `msc`.`wx_coupon_id` IN ({{WhereIn .wx_coupon_ids}}) AND `ms`.`deleted_at`=0

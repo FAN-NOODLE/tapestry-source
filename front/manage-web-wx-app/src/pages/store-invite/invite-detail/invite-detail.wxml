@@ -1,0 +1,403 @@
+<wxs module="computed" src="./invite-detail.wxs" />
+<view class="page-invite-detail">
+  <view class="content" wx:if="{{!showLoading}}">
+    <view class="top-status">
+      <image
+        wx:if="{{selectServer.reserve_img}}"
+        class="top-img"
+        src="{{selectServer.reserve_img}}"
+      />
+      <view class="status-box">
+        <image class="bg-icon" src="{{statusList[detail.status].detail_status_bg}}" />
+        <view class="txt">{{statusList[detail.status].status_name}}</view>
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-01.png"
+        />
+        <view>顾客姓名</view>
+      </view>
+      <view class="value font-500">{{detail.user_name}}</view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-04.png"
+        />
+        <view>服务类型</view>
+      </view>
+      <view class="value">
+        <view class="{{!selectServer.reserve_name ? 'placeholder' : 'font-500'}}">
+          {{selectServer.reserve_name || "选择服务类型"}}
+        </view>
+        <image
+          wx:if="{{detail.status === 0 && detail.is_own && detail.order_origin === 1}}"
+          class="right-icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/right-icon.png"
+        />
+      </view>
+      <picker
+        wx:if="{{detail.status === 0 && detail.is_own && detail.order_origin === 1}}"
+        class="picker-box"
+        bindchange="changeServer"
+        range-key="reserve_name"
+        value="{{serverIndex}}"
+        range="{{serverList}}"
+      >
+        <view class="picker">当前选择</view>
+      </picker>
+    </view>
+    <view class="form-item flex-start-center has-line" bindtap="chooseTime">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-03.png"
+        />
+        <view>到店时间</view>
+      </view>
+      <view class="value">
+        <view class="font-500" wx:if="{{selectTime.select_name}}">
+          {{selectTime.select_name}} {{selectTime.name}}
+        </view>
+        <view class="placeholder" wx:if="{{detail.status === 0 && !selectTime.select_name}}"
+          >选择到店时间</view
+        >
+        <image
+          wx:if="{{detail.status === 0 && detail.is_own}}"
+          class="right-icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/right-icon.png"
+        />
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-02.png"
+        />
+        <view>服务时长</view>
+      </view>
+      <view class="value font-500">{{detail.serve_time}}小时</view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-05.png"
+        />
+        <view>邀约导购</view>
+      </view>
+      <view class="value">
+        <view class="font-500">{{selectMember.members_name}}</view>
+        <!-- <view class="flex-start-center" bindtap="selectGuide" wx:if="{{role === 5 && (detail.status === 0 || detail.status === 2)}}"> -->
+
+        <!-- 注意：代码不要删除，只是暂时隐藏邀请评价，因为第三方有这个功能 -->
+        <!-- <view class="flex-start-center" wx:if="{{role === 5 && detail.status === 0}}">
+          <view class="placeholder m-r-10">重新分配</view>
+          <image class="right-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/right-icon.png" />
+        </view> -->
+        <!-- <picker wx:if="{{role === 5 && detail.status === 0}}" class="picker-box" bindchange="changeMember" range-key="members_name" value="{{memberIndex}}" range="{{staffLists}}"> -->
+        <!-- <view class="picker">当前选择</view> -->
+        <!-- </picker> -->
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-09.png"
+        />
+        <view>邀约门店</view>
+      </view>
+      <view class="value font-500">{{detail.store_name}}</view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-06.png"
+        />
+        <view>门店地址</view>
+      </view>
+
+      <view class="value font-500">
+        <textarea
+          class="textarea"
+          auto-height
+          disabled="{{detail.status !== 0 || detail.is_own === 0}}"
+          maxlength="200"
+          data-key="store_address"
+          bindinput="changeInput"
+          value="{{store_address}}"
+          placeholder-class="placeholder"
+          placeholder="请输入门店地址"
+        />
+      </view>
+      <!-- <view class="value font-500">{{detail.store_address}}</view> -->
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-07.png"
+        />
+        <view>导购备注</view>
+      </view>
+
+      <view wx:if="{{detail.is_own === 1}}" class="value font-500">
+        <textarea
+          class="textarea"
+          auto-height
+          disabled="{{detail.status !== 0 || detail.is_own === 0}}"
+          maxlength="200"
+          data-key="reserve_remark"
+          bindinput="changeInput"
+          value="{{reserve_remark}}"
+          placeholder-class="placeholder"
+          placeholder="请输入备注信息"
+        />
+      </view>
+      <view wx:else class="value font-500">{{detail.reserve_remark || "无"}}</view>
+    </view>
+    <view class="form-item flex-start-center">
+      <view class="label flex-start-center">
+        <image
+          class="icon"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/message_icon.png"
+        />
+        <view>客户留言</view>
+      </view>
+      <view class="value font-500">{{detail.user_remark || "无"}}</view>
+    </view>
+
+    <view class="form-item order-box item-bottom" wx:if="{{detail.status === 1}}">
+      <view class="order-item item-bottom">
+        <view class="item-label">顾客类型</view>
+        <view class="item-box">
+          <radio-group
+            data-item="{{detail}}"
+            data-type="customer_status"
+            bindchange="onChangeStatus"
+          >
+            <radio
+              disabled="{{customer_status}}"
+              value="1"
+              color="#000"
+              class="radio-icon radio-mr"
+              checked="{{customer_status == 1}}"
+              >新客</radio
+            >
+            <radio
+              disabled="{{customer_status}}"
+              value="2"
+              color="#000"
+              class="radio-icon"
+              checked="{{customer_status == 2}}"
+              >老客</radio
+            >
+          </radio-group>
+        </view>
+      </view>
+
+      <view class="order-item item-bottom">
+        <view class="item-label">是否到店购买</view>
+        <view class="item-box">
+          <!-- <view><image class="radio-icon" src="../../../images/coach/v3.0.1/checked_icon.png" />是</view>
+          <view><image class="radio-icon" src="../../../images/coach/v3.0.1/unchecked_icon.png" />否</view> -->
+          <radio-group data-item="{{detail}}" data-type="is_store" bindchange="onChangeStatus">
+            <radio
+              disabled="{{is_store}}"
+              value="1"
+              color="#000"
+              class="radio-icon radio-mr"
+              checked="{{is_store == 1}}"
+              >是</radio
+            >
+            <radio
+              disabled="{{is_store}}"
+              value="2"
+              color="#000"
+              class="radio-icon"
+              checked="{{is_store == 2}}"
+              >否</radio
+            >
+          </radio-group>
+        </view>
+      </view>
+      <!-- <view class="order-item item-bottom">
+        <view class="item-label">订单日期</view>
+        <view class="item-value">{{detail.reserve_order_time_str || "--"}}</view>
+      </view> -->
+      <view class="order-item item-bottom">
+        <view class="item-label ">订单总金额</view>
+        <view class="item-value">{{detail.reserve_order_price || "--"}}</view>
+      </view>
+      <view class="order-item">
+        <view class="item-label ">关联订单数</view>
+        <view class="item-value">{{detail.relation_order_num || "--"}}单</view>
+      </view>
+    </view>
+
+    <view class="form-item order-box" wx:if="{{showCommentView}}">
+      <view class="order-item item-bottom">
+        <view class="item-label">活动安排</view>
+        <view class="star-box">
+          <view wx:for="{{serviceScoreList}}" wx:key="item" class="star-item">
+            <image
+              wx:if="{{item.checked}}"
+              class="star-icon"
+              src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/checked_star_icon.png"
+            />
+            <image
+              wx:else
+              class="star-icon"
+              src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/unchecked_star_icon.png"
+            />
+          </view>
+        </view>
+      </view>
+      <view class="order-item item-bottom">
+        <view class="item-label">整体服务</view>
+        <view class="star-box">
+          <view wx:for="{{storeScoreList}}" wx:key="item" class="star-item">
+            <image
+              wx:if="{{item.checked}}"
+              class="star-icon"
+              src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/checked_star_icon.png"
+            />
+            <image
+              wx:else
+              class="star-icon"
+              src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/unchecked_star_icon.png"
+            />
+          </view>
+        </view>
+      </view>
+      <view class="order-item">
+        <view class="item-label ">顾客评价</view>
+        <view class="item-value">{{detail.remark || "无"}}</view>
+      </view>
+    </view>
+
+    <view class="btn-wrapper" wx:if="{{detail.status === 0 && detail.is_own}}">
+      <view class="btn" data-type="cancel" bindtap="showConfirm">取消预约</view>
+      <view class="btn {{staffChange ? '' : 'disable'}}" data-type="update" bindtap="showConfirm"
+        >确认修改</view
+      >
+    </view>
+  </view>
+  <!-- 订单信息 -->
+  <view wx:if="{{detail.reserve_order_sales.length}}" class="order">
+    <view class="order-title">订单记录</view>
+    <view class="order-list">
+      <block wx:for="{{detail.reserve_order_sales}}" wx:for-item="order" wx:key="index">
+        <view class="orders-item" wx:for="{{order.reserve_order_goods}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="goodsIndex">
+          <view class="orders-item-header">订单编号：{{goods.relation_order_id}}</view>
+          <view class="orders-item-content">
+            <mp-image custom-class="image" src="{{goods.goods_url}}" mode="aspectFit" data-index="{{index}}" data-goods-index="{{goodsIndex}}" bind:error="handleError"></mp-image>
+            <view class="info">
+              <view class="row">
+                <view class="row__label">
+                  <text>商</text>
+                  <text>品</text>
+                  <text>名</text>
+                  <text>称</text>
+                </view>
+                <view class="row__value" bind:tap="handleTooltip">
+                  <text id="price" data-content="{{goods.goods_name}}">{{goods.goods_name}}</text>
+                </view>
+              </view>
+              <view class="row">
+                <view class="row__label">
+                  <text>款</text>
+                  <text>号</text>
+                </view>
+                <view class="row__value">{{goods.style}}</view>
+              </view>
+              <view class="row">
+                <view class="row__label">
+                  <text>金</text>
+                  <text>额</text>
+                </view>
+                <view class="row__value">{{computed.formatMoney(goods.goods_price)}}</view>
+              </view>
+              <view class="row">
+                <view class="row__label">
+                  <text>购</text>
+                  <text>买</text>
+                  <text>日</text>
+                  <text>期</text>
+                </view>
+                <view class="row__value">{{computed.formatDate(order.pay_time*1000, 'yyyy-MM-dd')}}</view>
+              </view>
+              <view class="row">
+                <view class="row__label">
+                  <text>店</text>
+                  <text>铺</text>
+                </view>
+                <view class="row__value">{{order.store_code}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 只能操作自己的订单 -->
+  <block
+    wx:if="{{detail.is_own && !showLoading && showBottomBtn && (detail.status === 0 || isComment)}}"
+  >
+    <view class="footer-btn">
+      <view class="btn font-500" bindtap="orderConfirmStore" wx:if="{{detail.status === 0}}">
+        确认顾客到店
+      </view>
+      <!-- <button open-type="share" class="btn font-500" wx:if="{{isComment}}">邀请顾客评价</button> -->
+    </view>
+  </block>
+
+  <view class="empty" wx:if="{{showLoading}}">
+    <image
+      class="empty-icon"
+      src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif"
+    />
+  </view>
+  <!-- <show-modal show="{{showModel}}" description="完成服务将向顾客发送“服务评分”" descriptionTwo="问卷，是否现在发送？" bindcancel="cancelModel" bindsure="confirmModel" isShare="{{true}}" isSingle="{{false}}"></show-modal> -->
+  <show-modal
+    show="{{tipModel}}"
+    description="该时段已有顾客预约服务，"
+    descriptionTwo="建议重新选择时段"
+    bindcancel="tipShowModel"
+    bindsure="tipShowModel"
+    isSingle="{{true}}"
+  ></show-modal>
+
+  <invite-date
+    wx:if="{{showTime && dateModel}}"
+    timeObj="{{timeObj}}"
+    timeSlot="{{timeSlot}}"
+    bindsumbit="submit"
+    bindclose="closeModel"
+  ></invite-date>
+
+  <!-- 状态说明弹窗 -->
+  <message-modal
+    show="{{isConfirmModal}}"
+    description="{{confirmDesc}}"
+    descriptionTwo="{{confirmDescTwo}}"
+    bindclose="closeTipsModel"
+    bindcancel="closeTipsModel"
+    bindsure="sureOperation"
+    descBox="{{ 'padding: 30rpx 0' }}"
+    descStyle="{{ 'font-size: 32rpx; margin-bottom: 22rpx;' }}"
+    descStyleTwo="color: #000000"
+    isCatchFun="true"
+  ></message-modal>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

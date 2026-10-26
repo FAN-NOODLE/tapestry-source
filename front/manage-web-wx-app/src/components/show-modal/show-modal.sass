@@ -1,0 +1,102 @@
+/**
+  * CSS书写规范
+  *1.位置属性 (position, top, right, z-index, display, float等)　　
+  *2.大小 (width, height, padding, margin)　　
+  *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+  *4.背景 (background, border等)
+  *5.其他 (animation, transition等)
+ *  */
+@import "../../style/color-variable"
+@import "../../style/base/button"
+
+.modal-page
+  position: fixed
+  z-index: 100
+  background: $color-white
+  .modal-content
+    position: absolute
+    top: 50%
+    left: 50%
+    width: vw(296)
+    //height: vw(165)
+    border-radius: vw(3)
+    background: $color-white
+    transform: translate(-50%, -50%)
+    padding: vw(15) vw(25) vw(19) vw(25)
+    .modal-title
+      font-size: vw(14)
+      color: #4A4A4A
+      line-height: vw(20)
+      text-align: center
+    .modal-description
+      padding: vw(20) 0
+      .line-txt
+        font-size: vw(14)
+        color: #786F6F
+        line-height: vw(20)
+        text-align: center
+    .bottom-btn
+      //margin-top: vw(35)
+      display: flex
+      //padding: 0 vw(25)
+      justify-content: space-around
+      .modal-btn
+        width: vw(84)
+        font-size: vw(14)
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500
+        color: #FFFFFF
+        position: relative
+        .share-btn
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          bottom: 0
+          opacity: 0
+        &.btn-empty
+          color: #4A4A4A
+
+.modal-box
+  position: fixed
+  z-index: 100
+  top: 50%
+  left: 50%
+  visibility: hidden
+  box-sizing: border-box
+  margin: auto
+  opacity: 0
+  transition: all 0.3s ease-in-out
+
+.modal-scale
+  transform: translate(-50%, -50%) scale(.8)
+.modal-normal
+  transform: translate(-50%, -50%) scale(1)
+.modal-show
+  visibility: visible
+  opacity: 1
+.modal-mask
+  position: fixed
+  z-index: 99
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  visibility: hidden
+  opacity: 0
+  background: $color-black
+  transition: all 0.3s ease-in-out
+.mask-show
+  visibility: visible
+  opacity: 0.7
+
+.ispartner .bottom-btn .btn-empty 
+    border-radius: vw(19)
+    border: vw(1) solid #FFB851
+    color: #FFBA54
+.ispartner .bottom-btn .btn-solid
+    background: linear-gradient(180deg, #FDDD7F 0%, #FFB64F 100%)
+    border-radius: 19px
+    color: #61412D
+.text-left
+  text-align: left

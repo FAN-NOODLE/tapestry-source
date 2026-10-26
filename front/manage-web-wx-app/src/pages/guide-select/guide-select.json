@@ -1,0 +1,9 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "选择指定导购",
+	"backgroundColor": "#000000",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"lazyCodeLoading": "requiredComponents"
+}

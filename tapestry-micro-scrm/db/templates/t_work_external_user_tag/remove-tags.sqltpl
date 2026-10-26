@@ -1,0 +1,4 @@
+UPDATE `work_external_user_tag` SET
+`deleted_at` = {{.now}}
+WHERE `relation_id` = ?
+AND `external_tag_id` IN ({{WhereIn .external_id}})

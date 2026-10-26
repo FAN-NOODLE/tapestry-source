@@ -1,0 +1,5 @@
+select count(1) g_num,chat_type_id id
+from work_group_chat
+where chat_type_id != 0 and dissolve_time = 0 and
+      status = 1 and enterprise_id = ?
+group by chat_type_id

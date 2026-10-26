@@ -1,0 +1,30 @@
+<half-screen-dialog show="{{true}}"  wx:if="{{show}}" custom-dialog="filter-selection">
+    <view slot="body">
+        <!-- 关闭icon -->
+        <view class="close">
+            <view class="close-icon" bindtap="close"></view>
+        </view>
+
+        <!-- 头部信息 -->
+        <view class="header">
+            <view class="title">更多筛选</view>
+        </view>
+
+        <!-- body体 -->
+        <view class="body {{isIPhoneX ? 'iosBodyBottom': ''}}">
+            <filter-selection-item
+              wx:for="{{selectList}}"
+              wx:key="index"
+              id="{{item.key}}"
+              filterItem="{{item}}"
+              itemResult="{{result[item.key]}}"
+            />
+        </view>
+
+        <!-- 底部按钮 -->
+        <view class="btn-group {{isIPhoneX ? 'isIosBottom': ''}}">
+          <view class="reset-btn" bindtap="resetData">重置</view>
+          <view class="confirm-btn" bindtap="confirm">确定</view>
+        </view> 
+    </view>
+</half-screen-dialog>

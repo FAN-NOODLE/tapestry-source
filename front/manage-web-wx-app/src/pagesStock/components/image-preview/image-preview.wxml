@@ -1,0 +1,14 @@
+<mp-popup show="{{show}}" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <view class="popup__body">
+      <mp-image custom-class="image" src="{{img}}" mode="aspectFit" />
+    </view>
+    <view class="popup__footer">
+      <image
+        class="btn"
+        bind:tap="hide"
+        src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/close.png"
+      />
+    </view>
+  </view>
+</mp-popup>

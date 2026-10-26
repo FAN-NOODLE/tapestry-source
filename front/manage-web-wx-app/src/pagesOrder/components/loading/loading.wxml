@@ -1,0 +1,8 @@
+<view class="page-loading">
+  <view class="load-img" style="animation:bounceIn 1s linear infinite;">
+    <image hidden="{{imgIndex != 0}}" src="https://oss-crs.vchangyi.com/standard/live_load01.png" mode="widthFix"/>
+    <image hidden="{{imgIndex != 1}}" src="https://oss-crs.vchangyi.com/standard/live_load02.png" mode="widthFix"/>
+    <image hidden="{{imgIndex != 2}}" src="https://oss-crs.vchangyi.com/standard/live_load03.png" mode="widthFix" />
+  </view>
+  <text class="text font-12">努力加载中…</text>
+</view>

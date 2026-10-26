@@ -1,0 +1,124 @@
+@import '~@/style/color-variable'
+@import '~@/style/base/arrow'
+@import '~@/style/base/utilities.sass'
+
+.group-portrait
+    padding-top: vw(20)
+
+.card
+    width: vw(343)
+    background: #ffffff
+    box-shadow: 0 vw(6) vw(12) 0 rgba(222, 224, 227, 0.5)
+    border-radius: vw(20) vw(20) vw(19) vw(19)
+    margin: 0 auto vw(20)
+    padding: vw(20) vw(16) vw(24)
+    &-title
+        font-size: vw(15)
+        font-weight: 500
+
+.group
+    &-name
+      line-height: vw(20)
+      font-weight: 500
+      color: #33363c
+    &-admin
+      display: flex
+      align-items: center
+      font-size: vw(12)
+      font-weight: 400
+      color: #000000
+      padding: vw(8) 0
+      .tag
+        display: inline-block
+        width: vw(34)
+        height: vw(16)
+        background: #222222
+        box-shadow: 0px 10px 23px 0px rgba(0, 0, 0, 0.14)
+        border-radius: vw(8)
+        font-size: vw(10)
+        font-weight: 500
+        color: #dfbf7e
+        line-height: vw(16)
+        text-align: center
+        margin-right: vw(6)
+        &-text
+          display: inline-block
+          transform: scale(0.83)
+
+    &-create-time
+      font-size: vw(12)
+      font-weight: 400
+      color: #a1a1a1
+      line-height: vw(17)
+
+.customer-census
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-gap: vw(16)
+    margin-top: vw(16)
+    &-item
+        height: vw(106)
+        background: #f4f7fb
+        border-radius: vw(20)
+        text-align: center
+        padding-top: vw(22)
+    .num
+        font-size: vw(26)
+        line-height: vw(37)
+        font-weight: 500
+
+
+.group-census
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-gap: vw(20)
+    margin-top: vw(15)
+    &-item
+        height: vw(79)
+        background: #f4f7fb
+        border-radius: vw(16)
+        text-align: center
+        padding-top: vw(15)
+    
+
+.tip
+    color: #777777
+    padding-top: vw(5)
+    font-size: vw(13)
+    display: flex
+    justify-content: center
+    align-items: center
+    &-icon
+        display: inline-block
+        background: url('../../images/static/custom-title2.png')
+        margin-left: vw(2)
+        width: vw(16)
+        height: vw(16)
+        background-size: cover
+        vertical-align: middle
+
+.charts
+    width: 100%
+    height: vw(382)
+
+.popover-action
+  width: vw(110)
+  padding: vw(7)
+  height: auto
+  font-size: vw(12)
+  color: #0b0a09
+  line-height: vw(17)
+  text-align: left
+
+.open-btn
+    display: flex
+    align-items: center
+    justify-content: center
+    width: vw(311)
+    height: vw(34)
+    background: #f4f7fb
+    border-radius: vw(8)
+    color: #a1a1a1
+    font-size: vw(11)
+    .arraw
+        @include arrow-right(6, #979797)

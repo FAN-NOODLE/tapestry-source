@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: simple
+ * Date: 2018/11/15
+ * Time: 4:05 PM
+ */
+
+namespace App\Models;
+
+class Log extends Base
+{
+    /**
+     * 表名称
+     *
+     * @var string
+     */
+    protected $table = 'log';
+
+    protected $guarded = [];
+}

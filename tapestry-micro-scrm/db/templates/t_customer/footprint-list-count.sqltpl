@@ -1,0 +1,9 @@
+SELECT
+	count(id) as count
+FROM
+	`user_events_v1`
+WHERE
+	`user_id` = {{.cond.UserID}}
+and
+    `user_events_v1`.deleted_at = 0
+LIMIT 1

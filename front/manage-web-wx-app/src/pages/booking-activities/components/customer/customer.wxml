@@ -1,0 +1,24 @@
+<view class="customer">
+    <!-- 左边区域 -->
+    <view class="left-box">
+        <image src="{{info.avatar || 'https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/default_people.png'}}" />
+    </view>
+    <!-- 中间区域 -->
+    <view class="center-box">
+        <view class="box-text">{{info.user_name}}</view>
+        <view class="box-text">
+            <image src="https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/phone.png" />
+            <view>{{info.mobile}}</view>
+        </view>
+        <view class="box-text">
+            <image src="https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/time.png" />
+            <view>{{info.reseve_time_str}}</view>
+        </view>
+    </view>
+    <!-- 右边区域 -->
+    <view class="right-box">
+        <button class="btn {{info.is_check === 0 ? 'is-success' : 'is-error'}}" bindtap="writeOff">
+            {{info.is_check === 0 ? '核销' : info.is_check === 1 ? '已核销': '已失效'}}
+        </button>
+    </view>
+</view>

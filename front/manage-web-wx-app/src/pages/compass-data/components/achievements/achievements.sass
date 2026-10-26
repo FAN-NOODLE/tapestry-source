@@ -1,0 +1,374 @@
+@import '~@/style/color-variable'
+@import '~@/style/mixin'
+.triangle-icon
+  margin-top: vw(4)
+  display: inline-block
+  height: 0
+  border-top: vw(4) solid #A6A6A6
+  border-bottom: vw(4) solid transparent
+  border-left: vw(4) solid transparent
+  border-right: vw(4) solid transparent
+  transform-origin: center 25%
+  &.rotate
+    transform: rotate(-180deg)
+.page-achievements
+  .search-box
+    display: flex
+    justify-content: space-between
+    height: vw(30)
+    .search-time
+      width: vw(162)
+      height: vw(30)
+      border: vw(1) solid #000000
+      display: flex
+      align-items: center
+      .point-icon-boxs
+        width: vw(20)
+      .point-icon-box
+        height: vw(30)
+        width: vw(20)
+        display: flex
+        justify-content: center
+        padding-top: vw(12)
+        .point-icon
+          width: vw(6)
+          height: vw(7)
+          @include renderImg('2022/v3.1.2/route_point.png')
+        .tf
+          transform: rotate(180deg)
+      .point-icon-box-de
+        padding-top: vw(0)
+        display: flex
+        align-items: center
+        .point-icon-dete
+          width: vw(14)
+          height: vw(14)
+          @include renderImg('2022/v2.8.0/close.png')
+      .d-none
+        display: none
+
+      .time-text
+        flex: 1
+        height: vw(29)
+        font-size: vw(12)
+        font-weight: 400
+        color: #A6A6A6
+        text-align: center
+        line-height: vw(29)
+        white-space: nowrap
+        overflow: hidden
+    .search-select
+      display: flex
+      justify-content: center
+      align-items: center
+      width: vw(84)
+      .select-text
+        width: vw(56)
+        height: vw(30)
+        font-size: vw(12)
+        font-weight: 400
+        color: #000000
+        line-height: vw(30)
+        white-space: nowrap
+        overflow: hidden
+        margin-right: vw(5)
+      .point-icon-box
+        .point-icon
+          width: vw(7)
+          height: vw(3)
+          @include renderImg('2022/v3.1.2/triangle.png')
+    .search-button
+      display: flex
+      .button
+        text-align: center
+        width: vw(47)
+        height: vw(30)
+        line-height: vw(30)
+        font-size: vw(14)
+        font-weight: 400
+        color: #A6A6A6
+        border: vw(1) solid #A6A6A6
+      .month-button
+        width: vw(47)
+        height: vw(30)
+        background: #F7F7F7
+      .year-button
+        width: vw(47)
+        height: vw(30)
+        background: #F7F7F7
+        margin-left: vw(5)
+      .is-active
+        background: #000000
+        color: #FFFFFF
+        border: vw(1) solid #000000
+  .tab-box
+    margin: vw(15) 0 vw(14)
+    display: flex
+    justify-content: space-around
+    .tab-item
+      font-size: vw(14)
+      font-weight: 400
+      color: #A6A6A6
+      line-height: vw(20)
+    .tab-is
+      color: #000
+    .line-box
+      matgin-top: vw(1)
+      width: vw(42)
+      height: vw(2)
+      background: #000
+  .info-text-box-center
+    margin-top: vw(6)
+    .info-text
+      text-align: center !important
+  .info-text-box
+    display: flex
+    align-items: center
+    margin-bottom: vw(10)
+    .info-text
+      flex: 1
+      text-align: right
+      height: vw(16)
+      font-size: vw(11)
+      font-weight: 400
+      color: #A6A6A6
+      line-height: vw(16)
+    .img
+      width: vw(13)
+      height: vw(13)
+      margin-left: vw(5)
+  .content-box
+    overflow: scroll
+    height: 78vh
+    padding-bottom: vw(95)
+    .h-30
+      height: vw(30)
+    .content-list-tab
+      width: vw(345)
+      margin-bottom: vw(15)
+      .list-box-tab
+        padding: vw(0) vw(12) vw(0)
+        margin-bottom: vw(15)
+        background: #FFFFFF
+        margin-top: vw(0)
+        border: none
+        .list-item-tab
+          margin-top: vw(0)
+    .content-list
+      width: vw(345)
+      background: #FFFFFF
+      padding: vw(12)
+      margin-bottom: vw(15)
+    .top-box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .top-line
+        width: vw(106)
+        height: vw(1)
+        background: #F0F0F0
+        transform: scaleY(0.5)
+      .top-text
+        flex: 1
+        text-align: center
+        font-size: vw(14)
+        font-weight: 400
+        color: #000000
+        line-height: vw(20)
+    .list-box
+      border-bottom: vw(1) solid #F0F0F0
+    .list-item
+      margin-top: vw(10)
+      margin-left: vw(4)
+      height: vw(78)
+      width: 100%
+      display: flex
+      padding-bottom: vw(10)
+      .list-l
+        position: relative
+        margin-top: vw(16)
+        width: vw(50)
+        height: vw(50)
+        .img
+          width: 100%
+          height: 100%
+          border-radius: 50%
+          position: relative
+          z-index: 2
+        .icon
+          position: absolute
+          top: vw(-4)
+          left: vw(1)
+          width: vw(17)
+          height: vw(14)
+          z-index: 1
+        .img-icon1
+          @include renderImg('2022/v3.1.2/crown_top1.png')
+        .img-icon2
+          @include renderImg('2022/v3.1.2/crown_top2.png')
+        .img-icon3
+          @include renderImg('2022/v3.1.2/crown_top3.png')
+      .list-c
+        flex: 1
+        margin-top: vw(18)
+        margin-left: vw(13)
+        .c-img-box
+          display: flex
+          align-items: center
+          .c-img-text
+            max-width: vw(130)
+            font-size: vw(16)
+            font-weight: 600
+            color: #000000
+            line-height: vw(22)
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            word-break: break-all
+          .c-icon
+            margin-left: vw(7)
+            width: vw(40)
+            height: vw(16)
+            font-size: vw(11)
+            font-weight: 400
+            color: #FFFFFF
+            line-height: vw(16)
+            text-align: center
+          .icon-1
+            @include renderImg('2022/v3.1.2/rectangle_1.png')
+          .icon-2
+            @include renderImg('2022/v3.1.2/rectangle_2.png')
+          .icon-3
+            @include renderImg('2022/v3.1.2/rectangle_3.png')
+        .list-c-c
+          max-width: vw(130)
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          word-break: break-all
+          font-size: vw(11)
+          font-weight: 400
+          color: #A6A6A6
+          line-height: vw(16)
+          margin-top: vw(5)
+      .list-r
+        margin-top: vw(13)
+        width: vw(70)
+        .list-r-num
+          text-align: center
+          font-size: vw(16)
+          font-weight: 600
+          color: #000000
+          line-height: vw(22)
+        .list-r-text
+          font-size: vw(14)
+          font-weight: 400
+          color: #000000
+          line-height: vw(20)
+          margin-top: vw(10)
+      .record-info
+        width: vw(96)
+        height: vw(26)
+        background: #000000
+        border-radius: vw(14)
+        font-size: vw(11)
+        font-weight: 400
+        color: #FFFFFF
+        line-height: vw(26)
+        text-align: center
+        margin: vw(16) vw(5) 0 0
+    .info-data
+      padding-bottom: vw(15)
+      .info-box
+        display: flex
+        justify-content: space-between
+        .info-item
+          display: inline-block
+          .info-num
+            text-align: center
+            font-size: vw(16)
+            font-weight: 600
+            color: #000000
+            line-height: vw(22)
+          .info-text
+            font-size: vw(14)
+            text-align: center
+            font-weight: 400
+            color: #000000
+            line-height: vw(20)
+            margin-top: vw(10)
+    .list-t
+      margin-top: vw(15)
+    .h-2
+      height: vw(2)
+    .more-box
+      display: flex
+      justify-content: center
+      align-items: center
+      margin: vw(15) 0 vw(7)
+      .more-text
+        font-size: vw(12)
+        font-weight: 400
+        color: #A6A6A6
+        height: vw(17)
+        line-height: vw(17)
+        margin-right: vw(5)
+  .info-prop
+    width: 100%
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 999
+    background: rgba(0, 0, 0, 0.5 )
+    .info-box
+      position: relative
+      margin: vw(326) auto 0
+      width: vw(240)
+      height: vw(110)
+      background: #FFFFFF
+      .delete-icon
+        position: absolute
+        width: vw(12)
+        height: vw(12)
+        right: vw(13)
+        top: vw(13)
+      .info-text
+        padding-top: vw(26)
+        .title-t
+          text-align: center
+          height: vw(22)
+          font-size: vw(16)
+          font-weight: 400
+          color: #000000
+          line-height: vw(22)
+        .text-t
+          margin-top: vw(10)
+          text-align: center
+          height: vw(20)
+          font-size: vw(14)
+          font-weight: 400
+          color: #A6A6A6
+          line-height: vw(20)
+  .no-list
+    height: 100vh
+    margin-top: vw(143)
+    display: flex
+    flex-direction: column
+    align-items: center
+    .img
+      width: vw(79)
+      height: vw(76)
+    .no-list-text
+      margin-top: vw(26)
+      font-size: vw(12)
+      font-weight: 400
+      color: #A6A6A6
+      line-height: vw(17)
+
+.pd-invitation
+  padding: vw(0) vw(6) vw(15) vw(6) !important
+.pd-active
+  padding: vw(0) vw(6) vw(15) vw(6) !important

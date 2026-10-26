@@ -1,0 +1,20 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `name`,
+  `pic`,
+  `stocks`,
+  `exchange_num`,
+  `need_num`,
+  `limit_num`,
+  `sort`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    `fission_prize`
+where
+    `id` = ?
+and
+    `deleted_at` = 0

@@ -1,0 +1,87 @@
+var formatDate = function (timestamp, format) {
+  if (!format) {
+    format = 'yyyy-MM-dd hh:mm:ss'
+  }
+  timestamp = parseInt(timestamp)
+  // eslint-disable-next-line no-undef
+  var realDate = getDate(timestamp)
+
+  function timeFormat(num) {
+    return num < 10 ? '0' + num : num
+  }
+  var date = [
+    ['M+', timeFormat(realDate.getMonth() + 1)],
+    ['d+', timeFormat(realDate.getDate())],
+    ['h+', timeFormat(realDate.getHours())],
+    ['m+', timeFormat(realDate.getMinutes())],
+    ['s+', timeFormat(realDate.getSeconds())],
+    ['q+', Math.floor((realDate.getMonth() + 3) / 3)],
+    ['S+', realDate.getMilliseconds()]
+  ]
+  // eslint-disable-next-line no-undef
+  var reg1 = getRegExp('(y+)', 'i').exec(format)
+  // console.log(reg1[0]);
+  if (reg1) {
+    format = format.replace(
+      reg1[1],
+      (realDate.getFullYear() + '').substring(4 - reg1[1].length),
+    )
+  }
+  for (var i = 0; i < date.length; i++) {
+    var k = date[i][0]
+    var v = date[i][1]
+
+    // eslint-disable-next-line no-undef
+    var reg2 = getRegExp('(' + k + ')').exec(format)
+    if (reg2) {
+      format = format.replace(
+        reg2[1],
+        reg2[1].length === 1 ? v : ('00' + v).substring(('' + v).length),
+      )
+    }
+  }
+  return format
+}
+/* 价格格式化 */
+var format = function (n) {
+  // 符号
+  var sign = ''
+  if (n < 0) {
+    sign = '-'
+    n = -n
+  }
+  // 将数字强转为字符串
+  var num = (n || 0).toString()
+  // 分离小数点
+  var arr = num.split('.')
+  // 整数部分
+  var integer = arr[0] || '0'
+  // 小数部分
+  var decimal = arr[1]
+  // 对整数插入千分符
+  var result = ''
+  while (integer.length > 3) {
+    result = ',' + integer.slice(-3) + result
+    integer = integer.slice(0, integer.length - 3)
+  }
+  if (integer) {
+    result = integer + result
+  }
+  // 如果存在小数，将两部分重新组合
+  if (decimal) {
+    result = result + '.' + decimal
+  }
+  return sign + result
+}
+
+function formatMoney(money) {
+  if (money) {
+    return '¥' + format(money / 100)
+  }
+  return '--'
+}
+
+module.exports = {
+  formatMoney: formatMoney,
+  formatDate: formatDate
+}

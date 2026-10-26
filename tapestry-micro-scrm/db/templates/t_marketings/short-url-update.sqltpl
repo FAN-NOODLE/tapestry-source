@@ -1,0 +1,11 @@
+UPDATE external_links
+SET one_level_id = :one_level_id,
+one_level_name = :one_level_name,
+two_level_id = :two_level_id,
+two_level_name = :two_level_name,
+operator = :operator,
+short_url = :short_url,
+weixin_url = :weixin_url,
+config_params = :config_params
+WHERE
+	id = :id;

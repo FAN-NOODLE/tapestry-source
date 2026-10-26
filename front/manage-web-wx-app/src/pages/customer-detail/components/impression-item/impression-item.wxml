@@ -1,0 +1,16 @@
+<view class="impression-item">
+  <view class="top-box">
+    <view class="title">{{info.group_name}}</view>
+    <image wx:if="{{info.impression_tags_list.length > 0}}" bindtap="expand" class="image {{expand ? 'icon-expand' : ''}}" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-bottom.png" />
+  </view>
+  <view wx:if="{{expand}}" class="impression-detail-list">
+    <view
+      wx:for="{{info.impression_tags_list}}"
+      bindtap="tagsImpressionOperate"
+      wx:key="tag_id"
+      class="tag {{item.is_have === 1 ? 'selected' : ''}}"
+      data-tag="{{item}}"
+      data-tagArr="{{info.impression_tags_list}}"
+    >{{item.name}}</view>
+  </view>
+</view>

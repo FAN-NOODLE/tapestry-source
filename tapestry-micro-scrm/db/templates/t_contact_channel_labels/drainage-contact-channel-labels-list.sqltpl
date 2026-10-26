@@ -1,0 +1,17 @@
+SELECT
+	drainage_contact_channel_labels.`id`,
+	drainage_contact_channel_labels.`channel_id`,
+	drainage_contact_channel_labels.`label_group_id`,
+	drainage_contact_channel_labels.`label_id`,
+	drainage_contact_channel_labels.`wx_tag_group_id`,
+	drainage_contact_channel_labels.`wx_tag_id`,
+	drainage_contact_channel_labels.`enterprise_id`,
+	work_external_tag.`name` AS `label_name`
+FROM
+	drainage_contact_channel_labels
+LEFT JOIN work_external_tag ON work_external_tag.`id` = drainage_contact_channel_labels.`label_id`
+WHERE
+	drainage_contact_channel_labels.`deleted_at` = 0
+	AND
+	drainage_contact_channel_labels.`channel_id` = :channel_id
+

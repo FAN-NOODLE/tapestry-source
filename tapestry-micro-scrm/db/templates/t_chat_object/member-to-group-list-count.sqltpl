@@ -1,0 +1,13 @@
+SELECT
+	COUNT(`weu`.`id`) AS total
+FROM
+	`chat_object` co
+	INNER JOIN `work_group_chat` weu ON ( `co`.`to_object_id` = `weu`.`id` )
+WHERE
+	`co`.`from_channel` = 1
+	AND `co`.`to_channel` = 5
+	AND `co`.`from_object_id` = {{.cond.MemberID}}
+	{{if ne "" .cond.Name}}
+        AND `weu`.`name` LIKE "%{{.cond.Name}}%"
+    {{end}}
+	AND `co`.`enterprise_id` = {{.cond.EnterpriseID}};

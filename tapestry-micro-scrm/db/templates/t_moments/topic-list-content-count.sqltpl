@@ -1,0 +1,17 @@
+SELECT
+	count(*) AS count
+FROM
+	moment_topics AS mt
+WHERE
+	1 = 1
+AND
+    mt.deleted_at = 0
+AND
+    `enterprise_id` = :enterprise_id
+
+{{if .cond.CreatedMemberId}} AND mt.created_member_id = {{.cond.CreatedMemberId}} {{end}}
+{{if .cond.StartTime}} AND mt.created_at >= {{.cond.StartTime}} {{end}}
+{{if .cond.EndTime}} AND mt.created_at <= {{.cond.EndTime}} {{end}}
+{{if .cond.Name}} AND  mt.name like '%{{SafeStr .cond.Name}}%' {{end}}
+{{if eq .cond.Status 1}} AND ( mt.`publish_type` = 1 OR mt.publish_time <= {{.cond.CurrentTime}} ) {{end}}
+{{if eq .cond.Status 2}} AND mt.`publish_type` = 2 AND mt.publish_time > {{.cond.CurrentTime}} {{end}}

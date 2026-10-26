@@ -1,0 +1,11 @@
+SELECT
+	*,
+	LEFT ( from_unixtime( created_at ), 10 ) AS send_time,
+	LEFT ( from_unixtime( created_at ), 19 ) AS time
+FROM
+	chat_msg
+WHERE
+	room_id = :room_id
+	AND from_user = :from_user
+ORDER BY
+	created_at DESC

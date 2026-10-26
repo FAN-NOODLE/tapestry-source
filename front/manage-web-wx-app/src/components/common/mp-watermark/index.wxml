@@ -1,0 +1,1 @@
+<view class="mp-watermark" style="background-image: url({{src}});background-position: -{{width/2}}px -{{height/2}}px;"></view>

@@ -1,0 +1,14 @@
+{
+  "component": true,
+  "usingComponents": {
+    "com-select-grid": "../com-select-grid/com-select-grid",
+    "com-material-item": "../com-material-item/com-material-item",
+    "com-popup-time": "../com-popup-time/com-popup-time",
+    "com-popup-save": "../com-popup-save/com-popup-save",
+    "com-popup-tag": "../com-popup-tag/com-popup-tag",
+    "com-popup-filter": "../com-popup-filter/com-popup-filter",
+    "com-popup-select": "../com-popup-select/com-popup-select",
+    "com-popup-search-type": "../com-popup-search-type/com-popup-search-type",
+    "com-popup-preview": "../com-popup-preview/com-popup-preview"
+  }
+}

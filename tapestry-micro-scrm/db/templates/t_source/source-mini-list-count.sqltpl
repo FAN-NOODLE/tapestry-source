@@ -1,0 +1,27 @@
+SELECT
+    count(DISTINCT (s.id))
+FROM `source_mini_program` sub
+LEFT JOIN `source` s ON s.id = sub.id
+LEFT JOIN `mini_program` ON mini_program.id = sub.mini_program_id
+LEFT JOIN source_category_relation as scr on scr.source_id = sub.id
+LEFT JOIN source_category as sc on sc.id = scr.category_id
+
+WHERE s.enterprise_id = :enterprise_id
+AND s.deleted_at = 0
+
+{{if .cond.GroupIDList }}  AND s.group_id IN ({{WhereIn .cond.GroupIDList}}) {{end}}
+{{if and .cond.CreateStart .cond.CreateEnd}}
+    AND s.created_at BETWEEN :create_start AND :create_end
+{{end}}
+{{if and .cond.JustMe .cond.AdminID}}  AND s.admin_id = :admin_id {{end}}
+{{if .cond.Keyword}}
+    AND (
+            mini_program.app_name LIKE "%{{SafeStr .cond.Keyword}}%"
+       OR
+            sub.title LIKE "%{{SafeStr .cond.Keyword}}%"
+    )
+{{end}}
+
+{{if ne .cond.SourceStatus 2}}
+    AND s.status = {{.cond.SourceStatus}}
+{{end}}

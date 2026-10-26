@@ -1,0 +1,9 @@
+SELECT
+	members.name
+FROM
+	work_group_chat
+	left join members on work_group_chat.owner_member_id = members.id
+WHERE
+	work_group_chat.deleted_at = 0
+	AND work_group_chat.chat_id = :group_chat_id
+	AND work_group_chat.enterprise_id = :enterprise_id

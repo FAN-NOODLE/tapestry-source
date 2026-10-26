@@ -1,0 +1,5 @@
+<!-- components/common/mp-row/index.wxml -->
+<wxs src="./index.wxs" module="computed" />
+<view class="mp-row" style="{{ computed.rootStyle({ gutter }) }}">
+	<slot></slot>
+</view>

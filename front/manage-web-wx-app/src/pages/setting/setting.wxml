@@ -1,0 +1,34 @@
+<view class="page-setting" wx:if="{{show}}">
+    <!-- 头像（可见范围：店员端、企业/社群导购、店长端、）-->
+    <field>
+        <view slot="field">头像</view>
+        <view slot="value">
+            <view class="avatar">
+                <avatar preview="{{true}}" src="{{avatar}}"></avatar>
+            </view>
+        </view>
+    </field>
+    <!-- 姓名（可见范围：店员端、、企业/社群导购、店长端、）-->
+    <field>
+        <view slot="field">姓名</view>
+        <view slot="value">{{name}}</view>
+    </field>
+    <!-- ID（可见范围：店员端、企业/社群导购、店长端、）-->
+    <field>
+        <view slot="field">导购ID</view>
+        <view slot="value">{{worker_no}}</view>
+    </field>
+    <!-- 登录手机号（可见范围：店员端、企业/社群导购、店长端、）-->
+    <field bottom="{{false}}">
+        <view slot="field">登录手机号</view>
+        <view slot="value">{{mobile}}</view>
+    </field>
+    <!-- 名片（可见范围：店员端、企业/社群导购、店长端、）-->
+    <field bottom="{{false}}" arrow="{{true}}">
+        <view slot="field" catchtap="preview">我的名片</view>
+        <view slot="value" catchtap="preview">查看名片</view>
+    </field>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

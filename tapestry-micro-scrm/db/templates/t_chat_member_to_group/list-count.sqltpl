@@ -1,0 +1,19 @@
+SELECT
+	COUNT(`cmtg`.`id`) AS total
+FROM
+	`chat_member_to_group` cmtg
+	LEFT JOIN `work_group_chat` wgc ON ( `cmtg`.`work_group_chat_id` = `wgc`.`id` )
+WHERE
+	`cmtg`.`enterprise_id` = {{.cond.EnterpriseID}}
+	AND `cmtg`.`member_id` = {{.cond.MemberID}}
+	{{if ne "" .cond.Name}}
+        AND `wgc`.`name` LIKE "%{{SafeStr .cond.Name}}%"
+    {{end}}
+    AND `cmtg`.`last_chat_at` > 0
+	AND `cmtg`.`deleted_at` = 0
+	AND `wgc`.`deleted_at` = 0
+ORDER BY
+	`cmtg`.`last_chat_at` DESC,
+	`wgc`.`id` DESC
+	LIMIT {{.page.Offset }},
+	{{.page.Limit }};

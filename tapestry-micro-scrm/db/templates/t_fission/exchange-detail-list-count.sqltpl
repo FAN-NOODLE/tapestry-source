@@ -1,0 +1,13 @@
+
+SELECT
+    COUNT(as) AS count
+FROM
+
+`fission_exchange_prize_records` fepr
+
+LEFT JOIN  `fission_prize`  fp  ON fepr.prize_id = fp.id
+
+WHERE
+fepr.enterprise_id = {{.cond.EnterpriseID}}
+AND fepr.activity_id = {{.cond.ActivityID}}
+AND fepr. fission_user_id = {{.cond.FissionUserID}}

@@ -1,0 +1,118 @@
+<wxs module="tools">
+	function getLevelImage(v) {
+	var pngNameMap = {
+	'0': 'level-5.png',
+	'1': 'level-4.png',
+	'2': 'level-3.png',
+	'4': 'level-1.png',
+	'5': 'level-2.png',
+	'6': 'level-0.png',
+	}
+
+	return pngNameMap[v.toString()] || ''
+	}
+
+	module.exports = {
+	getLevelImage: getLevelImage
+	}
+</wxs>
+<view class="customer-detail" wx:if="{{!isError}}">
+  <!-- 个人详情 -->
+  <view class="detail-top">
+    <view class="top-left">
+      <image class="avatar" src="{{userDetail.avatar}}" />
+    </view>
+    <view class="top-right">
+      <view class="top">
+        <view class="name">{{userDetail.name || userDetail.nick_name}}</view>
+        <image class="level" src="{{imageHost + tools.getLevelImage(userDetail.customer_card)}}" />
+        <view class="phone-box">
+          <image wx:if="{{userDetail.mobile}}" class="phone" bindtap="callMember" src="{{imageHost}}phone-left.png" />
+        </view>
+      </view>
+      <view class="center">
+        <view class="remark">{{userDetail.remark || '--'}}</view>
+        <!-- 好友显示 -->
+        <image wx:if="{{isRelation}}" class="edit-btn" src="{{imageHost}}edit-icon.png" bindtap="openEdit" />
+      </view>
+      <view class="bottom">
+        <view class="tips">{{userDetail.client_type || '--'}}</view>
+        <!-- 好友显示 -->
+        <view wx:if="{{isRelation && !sidebar}}" class="message-btn" bindtap="onOpenExternal">
+          发消息
+        </view>
+      </view>
+    </view>
+    <view class="info-box">
+      <view class="card-number">
+        <image class="icon" src="{{imageHost}}card-number-icon.png" />
+        {{userDetail.membership || '--'}}
+        <image bindtap="copyMemberShip" class="copy-icon" src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.0.1/copy.png" />
+      </view>
+      <view class="birthday">
+        <image class="icon" src="{{imageHost}}birthday-icon.png" />
+        {{userDetail.birthday_str || '--'}}
+      </view>
+    </view>
+    <view class="module-page">
+      <view class="module-box" bindtap="goShoppingList">
+        <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/shopping-icon.png" />
+        <view class="title">
+          <view class="word">消费记录</view>
+          <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-right-simple.png" />
+        </view>
+      </view>
+      <view class="module-box" bindtap="goCardDetail">
+        <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/coupon-icon.png" />
+        <view class="title">
+          <view class="word">卡券详情</view>
+          <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-right-simple.png" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="nav {{navList.length === 3 ? 'short-nav' : ''}}">
+    <view wx:for="{{navList}}" wx:key="id" class="nav-item {{item.id === navId ? 'selected' : ''}}" bindtap="tapNav" data-id="{{item.id}}">
+      <view class="label">
+        {{item.label}}
+        <view class="count" wx:if="{{item.count}}">{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{navId === 0}}">
+    <member-info info="{{userDetail}}" openid="{{openid}}" showOtherDetail="{{showOtherDetail}}" showModulePage="{{showModulePage}}" bindreGetDetail="getCustomerDetail" />
+  </view>
+  <view wx:if="{{navId === 1}}">
+    <invite-list id="invite-list" external_userid="{{userDetail.external_userid}}" role="{{role}}" />
+  </view>
+  <view wx:if="{{navId === 2}}">
+    <sow id="sow-list" info="{{userDetail}}" isRelation="{{isRelation}}" sidebar="{{sidebar}}" bindcreateSowSuccess="getNum" />
+  </view>
+  <view wx:if="{{navId === 3}}">
+    <binding-relation openid="{{openid}}" />
+  </view>
+  <view wx:if="{{isShowEdit}}" class="edit-dialog">
+    <view class="mark" catchmove="true" />
+    <view class="edit-box">
+      <image class="close" bindtap="close" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" />
+      <view class="tit">编辑备注名</view>
+      <input class="edit" placeholder="请输入备注名" maxlength="15" bindinput="nameInput" />
+      <view class="total">{{editValue.length}}/15</view>
+      <view class="edit-btn" bindtap="updateRemark">确定</view>
+    </view>
+  </view>
+</view>
+<!-- 请通过私聊窗口发送邀请 -->
+<mp-empty
+ wx:else
+ icon="store"
+ marginTop="0"
+ content="通过私聊窗口发送"
+ center="{{true}}"
+/>
+
+<com-model-privacy></com-model-privacy>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

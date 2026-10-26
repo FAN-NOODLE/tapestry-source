@@ -1,0 +1,17 @@
+SELECT
+    `id`,
+    `name`,
+    `channel_id`,
+    `auto_friend`,
+    `qr_code_url`,
+    `member_count`,
+    `enterprise_id`,
+    `sum_add_member_number`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`,
+    `config_id`
+FROM
+	drainage_contacts
+WHERE
+	id = ?

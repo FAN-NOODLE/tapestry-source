@@ -1,0 +1,6 @@
+SELECT count(1) as count
+FROM `chat_sensitive`
+WHERE `enterprise_id` = :enterprise_id AND `deleted_at` = 0
+{{if .cond.SensitiveText}}
+AND `sensitive_text` LIKE "%{{SafeStr .cond.SensitiveText}}%"
+{{end}};

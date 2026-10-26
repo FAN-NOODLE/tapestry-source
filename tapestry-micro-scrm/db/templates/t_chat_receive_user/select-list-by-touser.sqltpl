@@ -1,0 +1,8 @@
+select
+    chat_msg_id
+FROM
+    chat_receive_user
+WHERE
+    to_user IN ({{WhereIn .memberUserIDs}})
+AND
+    deleted_at = 0

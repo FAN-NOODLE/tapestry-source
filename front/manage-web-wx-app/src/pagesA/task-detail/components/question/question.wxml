@@ -1,0 +1,20 @@
+<popup show="{{show}}" position="bottom" bind:maskClick="closePopup">
+  <view slot="content" class="popup">
+    <view class="popup-close" bind:tap="closePopup"></view>
+    <view class="popup-header">
+      <view class="level-title">帮助说明</view>
+    </view>
+    <scroll-view class="popup-content" scroll-y="{{true}}">
+      <block wx:for="{{list}}" wx:key="index">
+        <view class="left-item" wx:if="{{item.position === 1}}">
+          <view class="left-item-avatar">Q</view>
+          <view class="left-item-content">{{item.description}}</view>
+        </view>
+        <view class="right-item" wx:if="{{item.position === 2}}">
+          <view class="right-item-content">{{item.description}}</view>
+          <view class="right-item-avatar">A</view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</popup>

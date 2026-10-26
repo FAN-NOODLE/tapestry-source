@@ -1,0 +1,4 @@
+UPDATE `chat_settings` SET
+`secret` = :secret,`updated_at` = unix_timestamp(now())
+WHERE `enterprise_id` = :enterprise_id
+

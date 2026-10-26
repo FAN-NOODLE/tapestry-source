@@ -1,0 +1,35 @@
+select
+  `id`,
+  `sku_id`,
+  `spu_id`,
+  `source_id`,
+  `material_id`,
+  `sku_name`,
+  `card_title`,
+  `poster_title`,
+  `sell_point`,
+  `short_title`,
+  `sales`,
+  `stock`,
+  `guide_price`,
+  `sign_price`,
+  `sell_price`,
+  `sale_type`,
+  `qrcode_url`,
+  `status`,
+  `goods_weight`,
+  `goods_volume`,
+  `enterprise_id`,
+  `sku_attribute`,
+  `sku_picture`,
+  `create_time`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from `goods_sku`
+where
+    `enterprise_id` = ?
+and
+    `sku_id` = ?
+and
+    `deleted_at` = ?

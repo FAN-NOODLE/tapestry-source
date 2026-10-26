@@ -1,0 +1,1 @@
+SELECT enterprise_id FROM `enterprise_corp` WHERE tag_init_status =1

@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "global": {},
+  "slen": 100,
+  "alen": 100,
+  "tsLimit": 500,
+  "pages": {
+    "pages/login/login": {
+      "include": true,
+      "actions": {
+        "verifyPhone": {
+          "include": true
+        },
+        "getInputCode": {
+          "include": true
+        },
+        "inputGetPhone": {
+          "include": true
+        }
+      },
+      "data": {},
+      "global": {}
+    },
+    "pages/select-enterprise/select-enterprise": {
+      "include": true,
+      "actions": {},
+      "data": {},
+      "global": {}
+    },
+    "pages/select-store/select-store": {
+      "include": true,
+      "actions": {
+        "onReachBottom": {
+          "include": true
+        }
+      },
+      "data": {},
+      "global": {}
+    },
+    "pages/shop-member-manage/shop-member-manage": {
+      "include": true,
+      "actions": {
+        "verifyPhone": {
+          "include": true
+        },
+        "getInputCode": {
+          "include": true
+        },
+        "inputGetPhone": {
+          "include": true
+        }
+      },
+      "data": {},
+      "global": {}
+    },
+    "pages/shop-member-detail/shop-member-detail": {
+      "include": true,
+      "actions": {
+        "verifyPhone": {
+          "include": true
+        },
+        "getInputCode": {
+          "include": true
+        },
+        "inputGetPhone": {
+          "include": true
+        }
+      },
+      "data": {},
+      "global": {}
+    },
+    "pages/new-shop-member/new-shop-member": {
+      "include": true,
+      "actions": {
+        "verifyPhone": {
+          "include": true
+        },
+        "getInputCode": {
+          "include": true
+        },
+        "inputGetPhone": {
+          "include": true
+        }
+      },
+      "data": {},
+      "global": {}
+    }
+  }
+}

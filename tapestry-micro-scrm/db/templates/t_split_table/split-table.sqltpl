@@ -1,0 +1,45 @@
+CREATE TABLE IF NOT EXISTS `work_del_relation_channel_trace_{{.EnterpriseID}}` (
+    `id`               bigint(20) NOT NULL,
+    `external_user_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人的userid',
+    `user_id`          varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业服务人员的UserID',
+    `enterprise_id`    bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '企业ID',
+    `delete_time`      int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示好友删员工的时间',
+    `delete_channel`   bigint(20) NOT NULL DEFAULT '0' COMMENT '删除时存在的渠道',
+    `add_time`         int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示好友添加员工的时间',
+    `add_channel`      bigint(20) NOT NULL DEFAULT '0' COMMENT '添加时存在的渠道',
+    `change`           tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1=渠道值发送了变化，2=未发生变化',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                `idx_relation` (`user_id`,`external_user_id`,`add_time`),
+    KEY                `idx_relation_time` (`delete_time`,`add_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='外部联系人好友删员工关系渠道状态表';
+
+
+
+CREATE TABLE IF NOT EXISTS `work_external_trace_{{.EnterpriseID}}` (
+    `id`               bigint(20) NOT NULL,
+    `external_user_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人的userid',
+    `enterprise_id`    bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '企业ID',
+    `join_time`        int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示进入系统',
+    `leave_time`       int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示不存在系统',
+    `last_leave_time`  int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次离开时间',
+    `next_join_time`   int(10) unsigned NOT NULL DEFAULT '0' COMMENT '下一次加入时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                `idx_last_leave_and_join_time` (`join_time`,`last_leave_time`),
+    KEY                `idx_external_user_id` (`external_user_id`) USING BTREE,
+    KEY                `idx_leave_and_join_time` (`leave_time`,`join_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='外部联系人状态表';
+
+
+CREATE TABLE IF NOT EXISTS `work_external_channel_trace_{{.EnterpriseID}}` (
+    `id`               bigint(20) NOT NULL,
+    `external_user_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人的userid',
+    `enterprise_id`    bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '企业ID',
+    `join_time`        int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示加入渠道的时间',
+    `add_channel`      bigint(20) NOT NULL DEFAULT '0' COMMENT '添加时存在的渠道',
+    `leave_time`       int(10) unsigned NOT NULL DEFAULT '0' COMMENT '表示不存在系统',
+    `last_leave_time`  int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次离开时间',
+    `next_join_time`   int(10) unsigned NOT NULL DEFAULT '0' COMMENT '下一次加入时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY                `idx_last_leave_and_join_time` (`add_channel`,`join_time`,`last_leave_time`),
+    KEY                `idx_external_user_id` (`add_channel`,`external_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='外部联系人渠道状态表';

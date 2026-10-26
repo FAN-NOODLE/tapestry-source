@@ -1,0 +1,11 @@
+SELECT
+source.id, source.enterprise_id, source.group_id, source.type, source.admin_id, source.created_at,
+source_link.title, source_link.description, source_link.cover_url, source_link.link_type,
+source_link.link_url, source_link.author, source_link.content,source.`start_time`,source.`end_time`
+
+FROM source
+LEFT JOIN source_link on source_link.id = source.id
+
+WHERE source.id = {{.cond.ID}}
+AND source.deleted_at = 0
+AND source_link.deleted_at = 0

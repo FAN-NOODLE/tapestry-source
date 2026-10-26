@@ -1,0 +1,41 @@
+SELECT
+    count(DISTINCT (file.id))
+FROM source_file as file
+LEFT JOIN source as s on file.id = s.id
+LEFT JOIN source_category_relation as scr on scr.source_id = file.id
+LEFT JOIN source_category as sc on sc.id = scr.category_id
+
+WHERE
+s.enterprise_id  = :enterprise_id
+
+{{if .cond.CategoryIds}}
+    AND scr.category_id IN ({{WhereIn .cond.CategoryIds}})
+{{end}}
+
+{{if .cond.GroupIDList }}
+AND s.group_id IN ({{WhereIn .cond.GroupIDList}})
+{{end}}
+
+{{if .cond.JustMe}}
+AND s.admin_id = :admin_id
+{{end}}
+
+{{if .cond.Keyword}}
+AND file.name LIKE '%{{SafeStr .cond.Keyword}}%'
+{{end}}
+
+{{if and .cond.CreateStart .cond.CreateEnd}}
+AND s.created_at BETWEEN :create_start AND :create_end
+{{end}}
+
+{{if ne .cond.MediaExpireTime 0}}
+ AND (file.`media_expire_time` = 0 OR `file`.`media_expire_time` < {{.cond.MediaExpireTime}})
+{{end }}
+
+{{if ne .cond.SourceStatus 2}}
+    AND s.status = {{.cond.SourceStatus}}
+{{end}}
+
+AND s.deleted_at = 0
+AND file.deleted_at = 0
+

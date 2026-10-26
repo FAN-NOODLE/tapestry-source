@@ -1,0 +1,12 @@
+SELECT
+	DISTINCT
+	UR.`work_external_user_id`
+FROM
+	`work_external_user_relation` AS UR
+	INNER JOIN `work_external_user_tag` UT ON UT.`relation_id` = UR.`id`
+	INNER JOIN `user_group_detail` GD ON GD.`tag_id` = UT.`external_tag_id`
+WHERE
+	UR.`enterprise_id` = :enterprise_id
+	AND GD.`deleted_at` = 0
+	AND GD.`include_type` = :include_type
+	AND GD.`user_group_id` = :user_group_id

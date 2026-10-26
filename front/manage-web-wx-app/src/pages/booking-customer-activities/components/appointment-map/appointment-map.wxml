@@ -1,0 +1,21 @@
+<popup show="{{show}}" zIndex="{{5001}}">
+    <view slot="content">
+        <view class="appointment-map">
+            <view class="appointment-map-content">
+                <!-- 头部 -->
+                <view class="header">
+                    <view>展位地图</view>
+                </view>
+                <!-- 内容 -->
+                <view class="body">
+                    <image src="{{imageUrl}}" class="body-img" />
+                </view>
+
+                <view class="footer">
+                    <!-- 关闭按钮 -->
+                    <button class="footer-btn" bindtap="handleClose">关闭</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</popup>

@@ -1,0 +1,13 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "邀约详情",
+  "backgroundColor": "#000000",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "invite-date": "../../../components/invite-date/invite-date",
+    "show-modal": "../../../components/show-modal/show-modal",
+    "message-modal": "../../../components/message-modal/message-modal"
+  }
+}

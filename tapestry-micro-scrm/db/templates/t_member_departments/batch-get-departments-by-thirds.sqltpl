@@ -1,0 +1,16 @@
+SELECT
+    md.`department_id`,
+    md.`member_id`
+FROM
+    `member_departments` AS md
+LEFT JOIN
+    `departments` AS d ON md.`department_id` = d.`id`
+WHERE
+    1 = 1
+AND
+    d.`third_id` IN ({{WhereIn .depart_ids }})
+AND
+    md.`enterprise_id` = :enterprise_id
+AND
+    md.`deleted_at` = 0
+

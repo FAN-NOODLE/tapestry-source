@@ -1,0 +1,13 @@
+SELECT count(1) as count
+FROM work_group_chat_member wm
+LEFT JOIN work_group_chat gc ON gc.id = wm.group_chat_id
+LEFT JOIN members m ON m.id = gc.owner_member_id
+WHERE  1=1
+ {{if .cond.MemberIDs}} AND gc.owner_member_id in ({{WhereIn .cond.MemberIDs}}) {{end}}
+  AND wm.userid in ({{WhereIn .cond.ExternalUserIDs}})
+  AND wm.`type` = 2
+  {{if ne .cond.Status 0}}
+   AND wm.`status` = {{.cond.Status}}
+  {{end}}
+  AND wm.deleted_at = 0
+  AND gc.deleted_at = 0

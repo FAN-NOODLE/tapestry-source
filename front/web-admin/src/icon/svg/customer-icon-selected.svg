@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>系统管理</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="侧导航图标" transform="translate(-234.000000, -180.000000)" stroke="#FFFFFF">
+            <g id="客户" transform="translate(234.000000, 180.000000)">
+                <rect id="矩形" x="4.8" y="0.8" width="4" height="6" rx="2"></rect>
+                <line x1="10.8" y1="1.5" x2="13.2" y2="1.5" id="直线" stroke-linecap="round"></line>
+                <line x1="10.8" y1="3.77358077" x2="13.2" y2="3.77358077" id="直线复制" stroke-linecap="round"></line>
+                <line x1="10.8" y1="6.03246451" x2="13.2" y2="6.03246451" id="直线复制-2" stroke-linecap="round"></line>
+                <path d="M7.01903239,8.81018066 C9.61595022,8.81018066 11.9408633,9.97477125 13.5,11.8101807 L13.5,13.4772949 L0.538064781,13.4772949 L0.538064781,11.8101807 C2.09720144,9.97477125 4.42211456,8.81018066 7.01903239,8.81018066 Z" id="路径" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

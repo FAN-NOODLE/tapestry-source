@@ -1,0 +1,76 @@
+<view wx:if="{{detail}}" class="container" style="--z-index:{{showTab?101: 0}}">
+  <!-- 顶部基础信息面板 -->
+  <view class="header">
+    <!-- 用户信息 -->
+    <view class="flex">
+      <view class="avatar-wrap">
+        <view class="avatar">
+          <mp-image class="avatar" src="{{detail.avatar}}"></mp-image>
+        </view>
+        <!-- <view class="talk" bind:tap="handleOpenTalk">
+          <view class="talk-icon"></view>
+        </view> -->
+      </view>
+      <view class="flex-1 user">
+        <view class="flex">
+          <view class="nickname">{{detail.nick}}</view>
+          <mp-level class="level" level="{{detail.card_level||'O'}}"></mp-level>
+        </view>
+        <view wx:if="{{update}}" class="flex remark">
+          <view class="remark-label">会员姓名：</view>
+          <view class="remark-value gray">{{detail.name||'--'}}</view>
+        </view>
+        <view class="remark" bind:tap="handleShowRemarkPopup">
+          <view class="remark-label">备注：</view>
+          <view class="remark-value">
+            <view class="remark-text">{{detail.remark || '添加客户备注'}}<view class="edit"></view></view>
+          </view>
+        </view>
+        <view class="remark" bind:tap="handleShowDescPopup">
+          <view class="remark-label">描述：</view>
+          <view class="remark-value">
+            <view class="remark-text">{{detail.description || '添加客户描述'}}<view class="edit"></view></view>
+          </view>
+        </view>
+      </view>
+      <view class="right">
+        <view class="phone" bind:tap="handleMakePhone"></view>
+        <view class="message" bind:tap="handleOpenChat"></view>
+      </view>
+    </view>
+    <view class="tool">
+      <view class="tool-item" bind:tap="handleViewShopList">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/static/wxapp/v5.0.6/icon_record.png"></image>
+        <view class="flex-1">
+          <view class="label">消费记录</view>
+          <view class="tip">客户消费信息</view>
+        </view>
+      </view>
+      <view class="tool-item" bind:tap="handleViewCouponDetail">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/static/wxapp/v5.0.6/icon_coupon.png"></image>
+        <view class="flex-1">
+          <view class="label">卡劵详情</view>
+          <view class="tip">未使用的卡券信息</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- tab切换 -->
+  <mp-tabs custom-class="tabs" active="{{ current }}" scrollable="{{false}}" bind:change="handleTabChange">
+		<mp-tab wx:for="{{tabs}}" wx:key="index" title="{{item.label}}" info="{{item.info}}">
+			<base-info wx:if="{{item.value==1}}" id="base-info" detail="{{detail}}" bind:detail="handleUpdateCrmDetail"></base-info>
+			<invite-list wx:if="{{item.value==2}}" id="invite-list" detail="{{detail}}" role="{{role}}" />
+      <task-list wx:if="{{item.value==3}}" id="task-list" detail="{{detail}}" bind:update="getNum"></task-list>
+			<binding-relation wx:if="{{item.value==4}}" detail="{{detail}}" />
+			<sow wx:if="{{item.value==5}}" id="sow-list" detail="{{detail}}" sidebar="{{sidebar}}" bind:update="getNum" />
+		</mp-tab>
+	</mp-tabs>
+</view>
+<!-- 加载组件 -->
+<page-loading wx:if="{{!detail}}" />
+<!-- 编辑备注 -->
+<mp-edit-popup title="客户备注" show="{{showRemarkPopup}}" value="{{detail.remark}}" maxlength="{{20}}" bind:cancel="handleCancel" bind:confirm="handleEditRemarkConfirm"></mp-edit-popup>
+<!-- 编辑描述 -->
+<mp-edit-popup show="{{showDescPopup}}" value="{{detail.description}}" bind:cancel="handleCancel" bind:confirm="handleEditDescConfirm"></mp-edit-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,3 @@
+SELECT count(1) as count
+FROM `chat_sensitive_records`
+WHERE `sensitive_id` = {{.cond.ID}} AND `deleted_at` = 0;

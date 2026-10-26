@@ -1,0 +1,21 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-header">
+      <div class="popup-header-name">解释说明</div>
+      <div class="popup-header-close" bindtap="handleCancel"></div>
+    </view>
+    <view class="popup-content">
+      <view class="popup-content-title">一、顾客类型</view>
+      <view class="popup-content-text">
+        <view class="left-blod">专 属 顾 客：</view>
+        <view class="right-desp">指所属顾问是自己的客户</view>
+      </view>
+      <view class="popup-content-text" style="margin-top:10rpx;">
+        <view class="left-blod">非专属顾客：</view>
+        <view class="right-desp">指所属顾问不是自己的客户</view>
+      </view>
+      <view class="popup-content-title" style="margin-top:40rpx;">二、顾客状态</view>
+      <image class="image-desp" mode="widthFix" src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/custom-desp.png" />
+    </view>
+  </view>
+</mp-popup>

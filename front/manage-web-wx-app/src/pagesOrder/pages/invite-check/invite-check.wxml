@@ -1,0 +1,63 @@
+<view class="page-invite-check flex-center {{showTime && dateModel ?'lockScroll':''}}">
+    <view wx:if="{{!isLoading}}">
+        <view class="page-invite-check-content">
+            <view class="page-invite-check-content-letter" wx:if="{{detail.style_type === 1}}">
+                <view class="page-invite-check-content-letter-title">尊敬的顾客：{{myInfo.nick}}</view>
+                <view class="page-invite-check-content-letter-write">{{detail.send_content}}</view>
+                <view class="page-invite-check-content-letter-sign">
+                    您的专属顾问：{{from === 'code' ? myInfo.nick : detail.member_name}}
+                </view>
+            </view>
+            <view class="page-invite-check-content-backgroundImg">
+                <image class="page-invite-check-content-backgroundImg-image" src="{{detail.background_url}}" mode="widthFix" lazy-load="{{true}}" />
+            </view>
+            <view class="page-invite-check-content-letter m-t-25" wx:if="{{detail.style_type === 2}}">
+                <view class="page-invite-check-content-letter-title">尊敬的顾客：{{myInfo.nick}}</view>
+                <view class="page-invite-check-content-letter-write">{{detail.send_content}}</view>
+                <view class="page-invite-check-content-letter-sign">
+                    您的专属顾问：{{from === 'code' ? myInfo.nick : detail.member_name}}
+                </view>
+            </view>
+            <image class="page-invite-check-content-bg" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/invite_bg.png" lazy-load="{{true}}" mode="aspectFill" />
+        </view>
+        <view class="page-invite-check-subscribe" >
+            <view class="page-invite-check-subscribe-title">
+                <view class="page-invite-check-subscribe-title-dec"></view>
+                <view class="page-invite-check-subscribe-title-main">提前预约到店 尊享专属服务</view>
+                <view class="page-invite-check-subscribe-title-dec"></view>
+            </view>
+            <view class="page-invite-check-subscribe-content">
+                <view class="page-invite-check-subscribe-content-item">
+                    <view class="page-invite-check-subscribe-content-item-label">关联预约服务：</view>
+                    <view class="page-invite-check-subscribe-content-item-value">
+                        {{detail.reserve_service_name}}
+                    </view>
+                </view>
+                <view class="page-invite-check-subscribe-content-item {{detail.reserve_order_id && 'reserve-mg'}}">
+                    <view class="page-invite-check-subscribe-content-item-label">到店时间：</view>
+                    <!-- <view></view> -->
+                    <view class="page-invite-check-subscribe-content-item-value" bind:tap="handleChooseTime" wx:if="{{!detail.reserve_order_id}}">
+                        <view wx:if="{{!selectTime}}" class="page-invite-check-subscribe-content-item-value-content">
+                            <view>请选择到店时间</view>
+                            <image class="page-invite-check-subscribe-content-item-value-content-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/updown.png" />
+                        </view>
+                        <view wx:else class="page-invite-check-subscribe-content-item-value-content">
+                            {{selectTime.select_name}} {{selectTime.name}}
+                        </view>
+                    </view>
+                    <view wx:else class="reserve-time">{{detail.reserve_time}}</view>
+                </view>
+            </view>
+            <view class="page-invite-check-subscribe-footer" wx:if="{{!detail.reserve_order_id}}">
+                <button class="page-invite-check-subscribe-footer-confirm" bind:tap="handleConfirm">
+                    提交
+                </button>
+            </view>
+        </view>
+    </view>
+</view>
+<com-model-privacy ></com-model-privacy>
+<invite-date showNum="{{false}}" wx:if="{{showTime && dateModel}}" isShowInviteNum="{{false}}" interval="{{detail.reserve_service_time}}" timeObj="{{timeObj}}" timeSlot="{{detail.time_slot}}" bindsumbit="submit" bindclose="closeModel"></invite-date>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

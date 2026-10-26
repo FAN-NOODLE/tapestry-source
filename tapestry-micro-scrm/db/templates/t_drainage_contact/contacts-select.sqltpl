@@ -1,0 +1,19 @@
+SELECT
+	id,
+	name AS code_name,
+	channel_id,
+	auto_friend,
+	qr_code_url,
+	member_count,
+	enterprise_id,
+	sum_add_member_number,
+	config_id,
+	type,
+	created_at,
+	updated_at
+FROM
+	drainage_contacts
+WHERE
+	id =?
+	AND deleted_at = 0
+	LIMIT 1

@@ -1,0 +1,31 @@
+INSERT INTO `fission_mp_user` (
+	`id`,
+	`open_id`,
+	`nick_name`,
+	`sex`,
+	`province`,
+	`city`,
+	`country`,
+	`img_url`,
+	`privilege`,
+	`union_id`,
+	`enterprise_id`,
+	`created_at`,
+	`updated_at`
+)
+VALUES
+	(
+		:id,
+		:open_id,
+		:nick_name,
+		:sex,
+		:province,
+		:city,
+		:country,
+		:img_url,
+		:privilege,
+		:union_id,
+		:enterprise_id,
+		:created_at,
+		:updated_at
+	);

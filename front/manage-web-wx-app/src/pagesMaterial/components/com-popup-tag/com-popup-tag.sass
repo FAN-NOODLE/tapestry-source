@@ -1,0 +1,66 @@
+@import '~@/style/color-variable'
+.mask
+  opacity: 0 !important
+.popup
+  padding: 0 10rpx
+  background: #fff
+  &__content
+    height: 800rpx
+    .empty
+      height: 100%
+      width: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      .text
+        font-size: 28rpx
+        color: #999
+
+    .list
+      display: flex
+      flex-wrap: wrap
+      padding: 40rpx 30rpx 60rpx 30rpx
+
+      .item
+        padding: 0 30rpx
+        box-sizing: border-box
+        height: 52rpx
+        line-height: 48rpx
+        border-radius: 26rpx
+        border: 2rpx solid #777777
+        margin-right: 20rpx
+        margin-bottom: 20rpx
+        font-size: 24rpx
+        color: #777
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+        &.active
+          background-color: #000
+          border-color: #000
+          color: #fff
+
+  .popup-footer
+    width: 750rpx
+    padding: 30rpx
+    box-sizing: border-box
+    background: #ffffff
+    display: flex
+    justify-content: space-between
+    .btn
+      width: 326rpx
+      height: 80rpx
+      background: #000
+      box-sizing: border-box
+      font-size: 26rpx
+      color: #fff
+      display: flex
+      align-items: center
+      justify-content: center
+      &.plain
+        color: #000
+        background-color: #fff
+        border: 2rpx solid #000
+      &.disabled
+        background-color: #ccc

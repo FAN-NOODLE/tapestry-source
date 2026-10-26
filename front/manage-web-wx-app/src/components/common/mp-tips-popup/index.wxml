@@ -1,0 +1,13 @@
+<view class="mp-tips" bind:tap="open">
+  <slot wx:if="{{useSlot}}"></slot>
+  <view wx:else class="icon-tips"></view>
+</view>
+<mp-popup show="{{show}}" bind:close="close">
+  <view class="popup">
+    <view class="popup-close" bind:tap="close"></view>
+    <view class="popup-content">
+      <view class="popup-title">{{title}}</view>
+      <view class="popup-text" wx:for="{{textList}}" wx:key="index">{{item}}</view>
+    </view>
+  </view>
+</mp-popup>

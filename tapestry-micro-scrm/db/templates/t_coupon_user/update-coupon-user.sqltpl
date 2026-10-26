@@ -1,0 +1,4 @@
+UPDATE coupon_user SET `start_time`=:start_time,
+`end_time` = :end_time,`effective`=:effective,`status`=:status,`source_id`=:source_id,`order_no`=:order_no,
+`source` = :source,`action_id`=:action_id,`action_type`=:action_type,`updated_at` = :updated_at,`use_time` = :use_time
+ WHERE `coupon_user_id` = :coupon_user_id  AND `enterprise_id` = :enterprise_id AND deleted_at=0

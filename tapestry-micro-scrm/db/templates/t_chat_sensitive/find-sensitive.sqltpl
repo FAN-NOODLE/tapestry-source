@@ -1,0 +1,4 @@
+SELECT id, enterprise_id, sensitive_text, sensitive_type, trigger_num, created_at FROM `chat_sensitive` WHERE `enterprise_id` = {{.cond.EnterpriseID}}  AND `deleted_at` = 0
+{{if .cond.SensitiveType}} AND `sensitive_type` = {{.cond.SensitiveType}} {{end}}
+{{if .cond.SensitiveText}} AND `sensitive_text` = "{{.cond.SensitiveText}}" {{end}}
+LIMIT 1;

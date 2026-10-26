@@ -1,0 +1,74 @@
+<view class="member-info">
+  <view class="customer-tag">
+    <view class="title-box">
+      <view class="title">客户标签</view>
+      <image class="icon" bindtap="openTipsModel" data-dec="{{dec1}}" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/popover-icon.png" />
+    </view>
+    <view class="tag-list">
+      <view wx:for="{{info.tagsList}}" wx:key="index" class="tag-item">
+        {{item.name}}
+        <image class="icon" bindtap="openTipsModel" data-dec="{{item.third_tag_description}}" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/popover-icon-white.png" />
+      </view>
+    </view>
+  </view>
+  <view class="customer-impression">
+    <view class="title-box">
+      <view class="title">客户印象</view>
+      <view class="icon-box">
+        <image class="icon" bindtap="openTipsModel" data-dec="{{dec2}}" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/popover-icon.png" />
+      </view>
+    </view>
+    <view class="impression-list">
+      <!-- 客户沟通意愿 -->
+      <view class="item-box">
+        <impression-item info="{{info.user_chat_tags}}" bindtagsImpressionOperate="handleChatTagChange"></impression-item>
+      </view>
+      <view wx:for="{{info.user_impression_tags}}" wx:key="group_id" class="item-box">
+        <impression-item data-index="{{index}}" info="{{item}}" bindtagsImpressionOperate="tagsImpressionOperate"></impression-item>
+      </view>
+    </view>
+  </view>
+  <view class="other-detail" wx:if="{{showOtherDetail}}">
+    <view class="row">
+      <view class="label">会籍到期时间：</view>
+      <view class="value">{{info.expiry_date}}</view>
+    </view>
+    <view class="row">
+      <view class="label">最近升级时间：</view>
+      <view class="value">{{info.upgrade_date_time}}</view>
+    </view>
+    <view class="row">
+      <view class="label">有效积分：</view>
+      <view class="value">{{info.total_valid_points}}</view>
+    </view>
+    <view class="row">
+      <view class="label">升级所需积分：</view>
+      <view class="value">{{info.upgrade_need_points}}</view>
+    </view>
+    <view class="row">
+      <view class="label">过去12个月消费金额：</view>
+      <view wx:if="{{info.last_12m_purchase_amount}}" class="value" bindtap="goShoppingList">
+        <view class="word">¥{{info.last_12m_purchase_amount}}</view>
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-right.png" />
+      </view>
+    </view>
+  </view>
+  <view class="module-page" wx:if="{{showModulePage}}">
+    <view class="module-box" bindtap="goShoppingList">
+      <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/shopping-icon.png" />
+      <view class="title">
+        <view class="word">购物清单</view>
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-right-simple.png" />
+      </view>
+    </view>
+    <view class="module-box" bindtap="goCardDetail">
+      <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/coupon-icon.png" />
+      <view class="title">
+        <view class="word">卡券详情</view>
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/arrow-right-simple.png" />
+      </view>
+    </view>
+  </view>
+  <!-- 状态说明弹窗 -->
+  <message-modal show="{{ isOpenTipsModal }}" descriptionTwo="{{description}}" bindclose="closeTipsModel" noBtn="true" isSingle="true" reverse="true" modalW="{{ 'width: 480rpx' }}" descBox="{{ 'padding: 30rpx 0' }}" descStyle="{{ 'font-size: 32rpx; margin-bottom: 22rpx;' }}" isCatchFun="true"></message-modal>
+</view>

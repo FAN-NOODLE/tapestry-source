@@ -1,0 +1,38 @@
+@import '../../../style/color-variable.sass';
+@import '../../../style/base/arrow';
+
+.mp-search {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: vw(10) vw(15);
+  width: 100vw;
+  box-sizing: border-box;
+
+  &__content {
+    flex: 1;
+    overflow: hidden;
+    width: vw(295);
+    height: vw(38);
+    background: rgba(246,247,249,1);
+    border-radius: vw(2);
+    color: #96979E;
+    font-size: vw(12);
+    font-weight: 400;
+    padding: vw(9) 0 vw(9) vw(10);
+    display: flex;
+    align-items: center;
+    flex: 1;
+    box-sizing: border-box;
+  }
+
+  &__icon {
+    width: vw(15);
+    height: vw(15);
+    margin-right: vw(10);
+  }
+
+  &__input {
+    flex: 1
+  }
+}

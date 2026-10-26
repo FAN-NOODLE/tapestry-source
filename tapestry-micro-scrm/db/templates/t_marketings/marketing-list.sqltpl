@@ -1,0 +1,15 @@
+SELECT
+	id,
+	strategy_name,
+	enterprise_id,
+	mobile,
+	start_time,
+	end_time,
+	is_notice
+FROM
+	marketing_strategies
+WHERE
+	is_notice = 1
+	AND deleted_at = 0
+	AND strategy_status = 2
+	AND mobile <> ""

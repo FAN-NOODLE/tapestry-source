@@ -1,0 +1,56 @@
+<wxs src="./steps.wxs" module="tools"></wxs>
+<half-screen-dialog show="{{true}}" wx:if="{{show}}" custom-dialog="filter-selection">
+  <view slot="body">
+    <!-- 关闭icon -->
+    <view class="close">
+      <view class="close-icon" bindtap="close"></view>
+    </view>
+
+    <!-- 头部信息 -->
+    <view class="header">
+      <view class="title">{{title}}</view>
+    </view>
+
+    <!-- body体 -->
+    <view class="body {{isIPhoneX ? 'iosBodyBottom': ''}}">
+      <view
+        class="steps"
+        wx:for="{{stepList}}"
+        wx:key="title"
+        style="margin-top:{{index === 0 ? '23px' : 0}};margin-bottom:{{index === stepList.length - 1 ? '0' : '30px'}}"
+      >
+        <view
+          class="steps-body"
+          style="height:{{ index === stepList.length - 1 ? item.height - 35 : item.height }}px"
+        >
+          <!-- 虚线上面点 -->
+          <view class="steps-body-icon"></view>
+          <!-- 左边虚线 -->
+          <view class="steps-body-line"></view>
+          <!-- 最下边黑点 -->
+          <view class="steps-body-icon1" wx:if="{{index === stepList.length - 1}}"></view>
+          <!-- 标题 -->
+          <view class="steps-body-text">
+            <!-- 背景序号 -->
+            <view class="steps-body-text-index">{{tools.getStepIndex(index)}}</view>
+            <view class="steps-body-text-title">{{item.title}}</view>
+            <!-- 提示 -->
+            <view class="steps-body-text-tips">{{item.tips}}</view>
+          </view>
+          <image
+            class="steps-body-image"
+            src="{{item.description_image}}"
+            mode="widthFix"
+            style="margin-top:{{item.tips ? '15px' : 0}};"
+          />
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
+    <view class="btn-group {{isIPhoneX ? 'isIosBottom': ''}}">
+      <view class="reset-btn" bindtap="resetData">返回</view>
+      <view class="confirm-btn" bindtap="confirm">关闭小程序</view>
+    </view>
+  </view>
+</half-screen-dialog>

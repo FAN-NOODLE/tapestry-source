@@ -1,0 +1,101 @@
+<wxs src="./index.wxs" module="computed"></wxs>
+<view wx:if="{{!showLoading && crowdList.length>0}}" class="container">
+  <view class="flex-1 flex">
+    <view class="aside">
+      <view class="edit" bind:tap="handleEdit">编辑</view>
+      <view class="item {{current==index? 'active':''}}" wx:for="{{crowdList}}" wx:key="index" data-index="{{index}}" bind:tap="handleMenuChange">{{item.name}}</view>
+    </view>
+    <view class="content">
+      <view class="header">
+        <mp-tabs custom-class="tabs" active="{{ searchParams.contacted_status }}" scrollable="{{false}}" bind:change="handleTabChange">
+          <mp-tab title="全部"></mp-tab>
+          <mp-tab title="已联系"></mp-tab>
+          <mp-tab title="待联系"></mp-tab>
+        </mp-tabs>
+        <!-- 搜索 -->
+        <view class="search-wrap">
+          <view class="search">
+            <view class="select" bind:tap="handlePicker">
+              <view class="select-value">{{ pickerOptions[value].label }}</view>
+            </view>
+            <input class="input" placeholder="请输入昵称" bind:input="handleInput" />
+          </view>
+          <view class="search-btn" bind:tap="handleSearch">搜索</view>
+        </view>
+      </view>
+      <view class="flex-1">
+        <scroll-view class="scroll-view" scroll-y="{{true}}" bind:scrolltolower="loadMore">
+          <view class="flex" style="padding-top: 12rpx;">
+            <view class="title">明细数据</view>
+            <view class="num">共 {{meta.total}} 位顾客</view>
+            <view class="icon" bind:tap="handleShow"></view>
+          </view>
+          <view wx:if="{{list.length > 0}}" class="main">
+            <block wx:for="{{list}}" wx:key="index">
+              <customer-item item="{{item}}" selection="{{selection[crowdList[current].crowd_id]}}" bind:select="handleSelect" bind:contact="updateCrowdContact"></customer-item>
+            </block>
+            <!-- 加载更多 -->
+            <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+          </view>
+          <!-- 缺省页面 -->
+          <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading' }}" custom-class="empty-page" icon="no-search" content="暂无沟通名单"/>
+
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <mp-footer class="footer">
+    <view class="footer-inner">
+      <view class="flex-1 flex">
+        <view class="flex" bind:tap="handleSelectAll">
+          <view class="icon-check-2 {{selection[crowdList[current].crowd_id].isSelectedAll?'active':''}}"></view>
+          <view class="flex-1">全选</view>
+        </view>
+        <view class="check-num flex-1">已选：{{selection[crowdList[current].crowd_id].value.length}}</view>
+      </view>
+      <view class="btn" bind:tap="handleSelectMaterial">选择群发素材</view>
+    </view>
+  </mp-footer>
+</view>
+<!-- 缺省页面 -->
+<mp-empty wx:if="{{ !showLoading && crowdList.length === 0}}" custom-class="empty-page" icon="no-search" content="暂无沟通名单"/>
+<!-- loading -->
+<page-loading wx:if="{{showLoading}}" />
+
+<!-- 弹窗选择器 - 修改客户沟通意愿 -->
+<mp-picker show="{{showPicker}}" current="{{value}}" options="{{pickerOptions}}" bind:cancel="handlePickerCancel" bind:confirm="handlePickerConfirm"></mp-picker>
+
+<mp-popup show="{{showTips}}" position="bottom" bind:close="handleClose">
+  <view class="popup">
+    <view class="popup-close" bind:tap="handleClose"></view>
+    <view class="popup-header">{{crowdList[current].name}}</view>
+    <scroll-view class="scroll-view" scroll-y="{{true}}">
+      <view class="popup-content">
+          <view class="tips">
+            <view>① 同一类型下并集、不同类型下交集结果</view>
+            <view>② 名单为打包保存时“符合组合筛选条件的顾客人群”，名单保存后不会刷新</view>
+          </view>
+          <view class="title">当前名单包含筛选项</view>
+          <view class="row" wx:for="{{crowdList[current].search.map}}" wx:key="index">
+            <view class="label">{{item.title}}</view>
+            <view class="value">{{item.result_text}}</view>
+          </view>
+      </view>
+    </scroll-view>
+  </view>
+</mp-popup>
+
+
+<!-- 选择素材 -->
+<mp-popup show="{{showSelectMaterialPopup}}" position="bottom" bind:close="handleSelectMaterialCancel">
+  <view class="popup">
+    <view class="popup__close" bind:tap="handleSelectMaterialCancel"></view>
+    <view class="popup__title">选择群发素材</view>
+    <view class="popup__content">
+      <view class="btn" data-type="{{1}}" bind:tap="handleSelectMaterialConfirm">去素材库选素材</view>
+      <view class="btn" data-type="{{2}}" bind:tap="handleSelectMaterialConfirm">自定义素材</view>
+    </view>
+  </view>
+</mp-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

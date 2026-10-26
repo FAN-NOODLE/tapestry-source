@@ -1,0 +1,299 @@
+<!-- 
+  注意！注意！注意！
+  当前页面已废弃，若有修改请前往：
+  packages/task/pages/task-detail/task-detail
+-->
+<wxs module="tools" src="./task-detail.wxs"></wxs>
+<view class="task-detail" style="overflow:{{isScroll?'hidden':'auto'}}" wx:if="{{false && !showLoading}}">
+  <!-- 完成任务确认弹窗 -->
+  <confirm-popup popShow="{{confirmShow}}" bind:confirm="confirmFn" />
+  <!-- 头部 -->
+  <view class="task-detail-header card">
+    <!-- 状态状态 -->
+    <view class="status {{tools.calcStatusInfo(taskInfo.status_code, 'className')}}">
+      {{tools.calcStatusInfo(taskInfo.status_code, 'name')}}
+    </view>
+    <!-- 标题 -->
+    <view class="title">{{taskInfo.task_name}}</view>
+    <!-- 任务类型 -->
+    <view class="name-tag">{{tools.getName(taskInfo)}}</view>
+    <!-- 任务描述 -->
+    <view class="sub_title">任务描述：{{taskInfo.remark}}</view>
+  </view>
+  <!-- 任务内容 标签用户 -->
+  <!-- dimension 1.群/社群数据 2.用户标签/用户画像 3.导入顾客名单 4.顾客与导购&导购匹配关系 -->
+  <view class="task-detail-content card" wx:if="{{taskInfo.dimension !== 1}}">
+    <view class="title {{tools.calcStatusInfo(taskInfo.status_code, 'title')}}">
+      <view class="title-text">目标客户</view>
+      <!-- 特殊提示 -->
+      <image
+        wx:if="{{taskInfo.group_send_type === 0 && taskInfo.status_code === 0}}"
+        catchtap="openPopupQuestion"
+        class="title-image"
+        src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/info.png"
+      />
+      <view wx:if="{{taskInfo.group_send_type === 2}}" class="title-tips">
+        <view class="rate">完成率{{taskInfo.finish_rate}}%</view>
+        <image
+          wx:if="{{taskInfo.status_code === 0}}"
+          catchtap="handleShowTooltip"
+          class="tips-image"
+          id="tooltip"
+          data-selector="#tooltip"
+          src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/info.png"
+        />
+      </view>
+    </view>
+    <view class="sub_title"
+      >{{tools.getTagText(task_category,taskInfo.group_send_type,taskInfo.is_add_tag)}}（{{taskInfo.parentNum}}）</view
+    >
+    <!-- 用户画像标签 -->
+    <view class="tags" wx:if="{{taskInfo.tags.length > 0}}">
+      <view class="tags-item" wx:for="{{taskInfo.tags}}" wx:key="index">{{item}}</view>
+    </view>
+    <!-- 查看导入顾客名单 -->
+    <view
+      class="look-custom"
+      bindtap="gotoTaps"
+      data-name="查看顾客名单"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+    >
+      {{(taskInfo.group_send_type === 0 && taskInfo.is_add_tag === 1)?
+      '查看标签顾客名单':'查看顾客名单'}}>
+    </view>
+    <!-- 右侧提醒 -->
+    <view
+      class="task-remind"
+      wx:if="{{taskInfo.status_code === 1 && taskInfo.no_finished_num > 0}}"
+    >
+      <view class="task-remind-text">
+        <text>存在{{taskInfo.no_finished_num}}个未触达客户</text>
+      </view>
+    </view>
+  </view>
+  <!-- 任务内容 群用户 -->
+  <view class="task-detail-content card" wx:else>
+    <view class="title {{tools.calcStatusInfo(taskInfo.status_code, 'title')}}">任务内容</view>
+    <view class="sub_title">请将营销内容发送给以下顾客群</view>
+    <!-- 群信息 -->
+    <view class="group" wx:if="{{taskInfo.condition_type !== 7}}">
+      <view class="group-item" wx:for="{{taskInfo.group_info}}" wx:key="index">
+        <view class="group-item-left">
+          <image
+            class="image"
+            src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/group.png"
+            mode="aspectFill"
+          />
+          <view class="view">{{item.group_name || '【未命名群聊】'}}</view>
+        </view>
+        <view class="group-item-right">
+          <image
+            class="image"
+            src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/contact.png"
+            bindtap="goChat"
+            data-name="{{item.group_name}}"
+            data-chat="{{item.chat_id}}"
+          />
+          <button
+            class="btn mini {{( item.is_finish || taskInfo.status_code === 2 ) ? 'disabled' : ''}}"
+            data-item="{{item}}"
+            bindtap="handleSign"
+          >
+            {{item.is_finish === 1 ? '已完成' : '标记完成'}}
+          </button>
+        </view>
+      </view>
+    </view>
+    <!-- 退群展示信息 -->
+    <view wx:else>
+      <view class="retreat-group">{{tools.getGroupInfo(taskInfo.logical)}}</view>
+      <view
+        class="look-custom"
+        bindtap="gotoTaps"
+        data-id="{{taskInfo.id}}"
+        data-status="{{taskInfo.status_code}}"
+      >
+        查看退群顾客名单>
+      </view>
+      <view class="retreat-group-content">
+        <view class="retreat-group-item">
+          <text class="retreat-num">{{taskInfo.leave_number}}</text>
+          <text class="retreat-text">退群人数</text>
+        </view>
+        <view class="retreat-group-item">
+          <text class="retreat-num">{{taskInfo.customer_churn_rate}}</text>
+          <text class="retreat-text">顾客流失率</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 任务素材 -->
+  <view class="task-detail-material card">
+    <!-- title -->
+    <view class="title {{tools.calcStatusInfo(taskInfo.status_code, 'title')}}">任务素材</view>
+    <!-- 文本素材 -->
+    <view class="tips">{{text.content}}</view>
+    <!-- 图片素材 -->
+    <!-- contentType 素材内容 1文本；2图片；3语音；4视频；5位置；6链接,7 小程序 -->
+    <view class="images" wx:if="{{image.imgList.length > 0}}">
+      <view class="images-item" wx:for="{{image.imgList}}" wx:key="index">
+        <image class="image" src="{{item.pic_url}}" data-index="{{index}}" bindtap="previewImage" />
+      </view>
+    </view>
+    <!-- 视频素材 -->
+    <view class="video" wx:if="{{contentType === 4}}">
+      <video
+        src="{{video.video_url}}"
+        id="myVideo"
+        danmu-btn
+        show-center-play-btn="{{false}}"
+        controls="{{false}}"
+        loop="{{true}}"
+        object-fit="cover"
+      />
+      <!-- 播放层 -->
+      <view class="play-btn" bindtap="videoPlay" style="opacity: {{ videoOpcity }}">
+        <image
+          class="play-logo"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/play-btn.png"
+        />
+      </view>
+    </view>
+    <!-- 保存素材 -->
+    <view
+      wx:if="{{contentType === 2 || contentType === 4}}"
+      class="save"
+      bindtap="savaImageVideo"
+      data-name="一键保存图片/视频素材到相册,复制文本到剪贴板"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+    >
+      <image
+        class="miniprogram-logo"
+        src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/download.png"
+      />
+      <button>一键保存图片/视频素材到相册,复制文本到剪贴板</button>
+    </view>
+    <!-- 小程序素材 -->
+    <view
+      wx:if="{{contentType === 7}}"
+      class="miniprogram"
+      data-appid="{{applets.app_id}}"
+      data-path="{{applets.path}}"
+    >
+      <view class="miniprogram-appname">{{applets.app_name}}</view>
+      <view class="miniprogram-dec">{{applets.title}}</view>
+      <image class="image" src="{{applets.cover_url}}" />
+      <view class="miniprogram-b">
+        <image
+          class="miniprogram-logo"
+          src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/miniprogram.png"
+        />
+        小程序
+      </view>
+    </view>
+    <!-- 链接 -->
+    <view class="link" wx:if="{{contentType === 6}}">
+      <view class="link-title">{{link.title}}</view>
+      <view class="link-content">
+        <view class="link-dec">{{link.description}}</view>
+        <image class="image" mode="aspectFill" src="{{link.cover_url}}" />
+      </view>
+    </view>
+    <view
+      class="save-tips"
+      wx:if="{{taskInfo.group_send_type === 1 && taskInfo.status_code === 0 }}"
+      >{{task_category === 1 ? '【去完成】"客户朋友圈"任务前，可对比以上素材内容，确保为同一个任务' :
+      '【去完成】"群发助手"中的该任务前，可对比以上素材内容，确保为同一个任务'}}</view
+    >
+  </view>
+  <!-- 底部按钮 -->
+  <mp-footer custom-class="task-detail-footer">
+    <button
+      class="btn"
+      bindtap="copyTrick"
+      data-name="复制素材文本"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+    >
+      复制素材文本
+    </button>
+    <!-- 企业沟通任务 new -->
+    <button
+      class="btn primary"
+      bindtap="shareToExternalContact"
+      data-name="转发给顾客"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+      wx:if="{{taskInfo.status_code === 0 && task_category === 0 && taskInfo.group_send_type === 2}}"
+    >
+      转发给顾客
+    </button>
+    <!-- 原 沟通任务-标签任务群发 old -->
+    <button
+      class="btn"
+      bindtap="sendClient"
+      data-name="转发给顾客"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+      wx:if="{{taskInfo.status_code === 0 && task_category === 0 && taskInfo.group_send_type === 0}}"
+    >
+      {{taskInfo.dimension === 1 ? '转发给群聊' : '转发给顾客'}}
+    </button>
+    <!-- 转发到朋友圈 -->
+    <button
+      class="btn primary"
+      bindtap="shareToExternalMoments"
+      data-name="转发到朋友圈"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+      wx:if="{{taskInfo.status_code === 0 && task_category === 1 && taskInfo.group_send_type === 0}}"
+    >
+      转发到朋友圈
+    </button>
+    <!-- 原 沟通任务-标签任务群发 old -->
+    <button
+      wx:if="{{taskInfo.status_code !== 1 && taskInfo.group_send_type === 0 && task_category === 0}}"
+      class="btn primary {{taskInfo.status_code === 2 ? 'disabled' : ''}}"
+      bindtap="fulfilTask"
+      data-name="任务完成"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+    >
+      任务完成
+    </button>
+    <!-- 原 沟通任务-企业任务群发 old -->
+    <button
+      class="btn primary"
+      bindtap="openPopupSteps"
+      data-name="去完成"
+      data-content="{{taskInfo.plan_name}}_{{taskInfo.task_name}}"
+      data-type="{{tools.getName(taskInfo)}}"
+      wx:if="{{taskInfo.status_code === 0 && taskInfo.group_send_type === 1 }}"
+    >
+      去完成
+    </button>
+  </mp-footer>
+  <!-- todo：步骤弹窗 -->
+  <steps
+    id="popupSteps"
+    title="{{task_category === 1? '如何发布朋友圈？':'如何转发客户完成任务？'}}"
+    stepList="{{stepList}}"
+    bind:onScroll="onScroll"
+  />
+  <!-- 问答弹窗 -->
+  <question
+    show="{{showQustionTips}}"
+    list="{{task_category === 0 ? questionData : friendQuestion}}"
+    bind:close="closeTips"
+  ></question>
+</view>
+<!-- loading组件 -->
+<page-loading wx:if="{{false && showLoading}}" />
+
+<com-model-privacy></com-model-privacy>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" placement="auto" content-custom-class="tooltip-content"></mp-tooltip>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

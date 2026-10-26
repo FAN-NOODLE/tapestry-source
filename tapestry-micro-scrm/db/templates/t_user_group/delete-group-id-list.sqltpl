@@ -1,0 +1,8 @@
+UPDATE
+    `user_group`
+SET
+    `deleted_at` = {{.deleted_at}}
+WHERE
+    `enterprise_id` = {{.enterprise_id}}
+AND
+    `user_group_id` in ({{WhereIn .user_group_id_list}})

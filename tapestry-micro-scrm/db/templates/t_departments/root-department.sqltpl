@@ -1,0 +1,21 @@
+SELECT
+    mdp.`id` AS `id`,
+    mdp.`parent_id` AS `parent_id`,
+    mdp.`third_id` AS `third_id`,
+    mdp.`third_parent_id` AS `third_parent_id`,
+    mdp.`name` AS `name`,
+    mdp.`name_en` AS `name_en`,
+    mdp.`enterprise_id` AS `enterprise_id`,
+    mdp.`created_at` AS `created_at`,
+    mdp.`updated_at` AS `updated_at`,
+    mdp.`order` AS `order`,
+    count( dp.`id` ) AS children_count
+FROM
+    departments AS mdp
+    LEFT JOIN departments AS dp ON mdp.`third_id` = dp.`third_parent_id`
+    AND dp.`enterprise_id` = ?
+WHERE
+    mdp.`enterprise_id` = ?
+    AND mdp.`deleted_at` = 0
+    AND mdp.`third_id` = ?
+    GROUP BY mdp.`id`

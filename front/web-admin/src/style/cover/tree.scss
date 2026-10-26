@@ -1,0 +1,31 @@
+// .expanded {}
+
+#crs-scrm {
+  .el-tree {
+    padding: 20px 0;
+    .el-tree-node__content {
+      margin-top: 1px;
+      margin-bottom: 1px;
+      &:before {
+        content: "";
+        width: 14px;
+      }
+    }
+
+    .el-tree-node__label {
+      padding-left: 4px;
+    }
+    .el-checkbox {
+      margin-left: 4px;
+    }
+    .el-tree-node__content > label.el-checkbox {
+      margin-right: 1px;
+    }
+  }
+  .el-tree--highlight-current
+    .el-tree-node.is-current
+    > .el-tree-node__content {
+    background-color: $color-main;
+    color: $color-background;
+  }
+}

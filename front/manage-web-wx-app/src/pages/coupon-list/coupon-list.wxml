@@ -1,0 +1,33 @@
+<view class="order-list">
+  <block wx:if="{{couponList.length > 0}}">
+    <view class="coupon-content" wx:for="{{couponList}}" wx:key="index">
+      <view class="coupon-content-top">
+        <view>{{ item.type_str }}</view>
+        <view>{{ item.status_str }}</view>
+      </view>
+      <view class="circle circle-left" />
+      <view class="circle circle-right" />
+      <view class="coupon-line" />
+      <view class="coupon-content-bottom">
+        <view class="word-line">{{ item.name }}</view>
+        <view class="word-line">{{ item.startDate }} - {{ item.endDate }}</view>
+        <view data-index="{{index}}" bindtap="showRule" class="word-line">
+          更多使用规则
+          <!-- <van-icon
+            :name="!item.isShow ? 'arrow-down' : 'arrow-up'"
+            color="#4a4a4a"
+          /> -->
+          <view class="{{item.isShow ? 'arrow-top' : 'arrow-down'}}" />
+        </view>
+        <view class="word-line" wx:if="{{item.isShow}}">{{ item.description || '' }}</view>
+      </view>
+    </view>
+  </block>
+  <mp-empty wx:if="{{!isLoading && couponList.length == 0}}" slogan="暂无卡券" icon="customer" />
+  <!-- 加载组件 -->
+  <page-loading wx:if="{{isLoading}}" />
+  <view class="bottom-tip" wx:if="{{couponList.length > 0 && !meta.isMore }}">已经到底了~</view>
+  <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

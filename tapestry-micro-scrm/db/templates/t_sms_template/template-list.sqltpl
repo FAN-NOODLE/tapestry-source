@@ -1,0 +1,24 @@
+SELECT
+    `id`,
+    `enterprise_id`,
+    `admin_id`,
+    `template_id`,
+    `template_name`,
+    `template_sign_id`,
+    `message_template`,
+    `template_content`,
+    `template_html`,
+    `message_str`,
+    `status`,
+    `fail_reason`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`
+FROM
+sms_template
+WHERE
+deleted_at = 0
+{{if ne .cond.EnterpriseId 0}}
+   AND `enterprise_id` = :enterprise_id
+{{end}}
+Order BY `id` DESC

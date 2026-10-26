@@ -1,0 +1,1 @@
+select * from members where deleted_at = 0 and enterprise_id = ? and userid in (?)

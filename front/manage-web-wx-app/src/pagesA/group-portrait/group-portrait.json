@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "社群画像",
+    "usingComponents": {
+        "chart": "plugin://echarts/chart",
+        "popover": "../../components/popover/popover",
+        "tabs": "./components/tabs/tabs",
+        "userList": "./components/user-list/user-list"
+    }
+  }

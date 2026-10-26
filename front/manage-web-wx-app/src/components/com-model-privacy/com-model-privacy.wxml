@@ -1,0 +1,29 @@
+<!-- components/business/com-model-privacy/index.wxml -->
+<root-portal enable>
+	<popup show="{{showPrivacy}}" z-index="10000">
+		<view slot="content" class="custom-class privacy">
+			<!-- 标题 -->
+			<view class="privacy__header">
+				<view class="title">用户隐私保护提示</view>
+			</view>
+			<!-- 文案 -->
+			<view class="privacy__content">
+				<view>感谢您使用本小程序。</view>
+				<view class="row">
+					<text>您使用本小程序前应当先阅读隐私协议并同意</text>
+					<text class="privacy-name" catchtap="handleOpenPrivacyContract">{{privacyContractName}}</text>
+				</view>
+				<view class="row">当您点击同意并开始使用产品服务时，即表示您已理解并同意该条款内容，该条款将对您产生法律约束力。如您拒绝，将无法正常使用相关功能。</view>
+			</view>
+			<!-- 底部按钮 start -->
+			<view class="privacy__footer">
+				<button class="bottom-btn btn-agree" id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgree">
+					同意
+				</button>
+				<button class="bottom-btn btn-disagree" bindtap="handleDisagree">不同意</button>
+			</view>
+			<!-- 底部按钮 end -->
+		</view>
+	</popup>
+
+</root-portal>

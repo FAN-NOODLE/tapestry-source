@@ -1,0 +1,26 @@
+#crs-scrm{
+  .el-pagination {
+    .el-pagination__total {
+      margin-right: 15px;
+    }
+    .el-pagination__sizes {
+      margin-right: 15px;
+    }
+    .el-pagination__editor {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+  .el-pager li {
+    font-family: PingFangSC-Medium,PingFang SC;
+    font-weight: 500;
+    color: $color-text-normal;
+  }
+  .el-pager li.active{
+    color: $color-text-button;
+    cursor: default;
+   }
+  .el-select-dropdown__item.selected {
+    font-weight: 400 
+  }
+}

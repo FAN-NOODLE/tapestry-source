@@ -1,0 +1,12 @@
+SELECT
+`corp_id`,
+`add_time`,
+`user_id`,
+`external_user_id`,
+`add_channel`,
+`has_ck`
+FROM `work_relation_add_record`
+WHERE corp_id = "{{.cond.CorpID}}"
+AND  user_id = "{{.cond.UserId}}"
+AND  external_user_id = "{{.cond.ExternalUserId}}"
+ORDER  BY add_time DESC LIMIT 1;

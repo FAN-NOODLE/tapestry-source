@@ -1,0 +1,23 @@
+INSERT INTO `work_external_user_migration`
+(
+  `enterprise_id`,
+  `corp_id`,
+  `user_id`,
+  `external_user_id`,
+  `event`,
+  `chat_id`,
+  `status`,
+  `created_at`,
+  `updated_at`
+) VALUES
+(
+  :enterprise_id,
+  :corp_id,
+  :user_id,
+  :external_user_id,
+  :event,
+  :chat_id,
+  :status,
+  :created_at,
+  :updated_at
+);

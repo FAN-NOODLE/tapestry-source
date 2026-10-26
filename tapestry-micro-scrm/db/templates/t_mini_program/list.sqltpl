@@ -1,0 +1,13 @@
+SELECT
+	`id`,
+    `app_name`,
+    `type`,
+    `app_id`,
+    `origin_id`,
+    `logo`
+FROM
+	`mini_program`
+WHERE `enterprise_id` = :enterprise_id
+AND `deleted_at` = 0
+ORDER BY `type` DESC, `id` DESC
+limit {{.page.Offset}}, {{.page.Limit}}

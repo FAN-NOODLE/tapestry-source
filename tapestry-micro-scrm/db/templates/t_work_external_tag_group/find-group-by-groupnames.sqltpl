@@ -1,0 +1,18 @@
+SELECT
+    `id`, `enterprise_id`, `group_id`, `group_name`, `order`, `create_time`, `created_at`, `updated_at`
+FROM
+    `work_external_tag_group`
+WHERE
+    `enterprise_id` = :enterprise_id AND `deleted_at` = :deleted_at
+{{if .cond.GroupNames}}
+    AND `group_name` IN ({{WhereIn .cond.GroupNames}})
+{{end }}
+{{if .cond.GroupNameLike}}
+    AND `group_name` LIKE '%{{.SafeStr}}%'
+{{end}}
+{{if .cond.IDs}}
+    AND `id` IN ({{WhereIn .cond.IDs}})
+{{end }}
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end }}

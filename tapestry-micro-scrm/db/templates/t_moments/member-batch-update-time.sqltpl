@@ -1,0 +1,9 @@
+UPDATE
+    `moment_members`
+SET
+    `updated_at` = :updated_at
+WHERE
+    1 = 1
+	AND `deleted_at` = 0
+	AND `member_id` IN ({{WhereIn .memberids}})
+	AND `enterprise_id` =:enterprise_id

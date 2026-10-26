@@ -1,0 +1,29 @@
+select
+    wgcm.id,
+    group_chat_id,
+    wgc.chat_id,
+    wgcm.type,
+    userid,
+    member_id,
+    unionid,
+    wgcm.status,
+    join_time,
+    leave_time,
+    join_scene,
+    wgcm.enterprise_id,
+    wgcm.nickname as group_nick_name,
+    wgcm.name,
+    wgcm.invite_userid
+from work_group_chat_member wgcm inner join
+     work_group_chat wgc on wgcm.group_chat_id=wgc.id
+where wgcm.enterprise_id = :enterprise_id and wgc.chat_id = :chat_id
+    {{if eq .cond.MemberType 1}}
+and join_time >= :sts and join_time < :ets and wgcm.deleted_at = 0 order by join_time desc
+    {{else if eq .cond.MemberType 2}}
+and leave_time >= :sts and leave_time < :ets and wgcm.status = 2 order by leave_time desc
+    {{else}}
+and leave_time = 0 and wgcm.status = 1 and wgcm.deleted_at = 0 and join_time < :ets order by join_time desc
+    {{end}}
+    {{if gt .cond.Size 0}}
+limit :offset,:size
+    {{end}}

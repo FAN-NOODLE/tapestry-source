@@ -1,0 +1,10 @@
+UPDATE
+    `moment_topic_members`
+SET
+    `deleted_at` = ?
+WHERE
+    1 = 1
+AND
+    `id` = ?
+AND
+    `deleted_at` = 0;

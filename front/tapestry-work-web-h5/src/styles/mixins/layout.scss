@@ -1,0 +1,116 @@
+.layout-app-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.layout {
+  height: 100%;
+  width: 100%;
+}
+.layout-header {
+  height: 46px;
+  .van-nav-bar {
+    //background: #fa5376;
+    .van-nav-bar__title,
+    .van-icon {
+      color: #fff;
+    }
+  }
+}
+.layout-header-grade {
+  background: -webkit-linear-gradient(right, #fa4dbe 0, #fbaa58 100%);
+  background: linear-gradient(to left, #fa4dbe 0, #fbaa58 100%);
+}
+.layout-container {
+  position: relative;
+}
+.layout-footer {
+  height: 50px;
+}
+// flex布局
+.layout-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-row {
+  flex-basis: 100%;
+}
+.layout-flex-left {
+  justify-content: flex-start;
+}
+
+.layout-flex-right {
+  justify-content: flex-end;
+}
+
+.layout-flex-end {
+  align-items: flex-end;
+}
+
+.layout-flex-center {
+  justify-content: center;
+}
+.layout-flex-between {
+  justify-content: space-between;
+}
+
+.layout-flex-direction {
+  flex-direction: column;
+}
+
+.layout-flex-reverse {
+  flex-direction: row-reverse;
+}
+.layout-align-start {
+  align-items: flex-start;
+}
+
+.layout-align-center {
+  align-items: center;
+}
+.layout-basis-auto {
+  flex-basis: auto;
+}
+.layout-basis-sm {
+  flex-basis: 30%;
+}
+.layout-basis-md {
+  flex-basis: 50%;
+}
+.layout-basis-big {
+  flex-basis: 70%;
+}
+// text
+.layout-text-ellipsis-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.layout-text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+// fixed
+.layout-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+}
+.layout-fixed-top {
+  top: 0;
+}
+.layout-fixed-bottom {
+  bottom: 0;
+}
+.layout-fixed-left {
+  left: 0;
+}
+.layout-fixed-right {
+  right: 0;
+}

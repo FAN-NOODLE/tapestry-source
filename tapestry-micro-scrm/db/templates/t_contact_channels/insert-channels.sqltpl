@@ -1,0 +1,4 @@
+INSERT INTO `drainage_contact_channels`
+(`id`, `enterprise_id`, `name`, `created_at`, `updated_at`)
+VALUES
+(:id, :enterprise_id, :name, :created_at, :updated_at);

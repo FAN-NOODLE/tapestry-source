@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "select-sow-time": "../select-sow-time/select-sow-time",
+    "sow-content": "../sow-content/sow-content"
+  }
+}

@@ -1,0 +1,15 @@
+{
+	"navigationStyle":"custom",
+	"enablePullDownRefresh": false,
+  "disableScroll": true,
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "stock-table": "../../components/stock-table/stock-table",
+    "select-popup": "../../components/select-popup/select-popup",
+    "list-tips": "../../components/list-tips/list-tips",
+    "image-preview":"../../components/image-preview/image-preview",
+    "mp-loading":"../../components/mp-loading/mp-loading",
+    "store-warn-popup" :"../../components/store-warn-popup/store-warn-popup",
+    "single-store-popup": "../../components/single-store-popup/single-store-popup"
+  }
+}

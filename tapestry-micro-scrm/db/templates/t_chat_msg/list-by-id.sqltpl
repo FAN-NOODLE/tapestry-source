@@ -1,0 +1,20 @@
+SELECT
+	`msg`.*
+FROM
+	`chat_msg` msg
+	LEFT JOIN `chat_receive_user` ru ON ( `msg`.`id` = `ru`.`chat_msg_id` )
+WHERE
+    `msg`.enterprise_id = {{.cond.EnterpriseID}}
+	AND `msg`.`from_user` IN ("{{.cond.FromUser}}", "{{.cond.ToUser}}")
+	AND `ru`.`to_user` IN ("{{.cond.ToUser}}", "{{.cond.FromUser}}")
+	{{if eq "ASC" .cond.Sort}}
+        AND `msg`.`id` {{if .cond.IsNeedSelf}} >= {{else}} > {{end}} {{.cond.MsgID}}
+    {{else}}
+        AND `msg`.`id` {{if .cond.IsNeedSelf}} <= {{else}} < {{end}} {{.cond.MsgID}}
+    {{end}}
+	AND `msg`.`deleted_at` = 0
+	AND `msg`.`type` != "chatrecord"
+ORDER BY
+	`msg`.`msg_at` {{.cond.Sort}},
+	`msg`.`id` {{.cond.Sort}}
+	LIMIT {{.cond.Size}};

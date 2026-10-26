@@ -1,0 +1,27 @@
+function getLevelImage(v, size) {
+  var imageHost = 'https://cdn-cos.coach.com.cn/static/wxapp/common/level/'
+  var levelMap = {
+    'O': 'level-5.png',
+    'PROSPECT': 'level-4.png',
+    'C': 'level-3.png',
+    'SILVER': 'level-2.png',
+    'GOLD': 'level-1.png',
+    'DIAMOND': 'level-0.png'
+  }
+  if (size === 'small') {
+    levelMap = {
+      'O': 'level-list-5.png',
+      'PROSPECT': 'level-list-4.png',
+      'C': 'level-list-3.png',
+      'SILVER': 'level-list-2.png',
+      'GOLD': 'level-list-1.png',
+      'DIAMOND': 'level-list-0.png'
+    }
+  }
+
+  return imageHost + levelMap[v.toString()] || ''
+}
+
+module.exports = {
+  getLevelImage: getLevelImage
+}

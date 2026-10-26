@@ -1,0 +1,26 @@
+
+SELECT
+    far.id,
+    far.enterprise_id,
+    far.activity_id,
+    far.fission_user_id,
+    far.assistant_user_id,
+    far.add_member_status,
+    far.add_member_at,
+    far.join_chat_group_status,
+    far.join_chat_group_at,
+    far.created_at,
+    far.updated_at,
+    far.deleted_at,
+    far.score
+FROM
+	`fission_assistant_records` AS far
+	LEFT JOIN `fission_user`  fu  ON far.fission_user_id = fu.id
+WHERE
+    far.enterprise_id ={{.cond.EnterpriseID}}
+    AND  far.deleted_at =0
+    AND  far.activity_id = {{.cond.ActivityID}}
+    AND  fu.user_id ={{.cond.UserID}}
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

@@ -1,0 +1,8 @@
+<popup show="{{show}}" zIndex="{{5001}}">
+    <view slot="content">
+        <view class="toast">
+            <image src="{{url}}" />
+            <view class="message">{{message}}</view>
+        </view>
+    </view>
+</popup>

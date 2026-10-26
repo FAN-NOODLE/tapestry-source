@@ -1,0 +1,18 @@
+select wuce.id,
+       openid,
+       wuce.nick,
+       wuce.name,
+       wuce.union_code,
+       wuce.point,
+       wuce.grade,
+       wuce.ba_code,
+       eu.mobile,
+       unionid,
+       wuce.avatar,
+       wuce.store_code,
+       wuce.type,
+       wuce.sex
+from micro_scrm_enterprise_{{.cond.EnterpriseID}}.wx_user_corp_external wuce
+            inner join micro_scrm_enterprise_{{.cond.EnterpriseID}}.enterprise_user eu
+                       on wuce.euid = eu.id
+where openid in ({{WhereIn .cond.UserIds}});

@@ -1,0 +1,16 @@
+SELECT
+    count(*)
+FROM
+    `goods_sku`
+WHERE
+    `enterprise_id` = {{.cond.EnterpriseID}}
+    AND `deleted_at` = 0
+    {{if gt .cond.SkuID 0}}
+        AND `sku_id` = {{.cond.SkuID}}
+    {{end}}
+    {{if gt .cond.Status 0}}
+        AND `status` = {{.cond.Status}}
+    {{end}}
+    {{if ne .cond.SkuName ""}}
+    AND `sku_name` like '%{{SafeStr .cond.SkuName}}%'
+    {{end}}

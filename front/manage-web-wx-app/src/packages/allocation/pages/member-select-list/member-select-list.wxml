@@ -1,0 +1,60 @@
+
+<view class="container">
+  <!-- header -->
+  <view class="header">
+    <!-- 进度展示 -->
+    <view class="step"></view>
+  </view>
+  <!-- 添加顾客、筛选 -->
+  <view class="sticky">
+    <mp-search placeholder="请输入顾问姓名/工号" bind:blur="handleSearchConfirm"></mp-search>
+  </view>
+  <view class="total">共{{meta.total}}位顾问</view>
+  <!-- 顾客列表 -->
+  <view wx:if="{{list.length > 0}}" class="list">
+    <block wx:for="{{list}}" wx:key="index">
+      <view class="item" data-index="{{index}}" data-item="{{item}}" bind:tap="handleCheckOne">
+        <view wx:if="{{item.check}}" class="icon-check {{item.member_id === checkedInfo.member_id ? 'active':''}}"></view>
+        <view class="item-row">
+          <view class="item-col">
+            <image class="item-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+            <view class="item-name">{{item.name}}</view>
+          </view>
+          <view class="item-col">
+            <image class="item-icon" src="{{imageHost}}2023/v4.0.5/icon_user.png" />
+            <view class="item-label">已有顾客：</view>
+            <view class="item-value">{{item.members || 0}}</view>
+          </view>
+        </view>
+        <view class="item-row">
+          <view class="item-col">
+            <image class="item-icon" src="{{imageHost}}2023/v4.0.5/icon_xx.png" />
+            <view class="item-label">顾问工号：</view>
+            <view class="item-value">{{item.userid}}</view>
+          </view>
+          <view class="item-col">
+            <image class="item-icon" src="{{imageHost}}2023/v4.0.5/icon_store.png" />
+            <view class="item-label">所属门店：</view>
+            <view class="item-value">{{item.store_name[0] || '--'}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 加载更多 -->
+    <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+  </view>
+  <!-- 空组件 -->
+  <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+  
+  <mp-footer z-index="4">
+    <view class="footer">
+      <view class="btn plain" bind:tap="handleBack">上一步</view>
+      <view class="btn" bind:tap="handleSend">确认分配</view>
+    </view>
+  </mp-footer>
+</view>
+
+<com-send-popup id="com-send-popup" bind:confirm="handleSendConfirm"></com-send-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

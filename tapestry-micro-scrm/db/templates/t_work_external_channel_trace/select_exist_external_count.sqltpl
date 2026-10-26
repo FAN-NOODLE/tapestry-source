@@ -1,0 +1,10 @@
+SELECT
+	count(*) as count
+FROM
+	`work_external_channel_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`join_time` < :end_time
+	AND `enterprise_id` = :enterprise_id
+	AND `add_channel` = :channels_state
+	{{/* 判断该用户在筛选范围内仍是正常的好友关系（一直是正常的，或者是在筛选范围外删除的） */}}
+	AND (`leave_time` = 0 OR `leave_time` > :end_time)

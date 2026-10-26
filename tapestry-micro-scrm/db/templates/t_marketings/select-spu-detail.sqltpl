@@ -1,0 +1,6 @@
+SELECT
+	goods_spu.spu_id,sku_attribute,picture,sell_price,spu_name
+FROM
+	goods_spu
+	INNER JOIN goods_sku ON goods_spu.spu_id = goods_sku.spu_id
+	where goods_spu.spu_id = ? limit 1;

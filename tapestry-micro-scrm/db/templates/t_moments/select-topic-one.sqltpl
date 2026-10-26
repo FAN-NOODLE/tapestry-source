@@ -1,0 +1,22 @@
+SELECT
+	`id`,
+	`name`,
+	`publish_type`,
+	`content`,
+	`created_member_id`,
+	`member_count`,
+	`publish_time`,
+	`enterprise_id`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`
+FROM
+	`moment_topics`
+WHERE
+	1 = 1
+AND
+    `id` = ?
+AND
+    `deleted_at` = 0
+LIMIT
+    1

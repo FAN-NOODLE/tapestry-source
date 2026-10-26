@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "images": "../images/images",
+    "avatar": "../avatar/avatar"
+  }
+}

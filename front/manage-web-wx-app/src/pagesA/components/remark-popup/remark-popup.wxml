@@ -1,0 +1,42 @@
+<!--pagesA/task-tags/components/remark-popup/remark-popup.wxml-->
+<popup show="{{show}}" zIndex="{{5000}}">
+	<view slot="content" class="wrap">
+		<view class="header">
+			添加说明
+		</view>
+    <!-- 快捷插入文案 -->
+    <view class="tools">
+      <view class="text" 
+      wx:for="{{tools}}"
+      wx:key="index"
+      data-value="{{item}}"
+      catchtap="insertBefore">
+        {{item}}
+      </view>
+    </view>
+      
+		<view class="relative">
+			<textarea
+			 class="textarea"
+			 placeholder-class="placeholder"
+			 placeholder="请输入备注信息"
+			 auto-height
+			 maxlength="{{maxLength}}"
+			 bindinput="changeInput"
+			 value="{{remark}}"
+       bindblur="editorBlur"
+       bindfocus="editorFocus"
+			/>
+			<!-- 字数统计 -->
+        <view class="now-count">
+        {{nowCount}}/{{maxLength}}</view>
+    </view>
+      
+		<view class="btn-group">
+
+			<view class="cancel-btn" catchtap="cancelBtn">取消</view>
+			<view class="confirm-btn {{status === 2 ?'disabled':''}}" catchtap="confirmBtn">保存</view>
+		</view>
+	</view>
+</popup>
+

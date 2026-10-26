@@ -1,0 +1,70 @@
+@import "../color-variable.sass";
+@mixin button-theme($name, $color) {
+  $dark-color: darken($color, 5%);
+  $light-color: mix($color-white, $color, 40%);
+  $color-white-6: rgba(255, 255, 255, 0.6);
+  $--color-disabled: #CCCCCC;
+  // 实体按钮
+  &--#{$name},
+  &[type=#{$name}] {
+    color: var(--button-#{$name}-color, $color-white);
+    background-color: var(--button-#{$name}-background-color, #{$color});
+    border-color: var(--button-#{$name}-border-color, #{$color});
+  }
+
+  // 点击
+  &--#{$name}#{&}--active,
+  &--#{$name}#{&}--loading,
+  &--#{$name}[loading],
+  &[type=#{$name}]#{&}--active,
+  &[type=#{$name}]#{&}--loading,
+  &[type=#{$name}][loading] {
+    color: var(--button-#{$name}-hover-color, $color-white-6);
+    background-color: var(--button-#{$name}-hover-background-color, #{$dark-color});
+    border-color: var(--button-#{$name}-hover-border-color, #{$dark-color});
+  }
+
+  // 禁止
+  &--#{$name}#{&}--disabled,
+  &--#{$name}[disabled],
+  &[type=#{$name}]#{&}--disabled,
+  &[type=#{$name}][disabled] {
+    color: var(--button-#{$name}-disabled-color, $color-white);
+    background-color: var(--button-#{$name}-disabled-background-color, #{$--color-disabled});
+    border-color: var(--button-#{$name}-disabled-border-color, #{$--color-disabled});
+  }
+
+  // 朴素的
+  &--#{$name}#{&}--plain,
+  &--#{$name}[plain],
+  &[type=#{$name}]#{&}--plain,
+  &[type=#{$name}][plain] {
+    color: var(--button-#{$name}-plain-color, #{$color});
+    background-color: var(--button-plain-background-color, $color-white);
+    border-color: var(--button-#{$name}-plain-border-color, #{$color});
+  }
+
+  // 朴素的点击
+  &--#{$name}#{&}--plain#{&}--active,
+  &--#{$name}[plain]#{&}--active,
+  &[type=#{$name}]#{&}--plain#{&}--active,
+  &[type=#{$name}][plain]#{&}--active{
+    color: var(--button-#{$name}-plain-disabled-color, #{$light-color});
+    background-color: var(--button-plain-disabled-background-color, $color-white);
+    border-color: var(--button-#{$name}-plain-disabled-border-color, #{$light-color});
+  }
+
+  // 朴素的禁止
+  &--#{$name}#{&}--plain#{&}--disabled,
+  &--#{$name}[plain]#{&}--disabled,
+  &--#{$name}#{&}--plain[disabled],
+  &--#{$name}[plain][disabled],
+  &[type=#{$name}]#{&}--plain#{&}--disabled,
+  &[type=#{$name}][plain]#{&}--disabled,
+  &[type=#{$name}]#{&}--plain[disabled],
+  &[type=#{$name}][plain][disabled] {
+    color: var(--button-#{$name}-plain-disabled-color, #{$--color-disabled});
+    background-color: var(--button-plain-disabled-background-color, $color-white);
+    border-color: var(--button-#{$name}-plain-disabled-border-color, #{$--color-disabled});
+  }
+}

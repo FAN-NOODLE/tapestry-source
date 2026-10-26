@@ -1,0 +1,27 @@
+<view class="btn" bind:tap="show">
+  <slot></slot>
+</view>
+
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="hide">
+  <view class="popup">
+    <scroll-view class="popup__content" scroll-y="{{true}}">
+      <view wx:if="{{list.length}}" class="list">
+        <block wx:for="{{list}}" wx:key="index">
+          <view class="item {{item.checked ? 'active' : ''}}" data-index="{{index}}" bind:tap="handleSelect">{{item.name}}</view>
+        </block>
+      </view>
+      <view wx:if="{{!list.length}}" class="empty">
+        <text class="text">暂无数据</text>
+      </view>
+    </scroll-view>
+     <mp-footer custom-class="footer" fixed="{{false}}">
+      <view class="popup-footer">
+        <view class="btn plain" bind:tap="handleReset">重置</view>
+        <view class="btn {{checkedList.length === 0?'disabled':''}}" bind:tap="handleConfirm">
+          确定
+          <text wx:if="{{checkedList && checkedList.length>0}}">({{checkedList.length}})</text>
+        </view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

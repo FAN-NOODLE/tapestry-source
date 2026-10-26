@@ -1,0 +1,10 @@
+SELECT
+	count(`external_user_id`)  as count
+FROM
+	`work_external_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`leave_time` >= :start_time
+	AND `leave_time` < :end_time
+	AND `enterprise_id` = :enterprise_id
+	{{/* 判断该用户在筛选范围内仍是不存在加入系统操作*/}}
+    AND (`next_join_time` = 0 OR `next_join_time` > :end_time)

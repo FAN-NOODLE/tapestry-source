@@ -1,0 +1,8 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "发货",
+	"backgroundColor": "#000000",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false
+}

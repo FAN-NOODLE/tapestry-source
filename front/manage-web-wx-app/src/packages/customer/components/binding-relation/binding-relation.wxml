@@ -1,0 +1,18 @@
+<view class="binding-relation">
+  <view wx:for="{{list}}" wx:key="member_id" class="relation-item">
+    <image class="avatar" src="{{item.thumb_avatar}}" />
+    <view class="relation-detail">
+      <view class="top">
+        <view class="title">{{item.sa_user_name}}</view>
+        <view wx:if="{{item.is_key_sa === 1}}" class="tag">主顾问</view>
+      </view>
+      <view class="center">添加时间：{{item.created_at}}</view>
+      <view class="bottom">所属店铺：{{item.department_name}}</view>
+    </view>
+  </view>
+  <!-- 加载更多 -->
+  <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+</view>
+<!-- 空组件 -->
+<mp-empty wx:if="{{list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-task" content="暂无邀约记录"/>
+        

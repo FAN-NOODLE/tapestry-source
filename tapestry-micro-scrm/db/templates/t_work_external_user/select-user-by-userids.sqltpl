@@ -1,0 +1,3 @@
+SELECT id as object_id, openid as userid, name, avatar
+FROM micro_scrm_enterprise_{{.enterprise_id}}.`wx_user_corp_external`
+WHERE `openid` IN ({{WhereIn .user_ids}});

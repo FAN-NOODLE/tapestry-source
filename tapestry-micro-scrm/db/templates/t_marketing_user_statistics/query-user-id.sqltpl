@@ -1,0 +1,15 @@
+select
+  `id`,
+  `enterprise_id`,
+  `user_id`,
+  `count`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from `marketing_user_statistics`
+where
+  `enterprise_id` = ?
+AND
+  `user_id` = ?
+AND
+  `deleted_at` = ?

@@ -1,0 +1,33 @@
+SELECT
+	`m`.`name`,
+	`m`.`avatar`,
+	`m`.`gender`,
+	`m`.`userid`,
+	`m`.`status`
+FROM
+	`chat_object` co
+	INNER JOIN `members` m ON ( `co`.`to_object_id` = `m`.`id` )
+	{{if gt .cond.ToDepartmentID 0}}
+        LEFT JOIN `member_departments` md ON (`co`.`to_object_id` = `md`.`member_id`)
+    {{end}}
+WHERE
+	`co`.`from_channel` = 1
+	AND `co`.`to_channel` = 1
+	AND `co`.`from_object_id` = {{.cond.MemberID}}
+	AND `co`.`enterprise_id` = {{.cond.EnterpriseID}}
+	AND `co`.`deleted_at` = 0
+	{{if ne "" .cond.ToName}}
+        AND `m`.`name` LIKE "%{{SafeStr .cond.ToName}}%"
+    {{end}}
+    {{if gt .cond.ToMemberID 0}}
+        AND `m`.`id` = {{.cond.ToMemberID}}
+    {{end}}
+    {{if gt .cond.ToDepartmentID 0}}
+        AND `md`.`department_id` = {{.cond.ToDepartmentID}}
+        AND `md`.`deleted_at` = 0
+    {{end}}
+ORDER BY
+	`co`.`last_chat_at` DESC,
+	`co`.`id` DESC
+	LIMIT {{.page.Offset }},
+    	{{.page.Limit }};

@@ -1,0 +1,111 @@
+<view wx:if="{{!showLoading}}" class="container">
+  <view class="header">
+    <!-- tab -->
+    <com-tabs custom-class="tabs" active="{{active}}" tabs="{{tabs}}" bind:change="handleTabChange"></com-tabs>
+  </view>
+  <!-- 搜索 -->
+  <view class="search-wrap">
+    <view class="search">
+      <com-select value="{{searchParams.filterType}}" bind:change="handleFilterChange"></com-select>
+      <view class="search-input">
+        <view class="search-icon"></view>
+        <input
+          value="{{searchParams.keywords}}"
+          bindinput="handleInputChange"
+          class="search-input__value"
+          placeholder-class="search-input__placeholder"
+          placeholder="请输入昵称/备注内容搜索"
+        />
+        <view wx:if="{{searchParams.keywords.length}}" class="icon-clear" bind:tap="handleClear"></view>
+      </view>
+    </view>
+    <view class="search-btn" bind:tap="handleSearch">搜索</view>
+  </view>
+  <!-- 其他 -->
+  <view class="other flex">
+    <view class="other-title">明细数据</view>
+    <view class="other-tips">共{{tabs[active].meta.total}}位顾客</view>
+    <view class="other-btn flex-center" bind:tap="handleFilterPopupShow">
+      筛选
+      <view class="other-btn__icon"></view>
+      <view wx:if="{{filter.count}}" class="other-btn__tag">{{filter.count}}</view>
+    </view>
+  </view>
+  <!-- 列表 -->
+  <view class="content">
+    <!-- 列表 -->
+    <view wx:if="{{tabs[active].list.length > 0}}" class="list">
+      <customer-item 
+        wx:for="{{tabs[active].list}}" 
+        wx:key="index" 
+        data-status="{{item.is_finished}}"
+        data-index="{{index}}" 
+        item="{{item}}" 
+        options="{{detail}}"
+        type="{{2}}"
+        index="{{index}}"
+        show-select="{{detail.status_code !== 2}}"
+        bind:select="handleSelect"
+        bind:update="handleUpdate"
+        bind:track="handleTrack"></customer-item>
+      <!-- 加载更多 -->
+      <mp-load-more status="{{tabs[active].meta.status}}"></mp-load-more>
+    </view>
+    <!-- 缺省 -->
+    <mp-empty custom-class="mp-empty" wx:if="{{ tabs[active].list.length === 0 && tabs[active].meta.status !== 'loading'}}" icon="no-search" content="暂无顾客数据"></mp-empty>
+  </view>
+  <!-- 底部操作 -->
+  <mp-footer custom-class="footer" z-index="{{98}}">
+    <view wx:if="{{tabs[active].selectCount && detail.status_code !== 2}}" class="total {{tabs[active].selectCount === 0 ? 'disabled':''}}" bind:tap="handleSelectAll">
+      <view class="total-icon {{tabs[active].selectedAll ? 'active' : ''}}"></view>
+      <view class="total-text">全选</view>
+      <view wx:if="{{tabs[active].selectedList.length}}" class="total-num">已选: {{tabs[active].selectedList.length}}</view>
+    </view>
+    <button wx:if="{{active === 1}}" class="mp-button" hover-class="mp-button--active" type="primary" disabled="{{tabs[active].selectedList.length === 0}}" data-status="0" bind:tap="moveCustomer">移回群发顾客</button>
+    <button wx:if="{{active === 0}}" class="mp-button m-r-15" hover-class="mp-button--active" type="primary" size="small" plain disabled="{{tabs[active].selectedList.length === 0}}" bind:tap="handleShowPopup">移入单独沟通</button>
+    <button wx:if="{{active === 0}}" class="mp-button" hover-class="mp-button--active" type="primary" size="small" disabled="{{tabs[active].selectedList.length === 0}}" bind:tap="shareToExternalContact">转发给顾客</button>
+  </mp-footer>
+</view>
+<!-- 加载中 -->
+<page-loading wx:if="{{showLoading}}"></page-loading>
+<!-- 筛选 -->
+<com-filter-popup 
+  wx:if="{{!isBeat}}"
+  zIndex="{{101}}"
+  show="{{filter.show}}" 
+  offset="{{filter.offsetTop}}"
+  value="{{filter.value}}"
+  count="{{filter.count}}"
+  currentPage="{{[8, 9][active]}}"
+  include="task"
+  bind:close="handleFilterPopupHide"
+  bind:confirm="handleFilterConfirm"
+></com-filter-popup>
+<filter-popup
+  wx:if="{{isBeat}}"
+  show="{{filter.show}}" 
+  offset="{{0}}"
+  zIndex="{{101}}"
+  only-search="{{true}}"
+  value="{{filter.value}}" 
+  exclude="{{['member_ids']}}"
+  searchButtonText="确定"
+  currentPage="{{[8, 9][active]}}"
+  bind:close="handleFilterPopupHide" 
+  bind:confirm="handleFilterConfirm"
+></filter-popup>
+<!-- 二次确认 -->
+<mp-popup show="{{confirmPopup}}" bind:close="handleCancel">
+  <view class="popup">
+    <view class="popup-title">是否确认将顾客移入单独沟通名单？</view>
+    <view class="popup-content">
+      <text >确认后，所选顾客将被移入单独沟通名单内，\n后续可对其单独沟通</text>
+    </view>
+    <view class="popup-footer">
+      <view class="btn" bind:tap="handleCancel">取消</view>
+      <view class="btn" data-status="1" bind:tap="moveCustomer">确认</view>
+    </view>
+  </view>
+</mp-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

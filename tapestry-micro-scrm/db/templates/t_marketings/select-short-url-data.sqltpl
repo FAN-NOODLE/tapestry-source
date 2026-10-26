@@ -1,0 +1,4 @@
+SELECT
+	id,one_level_id,one_level_name,two_level_id,two_level_name,operator,short_url,weixin_url,config_params
+FROM
+	external_links where id = ?;

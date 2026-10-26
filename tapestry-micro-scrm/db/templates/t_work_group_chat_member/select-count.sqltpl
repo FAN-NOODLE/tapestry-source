@@ -1,0 +1,9 @@
+SELECT COUNT(*) AS `total` FROM `work_group_chat_member` WHERE `enterprise_id` = :enterprise_id AND `deleted_at` = :deleted_at
+{{if ne .cond.GroupChatID 0}}
+AND `group_chat_id` = :group_chat_id
+{{end }}
+
+{{if ne .cond.GroupChatIdCount 0}}
+AND `group_chat_id` IN ({{WhereIn .cond.ChatGroupIds}})
+{{end }}
+;

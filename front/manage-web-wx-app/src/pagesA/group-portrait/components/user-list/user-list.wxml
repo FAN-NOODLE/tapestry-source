@@ -1,0 +1,28 @@
+<view class="user-list">
+  <view class="user" wx:for="{{list}}" wx:key="index">
+    <image src="{{item.avatar || 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/default-person.png'}}" class="user-left"/>
+    <view class="user-center">
+        <view class="user-center-name">{{ item.nick || item.name || "-" }}</view>
+        <view class="user-center-form">
+              <view class="user-type">
+                {{
+                  item.user_id === ownerId
+                    ? "群主"
+                    : item.join_scene == 3
+                    ? "扫码入群"
+                    : "直接邀请入群"
+                }}
+              </view>
+              <view class="line">|</view>
+              <view class="item-form-content">
+                {{ item.time || "-"}}
+              </view>
+        </view>
+    </view>
+    <!-- 暂无userId -->
+    <view class="user-right" wx:if="{{item.user_id && item.user_id !== userId}}" bindtap="operation" data-item="{{item}}">{{ item.friend ? "联系他" : "添加好友" }}</view>
+    <div class="user-right-none" wx:elif="{{item.user_id !== ownerId}}">
+          暂无添加员工
+    </div>
+  </view>
+</view>

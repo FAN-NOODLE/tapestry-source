@@ -1,0 +1,109 @@
+<view wx:if="{{!loading}}" class="send-material">
+  <!-- header -->
+  <view class="send-material__header">
+    <!-- <navigation-bar text="选择素材" bg-color="#F4F7FB" color="#000000"  back backActive="goback"></navigation-bar> -->
+    <!-- search&filter -->
+    <view class="header__inner">
+      <view class="search">
+        <!-- 属性筛选 -->
+        <view class="search-wrap">
+          <view class="search-wrap__icon"></view>
+          <input class="search-wrap__input" placeholder="输入素材名称/商品名称/款号/款色" placeholder-class="placeholder" bind:input="handleInput" bind:blur="handleSearch" bind:confirm="handleSearch" />
+        </view>
+      </view>
+      <view class="select" bind:tap="handleTag">
+        <text>属性</text>
+        <view class="select-num" wx:if="{{query.category_ids.length > 0}}">{{query.category_ids.length}}</view>
+      </view>
+      <!-- 条件筛选 -->
+      <view class="filter" bind:tap="handleFilter"></view>
+    </view>
+    <!-- filter result -->
+    <view wx:if="{{filterName}}" class="info">
+      <text>{{filterName}}</text>
+      <view class="info-clear" bind:tap="handleFilterClear"></view>
+    </view>
+    <!-- tabs -->
+    <com-tabs active="{{active}}" tabs="{{tabs}}" scrollMaxLength="{{5}}" bind:change="handleTabChange"></com-tabs>
+  </view>
+  <!-- 布局切换 -->
+  <com-select-grid 
+    wx:if="{{active === 2 && tabs[active].list.length>0}}" 
+    current="{{gridIndex}}" 
+    showFirstTips="{{showFirstTips}}" 
+    bind:change="handleGideChange"
+    bind:hide="handleHideTips"
+  ></com-select-grid>
+  <!-- list -->
+  <view class="send-material__content">
+    <view wx:if="{{tabs[active].status && tabs[active].list.length>0}}" class="list">
+      <mp-row gutter="{{tabs[active].gutter}}">
+        <mp-col 
+          wx:for="{{tabs[active].list}}" 
+          wx:key="index"
+          span="{{24/tabs[active].column}}"
+        >
+          <com-material-item 
+            item="{{item}}" 
+            selection="{{selection}}"
+            data-index="{{index}}"
+            custom-class="{{tabs[active].column===3?'column-3':''}}"
+            bind:select-save="handleShowGroupSelect"
+            bind:select="handleSelect"
+            bind:change="handleItemChange"
+            bind:preview="handlePreview"
+            enterType="{{2}}"
+          ></com-material-item>
+        </mp-col>
+      </mp-row>
+      <!-- load-more -->
+      <mp-load-more status="{{tabs[active].status}}"></mp-load-more>
+    </view>
+    <!-- empty -->
+    <mp-empty wx:if="{{tabs[active].status && tabs[active].status !=='loading' && tabs[active].list.length==0}}" icon="no-data" content="暂无素材"></mp-empty>
+  </view>
+  <!-- 底部操作 -->
+  <mp-footer  custom-class="footer-wrap">
+    <view class="footer">
+      <view class="number">已选：文本({{textNum}}) 图片/视频/链接({{mediaNum}})
+        <view class="tips" wx:if="{{textNum>=textMax || mediaNum>=mediaMax}}">最多可选{{textMax}}个文本，{{mediaMax}}个图片/视频/链接</view>
+      </view>
+      <view wx:if="{{selection.length>0}}" class="btn-clear" bind:tap="handleClearSelected">
+        清空
+      </view>
+      <view class="btn {{selection.length?'':'disabled'}}" bind:tap="handleSendAll">确认并群发</view>
+    </view>
+  </mp-footer>
+</view>
+<page-loading wx:if="{{loading}}" />
+
+<com-popup-filter value="{{filterInfo}}" useSlot id="com-popup-filter" text="全部分组" bind:change="handleFilterChange"></com-popup-filter>
+<!-- 选择素材类型 -->
+<com-popup-select id="com-popup-select" bind:update="handleUpdate"></com-popup-select>
+
+<!-- 批量保存  -->
+<com-popup-save 
+  id="com-popup-save" 
+  item="{{tabs[active].list[current]}}"
+  showFirstPreviewTips="{{showFirstPreviewTips}}"
+  data-index="{{current}}"
+  enterType="{{2}}"
+  selection="{{selection}}"
+  bind:select="handleSelect"
+  bind:hidePreviewTips="handleHidePreviewTips"
+></com-popup-save>
+
+<!-- 图片预览 -->
+<com-popup-preview 
+  id="com-popup-preview"
+  current="{{previewIndex}}"
+  enterType="{{2}}"
+  showTips="{{showFirstPreviewTips}}"
+  item="{{tabs[active].list[current]}}"
+  selection="{{selection}}"
+  bind:select="handleSelect"
+  bind:hide="handleHidePreviewTips"
+></com-popup-preview>
+
+<!-- 属性筛选 -->
+<com-popup-tag id="com-popup-tag" bind:confirm="handleTagChange"></com-popup-tag>

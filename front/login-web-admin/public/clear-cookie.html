@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name ="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no">
+	<title>清除cookie</title>
+    <meta charset="utf-8" />
+	<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery.cookie/1.4.1/jquery.cookie.js"></script>
+</head>
+<body>
+    <h1>清除cookie的操作</h1>
+    <input type="button" value="清除所有cookie" onclick="clearCookie();" />
+	<p>下面是当前所有的cookie值：</p>
+	<div id="divcookie">
+    
+    </div>
+	<script>
+    $(function(){
+		$("#divcookie").html(document.cookie);
+	});
+</script>
+<script>
+function clearCookie() {            
+            var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+            if (keys) {
+                for (var i = keys.length; i--;) {
+                    document.cookie = keys[i] + '=0;path=/login;expires=' + new Date(0).toUTCString();//清除当前域名下的,例如：m.kevis.com
+                    document.cookie = keys[i] + '=0;path=/login;domain=' + document.domain + ';expires=' + new Date(0).toUTCString();//清除当前域名下的，例如 .m.kevis.com
+                    document.cookie = keys[i] + '=0;path=/login;domain=kevis.com;expires=' + new Date(0).toUTCString();//清除一级域名下的或指定的，例如 .kevis.com
+                }
+            }
+			$("#divcookie").html(document.cookie);
+            alert('已清除');
+        }
+		clearCookie();
+</script>
+</body>
+</html>

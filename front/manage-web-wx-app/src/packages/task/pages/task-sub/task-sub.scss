@@ -1,0 +1,136 @@
+@import '~@/style/color-variable.sass';
+@import '~@/style/base/utilities.sass';
+.container {
+  .header {
+    position: relative;
+
+    .title {
+      margin-top: vw(33);
+      @include fontStyle(16, 600, #000000, 22);
+    }
+
+    .sub_title {
+      margin-top: vw(5);
+      @include fontStyle(11, 400, #A6A6A6, 16);
+    }
+
+    .status {
+      width: vw(80);
+      height: vw(32);
+      position: absolute;
+      top: vw(10);
+      left: vw(-6);
+      padding-bottom: vw(4);
+      @include flex;
+      @include fontStyle(12, 400, #000000, 20);
+    }
+
+    .is-load {
+      @include renderImg('2022/v3.1/task_load.png');
+    }
+
+    .is-success {
+      @include renderImg('2022/v3.1/task_success.png');
+    }
+
+    .is-error {
+      @include renderImg('2022/v3.1/task_error.png');
+    }
+
+    .calendar-mg {
+      margin-bottom: vw(25);
+    }
+  }
+
+  .content {
+    padding: 0 vw(15) vw(15);
+
+    .tips {
+      margin-left: vw(15);
+      margin-bottom: vw(15);
+    }
+
+    .list {
+      position: relative;
+    }
+
+    .line {
+      width: vw(1);
+      height: 100%;
+      background: #DDDDDD;
+      position: absolute;
+      left: vw(13);
+    }
+  }
+}
+
+/** 提示性文案 */
+.tips {
+  @include fontStyle(11, 400, #96979E, 16);
+}
+
+/** 卡片 */
+.card {
+  background: #FFFFFF;
+  margin: vw(15);
+  padding: vw(15) vw(13);
+  position: relative;
+}
+
+/** 自定义日历样式 */
+.custom-calendar {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// 圆环样式
+.tag-progress {
+  position: absolute;
+  top: vw(10);
+  right: vw(15);
+  width: vw(249);
+  height: vw(28);
+  padding: 0 vw(10);
+  background: #F7F7F7;
+  border-radius: vw(14);
+  @include flex;
+
+  &-chart {
+    position: relative;
+    width: vw(163);
+
+    .chart-progress {
+      width: 100%;
+    }
+
+    &-tag {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translate(-50%, -50%);
+      width: vw(32);
+      height: vw(16);
+      font-size: vw(10);
+      font-weight: 600;
+      background-color: #000;
+      color: #FFFFFF;
+      border-radius: vw(8);
+      border: 1px solid #FFFFFF;
+      @include flex;
+      transition: all 2s ease-in-out;
+    }
+  }
+
+  &-text {
+    width: vw(106);
+    margin-left: vw(9);
+    font-size: vw(10);
+    font-weight: 400;
+    color: #A6A6A6;
+    text-align: center;
+
+    &-finish {
+      color: #000000;
+    }
+  }
+}

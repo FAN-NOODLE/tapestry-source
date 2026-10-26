@@ -1,0 +1,1 @@
+SELECT * FROM `work_external_user_relation` WHERE `enterprise_id` = :enterprise_id AND `member_id` = :member_id AND `work_external_user_id` = :work_external_user_id LIMIT 1;

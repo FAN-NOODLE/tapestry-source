@@ -1,0 +1,23 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "顾客分配",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "mp-search": "../../../../components/common/mp-search/index",
+    "mp-toast": "../../../../components/common/mp-toast/index",
+    "custom-loading": "../../../../components/custom-loading/custom-loading",
+    "com-customer-item": "../../../../components/customer-components/com-customer-item/com-customer-item",
+    "com-customer-item-beta": "../../../customer/components/com-customer-item/index",
+    "com-section": "../../../../components/customer-components/com-section/com-section",
+    "com-filter-popup": "../../../../components/customer-components/com-filter-popup/com-filter-popup",
+    "com-create-entry": "../../../../components/customer-components/com-create-entry/com-create-entry",
+    "navigation-bar": "../../../../components/navigation-bar/navigation-bar"
+  },
+  "componentPlaceholder": {
+    "com-customer-item-beta": "view"
+  }
+}

@@ -1,0 +1,19 @@
+SELECT
+	a.id,
+	a.enterprise_id,
+	a.from_user,
+	b.to_user,
+	b.user_channel,
+	a.content,
+	a.type,
+	a.msg_at,
+	a.from_user_type
+FROM
+	`chat_msg` AS a
+	LEFT JOIN `chat_receive_user` AS b ON `a`.`id` = `b`.`chat_msg_id`
+WHERE
+	`a`.`deleted_at` = 0
+	AND `b`.`deleted_at` = 0
+	AND `a`.`id` IN ({{WhereIn .ids}})
+	AND `a`.`type` NOT IN ('chatrecord', 'voip_doc_share')
+ORDER BY `a`.`created_at` DESC;

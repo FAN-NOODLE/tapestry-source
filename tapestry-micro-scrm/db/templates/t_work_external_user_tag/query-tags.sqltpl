@@ -1,0 +1,11 @@
+select
+  `id`,
+  `enterprise_id`,
+  `relation_id`,
+  `external_tag_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from `work_external_user_tag`
+where `relation_id` = ?
+and deleted_at = ?

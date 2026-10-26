@@ -1,0 +1,3 @@
+SELECT  value FROM `enterprise_config`
+
+WHERE enterprise_id = ? and `key` = ?

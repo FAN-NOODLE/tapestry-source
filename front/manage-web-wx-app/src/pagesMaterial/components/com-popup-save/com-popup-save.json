@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "com-popup-preview": "../com-popup-preview/com-popup-preview"
+  }
+}

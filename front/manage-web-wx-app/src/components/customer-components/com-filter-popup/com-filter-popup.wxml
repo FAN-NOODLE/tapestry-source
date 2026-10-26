@@ -1,0 +1,67 @@
+<wxs src="./com-filter-popup.wxs" module="computed"></wxs>
+<mp-popup zIndex="{{zIndex}}" show="{{show}}" position="top" bind:close="handleClose">
+  <view class="popup" style="padding-top: {{offset}}">
+    <!-- content -->
+    <scroll-view class="popup__content" scroll-y="{{true}}">
+      <block wx:for="{{selectList}}" wx:key="index">
+        <view class="selection">
+          <view class="selection__title">
+            {{item.title}}
+            <image class="tips" wx:if="{{item.tips}}" data-index="{{index}}" bindtap="handleShowTips"  src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/tips.png" />
+            <view class="expand" wx:if="{{item.showExpand}}" data-index="{{index}}" bindtap="handleExpand">
+              {{ item.isExpand ? '折叠' : '展开' }}
+              <image class="icon {{item.isExpand ? 'rotate' : ''}}" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+            </view>
+          </view>
+          <view class="selection__content {{item.isExpand ? '' : 'min-h'}}" data-index="{{index}}">
+            <!-- select -->
+            <view wx:if="{{item.type === 'select'}}" class="select-list">
+              <block  wx:for="{{selectOption[item.key]}}" wx:for-index="idx" wx:for-item="select" wx:key="idx">
+                <view class="select-item {{select.selected ? 'selected' : ''}}" data-key="{{item.key}}" data-index="{{idx}}" bindtap="handleSelect">
+                  <view class="word">{{select.value}}</view>
+                </view>
+              </block>
+            </view>
+            <!-- date -->
+            <view wx:if="{{item.type === 'date'}}" class="select-date" data-key="{{item.key}}" bind:tap="handlePickerShow">
+              <view class="select-date__start">
+                <text wx:if="{{innerValue[item.keys[0]]}}">{{computed.formatDate(innerValue[item.keys[0]] * 1000, 'yyyy/MM/dd')}}</text>
+                <text class="placeholder" wx:else>开始时间</text>
+              </view>
+              <view class="select-date__link">——</view>
+              <view class="select-date__end">
+                <text wx:if="{{innerValue[item.keys[1]]}}">{{computed.formatDate(innerValue[item.keys[1]] * 1000, 'yyyy/MM/dd')}}</text>
+                <text class="placeholder" wx:else>结束时间</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 提示 -->
+      <view class="tip-btn" bind:tap="handleShowTips" data-index="{{-1}}">数据更新时间说明</view>
+    </scroll-view>
+    <!-- footer -->
+    <view class="popup__footer">
+      <view class="btn" bindtap="handleReset">重置</view>
+      <view class="btn {{innerCount===0?'disabled':''}}" bindtap="{{innerCount===0? '': 'handleConfirm'}}">确定 <text wx:if="{{innerCount > 0}}">（{{innerCount}}）</text></view>
+    </view>
+  </view>
+</mp-popup>
+
+<com-tip-popup
+  show="{{showTip}}" 
+  title="{{current.title}}" 
+  list="{{current.list}}" 
+  bind:close="handleHideTips"
+></com-tip-popup>
+
+<mp-datetime-picker 
+  value="{{innerDateValue}}" 
+  maxDate="{{maxDate}}" 
+  minDate="{{minDate}}" 
+  show="{{showPickerDate}}" 
+  format="yyyy/MM/dd"
+  bind:reset="handlePickerConfirm"
+  bind:cancel="handlePickerHide" 
+  bind:confirm="handlePickerConfirm"
+></mp-datetime-picker>

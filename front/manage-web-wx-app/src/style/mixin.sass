@@ -1,0 +1,66 @@
+$unit: 1rpx
+$img: "https://cdn-cos.coach.com.cn/uploads/"
+$img-static: "https://cdn-cos.coach.com.cn"
+
+@function parseVW($value)
+  @return (($value * $unit) * 2)
+
+@function vw($args)
+  @return parseVW($args)
+
+/** 生成图片路径 */
+@function imgStatic($args)
+  @return url($img + $args)
+
+@function imgUrl($args)
+  @return url($img-static + $args)
+
+/** 渲染背景图片 */
+@mixin renderImg($url)
+  background-image: imgStatic($url)
+  background-size: 100% 100%
+
+/** 设置文字样式 */
+@mixin fontStyle($s, $w, $c, $lh)
+  font-size: vw($s)
+  font-weight: $w
+  color: $c
+  line-height: vw($lh)
+
+/** 设置flex */
+@mixin flex($jc: center, $ai: center)
+  display: flex
+  justify-content: $jc
+  align-items: $ai
+
+/** ios 距离底部的安全距离 */
+@mixin iosBottom
+  // 暂时写死，软键盘会导致env、constant函数失效
+  padding-bottom: vw(34) !important
+  // padding-bottom: constant(safe-area-inset-bottom) !important
+  // padding-bottom: env(safe-area-inset-bottom) !important
+
+/** 给文案添加下划线 */
+@mixin underline($mb: #000000)
+  position: relative
+  &::after
+    content: ""
+    width: 100%
+    height: vw(0.5)
+    background-color: $mb 
+    position: absolute 
+    left: 0
+    bottom: 0
+  
+@mixin icon($path, $color: #000)
+  background: $color
+  -webkit-mask-image: imgStatic($path)
+  -moz-mask-image: imgStatic($path)
+  mask-image: imgStatic($path)
+  mask-position: center
+  -webkit-mask-repeat: no-repeat
+  -moz-mask-repeat: no-repeat
+  mask-repeat: no-repeat
+  -webkit-mask-size: contain
+  -moz-mask-size: contain
+  mask-size: contain

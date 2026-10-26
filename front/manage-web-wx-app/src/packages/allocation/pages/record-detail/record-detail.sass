@@ -1,0 +1,162 @@
+@import '~@/style/color-variable.sass'
+@import '~@/style/base/arrow'
+
+.allocation-record-detail
+  width: 100vw
+  min-height: 100vh
+  background-color: #F7F7F7
+  padding-bottom: vw(54)
+  .header
+    position: relative
+    display: flex
+    flex-direction: column
+    background: #fff
+    padding: vw(20) vw(30) vw(15) vw(30)
+    box-shadow: 0px 6px 12px 0px rgba(222,224,227,0.5)
+    .title
+      flex: 1
+      font-size: vw(14)
+      color: #676767
+      &-id
+        font-weight: 500
+        color: #000000
+    .status
+      position: absolute
+      right: 0
+      top: vw(10)
+      display: flex
+      justify-content: center
+      align-items: center
+      height: vw(28)
+      font-size: vw(14)
+      font-weight: 400
+      border-radius: vw(100) 0px 0px vw(100)
+      &.status-1
+        width: vw(75)
+        background: #C6AD7F
+      &.status-2
+        width: vw(75)
+        background: #BBD1A7
+      &.status-3
+        min-width: vw(75)
+        max-width: 30%
+        background: #EBB8B8
+        font-size: vw(12)
+        color: #BA0000
+    .desp-card
+      flex: 1
+      display: flex
+      margin-top: vw(10)
+      padding-bottom: vw(12)
+      .card
+        height: vw(18)
+        padding: vw(2) vw(10)
+        margin-right: vw(6)
+        background: #777
+        border-radius: vw(2)
+        font-size: vw(10)
+        color: #fff
+      .myclass
+        background: #000
+        color: #fff
+      .bg1
+        background: #ccc
+        color: #4A4A4A
+      .bg2
+        background: rgba(204, 204, 204,0.5)
+        color: #4A4A4A
+
+    .container
+      flex: 1
+      display: flex
+      flex-direction: column
+      font-size: vw(12)
+      font-weight: 400
+      color: #676767
+      border-top: vw(1) solid #F0F0F0
+
+      .record-module
+        flex: 1
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-top: vw(15)
+        .label
+          display: flex
+          align-items: center
+          .date-icon
+            width: vw(12)
+            height: vw(12)
+            margin-right: vw(5)
+
+  .customer-table
+    background-color: #fff
+    margin: vw(15)
+    box-shadow: 0 vw(3) vw(17) 0 rgba(54,68,58,0.06)
+
+    .t-head, .tr
+      display: grid
+      grid-template: vw(47) unquote('/') vw(80) vw(80) vw(80) vw(80)
+      padding-left: vw(15)
+
+    .t-head
+      background-color: #fff
+
+      .th
+        font-size: vw(11)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #676767
+        display: flex
+        justify-content: center
+        align-items: center
+
+    .t-body
+      .tr
+        position: relative
+        &:nth-child(odd)
+          background-color: #f7f7f7
+        .td
+          font-size: vw(12)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #404040
+          display: flex
+          flex-direction: column
+          justify-content: center
+          align-items: center
+
+          .record-id
+            width: 100%
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+
+          .time:last-child
+            margin-top: vw(5)
+
+          &.success
+            color: #87AF64
+          &.warning
+            color: #C6AD7F
+          &.danger
+            color: #BA0000
+
+        &:not(:last-child)::after
+          content: ''
+          display: block
+          position: absolute
+          bottom: 0
+          left: 0
+          width: 100%
+          height: vw(2)
+          background-image: linear-gradient(to left, #F2F2F2, transparent 60%)
+          background-size: vw(8) 100%
+          background-repeat: repeat-x
+
+  .bottom-tip, .loading-box
+    width: 100%
+    font-size: vw(14)
+    color: #96979E
+    text-align: center
+    margin-top: vw(15)

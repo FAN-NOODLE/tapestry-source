@@ -1,0 +1,30 @@
+
+SELECT
+ fu.id as id,
+ fu.enterprise_id,
+ fu.activity_id,
+ fu.user_id,
+ IFNULL( fmu.nick_name,"") AS nick_name,
+ IFNULL( fmu.img_url,"") AS img_url,
+ fu.fission_num,
+ fu.run_away_num,
+ fu.join_group_num,
+ fu.leave_group_num,
+ fu.deleted_at,
+ fu.updated_at,
+ fu.created_at
+FROM
+
+ `fission_user` fu
+
+LEFT JOIN  `fission_mp_user`  fmu ON   fu.user_id = fmu.id AND fmu.enterprise_id = {{.cond.EnterpriseID}}
+WHERE
+        fu.enterprise_id = {{.cond.EnterpriseID}}
+        AND fu.deleted_at = 0
+        AND fu.activity_id ={{.cond.ActivityID}}
+{{if ne .cond.Nickname ""}}
+        AND  fmu.nick_name like '%{{SafeStr .cond.Nickname}}%'
+{{end}}
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

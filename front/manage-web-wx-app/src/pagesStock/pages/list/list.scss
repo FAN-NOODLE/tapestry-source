@@ -1,0 +1,305 @@
+@import '~@/style/color-variable';
+@import '~@/style/base/arrow';
+
+.page-list {
+  width: 100vw;
+  height: 100vh;
+  padding-top: vw(15);
+  padding-bottom: vw(90);
+  background: url('https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/header-back.png') no-repeat scroll top center #f7f7f7;
+  background-size: 100% vw(229);
+  overflow: hidden;
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    .header {
+      margin: 0 vw(15);
+      padding: 0 vw(15);
+      padding-top: vw(20);
+      background: #FFFFFF;
+      box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.05);
+      .store {
+        display: flex;
+        align-items: center;
+        .left-icon {
+          flex-basis: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: vw(48);
+          height: vw(48);
+          background: #FFFFFF;
+          border: 1px solid #000000;
+          border-radius: 50%;
+          image {
+            width: vw(40);
+            height: vw(13);
+          }
+        }
+        .store-content {
+          margin-left: vw(15);
+          line-height: vw(20);
+          .store-name {
+            font-size: vw(18);
+            font-weight: 500;
+            color: #000000;
+          }
+          .store-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: vw(12);
+            font-weight: 400;
+            color: #96979E;
+            margin-top: vw(15);
+            .store-code {
+              margin-right: vw(15);
+            }
+          }
+        }
+      }
+      .search {
+        display: flex;
+        margin-top: vw(20);
+        .search-input {
+          position: relative;
+          flex: 1;
+          height: vw(32);
+          border: vw(1) solid #000000;
+          padding: 0 vw(10);
+          margin-right: vw(10);
+          font-size: vw(12);
+          padding-right: vw(16);
+          input {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .disabled {
+          border: vw(1) solid #ccc;
+        }
+        .down-icon {
+          position: absolute;
+          top: vw(12);
+          right: vw(5);
+          width: vw(14);
+          height: vw(9);
+        }
+      }
+    }
+    .data-container {
+      display: flex;
+      flex-direction: column;
+      margin: 0 vw(15);
+      padding: vw(15);
+      padding-top: vw(10);
+      background: #FFFFFF;
+      box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.05);
+      margin-bottom: vw(91);
+      overflow: hidden;
+      .red {
+        color: #96979E;
+        font-size: vw(12);
+        font-weight: 400;
+        margin-bottom: vw(10);
+      }
+    }
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    height: vw(80);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+    .button {
+      margin: vw(15) vw(45) 0 vw(45);
+      padding: vw(8) 0;
+      text-align: center;
+      font-size: vw(14);
+      font-weight: 400;
+      color: #FFFFFF;
+      background: #000;
+    }
+  }
+}
+
+.page-loading {
+  width: 100vw;
+  height: 100vh;
+  background: #f7f7f7;
+  z-index: 101;
+  position: relative;
+}
+
+
+.top-buttons {
+  display: flex;
+  justify-content: space-between;
+  .check {
+    display: flex;
+    align-items: center;
+    font-size: vw(12);
+    flex: 1;
+    image {
+      width: vw(12);
+      height: vw(12);
+      padding-right: vw(5);
+    }
+  }
+  .refresh {
+    display: flex;
+    align-items: center;
+    font-size: vw(12);
+    margin-left: vw(15);
+    image {
+      width: vw(14);
+      height: vw(14);
+      padding-right: vw(5);
+    }
+  }
+}
+.table-data {
+  flex: 1;
+  overflow: hidden;
+  margin-top: vw(15);
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+}
+
+.exit {
+  font-size: vw(12);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .exit-icon {
+    width: vw(14);
+    height: vw(14);
+    padding-right: vw(5);
+  }
+}
+
+// 横屏
+.horizontal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center center;
+  z-index: 100;
+  width: 100vh;
+  height: 100vw;
+  background: #f7f7f7 url('https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/header-back.png') no-repeat scroll top center;
+  background-size: 100% vw(229);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-left: vw(85);
+  box-sizing: border-box;
+
+  .horizontal-content {
+    flex: 1;
+    overflow: hidden;
+    background-color: #fff;
+    margin: vw(15);
+    box-sizing: border-box;
+    padding: vw(15);
+    display: flex;
+    flex-direction: column;
+
+
+
+    .horizontal-header {
+      display: flex;
+      justify-content: space-between;
+
+      .tags {
+        display: flex;
+        margin-right: vw(15);
+      }
+
+      .tag {
+        height: vw(20);
+        line-height: vw(20);
+        font-size: vw(12);
+        font-weight: 400;
+        color: #000000;
+        padding: 0 vw(5);
+        background: #F5F5F5;
+        margin-right: vw(5);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .top-buttons {
+        flex: 1;
+        justify-content: flex-start;
+        display: flex;
+
+        .check {
+          flex: none;
+        }
+
+        .refresh {
+          margin-left: vw(15);
+        }
+      }
+    }
+  }
+}
+
+.inventory-warning {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: vw(10);
+  padding: vw(8) vw(25);
+  color: #737373;
+  background: #fff7e6;
+  font-size: vw(10);
+  line-height: vw(16);
+
+  &__icon {
+    position: relative;
+    flex: 0 0 vw(18);
+    width: vw(18);
+    height: vw(16);
+    margin-top: vw(1);
+    margin-right: vw(12);
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18"%3E%3Cpath fill="%23FAAD14" d="M8.35 1.9Q10-.9 11.65 1.9L19.1 14.8Q20.7 17.5 17.6 17.5H2.4Q-.7 17.5.9 14.8Z"/%3E%3C/svg%3E') no-repeat center;
+    background-size: 100% 100%;
+  }
+
+  &__icon-text {
+    position: absolute;
+    top: vw(3);
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: vw(11);
+    font-weight: 600;
+    line-height: vw(13);
+  }
+
+  &__text {
+    flex: 1;
+    white-space: nowrap;
+  }
+}
+
+.horizontal-warning {
+  margin-top: vw(10);
+}
+
+.vertical-warning {
+  margin-top: vw(15);
+  margin-bottom: 0;
+}

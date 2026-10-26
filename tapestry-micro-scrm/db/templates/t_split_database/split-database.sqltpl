@@ -1,0 +1,644 @@
+CREATE DATABASE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}};
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.enterprise_user (
+  `id` bigint(20) NOT NULL,
+  `wx_union` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '关联用户列表',
+  `wx_shop` text COLLATE utf8mb4_unicode_ci COMMENT '商城信息集合',
+  `wx_external` text COLLATE utf8mb4_unicode_ci COMMENT '外部联系人集合',
+  `wx_open` text COLLATE utf8mb4_unicode_ci COMMENT '公众号用户信息集合',
+  `nick` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '昵称',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '姓名',
+  `tags` text COLLATE utf8mb4_unicode_ci COMMENT '标签列表',
+  `groups` text COLLATE utf8mb4_unicode_ci COMMENT 'rfm/aipl分组',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
+  `mobile` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '手机',
+  `delivery_mobile` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '最近收货人手机',
+  `birthday` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '生日',
+  `union_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员卡号',
+  `point` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员积分',
+  `grade` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员等级',
+  `store_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '门店编号',
+  `ba_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'BA编号',
+  `sex` smallint(4) NOT NULL DEFAULT '0' COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `language` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '语言',
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '国家',
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '省份',
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '城市',
+  `remark` text COLLATE utf8mb4_unicode_ci COMMENT '备注',
+  `version` int(11) NOT NULL DEFAULT '0',
+  `pay_order` int(11) NOT NULL DEFAULT '0' COMMENT '已支付订单数',
+  `total_fee` int(11) NOT NULL DEFAULT '0' COMMENT '实付金额总数',
+  `refund_order` int(11) NOT NULL DEFAULT '0' COMMENT '退款订单数',
+  `refund_fee` int(11) NOT NULL DEFAULT '0' COMMENT '退款金额数',
+  `per_customer_transaction` int(11) NOT NULL DEFAULT '0' COMMENT '客单价',
+  `latest_market_time` int(11) NOT NULL DEFAULT '0' COMMENT '最新营销时间',
+  `market_count` int(11) NOT NULL DEFAULT '0' COMMENT '营销次数',
+  `bind_to` bigint(20) NOT NULL DEFAULT '0' COMMENT '绑定对象',
+  `level_id` bigint(20) NOT NULL DEFAULT '0',
+  `created_at` int(11) NOT NULL DEFAULT '0',
+  `updated_at` int(11) NOT NULL DEFAULT '0',
+  `es_update` timestamp NULL DEFAULT NULL,
+  `dt_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `es` (`es_update`),
+  KEY `dt` (`dt_update`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业用户聚合表';
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.work_relation_add_record (
+  `corp_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业ID',
+  `add_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '消息创建时间 （整型）',
+  `user_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业服务人员的UserID',
+  `external_user_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人的userid',
+  `add_channel` bigint(20) NOT NULL DEFAULT '0' COMMENT '添加时存在的渠道',
+  PRIMARY KEY (`corp_id`,`external_user_id`,`user_id`,`add_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业微信外部联系人添加记录表';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.wx_app_config (
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '小程序或公众号appid 或 企业微信corpid',
+  `app_type` smallint(6) NOT NULL DEFAULT '0' COMMENT '1小程序 2企业微信 3公众号',
+  `open_platform_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '当前虚拟开放平台id',
+  `bind_status` smallint(4) NOT NULL DEFAULT '0' COMMENT '绑定状态：0-未知，1-绑定，2-解绑',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `created_at` int(11) NOT NULL DEFAULT '0',
+  `updated_at` int(11) NOT NULL DEFAULT '0',
+  `deleted_at` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`appid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='当前企业接入小程序、公众号、企业微信等';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.wx_user_corp_external (
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `openid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是external_user_id',
+  `unionid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户unionid',
+  `euid` bigint(20) NOT NULL DEFAULT '0' COMMENT '聚合id',
+  `nick` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '昵称',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '姓名',
+  `position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户职称',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
+  `corp_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业简称',
+  `corp_full_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业全称',
+  `type` smallint(4) NOT NULL DEFAULT '0' COMMENT '外部联系人的类型，1表示该外部联系人是微信用户，2表示该外部联系人是企业微信用户',
+  `sex` smallint(4) NOT NULL DEFAULT '0' COMMENT '外部联系人性别 0-未知 1-男性 2-女性',
+  `external_profile` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '外部联系人的自定义展示信息,JSON',
+  `birthday` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '生日',
+  `union_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员卡号',
+  `point` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员积分',
+  `grade` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '会员等级',
+  `store_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '门店编号',
+  `ba_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'BA编号',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `birth_year` int(10) NOT NULL DEFAULT '0' COMMENT '生日的年份',
+  `birth_month` int(10) NOT NULL DEFAULT '1' COMMENT '生日的月份',
+  `birth_day` int(10) NOT NULL DEFAULT '1' COMMENT '生日的天',
+  `mobile` varchar(15) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '企业微信手机号',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid_index` (`openid`) USING BTREE,
+  KEY `euid` (`euid`),
+  KEY `union_code_index` (`union_code`) USING BTREE,
+  KEY `unionid_index` (`unionid`) USING BTREE,
+  KEY `index_deleted_at_unionid` (`deleted_at`,`unionid`),
+  KEY `index_unionid_deleted_at` (`unionid`,`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业微信外部联系人';
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.wx_user_open (
+  `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '自增id',
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '公众号appid',
+  `openid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '公众号openid',
+  `unionid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '当前开放平台Unionid',
+  `euid` bigint(20) NOT NULL DEFAULT '0' COMMENT '聚合id',
+  `subscribe_at` int(11) NOT NULL DEFAULT '0' COMMENT '订阅时间',
+  `subscribe_status` int(11) NOT NULL DEFAULT '0' COMMENT '订阅状态',
+  `subscribe_scene` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '返回用户关注的渠道来源',
+  `remark` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  `qr_scene` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '二维码扫码场景',
+  `qr_scene_str` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '二维码扫码场景描述',
+  `sex` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户的头像',
+  `language` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户的语言，简体中文为zh_CN',
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在城市',
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在省份',
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在国家',
+  `nick_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `created_at` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(10) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uin` (`appid`,`openid`),
+  KEY `euid` (`euid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='公众号用户';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.wx_user_shop (
+  `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '自增id',
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '小程序appid',
+  `openid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '小程序openid',
+  `third_user_id` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '第三方用户id',
+  `unionid` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '当前开放平台unionid',
+  `euid` bigint(20) NOT NULL DEFAULT '0' COMMENT '企业聚合id',
+  `nick_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户眤称',
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名称',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户头像',
+  `mobile` char(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '手机号',
+  `birthday` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '生日',
+  `sex` smallint(4) NOT NULL DEFAULT '0' COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在国家',
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在省份',
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户所在城市',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `birth_year` int(10) NOT NULL DEFAULT '0' COMMENT '生日的年份',
+  `birth_month` int(10) NOT NULL DEFAULT '1' COMMENT '生日的月份',
+  `birth_day` int(10) NOT NULL DEFAULT '1' COMMENT '生日的天',
+  `mobile` varchar(15) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '企业微信手机号',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uin` (`appid`,`openid`),
+  KEY `euid` (`euid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='交易用户（小程序用户）';
+
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.wx_user_union (
+  `unionid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '微信开放平台unionid',
+  `open_platform_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'unionid所属开放平台',
+  `open_platform_source` smallint(4) NOT NULL DEFAULT '0' COMMENT 'unionid归属开放平台是否确认1确认 0当前配置',
+  `euid` bigint(20) NOT NULL DEFAULT '0' COMMENT '企业聚合用户id',
+  PRIMARY KEY (`unionid`),
+  KEY `euid` (`euid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='开放平台unionid映射聚合id';
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.work_group_chat (
+  `id` bigint(20) NOT NULL,
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `chat_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企业微信群聊id',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '群聊名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '群类型 1:外部群 2内部群',
+  `owner_member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '群创建人id',
+  `divide_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '企业微信群聊分组id',
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '群码',
+  `notice` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '群公告',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '群状态 1=群存在 2=群已解散',
+  `dissolve_time` int(10) NOT NULL DEFAULT '0' COMMENT '群解散时间',
+  `member_num` int(11) NOT NULL COMMENT '群人数',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `owner_member_id_index` (`owner_member_id`),
+  KEY `chat_id_index` (`chat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业微信群聊表';
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.work_group_chat_member (
+  `id` bigint(20) NOT NULL,
+  `group_chat_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '群聊表id',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '成员类型:1 - 企业成员,2 - 外部联系人',
+  `userid` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '群成员id',
+  `member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '内部成员ID',
+  `unionid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '微信unionid',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '群状态，1=入群 2=退群',
+  `join_time` int(10) NOT NULL DEFAULT '0' COMMENT '入群时间',
+  `leave_time` int(10) NOT NULL DEFAULT '0' COMMENT '退群时间',
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `join_scene` int(10) NOT NULL DEFAULT '1' COMMENT '入群方式。\n1 - 由成员邀请入群（直接邀请入群）\n2 - 由成员邀请入群（通过邀请链接入群）\n3 - 通过扫描群二维码入群',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `group_chat_id_index` (`group_chat_id`),
+  KEY `type_userid_index` (`type`,`userid`),
+  KEY `userid_group_chat_id_index` (`userid`,`group_chat_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='企业微信群聊成员表';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.chat_group_msg_task (
+  `id` bigint(20) NOT NULL,
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '群发任务名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '群发类型1-立即 2-定时',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '任务触达状态：1-定时未开始 2-未发送 3-部分未发送 4-已发送',
+  `task_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否已执行（1：未执行,2:执行中，3：已执行,4:执行失败,5:执行失败结束）默认1',
+  `fail_msg` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '执行失败原因',
+  `send_time` int(10) NOT NULL DEFAULT '0' COMMENT '定时发送时间 默认为0',
+  `last_send_msg` int(10) NOT NULL DEFAULT '0' COMMENT '最新发送消息时间 默认为0',
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '内容',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `latest_check_time` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='群发任务表';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.chat_group_msg_task_member (
+  `id` bigint(20) NOT NULL,
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `msg_task_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '群发任务ID',
+  `member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '成员ID',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '发送状态：0默认(等待调用企微接口发送群发任务) 1-未发送(任务已下发给群主,等待群主发送群发消息) 2-已发送（群主已将任务发送至企业群）',
+  `task_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否已执行（1：未执行，2：已执行,3:执行失败）默认1',
+  `fail_msg` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '执行失败原因',
+  `msgid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企微msgid',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `msg_task_id_index` (`msg_task_id`),
+  KEY `member_id_index` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='群发任务会员表';
+
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.chat_group_msg_send_record (
+  `id` bigint(20) NOT NULL,
+  `appid` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '对应的是corp_id',
+  `msg_task_id` bigint(20) NOT NULL COMMENT '群发任务ID',
+  `msg_task_member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT 'chat_group_msg_task_member表id',
+  `chat_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '企微外部群id',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '发送状态 0-未发送 1-已发送 2-因客户不是好友导致发送失败 3-因客户已经收到其他群发消息导致发送失败',
+  `send_time` int(10) NOT NULL DEFAULT '0' COMMENT '发送时间',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `msg_task_id_index` (`msg_task_id`),
+  KEY `msg_task_member_id` (`msg_task_member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='群发结果记录表';
+
+CREATE TABLE IF NOT EXISTS micro_scrm_enterprise_{{.EnterpriseID}}.work_group_chat_divide (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='企业微信群聊分组表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.wx_user_corp_external_repeat_customer (
+  `work_external_user_id` bigint(20) NOT NULL COMMENT '外部联系人ID',
+  `member_num` int(11) NOT NULL COMMENT '重复员工数量',
+  `created_at` int(10) NOT NULL,
+  `update_at` int(10) NOT NULL,
+  PRIMARY KEY (`work_external_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='重复客户'
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.transfer_customer_tasks (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `transfer_id` char(16) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务自定义ID',
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+  `customer_num` int(10) NOT NULL DEFAULT '0' COMMENT '符合条件的客户数',
+  `start_time` int(10) NOT NULL DEFAULT '0' COMMENT '任务开始时间',
+  `end_time` int(10) NOT NULL DEFAULT '0' COMMENT '任务完成时间',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '任务状态；1未开始，2进行中，3已完成， 4、任务取消',
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1唯一继承，2随机继承',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `pull_data_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '任务数据拉取状态：0 未拉取完成，1 拉取完成',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='在职继承任务表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.task_condition_data (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `task_allot_log_id` int(10) NOT NULL,
+  `tag_name` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT 'CampaignTool标签名称',
+  `ww_tag_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企微标签id',
+  `union_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '顾客的UnionID',
+  `work_external_user_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人user_id,可能空',
+  `is_union` tinyint(2) NOT NULL DEFAULT '0' COMMENT '关系状态；0没有好友关系、1有好友关系',
+  `mobile` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '手机',
+  `mars_id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'BA的MarsCode',
+  `user_id` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '员工的企微user_id',
+  `condition_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务的ID',
+  `task_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务的ID',
+  `plan_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务的ID',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `task_allot_log_id_index` (`task_allot_log_id`) USING BTREE,
+  KEY `task_id_index` (`task_id`) USING BTREE,
+  KEY `created_at_index` (`created_at`) USING BTREE,
+  KEY `user_id_index` (`work_external_user_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='计划任务条件推送数据';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.task_condition_data_log (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT 'CampaignTool标签名称',
+  `ww_tag_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企微标签id',
+  `union_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '顾客的UnionID',
+  `work_external_user_id` char(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '外部联系人user_id,可能空',
+  `is_union` tinyint(2) NOT NULL DEFAULT '0' COMMENT '关系状态；0没有好友关系、1有好友关系',
+  `mobile` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '手机',
+  `mars_id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'BA的MarsCode',
+  `user_id` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '员工的企微user_id',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `is_success` tinyint(1) DEFAULT '1' COMMENT '1 未成功，2成功',
+  `tag_num` tinyint(1) DEFAULT '0' COMMENT '请求企微标签接口的次数',
+  `member_id` bigint(20) DEFAULT '0' COMMENT 'micro_scrm.member.id',
+  `tag_id` bigint(20) DEFAULT '0' COMMENT 'micro_scrm.work_external_tag.id',
+  `relation_id` bigint(20) DEFAULT '0' COMMENT 'micro_scrm.work_external_user_relation.id',
+  `is_has_tag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0未打标签，1打标签',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `user_id_index` (`work_external_user_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='计划人任务拉去标签数据';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.task_allot_log (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `plan_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '计划ID',
+  `condition_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子条件的ID',
+  `task_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务的ID',
+  `user_id` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '员工的企微user_id',
+  `start_time` int(10) NOT NULL DEFAULT '0' COMMENT '任务开始时间',
+  `end_time` int(10) NOT NULL DEFAULT '0' COMMENT '任务完成时间',
+  `is_finished` tinyint(2) NOT NULL DEFAULT '0' COMMENT '完成状态；0进行中，1完成，2未完成',
+  `customer_num` int(10) NOT NULL DEFAULT '0' COMMENT '符合条件的客户数',
+  `group_chat_id` bigint(20) DEFAULT NULL COMMENT '群里编号',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `tag_id` bigint(20) DEFAULT '0' COMMENT '标签编号',
+  `tag_name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标签名称',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务推送ba的记录';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.task_everyday_statistics (
+  `date` varchar(128) NOT NULL DEFAULT '' COMMENT '日期',
+  `data_time` int(10) NOT NULL DEFAULT '0' COMMENT '数据更新时间',
+  `task_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '主任务或子任务的任务id',
+  `total_reach_customer_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '累计触达客户数',
+  `total_order_customer_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '累计下单客户数',
+  `total_order_number` int(10) NOT NULL DEFAULT '0' COMMENT '累计订单数',
+  `total_order_fee` int(10) NOT NULL DEFAULT '0' COMMENT '累计交易总额（分）',
+  `task_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '任务类型：默认是0，1是主任务，2是子任务',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`task_id`,`data_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='每日任务汇总结果统计表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.plans (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '计划名称',
+  `task_num` int(10) NOT NULL DEFAULT '0' COMMENT '该计划下关联任务的数量',
+  `operation_user_id` bigint(11) NOT NULL DEFAULT '0' COMMENT '成员表id',
+  `start_time` int(10) NOT NULL DEFAULT '0',
+  `end_time` int(10) NOT NULL DEFAULT '0',
+  `is_open` tinyint(2) NOT NULL DEFAULT '0' COMMENT '任务在小程序中是否可见。0不可见，1可见；默认可见',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '任务状态；0未开始、1进行中、2已结束',
+  `remark` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '计划描述',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `is_push` int(1) DEFAULT '0' COMMENT '任务是否推送 1已推送 0 未推送',
+  `type` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务计划-计划表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.plan_tasks (
+  `id` bigint(20) NOT NULL,
+  `plan_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '子任务对应的计划的ID',
+  `name` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '子任务名称',
+  `dimension` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '子任务的维度；1社群数据；2用户画像；3导入模板名单',
+  `condition_type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '子任务的条件类型；1标签；2群人数；3群内新增人数；4参与活动；5购买行为；6群活跃度；7退群名单；8顾客生日',
+  `is_specify_crowd` tinyint(1) DEFAULT '0' COMMENT '任务是否指定人群 1 否 2 是',
+  `is_open` tinyint(2) NOT NULL DEFAULT '1' COMMENT '任务在小程序中是否可见。0不可见，1可见；默认可见',
+  `task_type` tinyint(1) DEFAULT '0' COMMENT '任务周期 1 单次 2持续',
+  `send_type` tinyint(1) DEFAULT '0' COMMENT '任务推送对象 1 BA 2管理bA',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '任务状态；0未开始、1进行中、2已结束',
+  `remark` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '子任务描述',
+  `task_is_push` tinyint(1) DEFAULT '0' COMMENT '任务是否推送 0 未执行 1 已执行',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `birthday_pre_time` int(10) NOT NULL COMMENT '生日消息推送的提前天数',
+  `consumer_file_id` int(10) NOT NULL DEFAULT '0' COMMENT ' 导入模板名单的文件id',
+  `is_extract` tinyint(1) NOT NULL DEFAULT '0' COMMENT '客户名单是否导入完成,0: 未完成，1:已完成',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务计划-子任务表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.plan_task_specify_crowd (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `plan_id` bigint(20) unsigned NOT NULL COMMENT '计划编号',
+  `task_id` bigint(20) unsigned NOT NULL COMMENT '任务编号',
+  `user_id` varchar(64) NOT NULL COMMENT '推送的用户编号',
+  `user_name` varchar(128) NOT NULL COMMENT '推送的用户名称',
+  `is_ba` tinyint(1) NOT NULL COMMENT '推送的用户是否是ba 1 否 2 是',
+  `created_at` int(10) NOT NULL,
+  `updated_at` int(10) NOT NULL,
+  `deleted_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `index_task_id_is_ba` (`task_id`,`is_ba`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='计划任务指定人群数据';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.plan_task_downloaded_file (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` int(11) unsigned DEFAULT '0',
+  `deleted_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
+  `file_name` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `file_type` tinyint(1) DEFAULT '0' COMMENT '上传的文件方式类型：1、wesocial上传；2、campaign_tool上传',
+  `tag_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
+  `file_url` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件在blog的地址',
+  `group_tag_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签组名称',
+  `is_extract` tinyint(1) DEFAULT '0' COMMENT '数据文件是否已经提取完成：1: 文件数据提取完成；2、预处理数据完成；3、数据打标签完成',
+  `ba_type` tinyint(4) DEFAULT '0' COMMENT 'BA的类型。1、关系BA；2、管理BA',
+  `is_show_tag` tinyint(1) DEFAULT '0' COMMENT '是否展示计划任务的标签；0不展示；1展示',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `tag_name_index` (`tag_name`) USING BTREE,
+  KEY `group_tag_name_index` (`group_tag_name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.plan_task_conditions (
+  `id` bigint(20) NOT NULL,
+  `plan_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务对应的计划的ID',
+  `task_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '条件对应的子任务的ID',
+  `conditions` text CHARACTER SET utf8 NOT NULL COMMENT '条件内容，json结构;包含：多个维度的结构',
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '条件内容，json结构；包含可以推送给顾客的所有信息：文本/图片/视频/小程序/链接',
+  `content_type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '消息类型；1文本；2图片；3语音；4视频；5位置；6链接,7 小程序',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务计划-子任务条件表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.campaign_tool_plan_task_cron_data (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
+  `deleted_at` int(11) unsigned DEFAULT '0',
+  `member_code` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '会员卡号',
+  `tag_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签',
+  `cron_file_name` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT 'sftp文件名',
+  `create_time` varchar(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT 'campaign-tool推送时间',
+  `union_id` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `grade_code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `admin_ba` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `file_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'plan_task_downloaded_file.id',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `index_admin_ba` (`admin_ba`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`plan_task_import_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` int(11) unsigned DEFAULT '0',
+  `deleted_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
+  `file_name` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件名',
+  `file_type` tinyint(1) DEFAULT '0' COMMENT '上传的文件方式类型：1、wesocial上传；2、campaign_tool上传',
+  `file_url` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件在cos的地址',
+  `is_extract` tinyint(1) DEFAULT '0' COMMENT '数据文件是否已经提取完成：1: 文件数据提取完成；2、预处理数据完成；3、数据打标签完成',
+  `task_type` int(1) NOT NULL DEFAULT '3' COMMENT '导入的任务类型，3为客户导入，4为客户匹配SAcode导入',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`plan_task_import_data` (
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  `file_id` int(10) NOT NULL DEFAULT '0',
+  `task_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '子任务id',
+  `unionid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `said` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导购的SAID',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导购姓名',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `work_external_user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '企微用户的外部联系人id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='子任务的客户导入的客户名单';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`plan_task_import_data_log` (
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  `file_id` int(10) NOT NULL DEFAULT '0',
+  `task_id` bigint(10) NOT NULL DEFAULT '0' COMMENT '子任务id',
+  `unionid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `said` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导购的SAID',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导购姓名',
+  `import_res` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导入结果',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='子任务的客户导入的记录';
+
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`user_group_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `file_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `file_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '文件的url地址',
+  `is_extract` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '数据文件是否已经提取完成：1: 文件数据提取完成；2、预处理数据完成；3、数据打标签完成',
+  `created_at` int(11) unsigned NOT NULL DEFAULT '0',
+  `updated_at` int(11) unsigned NOT NULL DEFAULT '0',
+  `deleted_at` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='客户分组---客户导入记录表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`user_group_import_data` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `file_id` int(11) NOT NULL DEFAULT '0' COMMENT 'user_group_file表的主键id',
+  `union_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导入的unionid',
+  `create_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '推送时间',
+  `created_at` int(11) NOT NULL DEFAULT '0',
+  `updated_at` int(11) NOT NULL DEFAULT '0',
+  `deleted_at` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='user_group_file导入的模板中的用户unionid';
+
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`user_group_import_data_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_group_id` bigint(20) NOT NULL DEFAULT '0',
+  `union_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `import_res` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='客户分组-名单导入的记录日志表';
+
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`reserve_log` (
+  `id` bigint(20) NOT NULL,
+  `reserve_order_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '预约单id',
+  `log_info` text COMMENT '操作日志',
+  `order_info` text NOT NULL COMMENT '订单信息',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  `log_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '日志类型,1为订单的日志,2为评分的日志 ',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预约单操作log';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`reserve_order` (
+  `id` bigint(20) NOT NULL,
+  `reserve_number` varchar(255) NOT NULL DEFAULT '0' COMMENT '预约单的编号',
+  `reserve_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '预约服务的项目id',
+  `reserve_time` int(10) NOT NULL DEFAULT '0' COMMENT '预约服务的到店时间',
+  `store_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '门店id(企微的third_id)',
+  `store_name` varchar(255) NOT NULL DEFAULT '' COMMENT '预约的门店名称',
+  `store_address` varchar(255) NOT NULL DEFAULT '' COMMENT '预约的门店地址',
+  `reserve_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '预约订单是否是分配单,0:默认预约单，1:分配的预约单',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '预约单的状态,0进行中,1已完成,2待完成,3已取消',
+  `user_name` varchar(255) NOT NULL DEFAULT '' COMMENT '预约服务的用户名称',
+  `user_unionid` varchar(255) NOT NULL DEFAULT '' COMMENT '预约服务的用户unionid',
+  `user_external_id` varchar(255) NOT NULL DEFAULT '' COMMENT '预约服务的用户external_id',
+  `member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '预约单服务的导购id',
+  `member_name` varchar(255) NOT NULL DEFAULT '' COMMENT '预约单服务的导购名称',
+  `reserve_remark` varchar(255) NOT NULL DEFAULT '' COMMENT '预约服务的备注信息(导购)',
+  `user_remark` varchar(255) NOT NULL DEFAULT '' COMMENT '预约服务的备注信息(用户)',
+  `is_open` tinyint(1) NOT NULL COMMENT '用户是否打开预约单 0否，1是',
+  `is_commit` tinyint(1) NOT NULL COMMENT '用户是否确认预约单 0否，1是',
+  `invite_num` int(10) NOT NULL DEFAULT '0' COMMENT '邀约次数',
+  `member_user_id` varchar(255) NOT NULL DEFAULT '' COMMENT '预约单服务的导购user_id',
+  `reserve_order_sn` varchar(255) NOT NULL DEFAULT '' COMMENT 'coach核销单号',
+  `reserve_order_price` int(10) NOT NULL COMMENT 'coach核销导购的订单金额（元）',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`reserve_type`) USING BTREE,
+  KEY `store_id_index` (`store_id`) USING BTREE COMMENT '门店id索引',
+  KEY `member_id_index` (`member_id`) USING BTREE COMMENT '导购id索引',
+  KEY `unionid_index` (`user_unionid`) USING BTREE COMMENT '用户的unionid索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预约订单表';
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`reserve_service` (
+  `id` bigint(20) NOT NULL,
+  `reserve_name` varchar(255) NOT NULL DEFAULT '' COMMENT '服务类型名称',
+  `reserve_img` varchar(255) NOT NULL DEFAULT '' COMMENT '服务类型的图片',
+  `reserve_time` tinyint(1) NOT NULL DEFAULT '1' COMMENT '服务时长,单位小时',
+  `reserve_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '服务类型状态，上下架，0为下架，1为上架',
+  `end_time` int(11) NOT NULL DEFAULT '0' COMMENT '截止时间',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预约服务的表';
+
+
+CREATE TABLE micro_scrm_enterprise_{{.EnterpriseID}}.`reserve_service_score` (
+  `id` bigint(20) NOT NULL,
+  `reserve_number` varchar(100) NOT NULL DEFAULT '0' COMMENT '预约单编号',
+  `reserve_order_id` bigint(20) NOT NULL COMMENT '预约单表id',
+  `user_name` varchar(255) NOT NULL DEFAULT '' COMMENT '评论的用户昵称',
+  `user_unionid` varchar(255) NOT NULL COMMENT '评论的用户unionid',
+  `user_external_id` varchar(255) NOT NULL DEFAULT '' COMMENT '评论的用户external_id',
+  `member_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '服务的导购id',
+  `member_name` varchar(255) NOT NULL DEFAULT '' COMMENT '服务的导购昵称',
+  `member_user_id` varchar(255) NOT NULL DEFAULT '' COMMENT '服务导购的user_id',
+  `store_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '服务的门店id',
+  `store_name` varchar(255) NOT NULL DEFAULT '' COMMENT '服务的门店名称',
+  `service_score` tinyint(1) NOT NULL DEFAULT '0' COMMENT '默认服务分数为5分（KS端店员服务,sw端活动安排）',
+  `store_score` tinyint(1) NOT NULL DEFAULT '0' COMMENT '门店的评分，默认5分（KS端店铺环境,sw端整体服务）',
+  `flow_score` tinyint(1) NOT NULL DEFAULT '0' COMMENT '流程的评分（ks端服务流程）',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '用户的评论信息',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL DEFAULT '0',
+  `deleted_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户的评分表';

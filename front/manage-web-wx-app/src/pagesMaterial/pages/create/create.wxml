@@ -1,0 +1,206 @@
+<wxs module="computed">
+  function getScore(score) {
+    return parseFloat(score*100).toFixed(2)
+  }
+  module.exports = {
+    getScore: getScore
+  }
+</wxs>
+<view class="container">
+  <navigation-bar back backActive="goback" text="{{title[form.source_type]}}" bg-color="#fff" color="#000000"></navigation-bar>
+  <view class="content">
+    <view class="form-item flex">
+      <view class="form-item__label">
+        <text>素材分组</text>
+      </view>
+      <view class="form-item__value">
+        <com-popup-filter value="{{form.group_id}}" bind:change="handleGroupChange"></com-popup-filter>
+      </view>
+    </view>
+    <view class="form-item flex">
+      <view class="form-item__label">
+        <text>素材标签</text>
+      </view>
+      <view class="form-item__value">
+        <com-popup-select-tag value="{{form.category_ids}}" bind:change="handleTagChange"></com-popup-select-tag>
+      </view>
+    </view>
+    <view class="form-item flex required">
+      <view class="form-item__label">
+        <text>素材有效期</text>
+      </view>
+      <view class="form-item__value">
+        <com-popup-time value="{{[form.start_time, form.end_time]}}" bind:change="handleTimeChange"></com-popup-time>
+      </view>
+    </view>
+    <view wx:if="{{form.source_type==5}}" class="form-item flex required">
+      <view class="form-item__label">
+        <text>视频名称</text>
+      </view>
+      <view class="form-item__value">
+        <input class="input" value="{{form.videoName}}" placeholder="请输入视频名称，限制50个字符" maxlength="50" bind:input="handleNameChange" />
+      </view>
+    </view>
+    <view class="form-item required">
+      <view class="form-item__label">
+        <text>素材内容</text>
+        <view class="tips" data-selector=".tips" catch:tap="handleShowTooltip"></view>
+      </view>
+      <view class="form-item__value">
+        <!-- 文本内容 -->
+        <view wx:if="{{form.source_type == 1 || form.source_type == 7}}" class="textarea">
+          <textarea placeholder="请输入文本内容" bind:input="handleInputChange" maxlength="500"></textarea>
+          <view class="count">{{form.content.length > 500 ? 500: form.content.length}}/500</view>
+        </view>
+        <!-- 上传图片素材 -->
+        <block wx:if="{{form.source_type == 2}}">
+          <view class="section">
+            <view class="section__label" bind:tap="handleShowType">展示方式
+              <view class="tips"></view>
+            </view>
+            <view class="section__value">
+              <view wx:for="{{showTypeOptions.list}}" class="section__item {{form.show_type == item.value ? 'active' : ''}}" data-index="{{index}}" bind:tap="handleShowTypeChange">
+                <view class="section__item__icon"></view>
+                <view class="section__item__name">{{item.title}}</view>
+                <view class="section__item__tips">可传{{item.limit}}张</view>
+              </view>
+            </view>
+          </view>
+          <com-upload value="{{form.sources}}" style-type="{{2}}" limit="{{showTypeOptions.list[showTypeOptions.current].limit}}" data-type="2" bind:change="handleUploadChange">
+          </com-upload>
+          
+          <view class="flex">
+            <view>AI识图关联商品</view>
+            <view class="tips">勾选识图后可自动加载</view>
+          </view>
+        </block>
+        <!-- 上传视频素材 -->
+        <block wx:if="{{form.source_type == 5}}">
+          <com-upload value="{{form.sources}}" disabled file-type="video" style-type="{{2}}" data-type="5" limit="{{1}}" bind:change="handleUploadChange">
+          </com-upload>
+          <!-- <view class="flex">
+            <view>关联商品</view>
+            <com-select-goods value="{{[]}}" disabled="{{form.sources.length==0}}"  data-type="5" bind:change="handleSelectGoodsChange">
+              <view class="add-btn">添加商品</view>
+            </com-select-goods>
+          </view> -->
+        </block>
+
+        <!-- 上传朋友圈素材 -->
+        <block wx:if="{{form.source_type == 7}}">
+          <!-- 上传图片 -->
+          <block wx:if="{{form.file_type == 1}}">
+            <com-upload value="{{form.sources}}" limit="{{9}}" data-type="71" bind:change="handleUploadChange">
+            </com-upload>
+            <view class="flex">
+              <view>AI识图关联商品</view>
+              <view class="tips">勾选识图后可自动加载</view>
+            </view>
+          </block>
+          <!-- 上传视频 -->
+          <block wx:if="{{form.file_type == 2}}">
+            <!-- <view wx:if="{{form.sources.length>0}}" class="select-all" bind:tap="handleChangeVideo">
+              <view class="select-all__icon {{form.sources[0].is_origin==1?'active':''}}"></view>
+              <view>原视频</view>
+            </view> -->
+            <com-upload value="{{form.sources}}" disabled file-type="video" limit="{{1}}" data-type="72" bind:change="handleUploadChange">
+            </com-upload>
+            <view class="flex">
+              <view>关联商品</view>
+              <com-select-goods value="{{relatedList[0].list||[]}}" disabled="{{form.sources.length==0}}"  data-type="72" bind:change="handleSelectGoodsChange">
+                <view class="add-btn">添加商品</view>
+              </com-select-goods>
+            </view>
+          </block>
+        </block>
+        <!-- 关联商品列表 -->
+        <view class="related-list">
+          <view class="related-item" wx:for="{{relatedList}}" wx:key="url">
+            <view class="related-item__header">
+              <image class="img" src="{{item.info.cover_path || item.info.cover_url ||item.info.path}}"  mode="aspectFill" bind:tap="handlePreviewImage" data-item="{{item.info}}" />
+              <view class="name">{{item.info.name}}</view>
+              <!-- <view class="name">{{form.file_type == 2 ? '视频' : '图片'}}{{index+1}}</view> -->
+
+              <!-- 选择商品弹窗 -->
+              <com-select-goods value="{{item.list||[]}}" data-key="{{item.info.url}}" bind:change="handleSelectGoodsChange">
+                <view class="btn">
+                  <view class="icon-add"></view>
+                  <view>添加商品</view>
+                </view>
+              </com-select-goods>
+            </view>
+            <view class="related-item__body">
+              <view wx:if="{{item.status == 0}}" class="loading">
+                <view class="loading__icon"></view>
+                <view class="loading__text">AI识图加载中，请稍后</view>
+              </view>
+              <view wx:elif="{{(item.status == 1 || item.status == 2) && item.list.length == 0}}" class="empty">
+                <view class="empty__icon"></view>
+                <view class="empty__text">暂未识别到商品，您可手动添加商品</view>
+              </view>
+              <!-- 商品列表 -->
+              <view class="goods-list" wx:elif="{{item.list.length > 0}}">
+                <view class="goods-item" wx:for="{{item.list}}" wx:for-item="goodsItem" wx:for-index="goodsIndex" wx:key="id">
+                  <view class="goods-item__type {{goodsItem.add_type == 2 ? '' : 'type-1'}}">{{goodsItem.add_type == 2 ? 'AI识图' : '手动添加'}}</view>
+                  <view class="goods-item__image" data-item="{{goodsItem}}" catch:tap="handlePreview">
+                    <image class="img" src="{{goodsItem.url||empty_image}}" mode="aspectFit"></image>
+                  </view>
+                  <view class="goods-item__info">
+                    <view class="name">{{goodsItem.name || '--'}}</view>
+                    <view class="sku">
+                      <text>款号: {{goodsItem.sku}}</text>
+                      <text>颜色: {{goodsItem.color}}</text>
+                    </view>
+                    <view class="confidence" wx:if="{{goodsItem.add_type == 2}}">置信度: {{computed.getScore(goodsItem.score)}}%</view>
+                  </view>
+                  <!-- <view class="btn" data-key="{{item.info.url}}" data-index="{{goodsIndex}}" bind:tap="handleDeleteGoods"></view> -->
+                  <view class="check {{goodsItem.checked?'active':''}}" data-key="{{item.info.url}}" data-index="{{goodsIndex}}" bind:tap="handleCheck"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+  <mp-footer>
+    <view class="footer">
+      <view class="btn plain" bind:tap="handleCancel">取消</view>
+      <view class="btn {{form.sources.length==0&&form.content=='' ? 'disabled':''}}" bind:tap="handleSubmit">上传</view>
+    </view>
+  </mp-footer>
+</view>
+
+<com-popup-tips id="com-popup-tips"></com-popup-tips>
+
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" content-custom-class="com-popup-tips">
+  <!-- 上传图片素材提示 -->
+  <text wx:if="{{form.source_type == 2}}">1. 图片格式仅支持*.jpg；*.png
+2. 单张展示每次最多支持上传20张图片，合并展示每次最多支持9张，图片不可超过50M；
+3. 图片上传时会进行压缩，10M以内图片可以选择原图上传；
+4. 苹果手机jpeg格式图片原图上传后，图片大小会有变动</text>
+  <!-- 上传朋友圈图片素材提示 -->
+  <text wx:if="{{form.source_type == 7 && form.file_type == 1}}">1. 最多支持9张图片，总像素不超过1555200；
+2. 图片大小不超过10M，单张普通图片尺寸建议不超过1440*1080px  长图片长边建议不超过10800px。</text>
+  <!-- 上传朋友圈视频素材提示 -->
+  <text wx:if="{{form.source_type == 7 && form.file_type == 2}}">1. 最多支持1个视频；
+2. 视频最长不超过30S，最大不超过10M。</text>
+  <!-- 上传视频素材提示 -->
+  <text wx:if="{{form.source_type == 5}}">1. 最多支持1个视频；
+2. 视频最长不超过30S，最大不超过10M。</text>
+</mp-tooltip>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>
+
+<!-- 预览商品图片 -->
+<mp-popup show="{{showPreviewPopup}}" zIndex="{{1000}}"  bind:close="handlePreviewClose">
+  <view class="preview-image">
+    <view class="close" bind:tap="handlePreviewClose"></view>
+    <image class="img" src="{{previewInfo.url ||empty_image}}" mode="aspectFit"></image>
+    <view class="title">{{previewInfo.name || '--'}}</view>
+  </view>
+</mp-popup>

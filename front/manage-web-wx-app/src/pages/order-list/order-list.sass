@@ -1,0 +1,58 @@
+@import '../../style/color-variable.sass'
+@import '../../style/base/arrow'
+
+.order-list
+  padding: vw(15)
+  
+  .order-item
+    width: 100%
+    padding: vw(15)
+    background: #fff
+    border-radius: vw(4)
+    margin-bottom: vw(15)
+    .list-title
+      display: flex
+      justify-content: space-between
+      align-items: center
+      font-size: vw(14)
+      font-weight: 400
+      color: #33363c
+      line-height: vw(24)
+
+      .time
+        font-weight: 500
+
+    .list-line
+      width: 100%
+      height: vw(1)
+      background: #f0f0f0
+      margin: vw(10) vw(0)
+    .list-goods
+      display: flex
+      justify-content: space-between
+      align-items: center
+      font-size: vw(14)
+      font-weight: bold
+      color: #33363c
+      line-height: vw(28)
+      .sku-name
+        width: vw(260)
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+      .number
+        font-weight: 400
+
+    .list-info
+      margin-top: vw(10)
+      font-size: vw(14)
+      color: #33363c
+      line-height: vw(28)
+      font-weight: 400
+
+  .bottom-tip, .loading-box
+    width: 100%
+    font-size: vw(14)
+    color: #96979E
+    text-align: center

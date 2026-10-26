@@ -1,0 +1,4 @@
+INSERT INTO `source_file`
+(`id`, `enterprise_id`,  `name`, `url`, `attach_name`, `attach_id`, `file_type`, `ext`, `size`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+(:id, :enterprise_id,  :name, :url, :attach_name, :attach_id, :file_type, :ext, :size, :created_at, :updated_at, :deleted_at)

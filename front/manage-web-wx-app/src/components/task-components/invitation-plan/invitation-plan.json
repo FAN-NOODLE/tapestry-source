@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "calendar": "../calendar/calendar",
+        "custom-loading": "../../custom-loading/custom-loading",
+        "filter-selection": "../filter-selection/filter-selection"
+    }
+}

@@ -1,0 +1,20 @@
+update `goods_spu`
+set
+  `spu_id` = :spu_id,
+  `source_id` = :source_id,
+  `spu_name` = :spu_name,
+  `spu_sn` = :spu_sn,
+  `short_title` = :short_title,
+  `sell_point` = :sell_point,
+  `sales` = :sales,
+  `status` = :status,
+  `category_id` = :category_id,
+  `category_name` = :category_name,
+  `create_time` = :create_time,
+  `enterprise_id` = :enterprise_id,
+  `picture` = :picture,
+  `default_attribute` = :default_attribute,
+  `updated_at` = :updated_at,
+  `deleted_at` = :deleted_at
+where
+  `id` = :id

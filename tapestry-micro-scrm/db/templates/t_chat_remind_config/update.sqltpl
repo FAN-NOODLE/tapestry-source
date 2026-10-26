@@ -1,0 +1,5 @@
+UPDATE `chat_remind_config` SET
+`overtime` = :overtime, `receive_start` = :receive_start, `receive_end` = :receive_end, `notice_type` = :notice_type, `notice_status` = :notice_status, `stat_txt` = :stat_txt,
+`updated_at` = unix_timestamp(now())
+WHERE `id` = :id
+

@@ -1,0 +1,18 @@
+UPDATE
+  `relation_callback_records`
+set
+{{if ne .cond.ChannelID 0}}
+    `channel_id` = :channel_id,
+{{end}}
+{{if ne .cond.AddRelationTime 0}}
+    `add_relation_time` = :add_relation_time,
+{{end}}
+{{if ne .cond.Status 0}}
+    `status` = :status,
+{{end}}
+{{if ne .cond.StatusTrace 0}}
+    `status_trace` = :status_trace,
+{{end}}
+`id` = :id
+where
+  `id` = :id

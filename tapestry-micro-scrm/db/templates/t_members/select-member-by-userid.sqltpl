@@ -1,0 +1,1 @@
+SELECT id,userid,name,mobile,position,gender,email,avatar,thumb_avatar,telephone,alias,status,qr_code,address,open_userid,enterprise_id,created_at,updated_at,deleted_at,type FROM `members` WHERE  `enterprise_id` = ? AND `userid` = ? AND `deleted_at` = ?;

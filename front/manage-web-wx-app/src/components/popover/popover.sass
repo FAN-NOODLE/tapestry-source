@@ -1,0 +1,108 @@
+page
+  --popover-arrow-size: 6px
+  --popover-padding: 4px 8px
+  --popover-radius: 5px
+  --popover-dark-background: rgba(0, 0, 0, 0.50)
+  --popover-light-background: #fff
+
+/** 蒙层 */
+.mark
+  position: fixed
+  z-index: 1000
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+
+.popover
+  position: absolute
+  z-index: 11
+
+  &__arrow
+    position: absolute
+    width: 0
+    height: 0
+    border-color: transparent
+    border-style: solid
+    border-width: var(--popover-arrow-size)
+
+  &__content
+    overflow: hidden
+    max-width: 80vw
+    max-height: 80vh
+    border-radius: var(--popover-radius)
+    padding: var(--popover-padding)
+
+  /**  黑暗模式 */
+  &--dark
+    color: #FFFFFF
+
+    .popover__content
+      background: var(--popover-dark-background)
+
+    .popover__arrow
+      color: var(--popover-dark-background)
+
+  /**  白色模式 */
+  &--light
+    color: #000000
+
+    .popover__content
+      background: var(--popover-light-background)
+      box-shadow: 0 2px 12px rgba(50, 50, 51, 0.12)
+
+    .popover__arrow
+      color: var(--popover-light-background)
+
+  /** 显示位置 上 、下 */
+  &[data-popper-placement^='top']
+    .popover__arrow
+      bottom: 0
+      border-top-color: currentColor
+      border-bottom-width: 0
+      transform: translate(-50%, 0%)
+      margin-bottom: calc(var(--popover-arrow-size) * -1)
+
+  &[data-popper-placement='top']
+    transform-origin: 50% 100%
+
+    .popover__arrow
+      left: 50%
+
+  &[data-popper-placement='top-start']
+    transform-origin: 0 100%
+
+    .popover__arrow
+      left: 16px
+
+  &[data-popper-placement='top-end']
+    transform-origin: 100% 100%
+
+    .popover__arrow
+      right: 4px
+
+  &[data-popper-placement^='bottom']
+    .popover__arrow
+      top: 0
+      border-top-width: 0
+      border-bottom-color: currentColor
+      transform: translate(-50%, 0%)
+      margin-top: calc(var(--popover-arrow-size) * -1)
+
+  &[data-popper-placement='bottom']
+    transform-origin: 50% 0
+
+    .popover__arrow
+      left: 50%
+
+  &[data-popper-placement='bottom-start']
+    transform-origin: 0 0
+
+    .popover__arrow
+      left: 16px
+
+  &[data-popper-placement='bottom-end']
+    transform-origin: 100% 0
+
+    .popover__arrow
+      right: 4px

@@ -1,0 +1,10 @@
+SELECT
+	count(work_external_user_tag.id) as use_num
+FROM
+	work_external_user_tag
+	JOIN work_external_tag ON work_external_tag.id = work_external_user_tag.external_tag_id
+WHERE
+	external_tag_id = {{.tag_id}}
+	AND work_external_user_tag.enterprise_id = {{.enterprise_id}}
+	AND work_external_user_tag.deleted_at = 0
+	AND work_external_tag.deleted_at = 0

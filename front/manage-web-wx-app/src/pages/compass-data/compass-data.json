@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "数据罗盘",
+  "navigationStyle": "custom",
+  "disableScroll": true,
+  "usingComponents": {
+    "navigation-bar": "../../components/navigation-bar/navigation-bar",
+    "achievements": "./components/achievements/achievements"
+  }
+}

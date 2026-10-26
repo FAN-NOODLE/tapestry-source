@@ -1,0 +1,114 @@
+stages:
+  - build
+  - push
+  - message
+  - deploy_k8s_dev
+  - deploy_k8s_uat
+  - deploy_k8s_prod
+
+variables:
+  HARBOR_HOST: harbor.vchangyi.com
+  USER_NAME: qiuapeng
+  USER_PASS: DUyP3e6YGoo2TMdMio
+  INAGE_NAMESPACE: tapestry
+  INAGE_NAME: micro-scrm
+  IMAGE_ADDRESS: $HARBOR_HOST/$INAGE_NAMESPACE/$INAGE_NAME:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_IID}
+  GITLAB_PIPELINES_ADDRESS: https://gitlab-ce.k8s.tools.vchangyi.com/project/tapestry/backend/micro-scrm/pipelines/${CI_PIPELINE_ID}
+  WECHAT_KEY: e05f07c3-df66-4b6e-8d39-4d2a90aee691
+
+build:
+  stage: build
+  tags:
+    - tapestry
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk update && apk add curl
+  script:
+    - curl -H 'Content-type:application/json' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=$WECHAT_KEY -d '{"msgtype":"markdown","markdown":{"content":"'$INAGE_NAME'开始构建 \n 发布人员：'$GITLAB_USER_NAME' \n 提交信息：'"$CI_COMMIT_TITLE"' \n 构建地址：'$GITLAB_PIPELINES_ADDRESS'"}}'
+    - docker build -t $IMAGE_ADDRESS -f deploy/build/Dockerfile .
+  only:
+    - tapestry-prod
+    - tapestry-uat
+    - tapestry-dev
+
+push:
+  stage: push
+  tags:
+    - tapestry
+  before_script:
+    - docker login $HARBOR_HOST -u $USER_NAME -p $USER_PASS
+  script:
+    - docker push $IMAGE_ADDRESS
+  after_script:
+    - docker rmi -f $IMAGE_ADDRESS
+  only:
+    - tapestry-prod
+    - tapestry-uat
+    - tapestry-dev
+
+message:
+  stage: message
+  tags:
+    - tapestry
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk update && apk add curl
+  script:
+    - curl -H 'Content-type:application/json' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=$WECHAT_KEY -d '{"msgtype":"markdown","markdown":{"content":"'$INAGE_NAME'镜像构建完成 \n >镜像版本：'$IMAGE_ADDRESS'"}}'
+  only:
+    - tapestry-prod
+    - tapestry-uat
+    - tapestry-dev
+
+deploy_k8s_dev:
+  stage: deploy_k8s_dev
+  tags:
+    - tapestry
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk update && apk add curl wget
+  script:
+    - wget https://mirror.azure.cn/kubernetes/kubectl/v1.21.5/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/bin/
+    - mkdir -p /root/.kube && echo $TapestryKubeConfigDev |base64 -d > ~/.kube/config
+    - sed -i "s/TAG_VERSION/${CI_COMMIT_REF_NAME}-${CI_PIPELINE_IID}/g" deploy/k8s/dev/deployment.yaml
+    - kubectl apply -f deploy/k8s/dev/
+  after_script:
+    - curl -H 'Content-type:application/json' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=$WECHAT_KEY -d '{"msgtype":"markdown","markdown":{"content":"'$INAGE_NAME'【dev】部署完成 \n >镜像版本：'$IMAGE_ADDRESS'"}}'
+  only:
+    - tapestry-dev
+
+deploy_k8s_uat:
+  stage: deploy_k8s_uat
+  tags:
+    - tapestry
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk update && apk add curl wget
+  script:
+    - sed -i "s/TAG_VERSION/${CI_COMMIT_REF_NAME}-${CI_PIPELINE_IID}/g" deploy/k8s/uat/deployment.yaml
+    - mkdir ~/.kube && echo $TapestryKubeConfigUat |base64 -d > ~/.kube/config
+    - wget https://mirror.azure.cn/kubernetes/kubectl/v1.21.5/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/bin/
+    - kubectl get node && kubectl get pod -A
+    - kubectl apply -f deploy/k8s/uat/
+  after_script:
+    - curl -H 'Content-type:application/json' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=$WECHAT_KEY -d '{"msgtype":"markdown","markdown":{"content":"'$INAGE_NAME'-【uat】部署完成 \n >镜像版本：'$IMAGE_ADDRESS'"}}'
+  only:
+    - tapestry-uat
+
+deploy_k8s_prod:
+  stage: deploy_k8s_prod
+  tags:
+    - tapestry
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+    - apk update && apk add curl wget
+  script:
+    - sed -i "s/TAG_VERSION/${CI_COMMIT_REF_NAME}-${CI_PIPELINE_IID}/g" deploy/k8s/prod/deployment.yaml
+    - mkdir ~/.kube && echo $TapestryKubeConfigProd |base64 -d > ~/.kube/config
+    - wget https://mirror.azure.cn/kubernetes/kubectl/v1.21.5/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/bin/
+    - kubectl get node && kubectl get pod -A
+    - kubectl apply -f deploy/k8s/prod/
+  after_script:
+    - curl -H 'Content-type:application/json' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=$WECHAT_KEY -d '{"msgtype":"markdown","markdown":{"content":"'$INAGE_NAME'-【prod】部署完成 \n >镜像版本：'$IMAGE_ADDRESS'"}}'
+  only:
+    - tapestry-prod

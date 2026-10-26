@@ -1,0 +1,47 @@
+<view class="page-customer-tags">
+  <!-- 搜索框 -->
+  <text space="nbsp" class="search-text">{{value}}</text>
+  <view class="search-wrap flex">
+    <view class="search-tag flex" wx:for="{{chooseTagList}}" wx:key="index" data-index="{{index}}" data-id="{{item.tag_id}}" catchtap="deleteTag">
+      <view>{{item.tag_name}}</view>
+      <image wx:if="{{deleteIndex === index}}" class="delete-icon" src="https://img-crs.vchangyi.com/store-manage-wxapp/close_icon_small.png" />
+    </view>
+    <view class="search-box flex-1 justify-space-between">
+      <view class="{{value.length > 0?'input-active-box p-l-15':''}}" style="width: {{inputWidth}}">
+        <input type="text" id="tag" class="search-input {{value.length > 0?'input-active':''}}" style="width: {{inputWidth}}" placeholder-class="input-placeholder" value="{{ value }}" focus="{{true}}" placeholder="输入该客户的标签" maxlength="10" bindconfirm="confirm" bindinput="onChange" bindblur="onBlur" />
+      </view>
+      <view class="input-right flex">
+        <view class="input-total">{{value ? value.length +'/10': '0/10'}}</view>
+        <image class="close-icon" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.2.0/icon_clear.png" bindtap="clearInput" />
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{chooseTagList.length > 10}}" class="list-title tag-tips">该用户标签数量已达上限</view>
+  <!-- button -->
+  <button class="customer-but {{chooseTagList.length < 1?'but-gray m-t-15':chooseTagList.length > 10?'but-gray m-t-10':'but-blue m-t-15'}}" catchtap="{{chooseTagList.length > 0 && chooseTagList.length <= 10?'saveData':''}}">
+    完成
+  </button>
+  <!--  -->
+  <view class="tags-list-wrap">
+    <view wx:if="{{!isShow}}" class="list-title justify-space-between">
+      <view class="list-tips">从已有标签中选择（多选）</view>
+      <view class="tags-manage justify-space-between" bindtap="goToManageTags">
+        <image class="set-icon" src="https://img-crs.vchangyi.com/store-manage-wxapp/guanli_icon.png" />
+        <view>标签管理</view>
+      </view>
+    </view>
+    <!-- 搜索标签列表 -->
+    <view wx:if="{{isShow}}" class="filter-box">
+      <rich-text class="item-tag tagSeleted" wx:for="{{currentList}}" wx:key="index" data-index="{{index}}" data-id="{{item.tag_id}}" nodes="{{item.light_name || item.tag_name}}" bindtap="checkedLabel"></rich-text>
+    </view>
+    <!-- 标签列表 -->
+    <view wx:if="{{!isShow}}" class="tags-box flex">
+      <view class="item-tag tagSeleted {{item.selected?'item-active':'item-normal'}}" wx:for="{{tagsList}}" wx:key="index" bindtap="checkedGuideLabel" data-id="{{item.tag_id}}" data-index="{{index}}">
+        {{item.tag_name}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

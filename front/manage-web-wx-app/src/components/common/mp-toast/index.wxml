@@ -1,0 +1,31 @@
+<mp-overlay
+  wx:if="{{ mask || forbidClick }}"
+  show="{{ show }}"
+  z-index="{{ zIndex }}"
+  custom-style="{{ mask ? '' : 'background-color: transparent;' }}"
+/>
+<mp-transition
+  show="{{ show }}"
+  custom-style="z-index: {{ zIndex }}"
+  custom-class="mp-toast__container"
+>
+  <view
+    class="custom-class mp-toast mp-toast--{{ (type === 'text' || type === 'html') ? 'text' : 'icon' }} mp-toast--{{ position }}"
+    catch:touchmove="noop"
+  >
+    <view wx:if="{{title}}" class="title">{{ title }}</view>
+    <!-- text only -->
+    <text wx:if="{{ type === 'text' }}">{{ message }}</text>
+
+    <!-- html only -->
+    <rich-text wx:elif="{{ type === 'html' }}" nodes="{{ message }}"></rich-text>
+
+    <!-- with icon -->
+    <block wx:else>
+      <view wx:if="{{ type === 'loading' }}" class="loading"></view>
+      <text wx:if="{{ message }}" class="mp-toast__text">{{ message }}</text>
+    </block>
+
+    <slot />
+  </view>
+</mp-transition>

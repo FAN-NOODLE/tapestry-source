@@ -1,0 +1,14 @@
+SELECT
+	IFNULL(WUSER.euid,0) as euid
+FROM
+	member_departments AS MD
+	LEFT JOIN members AS M ON MD.member_id = M.id
+	LEFT JOIN work_external_user_relation AS WR ON WR.member_id=M.id
+	LEFT JOIN micro_scrm_enterprise_{{.cond.EnterpriseID}}.wx_user_corp_external AS WUSER ON WUSER.id = WR.work_external_user_id
+WHERE
+	MD.enterprise_id = {{.cond.EnterpriseID}}
+	AND MD.department_id IN ({{WhereIn .cond.DepartmentIDs}})
+	AND WR.relation_status=0
+	AND WUSER.deleted_at=0
+GROUP BY
+	WUSER.euid

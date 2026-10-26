@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "invite-item": "../../../store-invite/components/invite-item/invite-item"
+  }
+}

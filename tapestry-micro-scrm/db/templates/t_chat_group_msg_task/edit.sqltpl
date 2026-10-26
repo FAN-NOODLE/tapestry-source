@@ -1,0 +1,15 @@
+update
+  chat_group_msg_task
+set
+  `enterprise_id` = :enterprise_id,
+  `name` = :name,
+  `type` = :type,
+  `status` = :status,
+  `task_status` = :task_status,
+  `fail_msg` = :fail_msg,
+  `send_time` = :send_time,
+  `content` = :content,
+  `updated_at` = :updated_at,
+  `deleted_at` = :deleted_at
+where
+  `id` = :id

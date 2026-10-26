@@ -1,0 +1,47 @@
+
+SELECT
+	COUNT(*) AS count
+FROM
+
+`fission_exchange_prize_records` fepr
+
+LEFT JOIN  `fission_activity`  fa ON  fa.id = fepr.activity_id
+
+LEFT JOIN  `fission_prize`  fp  ON fepr.prize_id = fp.id
+
+INNER JOIN `fission_mp_user` fmp ON fepr.user_id = fmp.id
+
+WHERE
+
+    fepr.enterprise_id = {{.cond.EnterpriseID}}
+
+    {{if ne .cond.Nickname ""}}
+    AND fmp.nick_name LIKE '%{{SafeStr .cond.Nickname}}%'
+    {{end}}
+
+    {{if ne .cond.ActivityID 0}}
+    AND fepr.activity_id = {{.cond.ActivityID}}
+    {{end}}
+
+    {{if ne .cond.UserID 0}}
+    AND fepr.user_id = {{.cond.UserID}}
+    {{end}}
+
+    {{if ne .cond.StartTime 0}}
+    AND fepr.created_at>= {{.cond.StartTime}}
+    {{end}}
+
+    {{if ne .cond.EndTime 0}}
+    AND fepr.created_at<= {{.cond.EndTime}}
+    {{end}}
+
+    {{if ne .cond.DeliverName ""}}
+    AND fepr.deliver_name LIKE '%{{SafeStr .cond.DeliverName}}%'
+    {{end}}
+    {{if ne .cond.DeliverMobile ""}}
+    AND  fepr.deliver_mobile LIKE '%{{SafeStr .cond.DeliverMobile}}%'
+    {{end}}
+
+
+
+

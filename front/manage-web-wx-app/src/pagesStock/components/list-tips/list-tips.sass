@@ -1,0 +1,51 @@
+@import '~@/style/color-variable'
+.popup-container
+  position: relative
+  width: 100vw
+  height: 100vh
+  font-weight: 400
+  .popup-content
+    .tips
+      position: absolute
+      top: vw(270)
+      left: vw(130)
+      &-image
+        width: vw(30)
+        height: vw(38)
+      &-text
+        position: absolute
+        width: vw(125)
+        top: vw(-20)
+        font-size: vw(14)
+        color: #fff
+    .code
+      position: absolute
+      top: vw(308)
+      left: vw(70)
+      width: vw(85)
+      height: vw(50)
+      background: #fff
+      border-radius: 100%
+      font-size: vw(12)
+      color: #419DD7
+      &-text
+        position: absolute
+        top: 50%
+        left: 52%
+        transform: translate(-50%, -50%)
+        width: 50%
+        word-wrap: break-word
+        break-word: break-all
+    .button
+      position: absolute
+      left: 50%
+      bottom: 10vh
+      transform: translateX(-50%)
+      display: flex
+      align-items: center
+      justify-content: center
+      width: vw(138)
+      height: vw(36)
+      border: 1px solid #FFFFFF
+      font-size: vw(12)
+      color: #FFFFFF

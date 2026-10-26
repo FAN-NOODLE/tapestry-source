@@ -1,0 +1,87 @@
+/* eslint-disable */
+// @ts-ignore
+var REGEXP = getRegExp('{|}|"', 'g');
+
+function keys(str) {
+  return str
+    .replace(REGEXP, '')
+    .split(',')
+    .map(function(item) {
+      return item.split(':');
+    });
+}
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp("[A-Z]", 'g'), function (i) {
+      return '-' + i;
+    })
+    .toLowerCase()
+
+  return newWord;
+}
+function style(styles) {
+  return keys(styles)
+    .filter(function (item) {
+      console.log(item);
+      
+      return item[1] !== null && item[1] !== ''
+    })
+    .map(function (item) {
+      return [kebabCase(item[0]), [item[1]]].join(':')
+    })
+    .join(';')
+}
+var colorRgb = function (hex, alpha) {
+  var reg = getRegExp('^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$'); // 16进制颜色值的正则
+
+  var color = hex.toLowerCase(); // 把颜色值变成小写
+
+  if (reg.test(color)) {
+    // 如果只有三位的值，需变成六位，如：#fff => #ffffff
+    if (color.length === 4) {
+      var colorNew = '#';
+
+      for (var i = 1; i < 4; i += 1) {
+        colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+      }
+
+      color = colorNew;
+    }
+
+    var colorChange = []; // 处理六位的颜色值，转为RGB
+
+    for (var j = 1; j < 7; j += 2) {
+      colorChange.push(parseInt('0x' + color.slice(j, j + 2)));
+    }
+
+    // 是否需要RGBA
+    if (+alpha >= 0 && +alpha <= 1) {
+      colorChange.push(alpha);
+
+      return 'rgba(' + colorChange.join(',') + ')';
+    } else {
+      return 'rgb(' + colorChange.join(',') + ')';
+    }
+  } else {
+    return color;
+  }
+};
+
+function barStyle(data) {
+  return [
+    'padding-top: ' + data.statusBarHeight + 'px',
+    'height: '+ data.height + 'px',
+    'line-height: '+ data.lineHeight + 'px',
+    'background-color: '+ colorRgb(data.backgroundColor, data.opacity !== undefined ? data.opacity : 1)
+  ].join(';')
+}
+
+function contentStyle() {
+
+}
+
+module.exports = {
+  barStyle: barStyle,
+	rgb: colorRgb,
+	contentStyle: contentStyle
+};

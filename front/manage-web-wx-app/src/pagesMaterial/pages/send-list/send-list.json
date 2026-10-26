@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "选择素材",
+  "backgroundColor": "#F4F7FB",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "com-goods-material": "../../components/com-goods-material/com-goods-material",
+    "com-send-material": "../../components/com-send-material/com-send-material"
+  }
+}

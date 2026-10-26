@@ -1,0 +1,10 @@
+select
+    count(*) as count
+from
+    fission_exchange_prize_records
+where
+    activity_id = {{.cond.activity_id}}
+and
+    user_id = {{.cond.user_id}}
+and
+    deleted_at = 0

@@ -1,0 +1,128 @@
+@import '~@/style/color-variable'
+.popup-container
+  display: flex
+  flex-direction: column
+  width: 100vw
+  height: 80vh
+  background: #fff
+  overflow: hidden
+  font-weight: 400
+  .popup-header
+    height: vw(44)
+    display: flex
+    justify-content: center
+    align-items: center
+    .popup-header-name
+      width: 100%
+      text-align: center
+      font-size: vw(16)
+      font-weight: 500
+      color: #333333
+  .popup-content
+    flex: 1
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    padding: 0 vw(15)
+    .header
+      &-search
+        position: relative
+        display: flex
+        align-items: center
+        height: vw(38)
+        padding-left: vw(10)
+        background: #F6F7F9
+        .search-icon
+          width: vw(20)
+          height: vw(20)
+          flex-shrink: 0
+        .search-input
+          width: 100%
+          height: 100%
+          padding: 0 vw(40) 0 vw(7)
+        .clear-icon
+          position: absolute
+          right: vw(10)
+          width: vw(16)
+          height: vw(16)
+          z-index: 10
+      &-choose
+        margin-top: vw(15)
+        font-size: vw(12)
+        font-weight: 400
+        color: #96979E
+  .store-tree
+    flex: 1
+    overflow: hidden
+    &-item
+      .item-header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        width: 100%
+        margin-top: vw(15)
+        .left
+          display: flex
+          align-items: center
+          justify-content: space-between
+          font-size: vw(14)
+          color: #777
+          &-icon
+            width: vw(14)
+            height: vw(9)
+            padding-right: vw(5)
+            flex-shrink: 0
+      .item-content
+        // 两个一行
+        display: flex
+        flex-wrap: wrap
+        justify-content: flex-start
+        width: 100%
+        margin-top: vw(13)
+        font-size: vw(12)
+        .store-item
+          position: relative
+          display: flex
+          align-items: center
+          justify-content: center
+          width: calc( 50% - 22rpx )
+          height: vw(36)
+          background: #F6F7F9
+          margin-top: vw(11)
+        .active
+          background: #fff
+          color: #000
+          border: 1px solid #000
+        .active-image
+          position: absolute
+          bottom: 0
+          right: 0
+          width: vw(20)
+          height: vw(20)
+  .footer
+    padding: 30rpx
+    display: flex
+    align-items: center
+    .btn
+      flex: 1
+      height: 80rpx
+      line-height: 80rpx
+      text-align: center
+      background-color: #000
+      color: #fff
+      font-size: 28rpx
+      &.plain
+        border: 2rpx solid #000
+        background-color: #fff
+        color: #000
+        box-sizing: border-box
+        margin-right: 30rpx
+  .empty
+    text-align: center
+    &-image
+      width: 280rpx
+      height: 280rpx
+    &-text
+      margin-top: 20rpx
+      font-size: 24rpx
+      color: #7F7F7F

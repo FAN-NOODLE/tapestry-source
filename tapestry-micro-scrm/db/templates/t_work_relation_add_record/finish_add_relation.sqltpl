@@ -1,0 +1,6 @@
+UPDATE`work_relation_add_record`
+set has_ck = 1
+WHERE corp_id = "{{.cond.CorpID}}"
+AND  user_id = "{{.cond.UserId}}"
+AND  external_user_id = "{{.cond.ExternalUserId}}"
+AND  add_time = {{.cond.AddTime}}

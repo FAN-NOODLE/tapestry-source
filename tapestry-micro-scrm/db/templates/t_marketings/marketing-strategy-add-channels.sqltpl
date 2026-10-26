@@ -1,0 +1,3 @@
+INSERT INTO `marketing_strategy_channels`
+(`id`, `strategy_id`, `channel_type`, `junior_id`, `content`, `order`, `created_at`, `updated_at`) VALUES
+(:id, :strategy_id, :channel_type, :junior_id, :content, :order, :created_at, :updated_at);

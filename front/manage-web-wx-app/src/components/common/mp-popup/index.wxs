@@ -1,0 +1,44 @@
+/* eslint-disable */
+// @ts-ignore
+var REGEXP = getRegExp('{|}|"', 'g');
+
+function keys(obj) {
+  return ''
+    .replace(REGEXP, '')
+    .split(',')
+    .map(function(item) {
+      return item.split(':')[0];
+    });
+}
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp("[A-Z]", 'g'), function (i) {
+      return '-' + i;
+    })
+    .toLowerCase()
+
+  return newWord;
+}
+function style(styles) {
+  return keys(styles)
+    .filter(function (key) {
+      return styles[key] != null && styles[key] !== ''
+    })
+    .map(function (key) {
+      return [kebabCase(key), [styles[key]]].join(':')
+    })
+    .join(';')
+}
+function popupStyle(data) {
+  return [
+    'z-index: '+data.zIndex,
+    '-webkit-transition-duration: '+ data.currentDuration + 'ms',
+    'transition-duration: '+ data.currentDuration + 'ms',
+    data.display ? null : 'display: none',
+    data.customStyle
+  ].join(';')
+}
+
+module.exports = {
+  popupStyle: popupStyle
+}

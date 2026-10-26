@@ -1,0 +1,11 @@
+UPDATE `chat_object`
+SET `last_chat_at` = :last_chat_at,
+`agree_status` = :agree_status,
+`agree_status_at` = :agree_status_at,
+`is_reply` = :is_reply,
+`updated_at` = :updated_at,
+`to_object_id` = :to_object_id,
+`from_object_id` = :from_object_id
+WHERE
+	`id` = :id
+	AND deleted_at = 0;

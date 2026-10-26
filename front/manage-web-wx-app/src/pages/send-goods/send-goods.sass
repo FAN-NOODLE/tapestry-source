@@ -1,0 +1,111 @@
+@import 'src/style/color-variable.sass'
+
+.page-send-goods
+    padding: vw(15)
+
+    &-main
+        padding: vw(15)
+        background: #FFFFFF
+        color: #000000
+        font-size: vw(14)
+
+        &-title
+            font-size: vw(16)
+            font-weight: 600
+
+        &-item
+            justify-content: space-between
+            align-items: center
+            margin: vw(15) 0
+            padding-bottom: vw(15)
+
+            &:not(:last-child)
+                border-bottom: vw(0.5) solid #F0F0F0
+
+            .placeholder-color
+                color: #A6A6A6
+
+            &:last-child
+                padding-bottom: 0
+                margin-bottom: 0
+
+            &-value
+                justify-content: flex-end
+                align-items: center
+                color: #000000
+                font-size: vw(14)
+                line-height: vw(20)
+
+                input
+                    text-align: right
+                    width: vw(100)
+
+                .icon_right
+                    width: vw(9)
+                    height: vw(14)
+                    margin-left: vw(9)
+
+                .icon_scan
+                    width: vw(16)
+                    height: vw(16)
+                    margin-left: vw(6)
+
+                .icon_camera
+                    width: vw(21)
+                    height: vw(18)
+
+            .upload-single
+                width: vw(82)
+                height: vw(82)
+                margin-top: vw(15)
+                display: flex
+                align-items: center
+                justify-content: center
+                position: relative
+
+                &-bg
+                    width: vw(21)
+                    height: vw(18)
+                    margin: 0
+
+                .upload-img
+                    width: 100%
+                    height: 100%
+
+                    image
+                        width: 100%
+                        height: 100%
+                        margin: 0
+
+                &-repeat
+                    width: 100%
+                    padding: vw(2) vw(17) vw(3)
+                    color: #FFFFFF
+                    font-size: vw(12)
+                    line-height: vw(17)
+                    background: rgba(0, 0, 0, 0.7)
+                    position: absolute
+                    left: 0
+                    bottom: 0
+
+            .border
+                border: vw(1) solid #000000
+
+    &-operate
+        width: 100%
+        display: flex
+        justify-content: space-around
+        position: fixed
+        left: 0
+        bottom: vw(44)
+
+        &-send
+            width: vw(345)
+            height: vw(44)
+            background: #000000
+            color: #FFFFFF
+            font-size: vw(14)
+            line-height: vw(20)
+        
+        .disabled
+            opacity: .3

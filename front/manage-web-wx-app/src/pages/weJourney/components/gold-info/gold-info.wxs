@@ -1,0 +1,7 @@
+// 金币数取整舍弃小数
+function goldRound(gold) {
+  return Math.floor(gold)
+}
+module.exports = {
+  goldRound: goldRound
+}

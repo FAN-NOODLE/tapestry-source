@@ -1,0 +1,51 @@
+<view class="store-select">
+  <view class="top-fixed-box">
+    <!-- 搜索模块 -->
+    <view class="search-bar">
+      <image class="icon-search" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.1.3/icon_search.png" />
+      <view class="input-box">
+        <input class="code-ipt" placeholder-class="input-placeholder" value="{{ keywords }}" focus="{{false}}" placeholder="搜索部门名称" maxlength="15" bindinput="searchStaff" />
+        <view class="search-cacel" wx:if="{{keywords}}" catchtap="clearValue">
+          <image class="cacel-icon" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.2.0/icon_clear.png" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{isloading}}">
+    <image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif"/>
+  </view>
+
+  <!-- 当前的门店list -->
+  <view class="store-list-box"  wx:else>
+    <!-- 列表循环 -->
+    <view class="p-l-15 p-r-15 bg-white" wx:if="{{ready && currentList.length > 0}}">
+      <view class="group" bindtap="checkAllCallBack" wx:if="{{!keywords}}">
+        <view class="item-list font-sc-me {{allCheck ? 'select-item':''}}">
+          <label class="label" for="all"><text>全部</text></label>
+          <view class="right" >
+            <image class="pre-check" wx:if="{{allCheck}}" src="~@/images/customer/select-check.png" />
+            <image class="pre-check" wx:else src="~@/images/customer/no-check.png" />
+          </view>
+        </view>
+      </view>
+      <view class="group">
+        <view class="item-list font-sc-me {{item.is_check ? 'select-item':''}}" wx:for="{{currentList}}" wx:key="index" data-item="{{item}}" data-index="{{index}}"  bindtap="checkedChange">
+          <view class="label"><text>{{item.name}}</text></view>
+          <view class="right" >
+            <image class="pre-check" wx:if="{{item.is_check}}" src="~@/images/customer/select-check.png" />
+            <image class="pre-check" wx:else src="~@/images/customer/no-check.png" />
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <!-- 空状态 -->
+    <mp-empty wx:if="{{currentList.length == 0 && keywords && !isloading}}" slogan="暂无搜索结果" icon="order" />
+    <mp-empty wx:if="{{ready && currentList.length == 0 && !keywords && !isloading}}" slogan="暂无数据" icon="order" />
+    <!-- 门店选择确认按钮 -->
+    <view class="store-btn-box {{isIpx ? 'ipx-btn-box' : ''}}" wx:if="{{!isloading}}">
+      <view class="cacel-btn" bindtap="reset">重置</view>
+      <view class="sure-btn" bindtap="confirmTap">确认</view>
+    </view>
+  </view>
+</view>

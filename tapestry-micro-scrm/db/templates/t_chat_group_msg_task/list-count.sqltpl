@@ -1,0 +1,26 @@
+select count(temp.id) as count from
+(select
+  chat_group_msg_task.id
+from
+    chat_group_msg_task
+    left join chat_group_msg_task_member on chat_group_msg_task_member.msg_task_id = chat_group_msg_task.id
+where
+    chat_group_msg_task.`enterprise_id` = {{.cond.EnterpriseID}}
+    AND chat_group_msg_task.`deleted_at` = 0
+    AND chat_group_msg_task_member.`deleted_at` = 0
+{{if ne .cond.Name ""}}
+    AND chat_group_msg_task.name LIKE "%{{SafeStr .cond.Name}}%"
+{{end}}
+{{if ne .cond.MemberID 0}}
+    AND chat_group_msg_task_member.member_id = {{.cond.MemberID}}
+{{end}}
+{{if ne .cond.Status 0}}
+    AND chat_group_msg_task.status = {{.cond.Status}}
+{{end}}
+{{if ne .cond.StartAt 0}}
+    AND chat_group_msg_task.last_send_msg > {{.cond.StartAt}}
+{{end}}
+{{if ne .cond.EndAt 0}}
+    AND chat_group_msg_task.last_send_msg < {{.cond.EndAt}}
+{{end}}
+GROUP BY chat_group_msg_task.id) temp

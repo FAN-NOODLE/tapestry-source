@@ -1,0 +1,70 @@
+/**
+ * 公共样式文件,开发者开发时，直接用类名即可生效
+ */
+
+@import './../mixin'
+@import './reset' // 全局重置样式文件
+@import './border' // 边框线文件，主要想引入上边框线
+@import './clearfix' // 清除浮动
+@import './color' // 常用的颜色
+@import './flex' // flex布局
+@import './font-size' // 常用的字体大小
+@import './font-type' // 常用的字体类型
+@import './margin' // 常用的外边距
+@import './padding' // 常用的内边距
+@import './position' // 常用的定位
+@import './text-overflow' // 一行省略、两行省略
+@import './button' // 公共button类
+@import './arrow' // 箭头
+// 左右浮动
+.fl
+  float: left
+.fr
+  float: right
+.clearfix:after
+  display: block
+  visibility: hidden
+  clear: both
+  height: 0
+  font-size: 0
+  content: ""
+// 字体位置
+.text-left
+  text-align: left
+.text-right
+  text-align: right
+.text-center
+  text-align: center
+// 元素类型
+.block
+  display: block
+.inline-block
+  display: inline-block
+.inline
+  display: inline
+// 段落中的文本不进行换行
+.no-wrap
+  white-space: nowrap
+  word-wrap: normal
+  word-break: normal
+// 允许在单词内换行
+.word-break
+  white-space: normal
+  word-wrap: break-word
+  word-break: break-all
+
+button
+  background-color: transparent
+  border: none
+  padding: 0
+  margin: 0
+  line-height: 1
+
+input
+  outline: none
+  border: none
+  list-style: none
+
+button
+  &::after
+    border: none

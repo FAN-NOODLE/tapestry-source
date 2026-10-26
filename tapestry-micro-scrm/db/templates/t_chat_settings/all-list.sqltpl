@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	`chat_settings`
+WHERE
+	deleted_at = 0;

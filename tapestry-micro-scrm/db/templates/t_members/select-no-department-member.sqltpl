@@ -1,0 +1,25 @@
+SELECT
+	`id` as member_id,
+	`userid` as user_id,
+	`name` as user_name,
+	`status` as mem_subscribe_status,
+	`mobile`
+FROM
+	`members`
+WHERE
+    1 = 1
+AND
+    `deleted_at` = 0
+AND
+    `enterprise_id` =:enterprise_id
+{{if .cond.mem_username}}
+    AND `name` LIKE '%{{SafeStr .cond.mem_username}}%'
+{{end}}
+{{if .cond.userid}}
+    AND `userid` = {{.cond.userid}}
+{{end}}
+{{if .cond.mobile}}
+    AND `mobile` = {{.cond.mobile}}
+{{end}}
+AND
+    `id` NOT IN ( SELECT DISTINCT `member_id` FROM `member_departments` WHERE `deleted_at` = 0 AND `enterprise_id` = :enterprise_id AND `member_id` > 0 )

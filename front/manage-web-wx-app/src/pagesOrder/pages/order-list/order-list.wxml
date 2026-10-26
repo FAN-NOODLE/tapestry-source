@@ -1,0 +1,131 @@
+<wxs module="tool">
+	module.exports.formatMoney = function(money) {
+	  return money ? (parseInt(money) / 100).toFixed(2) : 0;
+	}
+</wxs>
+<view class="page-order-list">
+    <view class="page-order-list-header">
+        <view class="page-order-list-header-tabs">
+            <block wx:for="{{headerTabs}}" wx:key="index">
+                <view class="page-order-list-header-tabs-item {{index!=0 ? 'm-l-54' : ''}} {{item.value === searchTabs ? 'active' : ''}}" data-value="{{item.value}}" bind:tap="handleChangeHeaderTabs">
+                    {{item.label}}
+                    <view class="page-order-list-header-tabs-item-line" wx:if="{{item.value === searchTabs}}"></view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="page-order-list-tabs" wx:if="{{searchTabs === 0}}">
+        <block wx:for="{{tabs}}" wx:key="index">
+            <view class="page-order-list-tabs-item flex-center {{item.value === statusTabs ? 'active' : ''}}" bind:tap="handleChangeStatus" data-value="{{item.value}}">
+                {{item.label}}
+                <view class="page-order-list-tabs-item-line" wx:if="{{item.value === statusTabs}}"></view>
+            </view>
+        </block>
+    </view>
+    <view class="page-order-list-content">
+        <scroll-view class="scroll-view" wx:if="{{list.length}}" scroll-y="{{true}}" lower-threshold="50" bindscrolltolower="handleToViewMore">
+            <block wx:for="{{list}}" wx:key="index">
+                <view class="page-order-list-content-item">
+                    <view class="page-order-list-content-item-header">
+                        <view class="page-order-list-content-item-header-price">
+                            <view>{{searchTabs !== 1 ? '订单' : '退款'}}金额：￥</view>
+                            <view>{{tool.formatMoney(item.total_fee || item.refund_fee)}}</view>
+                        </view>
+                        <view class="page-order-list-content-item-header-status" style="background: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_{{searchTabs === 1 ? 'refound' : orderStatusBg[item.order_state-1]}}.png') center no-repeat;background-size: 100%">
+                            {{item.order_state_str || item.refund_status_str}}
+                        </view>
+                    </view>
+                    <view class="page-order-list-content-item-info">
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">订单付款时间</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.pay_time}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">门店信息</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.store_name}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs === 1}}">
+                            <view class="page-order-list-content-item-info-item-label">退款订单号</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.out_trade_no}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs === 1}}">
+                            <view class="page-order-list-content-item-info-item-label">退款申请日期</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.refund_time}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs === 1}}">
+                            <view class="page-order-list-content-item-info-item-label">退款处理门店</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.store_name}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item">
+                            <view class="page-order-list-content-item-info-item-label">专属顾问</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.member_name}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1 && item.order_state !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">销售单号</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.sales_order_no}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1 && item.order_state !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">查看小票</view>
+                            <view class="page-order-list-content-item-info-item-value" data-index="{{index}}" bind:tap="handleToCheckReceipt">
+                                点击查看
+                                <image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_check.png" lazy-load="{{true}}" mode="aspectFill" />
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1 && item.delivery_type !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">联系人</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                <view class="m-r-5">{{item.contact_info.name}}</view>
+                                <view>{{item.contact_info.phone || '--'}}</view>
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1 && item.delivery_type !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">收货地址</view>
+                            <view class="page-order-list-content-item-info-item-value address">
+                                {{item.contact_info.address || '--'}}
+                            </view>
+                        </view>
+                        <!-- delivery_type 1-自提订单  2-快递订单 -->
+                        <!-- 自提、待发货无快递信息 -->
+                        <view class="page-order-list-content-item-info-item" wx:if="{{item.delivery_type === 2 && item.order_state !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">快递信息</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                <view class="m-r-5">{{item.logistics_name}}</view>
+                                <view>{{item.logistics_no}}</view>
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{item.delivery_type === 2 && item.order_state === 2}}">
+                            <view class="page-order-list-content-item-info-item-label">物流信息</view>
+                            <view class="page-order-list-content-item-info-item-value" data-id="{{item.id}}" catch:tap="handleToCheck">
+                                查看物流
+                                <image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_check.png" lazy-load="{{true}}" mode="aspectFill" />
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item full_refund" wx:if="{{searchTabs !== 1 && item.total_refund_fee}}">
+                            {{item.total_fee === item.total_refund_fee ? '全额退款': '部分退款'}}：{{tool.formatMoney(item.total_refund_fee)}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </scroll-view>
+        <mp-empty wx:else icon="indent" marginTop="89" slogan="暂无订单"></mp-empty>
+    </view>
+    <logistics show="{{showLogistics}}" list="{{logisticsTrack}}" />
+</view>
+
+<com-model-privacy></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

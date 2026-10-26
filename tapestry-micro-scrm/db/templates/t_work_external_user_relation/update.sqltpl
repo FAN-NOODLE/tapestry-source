@@ -1,0 +1,17 @@
+UPDATE `work_external_user_relation`
+SET `remark` = :remark,
+`createtime` = :createtime,
+`description` = :description,
+`createtime` = :createtime,
+`remark_corp_name` = :remark_corp_name,
+`remark_mobiles` = :remark_mobiles,
+`add_way` = :add_way,
+`state` = :state,
+`oper_userid` = :oper_userid,
+`relation_status` = :relation_status,
+`updated_at` = :updated_at,
+`external_deleted_time` = :external_deleted_time,
+`user_id` = :user_id,
+`unionid` = :unionid,
+`member_deleted_time` = :member_deleted_time
+WHERE `id` = :id;

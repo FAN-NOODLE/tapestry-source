@@ -1,0 +1,12 @@
+SELECT
+`enterprise_id`, `corp_id`, `domain`, `hash`
+FROM `enterprise_corp`
+WHERE
+ 1=1
+{{if ne .cond.EnterpriseIdsCnt 0}}
+  AND `enterprise_id` IN ({{WhereIn .cond.EnterpriseIds}})
+{{end }}
+
+{{if ne .page.Limit 0}}
+LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}}

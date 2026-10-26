@@ -1,0 +1,12 @@
+select *
+from relation_callback_records
+where
+    1 = 1
+AND (change_type = "del_follow_user" OR change_type = "del_external_contact")
+{{if ne .cond.corpID ""}}
+  and `to_user_name` = "{{.cond.corpID}}"
+{{end}}
+AND channel_id = 0
+AND status = 0
+order by `id` asc
+LIMIT {{.cond.offset}}, {{.cond.limit}}

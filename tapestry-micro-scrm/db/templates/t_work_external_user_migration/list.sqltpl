@@ -1,0 +1,6 @@
+select
+    *
+from `work_external_user_migration`
+where `status` = 0
+order by `id` asc
+LIMIT {{.page.Offset}}, {{.page.Limit}}

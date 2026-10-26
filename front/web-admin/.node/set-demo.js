@@ -1,0 +1,5 @@
+const fs = require('fs')
+let res = fs.readFileSync("src/router/Register.ts", "utf8")
+res = res.replace("// #demo inset# //", "routes.push(...demo);")
+res = res.replace("// #demo import inset# //", `import demo from "../views/demo";`)
+fs.writeFileSync("src/router/Register.ts", res, "utf8")

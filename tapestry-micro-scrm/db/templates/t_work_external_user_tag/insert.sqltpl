@@ -1,0 +1,19 @@
+INSERT INTO `work_external_user_tag`
+(
+  `id`,
+  `enterprise_id`,
+  `relation_id`,
+  `external_tag_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+) VALUES
+(
+  :id,
+  :enterprise_id,
+  :relation_id,
+  :external_tag_id,
+  :created_at,
+  :updated_at,
+  :deleted_at
+);

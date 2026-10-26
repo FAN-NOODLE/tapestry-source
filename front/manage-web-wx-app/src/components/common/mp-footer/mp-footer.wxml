@@ -1,0 +1,78 @@
+<wxs  module="computed">
+var REGEXP = getRegExp('^-?\d+(\.\d+)?$')
+var REGEXP1 = getRegExp('{|}|"', 'g');
+
+function keys(obj) {
+  return JSON.stringify(obj)
+    .replace(REGEXP1, '')
+    .split(',')
+    .map(function(item) {
+      return item.split(':')[0];
+    });
+}
+function addUnit(value) {
+  if (value == null) {
+    return undefined
+  }
+
+  return REGEXP.test('' + value) ? value + 'px' : value
+}
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp("[A-Z]", 'g'), function (i) {
+      return '-' + i;
+    })
+    .toLowerCase()
+
+  return newWord;
+}
+
+function setStyle(styles) {
+	return keys(styles)
+      .filter(function (key) {
+        return styles[key] != null && styles[key] !== '';
+      })
+      .map(function (key) {
+        return [kebabCase(key), [styles[key]]].join(':');
+      })
+      .join(';');
+}
+
+function rootStyle(data) {
+  var style = {}
+
+  if (data.height) {
+    style.height = addUnit(data.height)
+  }
+
+  if (data.paddingBottom) {
+    style.paddingBottom = addUnit(data.paddingBottom)
+  }
+
+  if (data.backgroundColor) {
+    style.backgroundColor = data.backgroundColor
+  }
+
+  if(data.zIndex) {
+    style.zIndex = data.zIndex
+  }
+
+  return setStyle(style)
+}
+module.exports = {
+  rootStyle: rootStyle
+}
+
+</wxs>
+<view
+	wx:if="{{ fixed }}"
+	class="{{fixed?'mp-footer--placeholder':''}}"
+	style="{{computed.rootStyle({ height })}}"
+></view>
+<view
+	id="mp-footer"
+	class="custom-class mp-footer {{ fixed ? 'mp-footer--fixed':'' }}"
+	style="{{computed.rootStyle({ paddingBottom, backgroundColor, zIndex })}}"
+>
+  <slot></slot>
+</view>

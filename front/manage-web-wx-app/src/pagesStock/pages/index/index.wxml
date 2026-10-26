@@ -1,0 +1,103 @@
+<view wx:if="{{!showLoading && store}}" class="pages-index">
+  <navigation-bar
+    text="库存查询"
+    back="{{true}}"
+    bg-color="transparent"
+    color="#000000"
+    backActive="goback"
+    bind:back="handleBack"
+  ></navigation-bar>
+  <view class="pages-index-header">
+    <view class="store" wx:if="{{store.store_code}}">
+      <view class="store-name">{{store.store_inventory_name || '--'}}</view>
+      <view class="store-info">
+        <view class="store-code">Ioccode：{{store.store_code || '--'}}</view>
+        <view class="store-tel">电话：{{store.store_phone || '--'}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="pages-index-container">
+    <view class="content">
+      <view class="tabs">
+        <!-- tabs -->
+        <com-tabs active="{{active}}" tabs="{{tabs}}" bind:change="handleTabChange"></com-tabs>
+      </view>
+      <view class="search-container">
+        <view class="search">
+          <input
+            type="text"
+            value="{{searchValue}}"
+            bindinput="changeInput"
+            placeholder="{{ active === 0 ? '请输入精准商品款号查询相关数据':'请输入条形码查询相关数据'}}"
+            placeholder-style="color:#96979E;font-size:12px"
+            style="padding-right:{{active === 0?'15px':'39px'}}"
+            class="search-input"
+          />
+          <image
+            wx:if="{{ active === 1}}"
+            class="scan-code"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/scanCode.png"
+            catch:tap="scanCode"
+          />
+          <view class="loading" wx:if="{{showSearchLoading}}"></view>
+          <view wx:if="{{showResult && skuList.length > 0}}" class="search-mask" bind:tap="handleCloseResult"></view>
+          <view wx:if="{{showResult && skuList.length > 0}}" class="search-result">
+            <view wx:for="{{skuList}}" wx:key="index" class="search-item" data-item="{{item}}" bind:tap="handleSelectSkuItem">
+              {{item}}
+            </view>
+          </view>
+        </view>
+        <view class="button {{!searchValue? 'disabled':''}}" bind:tap="handleSubmit">立即查询</view>
+      </view>
+    </view>
+    <view wx:if="{{historyList[active].list.length || historyList[active].list.length}}" class="history">
+      <view class="history-title">
+        <text class="text">搜索历史</text>
+        <view wx:if="{{!historyList[active].edit}}" class="edit" bind:tap="handleEdit"></view>
+        <view wx:else class="delete">
+          <view class="btn" bind:tap="handleDelete">全部删除</view>
+          <view class="line"></view>
+          <view class="btn" bind:tap="handleEdit">完成</view>
+        </view>
+      </view>
+      <view class="history-content">
+        <block wx:for="{{historyList[active].list}}" wx:key="index">
+          <view class="item" data-index="{{index}}" bind:tap="handleHistoryClick">
+            <view class="item-text">{{item.keywords}}</view>
+            <view wx:if="{{historyList[active].edit}}" class="icon-delete" data-index="{{index}}" catch:tap="handleDeleteHistory"></view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{showLoading}}">
+  <mp-loading loadingText="加载中"></mp-loading>
+</view>
+<!-- 无门店提示 -->
+<store-warn-popup
+  wx:if="{{showWarnPopup}}"
+  show="{{showWarnPopup}}"
+  bind:confirm="handleShowStorePopup"
+></store-warn-popup>
+<!-- 选择门店 -->
+<single-store-popup
+  wx:if="{{showStorePopup}}"
+  show="{{showStorePopup}}"
+  list="{{storeCityList}}"
+  storeList="{{storeList}}"
+  bind:confirm="handleConfirmStore"
+  bind:close="handleCloseStore"
+></single-store-popup>
+
+<message-modal
+  show="{{ showModal }}"
+  description="删除全部搜索历史"
+  descriptionTwo=""
+  bindclose="handleDeleteCancel"
+  bindcancel="handleDeleteCancel"
+  bindsure="handleDeleteConfirm"
+></message-modal>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

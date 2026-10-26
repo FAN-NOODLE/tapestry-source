@@ -1,0 +1,17 @@
+SELECT
+	`id`,
+    `user_id`,
+    `event`,
+    `object`,
+    `event_desc`,
+    `created_at`
+FROM
+	`user_events_v1`
+WHERE
+	`user_id` = {{.cond.UserID}}
+and
+    deleted_at = 0
+and
+    enterprise_id = {{.cond.EnterpriseID}}
+ORDER BY `id` DESC
+limit {{.page.Offset}}, {{.page.Limit}}

@@ -1,0 +1,14 @@
+UPDATE
+    `fission_prize`
+SET
+    `updated_at` = :updated_at,
+    `name` = :name,
+    `pic` = :pic,
+    {{if gt .cond.Stocks 0}}
+       `stocks` = {{.cond.Stocks}},
+    {{end}}
+    `limit_num` = :limit_num,
+    `need_num` = :need_num,
+    `sort` = :sort
+WHERE
+	`id` = :id;

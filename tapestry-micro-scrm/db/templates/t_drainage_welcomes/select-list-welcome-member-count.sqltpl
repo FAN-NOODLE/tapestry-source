@@ -1,0 +1,14 @@
+SELECT
+	count(dwm.member_id) AS count
+FROM
+	drainage_welcome_members AS dwm
+	LEFT JOIN drainage_welcomes AS dw ON dw.id = dwm.welcome_id
+	LEFT JOIN members AS m ON m.id = dwm.member_id
+WHERE
+	1 = 1
+	AND dwm.deleted_at = 0
+	AND dw.deleted_at = 0
+	AND m.deleted_at = 0
+	AND dw.is_default = 0
+	AND dw.enterprise_id = :enterprise_id
+	AND dw.id = :id

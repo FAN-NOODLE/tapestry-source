@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "filter-selection-item": "../../customer-components/filter-selection-item/filter-selection-item",
+    "half-screen-dialog": "../../half-screen-dialog/half-screen-dialog"
+  }
+}

@@ -1,0 +1,17 @@
+UPDATE
+  `shop_activity`
+SET
+  `activity_id` = :activity_id,
+  `source` = :source,
+  `name` = :name,
+  `start_at` = :start_at,
+  `end_at` = :end_at,
+  `need_num` = :need_num,
+  `activity_type` = :activity_type,
+  `activity_status` = :activity_status,
+  `enterprise_id` = :enterprise_id,
+  `created_at` = :created_at,
+  `updated_at` = :updated_at,
+  `deleted_at` = :deleted_at
+WHERE
+    `id` = :id

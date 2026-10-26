@@ -1,0 +1,9 @@
+UPDATE `department_update_records` SET `status` = :status,
+{{if ne .cond.RequestID ""}}
+`request_id` = :request_id,
+{{end}}
+{{if ne .cond.MsgID ""}}
+`msg_id` = :msg_id,
+{{end}}
+`updated_at` = :updated_at
+WHERE `id` = :id;

@@ -1,0 +1,13 @@
+SELECT
+	*
+FROM
+	`wx_coupon`
+WHERE
+	`enterprise_id` = {{.cond.EnterpriseID}}
+	{{if ne .cond.SearchText ""}}
+        AND `coupon_stock_id` like '%{{SafeStr .cond.SearchText}}%'
+    {{end}}
+	AND deleted_at = 0
+ORDER BY `id` DESC
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

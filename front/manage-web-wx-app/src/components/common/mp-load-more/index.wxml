@@ -1,0 +1,7 @@
+<!-- components/common/mp-load-more/index.wxml -->
+<view wx:if="{{status}}" class="custom-class mp-load-more">
+		<text wx:if="{{status === 'loading'}}">{{loadingText}}</text>
+		<text wx:if="{{status === 'loaded'}}">{{loadedText}}</text>
+		<text wx:if="{{status === 'loadMore'}}">{{loadMoreText}}</text>
+		<text wx:if="{{status === 'loadError'}}">{{loadErrorText}}</text>
+</view>

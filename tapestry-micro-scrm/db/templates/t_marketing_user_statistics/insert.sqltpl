@@ -1,0 +1,19 @@
+INSERT INTO `marketing_user_statistics`
+(
+  `id`,
+  `enterprise_id`,
+  `user_id`,
+  `count`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+) VALUES
+(
+  :id,
+  :enterprise_id,
+  :user_id,
+  :count,
+  :created_at,
+  :updated_at,
+  :deleted_at
+);

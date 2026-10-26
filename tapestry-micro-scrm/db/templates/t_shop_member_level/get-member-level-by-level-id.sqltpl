@@ -1,0 +1,17 @@
+SELECT
+    `id`,
+    `enterprise_id`,
+    `level`,
+    `level_id`,
+    `level_name`,
+    `created_at`,
+    `updated_at`,
+    `deleted_at`
+FROM
+	shop_member_level
+WHERE
+	enterprise_id = ?
+AND
+    level_id = ?
+AND
+    deleted_at = 0

@@ -1,0 +1,3 @@
+REPLACE INTO `enterprise_config`   (enterprise_id,`key`,`value`)
+
+VALUES (?,?,?)

@@ -1,0 +1,16 @@
+SELECT
+	`id`,
+	`member_id`,
+	`name`,
+	`sign`,
+	`avatar`,
+	`background`,
+	`enterprise_id`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`,
+	`mark`
+FROM
+	moment_members
+WHERE
+	mark = ?

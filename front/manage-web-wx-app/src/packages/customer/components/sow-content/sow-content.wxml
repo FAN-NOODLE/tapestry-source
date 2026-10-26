@@ -1,0 +1,17 @@
+<view class="sow-content" bindtap="tapDisableEdit">
+  <!-- 非好友禁用 -->
+  <textarea
+    disabled="{{disabled}}"
+    class="edit"
+    maxlength="200"
+    value="{{value}}"
+    placeholder="请输入播种内容"
+    placeholder-style="color: #BDBEC8"
+    cursor-spacing="{{150}}"
+    show-confirm-bar="{{false}}"
+    hold-keyboard="{{false}}"
+    disable-default-padding="{{true}}"
+    bindinput="handleInput"
+  ></textarea>
+  <view class="word-total">{{value.length > 200 ? 200 : value.length}}/{{maxlength}}</view>
+</view>

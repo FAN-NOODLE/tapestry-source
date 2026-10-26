@@ -1,0 +1,237 @@
+{
+	"pages": [
+		"pages/load/load",
+		"pages/unorganized/unorganized",
+		"pages/login/login",
+		"pages/auth/index",
+		"pages/setting/setting",
+		"pages/select-store/select-store",
+		"pages/new-shop-member/new-shop-member",
+		"pages/select-enterprise/select-enterprise",
+		"pages/customer-list/customer-list",
+		"pages/customer-detail/customer-detail",
+		"pages/customer-tags/customer-tags",
+		"pages/my/my",
+		"pages/business-card/business-card",
+		"pages/guide-select/guide-select",
+		"pages/tag-manage/tag-manage",
+		"pages/ranking-list/ranking-list",
+		"pages/date-guide-store-select/date-guide-store-select",
+		"pages/select-role/select-role",
+		"pages/register/register",
+		"pages/select-date/select-date",
+		"pages/marketing-calendar-strategy/marketing-calendar-strategy",
+		"pages/empty/empty",
+		"pages/records-link/records-link",
+		"pages/task/task",
+		"pages/task-no-tab/task-no-tab",
+		"pages/not-participating-activities/not-participating-activities",
+		"pages/customer-lost/customer-lost",
+		"pages/compass-data/compass-data",
+		"pages/store-invite/create/create",
+		"pages/store-invite/record-list/record-list",
+		"pages/store-invite/invite-detail/invite-detail",
+		"pages/store-invite/confirm/confirm",
+		"pages/store-invite/comment/comment",
+		"pages/booking-activities/booking-activities",
+		"pages/booking-setting/booking-setting",
+		"pages/write-off/write-off",
+		"pages/scratch/scratch",
+		"pages/booking-customer-activities/booking-customer-activities",
+		"pages/use-agreement/use-agreement",
+		"pages/privacy-policy/privacy-policy",
+		"pages/webview/webview",
+		"pages/weJourney/index/index",
+		"pages/weJourney/rule/rule",
+		"pages/weJourney/points/points",
+		"pages/weJourney/medal/medal",
+		"pages/invite-config/invite-config",
+		"pages/invite-check/invite-check",
+		"pages/order-list-foreign/order-list-foreign",
+		"pages/order-detail/order-detail",
+		"pages/send-goods/send-goods",
+		"pages/online-order/online-order",
+		"pages/online-share/online-share",
+		"pages/order-list/order-list",
+		"pages/coupon-list/coupon-list",
+		"pages/consume-record/consume-record",
+		"pages/sidebar-portrait/sidebar-portrait",
+		"pages/preserve-page/preserve-page"
+	],
+	"subPackages": [
+		{
+			"root": "pagesA",
+			"name": "packageA",
+			"pages": [
+				"task-detail/task-detail",
+				"customer-list/customer-list",
+				"group-portrait/group-portrait",
+				"group-portrait/group-persons/group-persons"
+			],
+			"plugins": {
+				"echarts": {
+					"version": "1.0.3",
+					"provider": "wx1db9e5ab1149ea03"
+				}
+			}
+		},
+		{
+			"root": "pagesOrder",
+			"name": "pagesOrder",
+			"pages": [
+				"pages/profile/profile",
+				"pages/store-invite/record-list/record-list",
+				"pages/store-invite/invite-detail/invite-detail",
+				"pages/store-invite/share-detail/share-detail",
+				"pages/store-invite/comment/comment",
+				"pages/empty/empty",
+				"pages/order-list/order-list",
+				"pages/invite-check/invite-check",
+				"pages/append-sa/append-sa"
+			]
+		},
+		{
+			"root": "233Digital",
+			"pages": [
+				"enterprise/pages/myCenter/popOrder/middle"
+			]
+		},
+		{
+			"root": "pagesMaterial",
+			"name": "pagesMaterial",
+			"pages": [
+				"pages/list/list",
+				"pages/collect/collect",
+				"pages/create/create",
+        "pages/send-list/send-list",
+        "pages/select/select"
+			]
+		},
+		{
+			"root": "packages/customer",
+			"name": "customer",
+			"pages": [
+				"pages/list/list",
+				"pages/detail/detail",
+				"pages/communication-list/index",
+				"pages/communication-edit/index",
+				"pages/consume-record/consume-record",
+				"pages/create-group-post/create-group-post",
+				"pages/create-group-post-beta/create-group-post-beta",
+				"pages/member-search/member-search",
+				"pages/member-search-result/member-search-result"
+			]
+		},
+		{
+			"root": "packages/allocation",
+			"name": "allocation",
+			"pages": [
+				"pages/customer-list/customer-list",
+				"pages/customer-select-list/customer-select-list",
+				"pages/member-select-list/member-select-list",
+				"pages/record/record",
+				"pages/record-detail/record-detail"
+			]
+		},
+		{
+			"root": "packages/task",
+			"name": "task",
+			"pages": [
+				"pages/list/list",
+				"pages/task-sub/task-sub",
+				"pages/task-detail/task-detail",
+				"pages/task-tags/task-tags",
+				"pages/task-customer/task-customer"
+			]
+		},
+		{
+			"root": "pagesStock",
+			"name": "pagesStock",
+			"pages": [
+				"pages/index/index",
+				"pages/list/list",
+        "pages/other-list/other-list"
+			]
+		}
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#ffffff",
+		"navigationBarTitleText": "WeClient Pro",
+		"navigationBarTextStyle": "black",
+		"backgroundColor": "#F7F6F2",
+		"onReachBottomDistance": 50
+	},
+	"tabBar": {
+		"custom": false,
+		"color": "#5F697B",
+		"selectedColor": "#4A4A4A",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/compass-data/compass-data",
+				"text": "数据罗盘",
+				"iconPath": "./images/tab-icons/ico_data_n.png",
+				"selectedIconPath": "./images/tab-icons/ico_data_s.png"
+			},
+			{
+				"pagePath": "pages/task/task",
+				"text": "任务中心",
+				"iconPath": "./images/tab-icons/ico_task_n.png",
+				"selectedIconPath": "./images/tab-icons/ico_task_s.png"
+			},
+			{
+				"pagePath": "pages/customer-list/customer-list",
+				"text": "顾客列表",
+				"iconPath": "./images/tab-icons/customer-list.png",
+				"selectedIconPath": "./images/tab-icons/customer-list-selected.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "./images/tab-icons/ico_my_n.png",
+				"selectedIconPath": "./images/tab-icons/ico_my_s.png"
+			}
+		]
+	},
+	"networkTimeout": {
+		"request": 60000,
+		"downloadFile": 60000
+	},
+	"navigateToMiniProgramAppIdList": [],
+	"debug": false,
+	"lazyCodeLoading": "requiredComponents",
+	"__usePrivacyCheck__": true,
+	"usingComponents": {
+    "com-model-privacy": "/components/com-model-privacy/com-model-privacy",
+		"popup": "/components/popup/popup",
+		"mp-popup": "/components/common/mp-popup/index",
+		"mp-image": "/components/common/mp-image/index",
+		"mp-footer": "/components/common/mp-footer/mp-footer",
+		"mp-empty": "/components/common/mp-empty/index",
+		"mp-load-more": "/components/common/mp-load-more/index",
+    "mp-tooltip": "/components/common/mp-tooltip/index",
+    "mp-row": "/components/common/mp-row/index",
+    "mp-col": "/components/common/mp-col/index",
+    "mp-tabs": "/components/common/mp-tabs/index",
+    "mp-tab": "/components/common/mp-tab/index",
+    "mp-level": "/components/common/mp-level/index",
+    "mp-picker": "/components/common/mp-picker/index",
+    "mp-search": "/components/common/mp-search/index",
+    "mp-dragable": "/components/common/mp-dragable/index",
+    "mp-datetime-picker": "/components/common/mp-datetime-picker/index",
+    "mp-edit-popup": "/components/common/mp-edit-popup/index",
+    "mp-tips-popup": "/components/common/mp-tips-popup/index",
+    "mp-observer": "/components/common/mp-observer/index",
+    "mp-watermark": "/components/common/mp-watermark/index",
+    "mp-navigation": "/components/common/mp-navigation/index",
+    "com-tabs": "/components/common/com-tabs/com-tabs",
+    "com-tip-popup": "/components/customer-components/com-tip-popup/com-tip-popup",
+    "time-picker": "/components/time-picker/time-picker",
+    "message-modal": "/components/message-modal/message-modal",
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    
+    "page-loading":"/components/member-loading/member-loading"
+	}
+}

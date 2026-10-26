@@ -1,0 +1,130 @@
+@import '~@/style/color-variable'
+
+.filter-selection
+  background-color: #fff
+  padding: 0 vw(15) vw(62) 0
+
+  .close
+    position: absolute
+    right: vw(13)
+    top: vw(13)
+    &-icon
+      @include renderImg('2022/v3.1/close.png')
+      width: vw(12)
+      height: vw(12)
+  .header
+    margin-top: vw(15)
+    margin-bottom: vw(11)
+    @include flex
+    .title
+      @include fontStyle(12, 600, #111111, 17)
+  .body
+    padding: 0 vw(20) 0 vw(15)
+    margin-bottom: vw(15)
+    max-height: 70vh
+    overflow-y: auto
+    .steps
+      margin-bottom: vw(30)
+      &-body
+        position: relative
+        display: flex
+        justify-content: space-around
+        &::before
+          position: absolute
+          box-sizing: border-box
+          -webkit-transform-origin: center
+          transform-origin: center
+          content: ' '
+          pointer-events: none
+          top: -50%
+          right: -50%
+          bottom: -50%
+          left: -50%
+          border-left: 2px dashed #000
+          border-width: 2px
+          -webkit-transform: scale(0.5)
+          transform: scale(0.5)
+          margin-top: vw(30)
+        &-text
+          position: absolute
+          left: vw(20)
+          padding: 0 vw(20)
+          width: 100%
+          &-index
+            position: absolute
+            left: vw(2)
+            top: vw(-30)
+            z-index: 1
+            font-size: vw(33)
+            font-weight: 600
+            color: #D1BFA7
+            opacity: 0.5
+          &-title
+            position: absolute
+            z-index: 2
+            top: vw(-9)
+            left: vw(5)
+            @include fontStyle(14, 600, #111111, 20)
+          &-tips
+            position: absolute
+            z-index: 2
+            top: vw(15)
+            left: vw(5)
+            margin-bottom: vw(15)
+            @include fontStyle(11, 400, #FF8F51,16)
+        &-image
+          position: absolute
+          left: vw(20)
+          top: vw(25)
+          width: calc( 100% - 10px )!important
+        &-icon
+          position: absolute
+          top: vw(-4)
+          left: vw(-4)
+          width: vw(10)
+          height: vw(10)
+          border: vw(1) solid #000000
+          border-radius: 50%
+        &-icon1
+          position: absolute
+          left: vw(-2.5)
+          bottom: vw(-10)
+          width: vw(6)
+          height: vw(6)
+          background: #000000
+          border-radius: 50%
+.btn-group
+  width: 100%
+  height: vw(64)
+  display: flex
+  align-items: center
+  justify-content: center
+  position: absolute
+  bottom: 0
+  left: 0
+  background-color: #fff
+
+  .reset-btn, .confirm-btn
+    width: vw(167)
+    height: vw(36)
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: vw(14)
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+
+  .reset-btn
+    background-color: #fff
+    border: vw(1) solid #000000
+    color: #000000
+    margin-right: vw(11)
+
+  .confirm-btn
+    background-color: #000000
+    color: #FFFFFF
+
+.iosBodyBottom
+  margin-bottom: vw(20) !important
+.isIosBottom
+  @include iosBottom

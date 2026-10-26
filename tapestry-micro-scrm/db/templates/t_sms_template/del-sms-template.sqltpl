@@ -1,0 +1,4 @@
+UPDATE `sms_template` SET
+`deleted_at` = :deleted_at
+WHERE `id` = :id
+

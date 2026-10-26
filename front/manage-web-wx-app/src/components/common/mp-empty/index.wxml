@@ -1,0 +1,8 @@
+<view class="page-empty-page custom-class">
+  <view class="empty-icon {{'empty-icon-' + icon}} {{center ? 'center' : ''}}" style="margin-top:{{marginTop * 2}}rpx">
+    <text class="empty-slogan slogan" wx:if="{{slogan}}">{{slogan}}</text>
+    <text class="empty-slogan {{center?'center-empty-slogan' :''}}" wx:if="{{content}}">{{content}}</text>
+    <view class="empty-btn" catchtap='goTap' wx:if="{{btnValue.length>0}}">{{btnValue}}</view>
+  </view>
+  <slot></slot>
+</view>

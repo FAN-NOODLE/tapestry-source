@@ -1,0 +1,74 @@
+@import '../../style/color-variable'
+@import '../../style/base/utilities.sass'
+.page-customer-list
+  min-height: 100vh
+  width: 100vw
+
+  .header 
+    position: sticky
+    top: 0
+    z-index: 10
+    width: 100vw
+    box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5)
+
+
+  .search-item
+    width: 72rpx
+    height: 72rpx
+    font-size: 18rpx
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    justify-content: center
+    margin-left: 30rpx
+
+    &__icon 
+      width: 40rpx
+      height: 40rpx
+      display: block
+      position: relative
+    &__tag
+      position: absolute
+      top: 0
+      right: 0
+      transform: translate(50%, -50%)
+      width: 28rpx
+      height: 28rpx
+      border-radius: 50%
+      background-color: #000
+      color: #fff
+      font-size: 16rpx
+      text-align: center
+      line-height: 28rpx
+    &__text
+      line-height: 26rpx
+      margin-top: 6rpx
+    
+  .customer-add
+    align-items: center
+    
+    .image
+      width: vw(6)
+      height: vw(4)
+      margin-left: vw(5)
+
+  .customer-total
+    font-size: vw(14)
+    font-weight: 400
+    line-height: vw(20)
+  
+  .customer-list
+    // min-height: 100vh
+    padding: 0 vw(15)
+
+  .bottom-tip, .loading-box
+    width: 100%
+    height: vw(44)
+    paddin-bottom: vw(24)
+    font-size: vw(14)
+    color: #96979E
+    line-height: vw(20)
+    text-align: center
+
+  .empty-page
+    margin-top: vw(165)

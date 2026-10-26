@@ -1,0 +1,51 @@
+@import '~@/style/color-variable.sass'
+@import '~@/style/base/arrow'
+
+.container
+  min-height: 100vh
+  background: #F7F7F7
+
+  .customer-list-top
+    height: vw(52)
+    display: flex
+    align-items: center
+    justify-content: space-between
+    font-size: vw(12)
+    font-family: PingFangSC-Regular, PingFang SC
+    font-weight: 400
+    color: #B5B5B5
+    padding-right: vw(15)
+
+    .customer-total
+      font-size: vw(14)
+      font-weight: 400
+      line-height: vw(20)
+      padding: 0 vw(15)
+
+  .list
+    padding: 0 vw(15)
+
+  .empty-page
+    margin-top: vw(165)
+  .footer
+    height: 120rpx
+    display: flex
+    align-items: center
+    padding: 0 30rpx
+
+    .btn 
+      flex: 1
+      height: 80rpx
+      line-height: 80rpx
+      text-align: center
+      box-sizing: border-box
+      background-color: #000
+      color: #fff
+      font-size: 28rpx
+
+      &:nth-child(1) 
+        margin-right: 30rpx
+        background-color: #f7f7f7
+        border: 2rpx solid #000
+        color: #000
+    

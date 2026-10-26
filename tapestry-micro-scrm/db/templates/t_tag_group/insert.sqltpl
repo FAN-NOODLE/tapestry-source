@@ -1,0 +1,19 @@
+INSERT INTO `tag_group`
+(
+    `id`,
+    `enterprise_id`,
+    `group_id`,
+    `group_name`,
+    `type`,
+    `created_at`,
+    `updated_at`
+) VALUES
+(
+    :id,
+    :enterprise_id,
+    :group_id,
+    :group_name,
+    :type,
+    :created_at,
+    :updated_at
+);

@@ -1,0 +1,5 @@
+INSERT INTO
+`qy_msg_send_result`
+(`id`, `enterprise_id`, `send_log_id`, `external_userid`, `chat_id`, `status`, `msg_id`, `send_time`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+(:id, :enterprise_id, :send_log_id, :external_userid, :chat_id, :status, :msg_id, :send_time, :created_at, :updated_at, 0);

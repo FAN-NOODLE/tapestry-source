@@ -1,0 +1,4 @@
+<view class="page-loading {{isHorizontal ? 'horizontal' : ''}}">
+  <view class="loading"></view>
+  <text class="text font-12">{{loadingText}}</text>
+</view>

@@ -1,0 +1,5 @@
+SELECT sensitive_id, COUNT(1) AS today_trigger_num
+FROM `chat_sensitive_records`
+WHERE `deleted_at` = 0 AND `sensitive_id` IN ({{WhereIn .ids}})
+AND TO_DAYS(FROM_UNIXTIME(created_at,"%Y-%m-%d")) = TO_DAYS(now())
+GROUP BY `sensitive_id`;

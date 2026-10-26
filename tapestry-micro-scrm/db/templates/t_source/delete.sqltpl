@@ -1,0 +1,6 @@
+UPDATE
+    `source`
+SET
+    deleted_at = unix_timestamp(now())
+WHERE
+    id = ?

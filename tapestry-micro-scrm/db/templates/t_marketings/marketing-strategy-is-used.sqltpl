@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM `marketing_strategies` WHERE `id` = ? AND `deleted_at` = 0 AND`strategy_status` IN (1,2,3) ;

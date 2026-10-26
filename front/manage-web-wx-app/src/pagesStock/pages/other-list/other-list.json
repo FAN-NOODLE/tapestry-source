@@ -1,0 +1,12 @@
+{
+  "navigationStyle":"custom",
+	"enablePullDownRefresh": false,
+  "disableScroll": true,
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "stock-table": "../../components/stock-table/stock-table",
+    "store-popup":"../../components/store-popup/store-popup",
+    "phone-popup": "../../components/phone-popup/phone-popup",
+    "mp-loading":"../../components/mp-loading/mp-loading"
+  }
+}

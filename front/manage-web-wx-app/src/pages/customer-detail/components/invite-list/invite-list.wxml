@@ -1,0 +1,15 @@
+<view class="binding-relation" wx:if="{{ inviteList && inviteList.length > 0}}">
+  <view
+    wx:for="{{inviteList}}"
+    wx:key="index"
+  >
+    <invite-item item="{{item}}" role="{{role}}" />
+  </view>
+  <view class="bottom-tip" wx:if="{{inviteList.length > 0 && !meta.isMore }}">已经到底了~</view>
+  <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+</view>
+<empty
+  wx:if="{{!inviteList || !inviteList.length}}"
+  slogan="{{isLoading ? '加载中...':'暂无邀约记录'}}"
+  icon="customer"
+/>

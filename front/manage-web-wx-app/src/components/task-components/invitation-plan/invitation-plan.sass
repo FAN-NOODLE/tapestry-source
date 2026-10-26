@@ -1,0 +1,147 @@
+@import '~@/style/color-variable'
+
+/** 搜索框 */
+.search-box
+    box-sizing: border-box
+    margin: 0 vw(15)
+    height: vw(40)
+    display: flex
+    &-left
+        height: vw(40)
+        align-items: center
+        flex: 1
+        display: flex
+        @include underline(#A6A6A6)
+        .icon
+            flex-shrink: 0
+            width: vw(15)
+            height: vw(17)
+            margin-left: vw(4)
+            margin-right: vw(10)
+        .text
+            flex: 1
+    &-right
+        margin-left: vw(14)
+        align-self: flex-end
+        border: vw(1) solid #000000
+        flex-shrink: 0
+        width: vw(70)
+        height: vw(30)
+        @include flex
+        @include fontStyle(14, 400, #000000, 0)
+        .arrow
+            margin-left: vw(3)
+            width: vw(7)
+            height: vw(4)
+
+/** 卡片 */
+.card
+	background: #FFFFFF
+	margin: vw(15)
+	padding: vw(15) vw(13)
+
+
+.invitation-plan
+    &-item
+        position: relative
+        &-title
+            margin-top: vw(33)
+            @include fontStyle(16, 600, #000000, 22)
+        &-sub_title
+            margin-top: vw(5)
+            @include fontStyle(11, 400, #A6A6A6, 20)
+        &-detail
+            margin-top: vw(15)
+            padding: vw(10) vw(20)
+            background-color: #F0F0F0
+        &-btns
+            margin-top: vw(15)
+            display: flex
+            justify-content: space-between
+            button
+                margin-right: vw(14)
+                &:last-child
+                    margin-right: 0
+        &-status
+            width: vw(75)
+            height: vw(32)
+            position: absolute
+            top: vw(10)
+            left: vw(-6)
+            padding-bottom: vw(4)
+            @include flex
+            @include fontStyle(14, 400, #000000, 20)
+        .is-success
+            @include renderImg('2022/v3.1/task_success.png')
+        .is-success1
+            @include renderImg('2022/v3.1/success1.png')
+        .is-cancel
+            @include renderImg('2022/v3.1/task_load.png')
+        .is-load
+            @include renderImg('2022/v3.1/load1.png')
+           
+
+
+/** 一行 左右布局 */
+.line
+    @include fontStyle(14, 400, #000000, 20)
+    margin-bottom: vw(10)
+    display: flex
+    justify-content: space-between
+    &:last-child
+        margin-bottom: vw(0)
+    .label
+        flex-shrink: 0
+        width: vw(80)
+    .value
+        flex: 1
+        overflow: hidden
+        display: flex
+        justify-content: end
+        text-align: justify
+        
+
+/** 表单 */
+.cell
+    display: flex
+    margin-top: vw(10)
+    @include fontStyle(14, 400, #000000, 20)
+    &-group-label
+        &:first-child
+            margin-right: vw(10)
+
+/** 按钮 */
+.btn
+    width: 100%
+    height: vw(36)
+    border: vw(1) solid #000000
+    @include flex
+    @include fontStyle(14, 400, #000000, 20)
+.primary
+    background-color: #000000
+    border: none
+    color: #FFFFFF
+
+/** picker列表 */
+.picker-group
+    height: vw(44)
+    margin: 0 vw(15) 
+    display: flex
+    // justify-content: space-around
+    align-items: center
+    &-text
+        width: vw(88)
+        display: flex
+        justify-content: center
+        align-items: center
+        @include fontStyle(14, 400, #000000, 20)
+        view
+            max-width: vw(80)
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            word-break: break-all
+        .arrow
+            margin-left: vw(3)
+            width: vw(7)
+            height: vw(4)

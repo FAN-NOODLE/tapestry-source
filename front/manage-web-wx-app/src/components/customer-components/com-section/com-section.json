@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "message-modal": "../message-modal/message-modal"
+  }
+}

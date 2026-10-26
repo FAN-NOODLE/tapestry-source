@@ -1,0 +1,20 @@
+
+ SELECT
+	DISTINCT cgmtm.member_id ,
+	m.userid AS user_id,
+	m.name
+ FROM `chat_group_msg_task_member` cgmtm
+
+ INNER JOIN members m ON cgmtm.member_id = m.id
+
+ WHERE
+  cgmtm.enterprise_id ={{.cond.EnterpriseID}}
+
+  AND cgmtm.deleted_at = 0
+
+{{if ne 0 .cond.ID}}
+  AND
+  cgmtm.msg_task_id ={{.cond.ID}}
+ {{end}}
+
+

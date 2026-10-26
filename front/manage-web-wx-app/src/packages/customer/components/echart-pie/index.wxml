@@ -1,0 +1,9 @@
+<wxs src="./index.wxs" module="computed"></wxs>
+<view class="pie" style="width: {{width}}; height: {{height}};" catch:tap="handleShowTips">
+  <chart chart-class="charts" option="{{ options }}"></chart>
+  <view wx:if="{{showTips}}" class="legend" style="right: {{legendRight}};width: {{legendWidth}};">
+    <view class="legend-item" wx:for="{{data}}" wx:key="index" style="--color:{{computed.getColor(index)}}">{{item.name}}-{{item.value}}%</view>
+  </view>
+  <slot></slot>
+</view>
+<view wx:if="{{showTips}}" class="mask" catch:tap="handleHideTips"></view>

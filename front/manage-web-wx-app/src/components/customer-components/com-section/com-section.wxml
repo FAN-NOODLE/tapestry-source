@@ -1,0 +1,23 @@
+<view class="com-section">
+  <view class="com-section__left">
+    <slot></slot>
+  </view>
+  <view class="com-section__right">
+    <view
+      wx:for="{{list}}"
+      wx:key="key"
+      bindtap="onClick"
+      class="com-section__item {{item.key === current ? 'selected' : ''}}"
+      data-key="{{item.key}}"
+      data-type="{{item.type}}"
+    >{{item.label}}</view>
+    <image wx:if="{{showIcon}}" class="icon" src="{{imageHost}}2023/v4.0.1/tips.png" bindtap="handleShowPopup" />
+    <slot name="right"></slot>
+  </view>
+</view>
+
+<!-- 状态说明弹窗 -->
+<message-modal
+  show="{{ show }}"
+  bind:cancel="handleClosePopup"
+></message-modal>

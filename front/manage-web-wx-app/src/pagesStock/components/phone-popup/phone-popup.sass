@@ -1,0 +1,91 @@
+@import '~@/style/color-variable'
+.popup-container
+  width: 100vw
+  height: vw(215)
+  background: #fff
+  font-weight: 400
+  overflow: hidden
+  position: relative
+  .popup-header
+    height: vw(44)
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0 vw(16)
+
+    .popup-header-name
+      width: 100%
+      text-align: center
+      font-size: vw(16)
+      font-weight: 500
+      color: #333333
+      margin-left: vw(20)
+    .popup-header-close
+      width: vw(20)
+      height: vw(20)
+      background: url("https://cdn-cos.coach.com.cn/uploads/2023/v4.0.1/material/icon_close.png") no-repeat center
+      background-size: vw(20) vw(20)
+  .popup-content
+    flex: 1
+    padding: 0 vw(30)
+    box-sizing: border-box
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    .phone
+      text-align: center
+      padding: vw(30) 0
+      font-size: vw(18)
+      font-weight: 500
+      color: #000
+    .empty
+      display: flex
+      justify-content: center
+      align-items: center
+      flex-direction: column
+      margin-top: vw(15)
+      &-phone
+        flex: 1
+        .no-phone
+          width: vw(111)
+          height: vw(72)
+      &-text
+        flex: 1
+        font-size: vw(12)
+        color: #7f7f7f
+        margin-top: vw(14)
+  .footer
+    padding: 30rpx
+    display: flex
+    align-items: center
+    .btn
+      flex: 1
+      height: 80rpx
+      line-height: 80rpx
+      text-align: center
+      background-color: #000
+      color: #fff
+      font-size: 28rpx
+      &.plain
+        border: 2rpx solid #000
+        background-color: #fff
+        color: #000
+        box-sizing: border-box
+        margin-right: 30rpx
+
+  &.horizontal
+    height: vw(245)
+    
+    .popup-inner
+      height: 100vw
+      width: vw(245)
+      transform-origin: center
+      position: absolute
+      top: 50%
+      left: 50% 
+      transform: translate(-50%, -50%) rotate(90deg)
+      display: flex
+      flex-direction: column
+      padding-right: vw(30)
+      box-sizing: border-box

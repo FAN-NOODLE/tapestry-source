@@ -1,0 +1,8 @@
+UPDATE wx_coupon SET `coupon_stock_id` = :coupon_stock_id,`coupon_name`=:coupon_name,`coupon_value`=:coupon_value,
+`coupon_mininumn` = :coupon_mininumn,`coupon_status`=:coupon_status,`coupon_stock_status`=:coupon_stock_status,
+`coupon_total` = :coupon_total,`use_day_limit`=:use_day_limit,`max_quota`=:max_quota,`is_send_num`=:is_send_num,
+`coupon_budget` = :coupon_budget,`scope`=:scope,`favor_type`=:favor_type,`start_time`=:start_time,
+`end_time` = :end_time,`is_overlay`=:is_overlay,`overlay_coupons`=:overlay_coupons,`channel`=:channel,
+`range_hide` = :range_hide,`tag_goods`=:tag_goods,`tag_name`=:tag_name,`tag_rule_type`=:tag_rule_type,
+`updated_at` = :updated_at,`is_all`=:is_all
+ WHERE `coupon_id` = :coupon_id AND `enterprise_id` = :enterprise_id AND deleted_at=0

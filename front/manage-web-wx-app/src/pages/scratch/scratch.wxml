@@ -1,0 +1,70 @@
+<view class="content" style="height:{{list.length ?  pageHeight + 'px' : '100%'}};">
+    <image class="nier-img" src="{{pageDetails.activity_image}}" mode="widthFix">
+        <view class="top" style="top: {{top}}px;">{{pageDetails.activity_name}}</view>
+        <view class="nier">
+            <block wx:if="{{!loading}}">
+                <view class="title">{{pageDetails.activity_name}}</view>
+                <view class="explain">活动时间：</view>
+                <view class="explain">{{pageDetails.time_str}}</view>
+                <view class="explain">奖品说明：</view>
+                <view class="explain mg-20">{{pageDetails.prize_names}}</view>
+                <view class="explain">活动规则：</view>
+                <view class="mg-40">
+                    <view class="explain" wx:for="{{pageDetails.activity_content}}" wx:key="index">
+                        {{item}}
+                    </view>
+                </view>
+            </block>
+            <view class="wrap">
+                <view wx:if="{{can_scratch}}">
+                    <canvas class="cover_canvas" type="2d" disable-scroll="false" id='coverCanvas' bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" wx:if="{{isPrize}}"></canvas>
+                    <view class="coupon" wx:if="{{prizeType === 'end'}}">
+                        <view class="coupon-txt">恭喜获得 {{prizeInfo.prize_short_name}}</view>
+                        <view class="coupon-btn" bindtap="bindAgain" wx:if="{{!isPrize &&times >0}}">
+                            还有{{times}}次机会，再刮一次
+                        </view>
+                    </view>
+                    <view class="times" wx:if="{{prizeType === 'start'}}">
+                        恭喜获得 {{prizeInfo.prize_short_name}}
+                    </view>
+                </view>
+                <view class="times" wx:else>
+                    <view wx:if="{{pageDetails.activity_status === 0}}">活动还未开始</view>
+                    <view wx:elif="{{pageDetails.activity_status === 1}}">本次刮奖机会已用完</view>
+                    <view wx:elif="{{pageDetails.activity_status === 2}}">活动已结束</view>
+                </view>
+                <image class="img" src="https://cdn-cos.coach.com.cn/uploads/2022/scratch/scratch-jiang.png" mode="aspectFill" wx:if="{{!loading}}"></image>
+            </view>
+            <view class="record" wx:if="{{!loading}}">
+                <view class="line"></view>
+                <view class="txt">得奖记录</view>
+                <view class="line"></view>
+            </view>
+            <block wx:if="{{!loading}}">
+                <view class="list" wx:if="{{list.length}}">
+                    <view class="list-item" wx:for="{{list}}" wx:key="index">
+                        <image class="item-img" src="https://cdn-cos.coach.com.cn/uploads/2022/scratch/scratch-list.png" mode="aspectFill">
+                            <view class="item-neir">
+                                <view class="item-neir-coupon">{{item.prize.prize_name}}</view>
+                                <view class="item-neir-time">
+                                    有效期：{{item.activity.expired_time}}
+                                </view>
+                            </view>
+                        </image>
+                    </view>
+                    <!-- <view class="list-btn" >{{btnTxt}}</view> -->
+                    <view class="write-bottom">
+                        <view class="write-btn" wx:if="{{writeOffstatus === 0}}" bindtap="bindWriteOff">
+                            {{btnTxt}}
+                        </view>
+                        <view class="write-txt" wx:else>·{{btnTxt}}·</view>
+                    </view>
+                </view>
+                <view class="no-record" wx:else>还没有得奖记录，快去刮奖吧～</view>
+            </block>
+        </view>
+    </image>
+    <writeOff-modal writeOffModal="{{writeOffModal}}" couponObj="{{couponObj}}" />
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

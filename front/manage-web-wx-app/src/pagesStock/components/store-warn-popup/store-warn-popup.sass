@@ -1,0 +1,44 @@
+@import '~@/style/color-variable'
+.popup-container
+  width: vw(325)
+  height: vw(158)
+  background: #fff
+  overflow: hidden
+  .popup-content
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    height: vw(79)
+    .left-warn
+      position: absolute
+      left: 0
+      top: 0
+      width: vw(80)
+      height: vw(79)
+    .warn-tips
+      width: vw(158)
+      height: vw(40)
+      font-size: vw(14)
+      font-weight: 500
+      color: #000
+      line-height: vw(20)
+      text-align: center
+  .footer
+    padding: 30rpx
+    display: flex
+    align-items: center
+    .btn
+      flex: 1
+      height: 80rpx
+      line-height: 80rpx
+      text-align: center
+      background-color: #000
+      color: #fff
+      font-size: 28rpx
+      &.plain
+        border: 2rpx solid #000
+        background-color: #fff
+        color: #000
+        box-sizing: border-box
+        margin-right: 30rpx

@@ -1,0 +1,7 @@
+SELECT
+    u.id as user_id,
+    u.subscribe_time,
+    c.name
+FROM micro_scrm_enterprise_{{.cond.enterprise_id}}.wx_user_open u 
+LEFT JOIN micro_scrm_enterprise_{{.cond.enterprise_id}}.wx_app_config  AS c ON c.appid = u.appid
+WHERE id in ({{WhereIn .cond.user_ids}});

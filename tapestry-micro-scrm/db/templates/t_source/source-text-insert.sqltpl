@@ -1,0 +1,32 @@
+
+{{if .cond.UpdatedAt}}
+
+    UPDATE
+        `source_text` st
+    LEFT JOIN
+        `source` s
+    ON
+        s.id = st.id
+    SET
+        st.`content`= :content,
+        st.`updated_at`= :updated_at,
+        s.`group_id`= :group_id,
+        s.`updated_at`= :updated_at
+    WHERE
+        st.`id`=:id;
+
+{{else}}
+
+    INSERT INTO `source_text`
+        (`id`, `content`, `enterprise_id`, `created_at`, `updated_at`)
+    VALUES
+        (:id, :content, :enterprise_id, :created_at, :updated_at);
+
+{{end}}
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+
+
+SELECT
+   count(*) as count
+FROM
+	`fission_assistant_records` AS far
+	LEFT JOIN `fission_user`  fu  ON far.fission_user_id = fu.id
+WHERE
+    far.enterprise_id ={{.cond.EnterpriseID}}
+    AND  far.deleted_at =0
+    AND  far.activity_id = {{.cond.ActivityID}}
+    AND  fu.user_id ={{.cond.UserID}}

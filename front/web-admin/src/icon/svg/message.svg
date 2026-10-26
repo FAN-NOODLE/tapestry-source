@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="列表页的搜索栏组件-多级签样式-二级面包屑样式" transform="translate(-1279.000000, -16.000000)">
+            <g id="蒙版-2" transform="translate(120.000000, 0.000000)">
+                <g id="编组-38">
+                    <g id="编组-30" transform="translate(1020.000000, 10.000000)">
+                        <g id="编组-28" transform="translate(139.000000, 6.000000)">
+                            <g id="编组-33">
+                                <rect id="矩形备份" fill="#E5E5E5" opacity="0" x="0" y="0" width="20" height="20"></rect>
+                                <g id="编组-18" transform="translate(3.000000, 0.000000)">
+                                    <g id="通知" transform="translate(0.000000, 0.980392)">
+                                        <g id="编组-23" transform="translate(0.000000, 0.774510)">
+                                            <g id="编组-25" transform="translate(0.000000, 0.245098)">
+                                                <path d="M9,13.254902 L9.00280762,13 C9.00280762,14.1045695 8.10737712,15 7.00280762,15 C5.89823812,15 5.00280762,14.1045695 5.00280762,13 L5,13.254902" id="路径" stroke="#606266" stroke-width="1.2"></path>
+                                                <path d="M2,13 L2,6 C2,3.23857625 4.23857625,1 7,1 C9.76142375,1 12,3.23857625 12,6 L12,13" id="路径" stroke="#606266" stroke-width="1.2"></path>
+                                                <circle id="Oval-2" stroke="#FFFFFF" fill="#F5222D" fill-rule="nonzero" cx="10" cy="3" r="3.5"></circle>
+                                                <path d="M0,13 L14,13" id="路径-9" stroke="#606266" stroke-width="1.2" stroke-linecap="round"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

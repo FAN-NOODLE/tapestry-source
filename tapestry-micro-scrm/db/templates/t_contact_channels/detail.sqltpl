@@ -1,0 +1,9 @@
+SELECT * FROM `drainage_contact_channels` AS `dcc`
+WHERE `dcc`.`deleted_at` = 0 AND `dcc`.`enterprise_id` = :enterprise_id
+{{if .cond.ID}}
+AND `dcc`.`id` = :id
+{{end }}
+{{if ne .cond.Name ""}}
+AND `dcc`.`name` = :name
+{{end }}
+LIMIT 1;

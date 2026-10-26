@@ -1,0 +1,137 @@
+
+.popup {
+  width: 100vw;
+  background-color: #fff;
+  position: relative;
+
+  &__close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 96rpx;
+    height: 116rpx;
+    background: url('https://cdn-cos.coach.com.cn/uploads/2024/v4.2.4/icon_4.png') center/36rpx no-repeat;
+  }
+
+  &__header {
+    padding: 40rpx 0 30rpx 0;
+    text-align: center;
+    font-weight: 500;
+    font-size: 32rpx;
+    color: #000000;
+    line-height: 44rpx;
+  }
+
+  &__content {
+    max-height: 70vh;
+    .list {
+      padding: 0 40rpx;
+    }
+
+    .item {
+      margin-bottom: 30rpx;
+    }
+
+    .item-title {
+      font-weight: 500;
+      font-size: 32rpx;
+      color: #000000;
+      line-height: 44rpx;
+    }
+  }
+
+  &__footer {
+    padding: 20rpx 30rpx;
+    display: flex;
+    box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5);
+
+    .btn {
+      flex: 1;
+      height: 80rpx;
+      line-height: 80rpx;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+      font-size: 28rpx;
+      &.plain {
+        background-color: #fff;
+        color: #000;
+        border: 2rpx solid #000;
+        margin-right: 30rpx;
+      }
+    }
+  }
+}
+.form {
+  background: #FFFFFF;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+
+
+  .form-item {
+    display: flex;
+    &:not(:last-child) {
+      margin-bottom: 30rpx
+    }
+    
+
+    .form-item__label {
+      height: 60rpx;
+      font-size: 28rpx;
+      color: #000000;
+      line-height: 60rpx;
+      padding-right: 30rpx;
+      white-space: nowrap;
+    }
+    .form-item__value  {
+      flex: 1
+    }
+  }
+}
+
+.confirm {
+  width: 650rpx;
+  height: 366rpx;
+  background: #FFFFFF;
+  position: relative;
+  &__close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 96rpx;
+    height: 116rpx;
+    background: url('https://cdn-cos.coach.com.cn/uploads/2024/v4.2.4/icon_4.png') center/36rpx no-repeat;
+  }
+
+  &__header {
+    font-weight: 500;
+    font-size: 32rpx;
+    color: #000000;
+    line-height: 44rpx;
+    text-align: center;
+    padding: 120rpx 0 50rpx;
+  }
+
+  &__footer {
+    padding: 40rpx 50rpx;
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5);
+
+    .btn {
+      flex: 1;
+      height: 80rpx;
+      line-height: 80rpx;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+      font-size: 28rpx;
+      &.plain {
+        background-color: #fff;
+        color: #000;
+        border: 2rpx solid #000;
+        margin-right: 30rpx;
+      }
+    }
+  }
+}

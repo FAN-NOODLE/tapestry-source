@@ -1,0 +1,83 @@
+@import '~@/style/color-variable'
+
+.page-record-list
+  padding-bottom: vw(40)
+  .m-t-15
+    margin-top: vw(15)
+  .m-t-45
+    margin-top: vw(45)
+  .top-select
+    display: flex
+    justify-content: space-around
+    align-items: center
+    height: vw(44)
+    background: #FFFFFF
+    position: sticky
+    top: 0
+    left: 0
+    z-index: 8
+    // padding: 0 vw(15)
+    .select-item
+      display: flex
+      justify-content: center
+      align-items: center
+      font-size: vw(12)
+      color: #4A4A4A
+      width: vw(80)
+      padding: vw(10) 0
+      position: relative
+
+      .text-hid
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        max-width: calc(100% - 22rpx)
+
+      &.width-90
+        width: vw(90)
+      .time-style
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+      .font-500
+        font-family: PingFangSC-Medium, PingFang SC
+        font-weight: 500 
+      .picker-box
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        .picker
+          height: vw(48)
+          opacity: 0
+      .up-down
+        width: vw(7)
+        height: vw(4)
+        margin-left: vw(4)
+        position: relative
+        top: vw(1)
+      .reset-icon
+        width: vw(10)
+        height: vw(10)
+        margin-left: vw(4)
+        position: relative
+        top: vw(1)
+  .content-list
+    padding: vw(15) vw(15) 0
+  .empty
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    height: vw(200)
+    &-icon
+      margin-top: vw(10)
+      width: vw(66)
+      height: vw(66)
+
+  .wx-radio-input  
+    width: vw(17)
+    height: vw(16)
+  .wx-radio-input.wx-radio-input-checked::before
+    font-size: vw(18)   

@@ -1,0 +1,200 @@
+@import '../../../../style/color-variable'    
+
+.page-invite-detail
+  background-color: #F6F7F9
+  padding: vw(15) vw(15) vw(150)
+  .input-model
+    margin: vw(20) vw(10) vw(30)
+    .input-box
+      font-size: vw(14)
+      border: vw(1) solid #BDBEC8
+      padding: vw(5) vw(10)
+      line-height: vw(40)
+      height: vw(40)
+    .placeholder
+      color: #BDBEC8
+      font-weight: 400
+  .top-img
+    width: vw(315)
+    height: vw(107)
+    background: #F7F7F7
+  .flex-start-center
+    display: flex
+    justify-content: flex-start
+    align-items: center
+  .order-box
+    padding: vw(13) vw(15) !important 
+    background-color: #F3F4F6
+    .order-item
+      display: flex
+      justify-content: space-between
+      flex-direction: row
+    .item-label
+      flex-shrink: 0
+      color: #96979E 
+    .item-value
+      color: #000
+      word-break: break-all 
+    .star-box 
+      display: flex  
+      .star-item
+          display: flex
+          align-items: center 
+          margin-left: vw(4)
+          .star-icon
+            width: vw(17)
+            height: vw(16)
+    .item-box
+      display: flex 
+      .radio-icon 
+        .wx-radio-input  
+          width: vw(17)
+          height: vw(16)
+        .wx-radio-input.wx-radio-input-checked::before
+          // border-radius: 50%
+          // width: vw(14)
+          // height: vw(14)
+          // line-height: vw(14)
+          // text-align: center
+          font-size: vw(18)
+          // transform: translate(-50%, -50%) scale(1)
+      .radio-mr
+        margin-right: vw(24)   
+  .item-bottom
+    margin-bottom: vw(16)    
+  .font-500
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+  .m-r-10
+    margin-right: vw(10)
+  .content
+    // width: vw(345)
+    padding: vw(15) vw(15) vw(20)
+    background: white
+    .top-status
+      height: vw(55)
+      position: relative
+      &.has-image
+        height: vw(123)
+      &::after
+        content: ""
+        clear: both
+        position: absolute
+        bottom: 0
+        left: vw(-15)
+        width: vw(347)
+        height: vw(1)
+        background: #F0F0F0
+      .status-box
+        position: absolute
+        top: vw(8)
+        left: vw(-21)
+        width: vw(75)
+        height: vw(32)
+        .txt
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          color: #000
+          line-height: vw(32)
+          text-align: center
+          font-size: vw(14)
+          margin-top: vw(-2)
+        .bg-icon
+          width: vw(75)
+          height: vw(32)
+    .btn-wrapper
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin-top: vw(20)
+      padding-bottom: vw(10)
+      .btn
+        width: vw(150)
+        line-height: vw(44)
+        border: vw(1) solid #000000
+        font-size: vw(14)
+        font-weight: bold
+        text-align: center
+        &.disable
+          opacity: 0.6
+        &.gray
+          color: #96979E
+          border: 1px solid #96979E
+    .form-item
+      padding: vw(15) 0
+      line-height: vw(20)
+      font-size: vw(14)
+      // position: relative
+      &.has-line
+        border-bottom: 1px solid #F0F0F0 
+      .picker-box
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        .picker
+          height: vw(48)
+          opacity: 0
+      .label
+        flex-shrink: 0
+        color: #96979E
+        margin-right: vw(32)
+        .icon
+          width: vw(20)
+          height: vw(20)
+          margin-right: vw(6)
+      .value
+        color: #4A4A4A
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        word-break: break-all
+        .placeholder
+          color: #BDBEC8
+          flex-shrink: 0
+        .right-icon
+          width: vw(9)
+          height: vw(14)
+    .textarea-box
+      // width: vw(315)
+      // height: vw(119)
+      background: #F6F5F5
+      padding: vw(10)
+      .textarea
+        width: 100%
+        min-height: vw(119)
+        font-size: vw(14)
+        line-height: vw(20)
+      .placeholder-textarea
+        color: #BDBEC8
+  .footer-btn
+    padding: vw(20) vw(15) vw(34) 
+    background: #F7F7F7
+    position: fixed
+    bottom: 0
+    left: 0
+    z-index: 7
+    .btn
+      width: vw(345)
+      line-height: vw(44)
+      background: #4A4A4A
+      text-align: center
+      font-size: vw(14)
+      color: #FFFFFF
+      &.disable
+        opacity: 0.7
+  .empty
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    height: vw(200)
+    &-icon
+      margin-top: vw(10)
+      width: vw(66)
+      height: vw(66)   
+  

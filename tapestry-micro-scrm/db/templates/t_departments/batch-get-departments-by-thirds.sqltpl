@@ -1,0 +1,13 @@
+SELECT
+    `third_id`
+FROM
+    `departments`
+WHERE
+    1 = 1
+AND
+    `third_parent_id` IN ({{WhereIn .ids }})
+AND
+    `deleted_at` = 0
+AND
+    `enterprise_id` = :enterprise_id
+

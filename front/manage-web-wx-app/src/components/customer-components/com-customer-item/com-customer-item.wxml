@@ -1,0 +1,121 @@
+<!-- 我是客户卡片，用的地方太多了，所以被SB开发把我的几个兄弟姐妹揉搓到一起了，家人们谁懂啊
+  老大 - 顾客列表的客户卡片
+  老二 - 顾客分配的客户列表的客户卡片
+  老三 - 顾客分配的选择客户的客户卡片
+  老四 - 创建群发选择客户的顾客卡片 - 还未出生
+
+  来自老大的自言自语：
+  人生无常，大肠包小肠
+  我作为老大，长得还是很不错的，打扮打扮
+  没事去隔壁舅老爷家串串门
+  闲暇之际，还可以和邻村的小花打打电话，唠唠嗑
+  美滋滋～_～
+
+  老二沉默片刻后说道：
+  长得越来越接近老大，
+  而且还有更多的技能傍身了
+  
+
+  SBXB：你我皆是小白，何来互相成就
+
+
+-->
+<wxs module="computed" src="./com-customer-item.wxs"></wxs>
+
+<view wx:if="{{from == 2}}" class="com-item">
+  <view class="com-item__group {{isExpand ? 'expand' : 'collapse'}}">
+    <view class="com-item__card" wx:for="{{item.list}}" wx:for-item="card" wx:key="index">
+      <template is="com-item" data="{{item:card, imageHost, from, index}}"></template>
+    </view>
+  </view>
+    
+  <!-- footer -->
+  <view wx:if="{{item.list.length > 1}}" class="com-item__footer">
+    <view class="btn" bindtap="handleToggleExpand" >
+      {{isExpand?'收起全部':'显示剩余'+(item.list.length - 1) + '个'}}
+      <view class="icon-arrow-down {{isExpand?'up':''}}"></view>
+    </view>
+  </view>
+</view>
+
+<view wx:else class="com-item" data-item="{{item}}" bind:tap="{{from==1?'handleViewDetail':''}}">
+  <!-- 选择框 -->
+  <view wx:if="{{ (from == 3 && item.transfer_num > 0) || (from == 4 && item.is_relation == 1) }}" class="icon-check {{ item.checked ? 'active' : '' }}" bind:tap="handleCheck"></view>
+  <!-- from=1 新顾客角标 -->
+  <view wx:if="{{ from == 1 && item.is_new_inherit === 1 }}" class="com-item__label">新分配客</view>
+  <!-- 主要内容 -->
+  <template is="com-item" data="{{item, imageHost, from}}"></template>
+</view>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip"></mp-tooltip>
+
+<!-- 公共模版 -->
+<template name="com-item">
+  <!-- header -->
+  <view class="com-item__header">
+    <!-- 点击头像可以查看详情 -->
+    <image class="avatar" src="{{item.avatar}}" data-item="{{item}}" catch:tap="handleViewDetail" />
+    <view class="flex-1">
+      <!-- 客户信息 -->
+      <view class="top-one">
+        <view class="name name{{index||''}}" data-selector=".name{{index||''}}" data-content="{{item.nick}}" catch:tap="handleShowTooltip">{{item.nick}}</view>
+        <view class="line"></view>
+        <view class="remark">
+          <view class="remark-label">备注名：</view>
+          <view class="remark-value">
+            <view class="remark-text remark-text{{index||''}}" data-selector=".remark-text{{index||''}}" data-content="{{item.remark}}" catch:tap="handleShowTooltip">{{item.remark || '--'}}</view>
+          </view>
+        </view>
+        <!-- from=1 拨打电话 -->
+        <view wx:if="{{from == 1}}" class="phone" data-item="{{item}}" catchtap="handleMakePhoneCall">
+          <image class="phone-icon" src="{{imageHost}}/2022/v3.0.2/weclient/phone-right.png" />
+        </view>
+      </view>
+      <!-- 客户标签：会员，邀约，任务，券，专属 -->
+      <view class="top-two">
+        <mp-level class="level" level="{{item.customer_card||0}}" size="small"></mp-level>
+        <image wx:if="{{ item.valid_reserve_at > 0 }}" class="invited" src="{{imageHost}}/2023/v4.0.5/icon_invited.png" />
+        <image wx:if="{{ item.task_finish_at > 0 }}" class="task" src="{{imageHost}}/2023/v4.0.5/icon_task.png" />
+        <image wx:if="{{ item.coupon_by_30_days_status == 1 }}" class="coupon-1" src="{{imageHost}}/2023/v4.0.5/icon_coupon_1.png" />
+        <image wx:elif="{{ item.coupon_status == 1 }}" class="coupon" src="{{imageHost}}/2023/v4.0.5/icon_coupon.png" />
+        <view wx:if="{{ item.is_key_sa === 1 }}" class="tag">专属</view>
+        <!-- from=3 顾客分配 -->
+        <block wx:if="{{ from == 3 }}">
+          <view wx:if="{{item.transfer_num != -1}}" class="number"
+            >可分配{{item.transfer_num}}次</view
+          >
+          <view wx:if="{{item.transfer_num == -1}}" class="number">等待接替中</view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <!-- content -->
+  <view class="com-item__content">
+    <view class="com-item__col">
+      <image class="icon" src="{{imageHost}}/2022/v3.0.2/weclient/history-consumer.png " />
+      <view class="label">最近消费时间：</view>
+      <view class="value">{{item.last_purchase_date ? computed.formatDate(item.last_purchase_date * 1000, 'yyyy/MM/dd') : '--'}}</view>
+    </view>
+    <view class="com-item__col">
+      <image class="icon" src="{{imageHost}}/2022/v3.0.2/weclient/clt-icon.png" />
+      <view class="label">CLT类型：</view>
+      <view class="value">{{item.client_type || '--'}}</view>
+    </view>
+    <view class="com-item__col">
+      <image class="icon" src="{{imageHost}}/2022/v3.0.2/weclient/remark-icon.png" />
+      <view class="label">近1年消费：</view>
+      <view class="value">¥{{item.last_12m_purchase_amount}}</view>
+    </view>
+    <!-- from=2\3 顾客分配 -->
+    <view wx:if="{{ from==2 || from==3 }}" class="com-item__col">
+      <image class="icon" src="{{imageHost}}/2022/v3.0.2/weclient/customer-icon.png" />
+      <view class="label">添加顾问：</view>
+      <view class="value">{{item.member_name || '--'}}</view>
+    </view>
+    <view wx:else class="com-item__col">
+      <image class="icon" src="{{imageHost}}/2022/v3.0.2/weclient/customer-icon.png" />
+      <view class="label">所属顾问：</view>
+      <view class="value">{{item.key_sa_member_name || '--'}}</view>
+    </view>
+  </view>
+</template>

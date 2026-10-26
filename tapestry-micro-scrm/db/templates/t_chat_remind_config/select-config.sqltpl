@@ -1,0 +1,17 @@
+SELECT
+    id,
+    overtime,
+    receive_start,
+    receive_end,
+    notice_status,
+    stat_txt
+FROM
+    `chat_remind_config`
+WHERE
+    notice_type={{.cond.NoticeType}} AND
+    enterprise_id={{.cond.EnterpriseID}} AND
+    deleted_at=0
+ORDER BY
+    created_at DESC
+LIMIT 1;
+

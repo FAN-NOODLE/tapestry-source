@@ -1,0 +1,96 @@
+<wxs src="./record.wxs" module="tools"></wxs>
+<view class="allocation-record">
+  <view class="filter-container">
+    <!-- tabs -->
+    <com-tabs
+      active="{{active}}"
+      tabs="{{tabs}}"
+      bind:change="handleTabChange"
+      padding="12"
+      custom-class="tabs-class"
+      title-class="title-class"
+    ></com-tabs>
+    <view class="line"></view>
+    <view class="filter-time" bindtap="openDateSelect" id="filter-time">
+       {{ dateFilter && dateFilter.length > 0 ? tools.ellipsisText(create_date_text,4) : '创建时间' }}
+      <image class="image" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+    </view>
+  </view>
+  <view wx:if="{{recordList.length > 0}}" class="record-container">
+    <view class="record-list">
+      <view
+        wx:for="{{recordList}}"
+        wx:key="id"
+        data-item="{{item}}"
+        class="record-item"
+        bindtap="goDetail"
+      >
+        <view class="header">
+          <view class="title">分配ID：<text class="title-id">{{item.id}}</text></view>
+          <view class="status {{tools.getStatusConfig(item).className}}">{{item.errmsg}}</view>
+          <view class="desp-card">
+            <view class="card {{item.is_self === 1 ? 'myclass':''}}"
+              >{{item.is_self === 1 ?'我': item.member_name}}分配</view
+            >
+            <view class="card bg1">分配客户数：{{item.customers_numbers}}</view>
+            <view class="card bg2">接替导购：{{item.takeover_name}}</view>
+          </view>
+        </view>
+        <view class="container">
+          <view class="record-module">
+            <view class="label"
+              ><image
+                class="date-icon"
+                src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/date-icon.png"
+              />创建时间：</view
+            >
+            <view class="content">{{item.created_at || '- -'}}</view>
+          </view>
+          <view class="record-module">
+            <view class="label"
+              ><image
+                class="date-icon"
+                src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/date-icon.png"
+              />完成时间：</view
+            >
+            <view class="content">{{item.status !== 0 && item.updated_at || '- -'}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <mp-empty
+    wx:if="{{recordList.length === 0 && !isLoading}}"
+    slogan="暂无搜索结果"
+    icon="customer"
+    marginTop="80"
+  />
+  <!-- 到底提示 -->
+  <view class="bottom-tip" wx:if="{{recordList.length > 0 && !meta.isMore }}">已经到底了~</view>
+  <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+</view>
+<!-- 选择日期 -->
+<mp-datetime-picker
+  maxDate="{{maxDate}}" 
+  minDate="{{minDate}}" 
+  value="{{dateFilter}}"
+  show="{{isShowDate}}"
+  format="yyyy/MM/dd"
+  bind:reset="dateReset"
+  bind:confirm="dateConfirm"
+  bind:cancel="dateCancel"
+></mp-datetime-picker>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" content-custom-class="create-time-tips">
+  <view class="create-time">
+    {{create_date_text}}
+    <image
+      catch:tap="closeTips"
+      class="tips-close"
+      src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/tips-close.png"
+    />
+  </view>
+</mp-tooltip>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

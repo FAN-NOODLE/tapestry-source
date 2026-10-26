@@ -1,0 +1,6 @@
+INSERT INTO `drainage_contact_channel_labels`
+(
+ `id`, `enterprise_id`, `label_group_id`, `created_at`, `updated_at`, `deleted_at`, `channel_id`, `label_id`, `wx_tag_group_id`, `wx_tag_id`
+) VALUES (
+    :id, :enterprise_id, :label_group_id, :created_at, :updated_at, :deleted_at, :channel_id, :label_id, :wx_tag_group_id, :wx_tag_id
+);

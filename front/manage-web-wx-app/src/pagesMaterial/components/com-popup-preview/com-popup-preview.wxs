@@ -1,0 +1,59 @@
+function setName(name) {
+  if (!name) return name || ''
+  return name.split('.')[0]
+}
+function setCount(count) {
+  if (count > 10000) {
+    return (count / 10000).toFixed(1) + 'w'
+  } else if (count > 1000) {
+    return (count / 1000).toFixed(1) + 'k'
+  } else {
+    return count
+  }
+}
+function status(selection, item) {
+  if (!item) return 0
+  var ids = selection.map(function(val) { return val.id })
+  // 图片素材中有多张图片的，商品素材中有多张素材的
+  var isMergeImage = (item.type === 2 || item.type === 8) && item.merge_image && item.merge_image.length > 0
+  if (isMergeImage) {
+    var checkedLength = item.merge_image.filter(function(val) { return ids.indexOf(val.id) !== -1 })
+    if (checkedLength.length === item.merge_image.length) {
+      return 2
+    } else if (checkedLength.length > 0) {
+      return 1
+    } else {
+      return 0
+    }
+  } else {
+    if (ids.indexOf(item.id) !== -1) {
+      return 2
+    } else {
+      return 0
+    }
+  }
+}
+
+function isChecked(selection, item) {
+  if (selection.length === 0) return !!item.checked
+  var ids = selection.map(function(item) { return item.id })
+  return ids.indexOf(item.id) !== -1
+}
+
+function checked(selection, item) {
+  var value = status(selection, item)
+  if (value === 2) {
+    return 'active'
+  } else if (value === 1) {
+    return 'active--half'
+  } else {
+    return ''
+  }
+}
+module.exports = {
+  status: status,
+  isChecked: isChecked,
+  checked: checked,
+  setName: setName,
+  setCount: setCount
+}

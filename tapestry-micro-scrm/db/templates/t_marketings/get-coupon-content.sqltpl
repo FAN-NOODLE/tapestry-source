@@ -1,0 +1,1 @@
+SELECT  c.`content` FROM `marketing_strategy_channels` c LEFT JOIN `marketing_strategies` s  ON c.`strategy_id` = s.`id` WHERE c.`channel_type` = 3 AND s.`strategy_type` = 1 AND s.`start_time` <=? AND s.`end_time`>? AND s.`deleted_at` = 0;

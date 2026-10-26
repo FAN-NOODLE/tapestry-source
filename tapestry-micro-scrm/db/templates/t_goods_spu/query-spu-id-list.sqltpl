@@ -1,0 +1,24 @@
+select
+  `id`,
+  `spu_id`,
+  `source_id`,
+  `spu_name`,
+  `spu_sn`,
+  `short_title`,
+  `sell_point`,
+  `sales`,
+  `status`,
+  `category_id`,
+  `category_name`,
+  `create_time`,
+  `enterprise_id`,
+  `picture`,
+  `default_attribute`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from `goods_spu`
+where
+    `spu_id` in ({{WhereIn .spu_list}})
+and
+    `deleted_at` = {{.deleted_at}}

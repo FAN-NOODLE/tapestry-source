@@ -1,0 +1,6 @@
+<mp-movable custom-class="entry" bottom="150" right="0">
+  <view class="com-create-entry {{show?'show':'hide'}}" bind:tap="onClick">
+    <view class="com-create-entry__icon"></view>
+    <view class="com-create-entry__text">会员查询</view>
+  </view>
+</mp-movable>

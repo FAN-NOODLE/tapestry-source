@@ -1,0 +1,23 @@
+
+SELECT
+	fepr.fission_user_id,
+	fepr.deliver_address,
+	fepr.deliver_mobile,
+	fepr.deliver_name,
+	ferp.deliver_area,
+	fepr.created_at AS exchange_time,
+	fp.name AS prize_name,
+	fp.pic  AS img_url
+FROM
+
+`fission_exchange_prize_records` fepr
+
+LEFT JOIN  `fission_prize`  fp  ON fepr.prize_id = fp.id
+
+WHERE
+fepr.enterprise_id = {{.cond.EnterpriseID}}
+AND fepr.activity_id = {{.cond.ActivityID}}
+AND fepr. fission_user_id = {{.cond.FissionUserID}}
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

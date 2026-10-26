@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `fission_activity`;
+DROP TABLE IF EXISTS `fission_assistant_records`;
+DROP TABLE IF EXISTS `fission_chat_group`;
+DROP TABLE IF EXISTS `fission_exchange_prize_records`;
+DROP TABLE IF EXISTS `fission_members`;
+DROP TABLE IF EXISTS `fission_mutual_relation`;
+DROP TABLE IF EXISTS `fission_prize`;
+DROP TABLE IF EXISTS `fission_user`;
+DROP TABLE IF EXISTS `enterprise_config`;
+DROP TABLE IF EXISTS `fission_mp_user`;

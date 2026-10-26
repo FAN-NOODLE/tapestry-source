@@ -1,0 +1,21 @@
+SELECT
+	id
+FROM
+	`work_external_user_relation`
+WHERE
+	`deleted_at` = 0
+	AND `work_external_user_id` = :work_user_id
+	AND `relation_status` = 0
+	AND `state` != ''
+	AND EXISTS (
+	SELECT
+		*
+	FROM
+		`drainage_contacts`
+	WHERE
+	drainage_contacts.`id` = work_external_user_relation.`state`
+	AND `deleted_at` = 0
+	{{if ne .channel_id 0}}
+        AND `channel_id` = :channel_id
+    {{end }}
+ )

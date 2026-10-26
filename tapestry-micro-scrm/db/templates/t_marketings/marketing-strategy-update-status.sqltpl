@@ -1,0 +1,23 @@
+UPDATE marketing_strategies SET
+{{if ne .cond.StrategyStatus 0}}
+`strategy_status` = :strategy_status,
+{{end}}
+{{if ne .cond.Status 0}}
+`status` = :status,
+{{end}}
+{{if ne .cond.IsFinished 0}}
+`is_finished` = :is_finished,
+{{end}}
+{{if ne .cond.StartTime 0}}
+`start_time` = :start_time,
+{{end}}
+{{if ne .cond.EndTime 0}}
+`end_time` = :end_time,
+{{end}}
+{{if eq .cond.AbnormalPause 2}}
+`abnormal_pause` = 0,
+{{end}}
+{{if eq .cond.AbnormalPause 1}}
+`abnormal_pause` = 1,
+{{end}}
+`updated_at` = :updated_at WHERE `id` = :id

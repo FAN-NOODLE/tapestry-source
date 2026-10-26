@@ -1,0 +1,9 @@
+UPDATE
+    `work_external_tag`
+SET
+    `name` = :tag_name,
+    `updated_at` = :updated_at
+WHERE
+    `enterprise_id` = :enterprise_id AND
+    `id` = :id AND
+    `deleted_at` = 0

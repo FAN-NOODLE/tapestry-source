@@ -1,0 +1,59 @@
+
+<view class="container">
+  
+  <view class="header">
+    <navigation-bar text="顾客列表" back="{{true}}" throughTop="{{false}}" bg-color="#ffffff" color="#000000" backActive="goback"></navigation-bar>
+    <!-- 添加顾客、筛选 -->
+    <mp-search bind:blur="inputBlur">
+      <view class="search-item" bind:tap="handleFilter">
+        <view class="search-item__icon">
+          <image class="image" src="{{imageHost}}2023/v4.0.5/icon_filter.png" mode="aspectFill" />
+          <view wx:if="{{filter.count}}" class="search-item__tag">{{filter.count}}</view>
+        </view>
+        <view class="customer-add flex">
+          筛选
+          <image class="image" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+        </view>
+      </view>
+    </mp-search>
+  </view>
+  <view class="content">
+    <scroll-view class="scroll-view" scroll-y="{{true}}" bind:scroll="handleScroll" bind:scrolltolower="loadMore">
+      <com-section current="{{filter.value.manage_type || 0}}" bind:change="handleSectionChange">
+        <view class="customer-total">共{{meta.total}}位顾客</view>
+      </com-section>
+      <!-- 顾客列表 -->
+      <view wx:if="{{list.length > 0}}" class="list">
+        <block wx:for="{{list}}" wx:key="index">
+          <com-customer-item item="{{item}}"></com-customer-item>
+        </block>
+          
+        <!-- 加载更多 -->
+        <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+      </view>
+      <!-- 空组件 -->
+      <mp-empty wx:if="{{list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+        
+    </scroll-view>
+  </view>
+
+</view>
+
+<filter-popup 
+  id="filter-popup" 
+  show="{{filter.show}}" 
+  value="{{filter.value}}" 
+  exclude="{{exclude}}"
+  currentPage="{{4}}"
+  bind:close="handleFilterClose" 
+  bind:confirm="handleFilterConfirm"
+></filter-popup>
+
+<!-- 创建群发 -->
+<com-create-entry id="com-create-entry" bind:click="handleCreate"></com-create-entry>
+<!-- todo:会员查询 -->
+<com-search-entry id="com-search-entry" bind:click="handleSearchMember"></com-search-entry>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

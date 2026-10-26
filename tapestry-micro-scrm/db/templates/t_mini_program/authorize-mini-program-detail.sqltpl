@@ -1,0 +1,6 @@
+SELECT
+	`id`
+FROM
+	`mini_program`
+WHERE `enterprise_id` = ?
+AND `type`=2

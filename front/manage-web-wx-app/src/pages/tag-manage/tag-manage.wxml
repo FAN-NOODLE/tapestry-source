@@ -1,0 +1,41 @@
+<view class="page-tag-manage">
+  <view class="add-box" bindtap="openModal">
+    <image class="add-img" src="https://img-crs.vchangyi.com/store-manage-wxapp/tag_add_icon.png" />
+    <text>新建标签</text>
+  </view>
+  <!-- 标签列表 -->
+  <view class="tag-list-box" wx:if="{{guideLabel.length > 0}}">
+    <view class="tag-item" wx:for="{{guideLabel}}" wx:key="index">
+      <view class="tag-left">
+        <text class="tag-name">{{item.tag_name}}</text>
+        <text class="tag-num">({{item.user_num}})</text>
+      </view>
+      <view class="tag-right" data-id="{{item.tag_id}}" bindtap="openDeleteModal">
+        <image class="delete-icon" src="https://img-crs.vchangyi.com/store-manage-wxapp/tag_delete_icon.png" />
+      </view>
+    </view>
+  </view>
+  <!-- 到底提示 -->
+  <view class="bottom-tip" wx:if="{{guideLabel.length > 0}}">已经到底了~</view>
+  <!-- 新增标签弹框 -->
+  <view class="modal-box" wx:if="{{modalShow}}">
+    <view class="modal-page" style="bottom: {{bottom}}">
+      <view class="close-box" catchtap="closeModal">
+        <image class="close-img" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" />
+      </view>
+      <view class="modal-title">输入标签名称</view>
+      <input bindinput="tagChange" maxlength="10" class="tag-input" type="text" placeholder="输入该客户的标签" value="{{ currenInput }}" bindfocus="changePosition1" bindblur="changePosition2" />
+      <view class="error-txt">{{errorText}}</view>
+      <view class="add-btn {{!currenInput ? 'no-text-btn':''}}" bindtap="addCustomerUsertag">
+        完成
+      </view>
+    </view>
+    <!-- 遮罩 -->
+    <view class="modal-mask {{show ? 'mask-show':''}}" catchtap="closeModal"></view>
+  </view>
+  <!-- 标签删除二次确认弹框 -->
+  <message-modal show="{{ showDeleteModal }}" description="你确定要删除该标签吗？" descriptionTwo="删除后该标签将不再对任何顾客使用" catchtouchmove="stopPageScroll" bindclose="closeDeleteModel" bindcancel="closeDeleteModel" bindsure="deleteCustomerUsertag"></message-modal>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

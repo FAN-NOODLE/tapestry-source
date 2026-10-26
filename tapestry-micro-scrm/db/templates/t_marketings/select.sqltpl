@@ -1,0 +1,67 @@
+SELECT
+    marketing_strategies.`id`,
+    marketing_strategies.`strategy_name`,
+    marketing_strategies.`customer_group_id`,
+    marketing_strategies.`enterprise_id`,
+    marketing_strategies.`admin_id`,
+    marketing_strategies.`strategy_method`,
+    marketing_strategies.`strategy_policy`,
+    marketing_strategies.`strategy_status`,
+    marketing_strategies.`status`,
+    marketing_strategies.`is_finished`,
+    marketing_strategies.`strategy_type`,
+    marketing_strategies.`start_time`,
+    marketing_strategies.`end_time`,
+    marketing_strategies.`setting_day`,
+    marketing_strategies.`history_status`,
+    IFNULL(user_group.`name`,"") as `customer_group_name`,
+    IFNULL(marketing_strategy_trigger_count.`count`, 0) AS trigger_count,
+    IFNULL(GROUP_CONCAT(distinct marketing_strategy_channels.`channel_type` SEPARATOR ','),'') as `channels_text`
+
+FROM
+    marketing_strategies
+    LEFT JOIN marketing_strategy_channels ON marketing_strategy_channels.`strategy_id` = marketing_strategies.`id` AND marketing_strategy_channels.`deleted_at` = 0
+    LEFT JOIN user_group ON user_group.`id` = marketing_strategies.`customer_group_id`
+    LEFT JOIN `marketing_strategy_trigger_count` ON marketing_strategy_trigger_count.strategy_id = marketing_strategies.`id`
+WHERE
+    marketing_strategies.deleted_at = 0 AND
+    marketing_strategies.enterprise_id = :enterprise_id
+{{if ne .cond.CustomerGroupID 0}}
+    AND marketing_strategies.customer_group_id = :customer_group_id
+{{end}}
+{{if ne .cond.StrategyName ""}}
+    AND marketing_strategies.strategy_name LIKE :strategy_name
+{{end}}
+{{if ne .cond.StrategyType 0}}
+    AND marketing_strategies.strategy_type = :strategy_type
+{{end}}
+{{if ne .cond.StrategyPolicy 0}}
+    AND marketing_strategies.strategy_policy = :strategy_policy
+{{end}}
+{{if ne .cond.StrategyStatus 0}}
+    AND marketing_strategies.strategy_status = :strategy_status
+{{end}}
+
+    {{if ne .cond.StrategyStatusMultiCnt 0}}
+        AND marketing_strategies.strategy_status IN ({{WhereIn .cond.StrategyStatusMulti}})
+    {{end}}
+
+{{if ne .cond.StrategyMethod 0}}
+    AND marketing_strategies.strategy_method = :strategy_method
+{{end}}
+{{if ne .cond.StartTime 0}}
+    AND marketing_strategies.start_time >= :start_time AND marketing_strategies.start_time <= :end_time
+{{end}}
+{{if ne .cond.CurrentTime 0}}
+    AND (marketing_strategies.start_time <= {{.cond.CurrentTime}} AND marketing_strategies.end_time >= {{.cond.CurrentTime}})
+{{end}}
+GROUP BY
+    marketing_strategies.`id`,user_group.`name`, marketing_strategies.`created_at`
+{{if .cond.Channels}}
+    HAVING LOCATE({{.cond.Channels}}, channels_text) > 0
+{{end}}
+ORDER BY
+    marketing_strategies.`created_at` DESC
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

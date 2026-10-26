@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "filter-selection": "../filter-selection/filter-selection",
+    "com-tip-popup": "../com-tip-popup/com-tip-popup",
+    "mp-datetime-picker": "../../common/mp-datetime-picker/index"
+  }
+}

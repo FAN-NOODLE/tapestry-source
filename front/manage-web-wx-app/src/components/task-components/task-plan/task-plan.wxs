@@ -1,0 +1,30 @@
+
+/** 根据状态取不同颜色 */
+function calcStatusInfo(status, key) {
+  // status详情
+  var statusInfo = [
+    { name: '待完成', class: 'is-error' },
+    { name: '已完成', class: 'is-success' },
+    { name: '已过期', class: 'is-load' }
+  ]
+  return statusInfo[status] ? statusInfo[status][key] : ''
+}
+// 获取已完成百分比
+function getPercent(finish_num, all_num) {
+  return Math.ceil(finish_num / all_num * 100)
+}
+// 根据进度百分比获取颜色
+function getColor(finish_num, all_num) {
+  var percent = Math.ceil(finish_num / all_num * 100)
+  if (percent <
+    100) {
+    return '#E6B8B8'
+  } else {
+    return '#BBD1A7'
+  }
+}
+module.exports = {
+  calcStatusInfo: calcStatusInfo,
+  getPercent: getPercent,
+  getColor: getColor
+}

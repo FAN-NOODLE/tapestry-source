@@ -1,0 +1,14 @@
+<view class="select-sow-type">
+  <view class="value" bind:tap="handleClick">
+    <image class="icon" mode="widthFix" src="https://cdn-cos.coach.com.cn/uploads/2024/v4.2.4/icon_1.png"></image>
+    <view wx:if="{{current !== -1}}" class="text">{{list[current].name}}</view>
+    <view wx:else class="text placeholder">选择播种类型</view>
+    <text class="icon-arrow-right {{showPopup?'show':''}}"></text>
+  </view>
+  <view wx:if="{{showPopup}}" class="popup">
+    <scroll-view class="list" scroll-y>
+      <view class="item {{current===index?'active':''}}" wx:for="{{list}}" wx:key="index" data-index="{{index}}" bind:tap="handleSelect">{{item.name}}</view>
+    </scroll-view>
+  </view>
+  <view wx:if="{{showPopup}}" class="mask" bind:tap="handleClick"></view>
+</view>

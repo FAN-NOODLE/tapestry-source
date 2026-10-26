@@ -1,0 +1,21 @@
+SELECT
+	count(id) as count
+FROM
+	sms_sign
+WHERE
+	`deleted_at` = 0
+    {{if eq .cond.SearchType 1}}
+        {{if ne .cond.SearchText ""}}
+            AND `sign_name` LIKE '%{{SafeStr .cond.SearchText}}%'
+        {{end}}
+    {{end}}
+    {{if eq .cond.SearchType 2}}
+        {{if ne .cond.SearchText ""}}
+            AND `id` LIKE '%{{SafeStr .cond.SearchText}}%'
+        {{end}}
+    {{end}}
+    {{if ne .cond.Status 0}}
+        AND `third_sign_status` = :third_sign_status
+    {{end}}
+    AND (`enterprise_id` = :enterprise_id or enterprise_id = 0)
+ORDER BY `id` DESC

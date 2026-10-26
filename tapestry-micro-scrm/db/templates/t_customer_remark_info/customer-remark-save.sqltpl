@@ -1,0 +1,29 @@
+{{if .cond.UpdatedAt}}
+
+    UPDATE
+        `customer_remark_info`
+    SET
+        `user_id`= :user_id,
+        `enterprise_id`= :enterprise_id,
+        `age`= :age,
+        `birthday`= :birthday,
+        `birthday_date`= :birthday_date,
+        `gender`= :gender,
+        `mobile`= :mobile,
+        `email`= :email,
+        `qq`= :qq,
+        `describe`= :describe,
+        `updated_at`= :updated_at
+    WHERE
+        `user_id`=:user_id;
+
+{{else}}
+
+    INSERT INTO 
+        `customer_remark_info`
+        (`user_id`, `enterprise_id`, `age`, `birthday`, `birthday_date`, `gender`, `mobile`, `email`, `qq`, `describe`, `created_at`)
+    VALUES
+        (:user_id, :enterprise_id, :age, :birthday, :birthday_date, :gender, :mobile, :email, :qq, :describe, :created_at);
+
+{{end}}
+

@@ -1,0 +1,11 @@
+SELECT
+    id
+FROM
+	work_external_user_relation
+WHERE
+	work_external_user_id = ?
+	AND
+	state = ?
+	AND
+	enterprise_id = ?
+	LIMIT 1

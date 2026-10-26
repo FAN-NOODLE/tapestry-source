@@ -1,0 +1,9 @@
+UPDATE
+  `shop_member_level`
+SET
+  `level_id` = :level_id,
+  `level` = :level,
+  `level_name` = :level_name,
+  `updated_at` = :updated_at
+WHERE
+  `id` = :id

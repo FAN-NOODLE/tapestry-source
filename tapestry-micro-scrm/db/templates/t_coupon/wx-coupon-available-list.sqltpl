@@ -1,0 +1,21 @@
+SELECT
+	*
+FROM
+	`wx_coupon`
+WHERE
+	`enterprise_id` = {{.cond.EnterpriseID}}
+	{{if ne .cond.CouponName ""}}
+        AND `coupon_name` like '{{SafeStr .cond.CouponName}}%'
+    {{end}}
+    {{if ne .cond.StockID ""}}
+        AND `coupon_stock_id` like '{{SafeStr .cond.StockID}}%'
+    {{end}}
+    AND coupon_status = 2
+    {{if ne .cond.EndTime 0}}
+        AND start_time < {{.cond.EndTime}}
+    {{end}}
+    {{if ne .cond.StartTime 0}}
+        AND end_time > {{.cond.StartTime}}
+    {{end}}
+    AND end_time > {{.cond.NowTime}}
+	AND deleted_at = 0

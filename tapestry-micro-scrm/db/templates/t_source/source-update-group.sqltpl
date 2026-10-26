@@ -1,0 +1,6 @@
+UPDATE
+    `source`
+SET
+    group_id = -1
+WHERE
+    group_id = ?

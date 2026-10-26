@@ -1,0 +1,15 @@
+/* components/common/mp-movable/index.wxss */
+
+.movable-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  .movable-view {
+    pointer-events: auto; //可以点击
+  }
+}

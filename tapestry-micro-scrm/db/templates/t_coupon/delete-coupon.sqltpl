@@ -1,0 +1,1 @@
+UPDATE wx_coupon SET `deleted_at` = :deleted_at WHERE `coupon_id` = :coupon_id AND `enterprise_id` = :enterprise_id

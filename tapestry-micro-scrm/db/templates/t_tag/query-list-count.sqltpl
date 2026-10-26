@@ -1,0 +1,12 @@
+select
+  count(*) as count
+from
+    `tag`
+where
+    `enterprise_id` = {{.cond.EnterpriseID}}
+{{if .cond.Search}}
+and
+    `tag_name` like "%{{SafeStr .cond.Search}}%"
+{{end}}
+and
+    `deleted_at` = 0

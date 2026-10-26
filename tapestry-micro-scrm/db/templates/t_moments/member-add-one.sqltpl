@@ -1,0 +1,5 @@
+INSERT INTO
+    `moment_members`
+( `id`, `member_id`, `name`, `sign`, `mark`, `avatar`, `background`, `enterprise_id`, `created_at`, `updated_at`, `deleted_at` )
+    VALUES
+( :id, :member_id, :name, :sign, :mark, :avatar, :background, :enterprise_id, :created_at, :updated_at, :deleted_at )

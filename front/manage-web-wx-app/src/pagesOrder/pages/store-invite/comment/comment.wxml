@@ -1,0 +1,99 @@
+<view class="empty" wx:if="{{showLoading}}">
+		<image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif" />
+	</view>
+<view wx:elif="{{errPage && !showLoading}}" class="height-100">
+	<mp-empty center="{{true}}" slogan="{{errMsg || '服务异常，请重试' }}" icon="order" />
+</view>
+<view wx:else class="page-comment {{notShare ? 'page-comment-height' : 'page-comment-pd'}}">
+	<view class="comment-box">
+		<view class="txt">
+			尊敬的顾客，您好！感谢您于{{storeDate}}到店，请留下您对此次到店的体验评价：
+		</view>
+		<view class="from-item">
+			<view class="label">活动安排：</view>
+			<image
+			 data-index="{{index}}"
+			 data-key="serverIndex"
+			 bindtap="clickScore"
+			 class="star-item"
+			 wx:for="12345"
+			 wx:key="index"
+			 src="{{serverIndex >= index ? 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/checked_star_icon.png' : 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/unchecked_star_icon.png'}}"
+			/>
+		</view>
+		<view class="from-item">
+			<view class="label">整体服务：</view>
+			<image
+			 data-index="{{index}}"
+			 data-key="storeIndex"
+			 bindtap="clickScore"
+			 class="star-item"
+			 wx:for="12345"
+			 wx:key="index"
+			 src="{{storeIndex >= index ? 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/checked_star_icon.png' : 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/unchecked_star_icon.png'}}"
+			/>
+		</view>
+		<view class="textarea-box">
+			<textarea
+			 value="{{remark}}"
+			 bindinput="changeInput"
+			 disabled="{{isDisabled}}"
+			 maxlength="200"
+			 class="textarea"
+			 placeholder="请输入备注信息"
+			 placeholder-class="placeholder-textarea"
+			/>
+			</view>
+  </view>
+
+  <view class="record-box" wx:if="{{!notShare}}">
+    <view class="title">服务预约单记录</view>
+
+    <view class="status-box-left">
+      <image class="bg-icon" src="{{statusList[orderInfo.status].status_bg}}" />
+      <view class="txt status-txt">{{statusList[orderInfo.status].status_name}}</view>
+    </view>
+
+    <view class="form-item">
+        <view class="label">到店时间</view>
+        <view class="value">{{orderInfo.reserve_time_str}}</view>
+    </view>
+    <view class="form-item m-t-15">
+      <view class="label">服务类型</view>
+      <view class="value">{{orderInfo.serve_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+      <view class="label">邀约导购</view>
+      <view class="value">{{orderInfo.member_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+        <view class="label">邀约门店</view>
+        <view class="value">{{orderInfo.store_name}}</view>
+    </view>
+    <view class="form-item m-t-15">
+      <view class="label">门店地址</view>
+      <view class="value">{{orderInfo.store_address}}</view>
+    </view>
+  </view>
+
+  <!-- 如果是企微端通过微信卡片打开，不能进行操作 -->
+  <view class="footer-btn {{!notShare ? 'footer-btn-btm' : ''}}" wx:if="{{!wxwork}}">
+    <view class="btn font-500" data-type="confirm" bindtap="confirmOrder" wx:if="{{!isDisabled}}">确认</view>
+    <view class="btn font-500" data-type="modify" bindtap="modifyComment" wx:else>修改评价</view>
+  </view>
+  <!-- 状态说明弹窗 -->
+  <message-modal
+    show="{{showConfirmModal}}"
+    description=""
+    descriptionTwo="{{confirmDescTwo}}"
+    bindclose="cancelModel"
+    bindcancel="cancelModel"
+    bindsure="sureData"
+    isCatchFun="true"
+  ></message-modal>
+  
+</view>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,18 @@
+SELECT
+ `id`, `strategy_id`, `channel_type`, `junior_id`, `content`, `order`, `created_at`, `updated_at`, `deleted_at`
+FROM `marketing_strategy_channels` AS `msc`
+WHERE
+    `msc`.`deleted_at` = 0
+    {{if ne .cond.StrategyID 0}}
+AND `strategy_id` = :strategy_id
+    {{end }}
+
+    {{if ne .cond.StrategyIdCount 0}}
+AND `strategy_id` IN ({{WhereIn .cond.StrategyIds}})
+    {{end }}
+
+    {{if ne .cond.ChannelType 0}}
+AND `channel_type` = :channel_type
+    {{end }}
+
+;

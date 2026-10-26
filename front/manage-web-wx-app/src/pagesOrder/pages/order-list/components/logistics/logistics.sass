@@ -1,0 +1,106 @@
+@import '../../../../../style/color-variable'
+
+.logistics-popup
+    width: vw(315)
+    height: vw(449)
+    margin: 0 auto
+    border-radius: vw(10)
+    background-color: #FFFFFF
+
+    &-content
+        height: 100%
+        display: flex
+        flex-direction: column
+        padding: vw(15) vw(10) vw(20) vw(15)
+
+        &-header
+            color: #000000
+            font-size: vw(14)
+            line-height: vw(20)
+            position: relative
+            display: flex
+            justify-content: center
+
+            image
+                width: vw(20)
+                height: vw(20)
+                position: absolute
+                right: 0
+                top: 0
+
+        &-order_no
+            color: #000000
+            font-size: vw(14)
+            line-height: vw(20)
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin-top: vw(25)
+
+            &-main
+                display: flex
+
+                .default_expressage
+                    width: vw(20)
+                    height: vw(20)
+                    margin-right: vw(11)
+
+                &-name
+                    font-weight: 600
+                    margin-right: vw(6)
+
+            &-copy
+                border: 1px solid #000000
+                width: vw(34)
+                height: vw(20)
+                display: flex
+                align-items: center
+                justify-content: center
+                font-size: vw(11)
+                line-height: vw(16)
+                box-sizing: border-box
+                font-weight: 600
+
+    &-body
+        flex: 1
+        margin-top: vw(20)
+        overflow: hidden
+
+        .scroll-view
+            height: 100%
+            display: flex
+            justify-content: flex-end
+            align-items: flex-end
+
+        &-item
+            color: #A6A6A6
+            font-size: vw(14)
+            line-height: vw(20)
+            padding-bottom: vw(20)
+            padding-left: vw(19)
+            border-left: vw(1) dashed #E4E4E4
+            position: relative
+            margin-left: vw(10)
+
+            &:first-child
+                color: #000000
+                font-weight: 600
+            
+            &:last-child
+                border: none
+            
+            &-block
+                width: vw(10)
+                height: vw(10)
+                background: #D8D8D8
+                transform: rotate(45deg)
+                position: absolute
+                left: vw(-6)
+                top: vw(5)
+            
+            .first
+                background: #000000
+
+            &-time
+                margin-top: vw(5)
+                font-weight: normal !important

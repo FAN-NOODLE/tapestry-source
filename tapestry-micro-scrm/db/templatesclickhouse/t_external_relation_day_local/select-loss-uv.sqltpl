@@ -1,0 +1,21 @@
+select
+	uniqExact(external_user_id) AS relation_num
+from
+	(
+	select
+		external_user_id,
+		max(del_time) as max_del_time,
+		countIf(1,
+		del_time = 0) as retain
+	from
+		external_relation_day final
+	where
+		add_time < :end_at
+		and (del_time > :start_at
+		or del_time = 0)
+		AND corp_id = :corp_id
+	group by
+		external_user_id ) userb
+where
+	retain = 0
+	and max_del_time < :end_at

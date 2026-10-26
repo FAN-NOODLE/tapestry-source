@@ -1,0 +1,17 @@
+<mp-movable custom-class="entry" bottom="{{bottom}}" right="0">
+	<view wx:if="{{type==3}}" class="com-create-entry {{show?'show':'hide'}}" bind:tap="onClick">
+		<view class="icon-back">
+        <image class="back" mode="aspectFit" src="../../../images/customer/back.png"></image>
+		</view>
+		<view class="com-create-entry__text">返回素材库</view>
+	</view>
+	<view wx:elif="{{type==2}}" class="com-create-entry {{show?'show':'hide'}}" bind:tap="onClick">
+		<view class="icon-collect" />
+		<view class="com-create-entry__text">我的收藏</view>
+	</view>
+	<view wx:else class="com-create-entry {{show?'show':'hide'}}" bind:tap="onClick">
+		<view class="icon-add" />
+		<view class="com-create-entry__text">上传素材</view>
+	</view>
+</mp-movable>
+

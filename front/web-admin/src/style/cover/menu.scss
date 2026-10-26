@@ -1,0 +1,31 @@
+.menu-popper{
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  top: 50px !important;
+  margin: 0 !important;
+  border-radius: 0;
+  box-sizing: border-box;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  background: #000000;
+  border: 1px solid #000000;
+  ul{
+    border-radius: 8px;
+  }
+  
+  li{
+    border-radius: 8px;
+  }
+  
+}
+.menu-popper::-webkit-scrollbar-thumb{
+  border-radius: 10px !important;
+  background-color: #ebeff5 !important;
+}
+.menu-popper::-webkit-scrollbar{
+    width: 8px;
+    background-color: #000000;
+}
+.logo-hover {
+  padding: 0 !important;
+}

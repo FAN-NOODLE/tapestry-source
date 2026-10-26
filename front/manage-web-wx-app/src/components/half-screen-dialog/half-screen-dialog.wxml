@@ -1,0 +1,9 @@
+<view>
+    <!-- 蒙层 -->
+    <view class="mask custom-mask" wx:if="{{show}}" catchtouchmove="true"></view>
+
+    <!-- 内容 -->
+    <view class="half-screen-dialog custom-dialog {{show ? 'half-screen-dialog_show' : ''}}">
+        <slot name="body"></slot>
+    </view>
+</view>

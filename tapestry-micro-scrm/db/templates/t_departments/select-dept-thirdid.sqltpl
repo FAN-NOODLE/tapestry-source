@@ -1,0 +1,1 @@
+SELECT * FROM departments WHERE deleted_at = ? AND enterprise_id = ? AND third_id = ? LIMIT 1;

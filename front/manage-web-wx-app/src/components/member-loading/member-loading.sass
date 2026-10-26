@@ -1,0 +1,63 @@
+
+@import '~@/style/color-variable'
+.page-loading
+  position: fixed
+  z-index: 100
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  display: flex
+  flex-direction: column
+  width: vw(243)
+  height: vw(146)
+  margin: auto
+  padding: vw(40) vw(15) 0 vw(15)
+  border-radius: vw(8)
+  background: $color-white
+  box-shadow: 0 0 vw(7) 0 rgba(0,0,0,.1)
+
+  align-items: center
+  .load-img
+    // transform: scale(0.8)
+    width: vw(40)
+    height: vw(40)
+    image
+      width: vw(40)
+      height: vw(40)
+  .text
+    margin-top: vw(23)
+    line-height: vw(17)
+    color: $color-7f
+@keyframes bounceIn
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  to
+    animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+  0%
+    transform: rotate(0deg)
+  10%
+    transform: rotate(36deg)
+  20%
+    transform: rotate(36 * 2deg)
+  30%
+    transform: rotate(36 * 3deg)
+  40%
+    transform: rotate(36 * 4deg)
+  50%
+    transform: rotate(36 * 5deg)
+  60%
+    transform: rotate(36 * 6deg)
+  70%
+    transform: rotate(36 * 7deg)
+  80%
+    transform: rotate(36 * 8deg)
+  90%
+    transform: rotate(36 * 9deg)
+  100%
+    transform: rotate(36 * 10deg)
+  to
+    transform: rotate(36 * 10deg)

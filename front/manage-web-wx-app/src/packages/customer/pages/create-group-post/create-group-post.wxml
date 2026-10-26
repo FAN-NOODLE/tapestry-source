@@ -1,0 +1,77 @@
+<view class="container">
+  <view class="header">
+    <navigation-bar text="创建群发" back="{{true}}" throughTop="{{false}}" bg-color="#ffffff" color="#000000" backActive="goback"></navigation-bar>
+    <!-- 添加顾客、筛选 -->
+    <mp-search wx:if="{{options.from == 1}}" bind:blur="handleSearchConfirm">
+      <view class="justify-space-between">
+        <view wx:if="{{!filter.show}}" class="search-item" bindtap="handleFilterPopupShow">
+          <view class="search-item__icon">
+            <image class="image" src="{{imageHost}}2023/v4.0.5/icon_filter.png" />
+            <view wx:if="{{filter.count}}" class="search-item__tag">{{filter.count}}</view>
+          </view>
+          <view class="customer-add flex">
+            筛选
+            <image class="image" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+          </view>
+        </view>
+      </view>
+    </mp-search>
+  </view>
+  <view class="seation">
+    <view class="total">共{{meta.total}}位顾客</view>
+    <view class="tips" bind:tap="handleOnlyViewRelation">
+      <view class="icon-check {{ isRelation ? 'active' : '' }}"></view>
+      <view>仅看好友 <text wx:if="{{options.from == 1}}">（{{relationCount}}）</text></view>
+    </view>
+  </view>
+  <!-- 顾客列表 -->
+  <view wx:if="{{list.length > 0}}" class="list">
+    <block wx:for="{{list}}" wx:key="index">
+      <com-customer-item item="{{item}}" from="{{4}}" data-index="{{index}}" bind:check="hanldeCheckOne"></com-customer-item>
+    </block>
+      
+    <!-- 加载更多 -->
+    <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+  </view>
+  <!-- 空组件 -->
+  <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+  <!-- footer -->
+  <mp-footer zIndex="4">
+    <view class="footer">
+      <view class="check-all" bind:tap="handleCheckAll">
+        <view class="icon-check {{ isAllChecked && checkedCount === relationCount ? 'active' : ''}}"></view>
+        <view>全选</view>
+      </view>
+      <view class="checked-count">已选：{{checkedCount}}</view>
+      <view class="btn {{checkedCount === 0? 'disabled':''}}" bind:tap="handleSelectMaterial">选择群发素材</view>
+    </view>
+  </mp-footer>
+</view>
+
+<mp-toast custom-class="toast" id="mp-toast"></mp-toast>
+<!-- 顾客筛选 选择 -->
+<com-filter-popup 
+  show="{{filter.show}}" 
+  offset="{{filter.offsetTop}}"
+  value="{{filter.value}}"
+  count="{{filter.count}}"
+  currentPage="{{6}}"
+  bind:close="handleFilterPopupHide"
+  bind:confirm="handleFilterConfirm"
+></com-filter-popup>
+<!-- 创建群发 -->
+<com-create-entry id="com-create-entry" is-cancel></com-create-entry>
+
+<!-- 选择素材 -->
+<mp-popup show="{{showSelectMaterialPopup}}" position="bottom" bind:close="handleSelectMaterialCancel">
+  <view class="popup">
+    <view class="popup__close" bind:tap="handleSelectMaterialCancel"></view>
+    <view class="popup__title">选择群发素材</view>
+    <view class="popup__content">
+      <view class="btn" data-type="{{1}}" bind:tap="handleSelectMaterialConfirm">去素材库选素材</view>
+      <view class="btn" data-type="{{2}}" bind:tap="handleSelectMaterialConfirm">自定义素材</view>
+    </view>
+  </view>
+</mp-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

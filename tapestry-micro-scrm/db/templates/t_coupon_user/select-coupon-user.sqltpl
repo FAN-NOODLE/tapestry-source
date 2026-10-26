@@ -1,0 +1,8 @@
+SELECT
+ 	`enterprise_id`, `coupon_id`, `union_id`,`coupon_user_id`,`user_id`, `effective`, `start_time`, `end_time`, `status`, `source_id`, `source`,`action_id`,`action_type`
+ FROM
+ 	coupon_user
+ WHERE
+     `enterprise_id` = :enterprise_id
+ AND `coupon_user_id` IN ( {{WhereIn .CouponUserIds}} )
+ AND deleted_at = 0

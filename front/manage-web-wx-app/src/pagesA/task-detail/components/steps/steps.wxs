@@ -1,0 +1,11 @@
+function getStepIndex(index) {
+  var stepIndex = index + 1
+  // 补0
+  if (stepIndex < 10) {
+    stepIndex = '0' + stepIndex
+  }
+  return stepIndex
+}
+module.exports = {
+  getStepIndex: getStepIndex
+}

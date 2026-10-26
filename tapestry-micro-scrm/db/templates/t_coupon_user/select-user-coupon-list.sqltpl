@@ -1,0 +1,38 @@
+SELECT
+    `cu`.`id`  AS `user_coupon_id`,
+    `cu`.`enterprise_id`,
+    `cu`.`user_id`,
+    `cu`.`union_id`,
+    `cu`.`effective`,
+    `cu`.`start_time`,
+    `cu`.`end_time`,
+    `cu`.`status`,
+    `cu`.`coupon_id`,
+    IFNULL(`wc`.`coupon_name`, "") AS `coupon_name`,
+    `cu`.`order_no`,
+    `wc`.`coupon_value`,
+    `wc`.`is_all`,
+    `wc`.`range`,
+    `wc`.`coupon_stock_id`,
+    `wc`.`max_quota`,
+    `cu`.`use_time`,
+    `wc`.`coupon_mininumn`
+FROM `coupon_user` AS `cu`
+LEFT JOIN `wx_coupon` AS `wc` ON `cu`.`coupon_id` = `wc`.`coupon_id`
+WHERE `cu`.`enterprise_id` = :enterprise_id
+AND `cu`.`deleted_at` = 0
+{{if ne .cond.UserID 0}}
+AND `cu`.`user_id` = :user_id
+{{end }}
+
+{{if ne .cond.UserIdCnt 0}}
+AND `cu`.`user_id` IN ({{WhereIn .cond.UserIds}})
+{{end}}
+
+{{if ne .cond.UnionID ""}}
+AND `cu`.`union_id` = :union_id
+{{end}}
+
+{{if ne .page.Limit 0}}
+LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end }}

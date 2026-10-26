@@ -1,0 +1,28 @@
+<popup show="{{show}}" position="bottom" bind:maskClick="closePopup">
+	<view slot="content" class="popup">
+		<view class="popup-close" bind:tap="closePopup"></view>
+		<view class="popup-header">
+			<view class="level-time">曾在{{maxLevelInfo.created_at}}</view>
+			<view class="level-title">达到了【{{maxLevelInfo.level}}】等级</view>
+			<image class="level-icon" src="{{maxLevelInfo.level_icon}}"></image>			
+		</view>
+		<scroll-view class="popup-content" scroll-y="{{true}}" bind:scroll="onScroll">
+			<view class="title">历史等级记录</view>
+			<view class="content line-{{levelList.length>5?5:levelList.length}}">
+				<block wx:for="{{levelList}}" wx:key="index">
+					<view class="level-item {{item.direction}} {{item.is_max?'is-max':''}}" style="{{item.styles}}">
+						<view wx:if="{{item.is_max}}" class="level-item__max"></view>
+						<view class="level-item__title">{{item.level}}</view>
+						<image class="level-item__image" src="{{item.level_icon}}"></image>
+						<view class="level-item__time">获取时间：{{item.created_at}}</view>
+					</view>
+				</block>
+			</view>
+			<view class="footer"></view>
+		</scroll-view>
+		<view wx:if="{{showTips}}" class="tips">
+			<view>上滑查看更多记录</view>
+			<view class="icon-arrow-double"></view>
+		</view>
+	</view>
+</popup>

@@ -1,0 +1,1 @@
+DELETE FROM marketing_strategy_channels WHERE `strategy_id` = :id

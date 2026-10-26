@@ -1,0 +1,52 @@
+<view class="page-profile">
+  <view class="content" wx:if="{{!showLoading}}">
+    <view class="profile-item">
+      <view>
+        <image class="avatar-img" src="{{myInfo.avatar || 'https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/avatar.png'}}" />
+      </view>
+      <view>{{myInfo.nick || "微信用户"}}</view>
+      <view class="card-item">
+        <image class="card-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/diamond_card_icon.png" />
+        {{myInfo.customer_type || '--'}}
+      </view>
+    </view>
+    <!-- 预约列表 -->
+    <view class="flex-start-center" catchtap="goRecordList">
+      <view class="label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/subscribe_icon.png" />
+        我的邀约
+      </view>
+      <view>
+        <image class="right-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/right-icon.png" />
+      </view>
+    </view>
+    <!-- 订单列表 -->
+    <view class="content-item" data-type="2" catch:tap="handleOperate">
+      <view class="content-item-label">
+        <image class="content-item-label-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_order_list.png" />
+        订单列表
+      </view>
+      <view>
+        <image class="content-item-label-right" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/right-icon.png" />
+      </view>
+    </view>
+    <!-- 添加SA -->
+    <!-- <view class="content-item" data-type='3' catch:tap="handleOperate">
+      <view class="content-item-label">
+        <image class="content-item-label-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_append_sa.png" />
+        添加SA
+      </view>
+      <view>
+        <image class="content-item-label-right" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/right-icon.png" />
+      </view>
+    </view> -->
+  </view>
+  <view class="empty" wx:if="{{showLoading}}">
+    <image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif" />
+  </view>
+  <no-sa show="{{showNoSa && !showLoading}}"></no-sa>
+</view>
+
+<com-model-privacy ></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

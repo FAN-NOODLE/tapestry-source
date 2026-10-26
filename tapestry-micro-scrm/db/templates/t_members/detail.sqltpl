@@ -1,0 +1,6 @@
+SELECT members.`id`, members.`userid`, members.`name`, members.`mobile`, members.`position`, members.`gender`, members.`email`, members.`avatar`, members.`thumb_avatar`, members.`telephone`, members.`alias`, members.`status`, members.`qr_code`, members.`address`, members.`open_userid`, members.`enterprise_id`, members.`created_at`, members.`updated_at`, members.`position`, IFNULL(GROUP_CONCAT(departments.`name` SEPARATOR ','),"") as `forms`
+FROM members
+LEFT JOIN member_departments ON members.`id` = member_departments.`member_id`
+LEFT JOIN departments ON member_departments.`department_id` = departments.`id`
+WHERE members.id = ? AND members.deleted_at = 0 AND member_departments.`deleted_at` = 0 AND departments.`deleted_at` = 0
+GROUP BY members.`id`;

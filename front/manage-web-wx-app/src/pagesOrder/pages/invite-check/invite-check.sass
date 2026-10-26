@@ -1,0 +1,120 @@
+@import '../../../style/color-variable'
+
+.page-invite-check
+    background: #F7F7F7
+    flex-direction: column
+    padding: vw(9)
+
+    &-content
+        padding: vw(26) vw(26) vw(129)
+        position: relative
+        background-color: #FFFFFF
+        box-shadow: 0 0 vw(6) 0 rgba(0, 0, 0, 0.10)
+
+        &-bg
+            // background: black
+            width: 100%
+            height: vw(138)
+            position: absolute
+            bottom: 0
+            left: 0
+
+        &-letter
+            font-size: vw(14)
+            color: #000000
+            font-weight: 600
+
+            &-title
+                margin-bottom: vw(20)
+
+            &-write
+                font-size: vw(12)
+                font-weight: normal
+                text-indent: vw(28)
+                line-height: vw(22)
+
+            &-sign
+                display: flex
+                justify-content: flex-end
+                margin-top: vw(40)
+                margin-bottom: vw(20)
+            
+        .m-t-25
+            margin-top: vw(25)
+
+        &-backgroundImg
+            
+            &-image
+                width: vw(305)
+                height: vw(200)
+
+
+    &-subscribe
+        font-size: vw(14)
+        color: #000000
+        line-height: vw(20)
+        padding: 0 vw(6)
+        margin-top: vw(9)
+
+        &-title
+            font-weight: 600
+            display: flex
+            justify-content: center
+            align-items: center
+
+            &-dec
+                width: vw(15)
+                height: vw(1)
+                background-color: #000000
+            
+            &-main
+                margin: 0 vw(15)
+
+        &-content
+
+            &-item
+                margin-top: vw(19)
+                display: flex
+                justify-content: space-between
+                align-items: center
+
+                &-label
+                    color: #A6A6A6
+                
+                &-value
+
+                    &-content
+                        border: 1px solid #000000
+                        padding: vw(4) vw(10)
+                        display: flex
+                        align-items: center
+                        justify-content: center
+
+                        &-icon
+                            width: vw(7)
+                            height: vw(4)
+                            margin-left: vw(15)
+
+        &-footer
+            margin-top: vw(15)
+            margin-bottom: vw(34)
+
+            &-confirm
+                margin: auto
+                width: vw(260)
+                height: vw(40)
+                background-color: #000000
+                color: #FFFFFF
+                display: flex
+                justify-content: center
+                align-items: center
+
+.reserve-time
+    display: flex
+    align-items: center
+    justify-content: center
+.reserve-mg
+    margin-bottom: vw(15)
+.lockScroll
+  height: 80vh
+  overflow: hidden

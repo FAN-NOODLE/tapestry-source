@@ -1,0 +1,37 @@
+SELECT
+	m.id as member_id,
+	m.userid as user_id,
+	m.`name` as user_name,
+	m.`status` as mem_subscribe_status,
+	m.mobile,
+	d.`name` as dept_name
+FROM
+	departments AS d
+	LEFT JOIN member_departments AS md ON d.id = md.department_id
+	LEFT JOIN members AS m ON m.id = md.member_id
+WHERE
+	1 = 1
+AND
+    d.deleted_at = 0
+AND
+    md.deleted_at = 0
+AND
+    m.deleted_at = 0
+AND
+    d.enterprise_id = :enterprise_id
+
+{{if .cond.Search.DpId}} AND d.`id` = {{.cond.Search.DpId}} {{end}}
+
+{{if .cond.Search.MemUsername}} AND m.`name` LIKE '%{{SafeStr .cond.Search.MemUsername}}%' {{end}}
+{{if .cond.Search.Userid}}
+    AND m.`userid` = '{{.cond.Search.Userid}}'
+{{end}}
+{{if .cond.Search.Mobile}}
+    AND m.`mobile` = '{{.cond.Search.Mobile}}'
+{{end}}
+
+GROUP BY
+    m.id, m.userid, m.`name`, m.`status`, d.`name`
+LIMIT
+    {{.page.Offset}}, {{.page.Limit}}
+

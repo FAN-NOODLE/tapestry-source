@@ -1,0 +1,18 @@
+SELECT
+    COUNT(c.id)
+FROM
+	drainage_contacts as c
+	LEFT JOIN drainage_contact_channels as h
+	ON c.channel_id = h.id
+	WHERE c.deleted_at = 0
+	AND c.type = 1
+	AND c.enterprise_id=:enterprise_id
+	{{if ne .cond.Name ""}}
+	AND c.name LIKE :name
+    {{end}}
+    {{if ne .cond.ChannelId 0}}
+    AND c.channel_id = :channel_id
+    {{end}}
+     {{if ne .cond.IdsCount 0}}
+    AND `c`.`id` IN ({{WhereIn .cond.IDs}})
+    {{end }}

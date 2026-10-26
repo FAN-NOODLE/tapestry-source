@@ -1,0 +1,47 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-header">
+      <div class="popup-header-name">{{type ==='color'?'选择颜色':'选择尺寸'}}</div>
+    </view>
+    <scroll-view class="popup-content" scroll-y="{{true}}">
+      <!-- allcolors -->
+      <view
+        class="list-item {{chooseIndex == 0 ? 'active' : ''}}"
+        data-index="0"
+        bindtap="handleSelectColor"
+      >
+        <view class="list-item-name">{{list[0]}}</view>
+        <image
+          wx:if="{{ chooseIndex == 0}}"
+          class="active-image"
+          src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/tag-checked.png"
+        />
+      </view>
+      <!-- 所有颜色 是3的倍数margin-right为0 -->
+      <view class="list">
+        <view
+          class="list-item {{chooseIndex === index ? 'active' : ''}}"
+          wx:for="{{list}}"
+          wx:if="{{ index > 0 }}"
+          wx:key="index"
+          bindtap="handleSelectColor"
+          data-index="{{index}}"
+          style="margin-right:{{index%3==0?0:20}}rpx"
+        >
+          <view class="list-item-name">{{item}}</view>
+          <image
+            wx:if="{{chooseIndex === index}}"
+            class="active-image"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/tag-checked.png"
+          />
+        </view>
+      </view>
+    </scroll-view>
+    <mp-footer fixed="{{false}}">
+      <view class="footer">
+        <view class="btn plain" bind:tap="handleCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确认</view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

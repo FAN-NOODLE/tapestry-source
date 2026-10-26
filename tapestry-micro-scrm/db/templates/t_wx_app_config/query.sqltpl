@@ -1,0 +1,10 @@
+SELECT
+  `appid`,
+  `name`,
+  `bind_status`
+  `created_at`,
+  `updated_at`,
+FROM
+	micro_scrm_enterprise_{{.enterprise_id}}.wx_app_config
+WHERE
+  appid = ?

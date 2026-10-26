@@ -1,0 +1,14 @@
+<view class="page-select-role">
+<view class="guide" data-type="1" bindtap="selectRole">
+		<image src="{{'https://img-crs.vchangyi.com/store-manage-wxapp/sy_select-role_guide.png' }}" mode="aspectFill"/>
+		<view class="label">我是导购</view>	
+	</view>
+	<view class="partner" data-type="2" bindtap="selectRole">
+		<image src="{{'https://img-crs.vchangyi.com/store-manage-wxapp/sy_select-role_partner.png' }}" mode="aspectFill"/>
+		<view class="label">我是合伙人</view>	
+	</view>
+
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

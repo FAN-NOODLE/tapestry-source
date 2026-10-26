@@ -1,0 +1,69 @@
+<wxs module="computed">
+function toChineseNumber(num) {
+  var list =['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '二十一', '二十二', '二十三', '二十四', '二十五','二十六', '二十七', '二十八', '二十九']
+  return list[num]
+};
+
+module.exports = {
+  toChineseNumber: toChineseNumber
+}
+</wxs>
+<mp-popup show="{{show}}" position="bottom" bind:close="handleClose">
+  <view class="popup">
+    <view class="popup__close" bind:tap="handleClose"></view>
+    <view class="popup__header">{{value.name}}</view>
+    <scroll-view class="popup__content" scroll-y="{{true}}">
+      <view class="list">
+        <view class="item">
+          <view class="item-title">播种一</view>
+          <view class="form">
+            <view class="form-item">
+              <view class="form-item__label">提醒时间</view>
+              <view class="form-item__value">
+                <select-sow-time value="{{value.remind_time}}" data-key="value.remind_time" bind:change="handleChange"></select-sow-time>
+              </view>
+            </view>
+            <view class="form-item">
+              <view class="form-item__label">播种内容</view>
+              <view class="form-item__value">
+                <sow-content value="{{value.content}}" data-key="value.content" bind:change="handleChange"></sow-content>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="item" wx:for="{{value.notice_list}}" wx:key="index">
+          <view class="item-title">播种{{computed.toChineseNumber(index+2)}}</view>
+          <view class="form">
+            <view class="form-item">
+              <view class="form-item__label">提醒时间</view>
+              <view class="form-item__value">
+                <select-sow-time value="{{item.remind_time}}" data-key="{{'value.notice_list['+index+'].remind_time'}}" bind:change="handleChange"></select-sow-time>
+              </view>
+            </view>
+            <view class="form-item">
+              <view class="form-item__label">播种内容</view>
+              <view class="form-item__value">
+                <sow-content value="{{item.content}}" data-key="{{'value.notice_list['+index+'].content'}}" bind:change="handleChange"></sow-content>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <mp-footer custom-class="popup__footer" fixed="{{false}}">
+      <view class="btn plain" bind:tap="handleClose">取消</view>
+      <view class="btn" bind:tap="handleShowConfirm">保存</view>
+    </mp-footer>
+  </view>
+</mp-popup>
+
+<mp-popup show="{{showConfirmPopup}}" position="center" z-index="1000" bind:close="handleCloseConfirm">
+  <view class="confirm">
+    <view class="confirm__close" bind:tap="handleCloseConfirm"></view>
+    <view class="confirm__header">确定创建播种内容？</view>
+    <view class="confirm__footer">
+      <view class="btn plain" bind:tap="handleCloseConfirm">取消</view>
+      <view class="btn" bind:tap="handleConfirm">确定</view>
+    </view>
+  </view>
+</mp-popup>

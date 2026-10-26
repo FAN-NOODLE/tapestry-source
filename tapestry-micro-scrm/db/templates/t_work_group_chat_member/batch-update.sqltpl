@@ -1,0 +1,3 @@
+UPDATE `work_group_chat_member`
+    SET `leave_time` = :leave_time, `updated_at` = :updated_at, `status` = :status
+    WHERE `enterprise_id` = :enterprise_id AND `id` IN ({{WhereIn .ids}});

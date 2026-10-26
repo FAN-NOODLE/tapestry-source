@@ -1,0 +1,4 @@
+select id,userid,name,department,position,mobile,gender,email,avatar,thumb_avatar,telephone,
+alias,status,address,open_userid,qr_code,created_at,updated_at,deleted_at,mars_id
+from micro_scrm_enterprise_{{.EnterpriseID}}.members
+where deleted_at = 0 and mars_id in (?);

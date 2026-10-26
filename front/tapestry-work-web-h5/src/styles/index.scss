@@ -1,0 +1,19 @@
+@import "./colors/index";
+@import "./theme/index";
+@import "./mixins/index";
+@import "./vant/vant-variables";
+@import "./base/flex";
+
+[contenteditable="true"], input, textarea {
+  user-select: auto !important;
+}
+
+.van-popup__close-icon {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  font-size: 14px !important;
+}
+.van-toast__text {
+  word-break: break-word;
+}

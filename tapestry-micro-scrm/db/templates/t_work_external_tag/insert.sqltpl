@@ -1,0 +1,31 @@
+INSERT INTO `work_external_tag`
+(
+  `id`,
+  `enterprise_id`,
+  `group_id`,
+  `tag_id`,
+  `name`,
+  `type`,
+  `order`,
+  `member_id`,
+  `expired_time`,
+  `create_time`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+) VALUES
+(
+  :id,
+  :enterprise_id,
+  :group_id,
+  :tag_id,
+  :name,
+  :type,
+  :order,
+  :member_id,
+  :expired_time,
+  :create_time,
+  :created_at,
+  :updated_at,
+  :deleted_at
+);

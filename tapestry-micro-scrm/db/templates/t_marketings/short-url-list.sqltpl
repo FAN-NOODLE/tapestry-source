@@ -1,0 +1,31 @@
+SELECT
+id,one_level_name,two_level_name,page_name,operator,short_url,weixin_url,created_at,url_type
+
+ FROM
+ external_links where enterprise_id = :enterprise_id
+{{if ne .cond.OneLevelId 0}}
+  AND one_level_id = :one_level_id
+{{end}}
+{{if ne .cond.TwoLevelId 0}}
+AND two_level_id = :two_level_id
+{{end}}
+{{if ne .cond.Operator ""}}
+AND operator LIKE "%{{.cond.Operator}}%"
+{{end}}
+{{if ne .cond.CreateStart 0}}
+    AND created_at > :create_start
+{{end}}
+{{if ne .cond.CreateEnd 0}}
+  AND created_at < :create_end
+{{end}}
+{{if ne .cond.PageName ""}}
+AND page_name = :page_name
+{{end}}
+{{if ne .cond.UrlType 0}}
+AND url_type = :url_type
+{{end}}
+ORDER BY
+    created_at DESC
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

@@ -1,0 +1,8 @@
+SELECT
+ 	count( * ) as count
+ FROM
+ 	coupon_user
+ WHERE
+     `enterprise_id` = :enterprise_id
+ AND `coupon_id` = :coupon_id
+ AND deleted_at = 0

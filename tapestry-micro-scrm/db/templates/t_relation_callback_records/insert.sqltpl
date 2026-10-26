@@ -1,0 +1,2 @@
+INSERT INTO `relation_callback_records` (`id`, `to_user_name`, `from_user_name`, `create_time`, `msg_type`, `event`, `change_type`, `user_id`, `external_user_id`, `state`, `welcome_code`, `fail_reason`, `chat_id`, `channel_id`) VALUES
+(:id, :to_user_name, :from_user_name, :create_time, :msg_type, :event, :change_type, :user_id, :external_user_id, :state, :welcome_code, :fail_reason, :chat_id, :channel_id );

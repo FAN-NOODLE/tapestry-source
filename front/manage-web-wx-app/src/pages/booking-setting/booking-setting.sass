@@ -1,0 +1,92 @@
+@import '../../style/color-variable'
+    
+.booking-setting
+    height: 100vh
+    overflow-y: scroll
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    .booking-setting-content
+        padding: vw(15) vw(15) 0 
+        .search-box
+            border: vw(1) solid #33363C
+            margin-bottom: vw(15)
+            display: flex
+            .search-left
+                width: vw(90)
+                height: vw(40)
+                background: #33363C
+                @include fontStyle(14, 400, #FFFFFF, 20)
+                @include flex
+            .search-right
+                flex: 1
+                position: relative
+                @include flex(space-between, center)
+                padding: 0 vw(16)
+                .right-input
+                    width: 100%
+                .down-icon
+                    position: absolute
+                    top: vw(17)
+                    right: vw(16)
+                    width: vw(11)
+                    height: vw(7)
+                    @include renderImg('2022/v2.8.0/down.png')
+        
+        .table-header
+            border: none
+            height: vw(40)
+            background: #33363C
+            @include fontStyle(14, 400, #FFFFFF, 20)
+            view
+                font-weight: 400
+                border-right: none
+        .second-header
+            height: vw(36)
+            @include fontStyle(14, 400, #000000, 20)
+            @include flex
+            background-color: rgba(216, 216, 216, 0.5)
+        .table-body
+            border: vw(1) solid #F0F0F0
+        .table-tr
+            display: flex
+            border-bottom: vw(1) solid #F0F0F0
+            &:last-child
+                border-bottom: none
+            .td
+                white-space: wrap
+                height: vw(50)
+                color: #000000
+                @include flex
+                border-right: vw(1) solid #F0F0F0
+                .is-disabled
+                    color: #A5A5A5 !important
+                input
+                    text-align: center
+                    color: #708DF5
+                    width: vw(35)
+                    height: vw(26)
+                    border: vw(1) solid #33363C
+                &:last-child
+                    border-right: none
+         
+    .isIosBottom
+        @include iosBottom
+    .buttons
+        width: 100%
+        background: #FFF
+        padding: vw(15) vw(15) vw(16) vw(15)
+        z-index: 2
+        display: flex
+        column-gap: vw(15)
+        .cancel
+            width: 100%
+            height: vw(44)
+            border: vw(1) solid #33363C
+            @include flex
+        .save
+            width: 100%
+            height: vw(44)
+            background: #33363C
+            @include flex
+            color: #ffffff

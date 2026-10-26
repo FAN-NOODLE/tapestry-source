@@ -1,0 +1,12 @@
+{
+  "navigationStyle":"custom",
+	"enablePullDownRefresh": false,
+  "disableScroll": false,
+  "usingComponents": {
+    "mp-loading":"../../components/mp-loading/mp-loading",
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "com-tabs": "../../components/com-tabs/com-tabs",
+    "store-warn-popup" :"../../components/store-warn-popup/store-warn-popup",
+    "single-store-popup": "../../components/single-store-popup/single-store-popup"
+  }
+}

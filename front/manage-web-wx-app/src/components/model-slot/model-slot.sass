@@ -1,0 +1,53 @@
+
+@import '~@/style/base/utilities.sass'
+@import '~@/style/color-variable'
+.calendar
+	width: 100vw
+.dark
+	background: rgba(0,0,0,.5)
+	width: 100vw
+	height: 100vh
+	position: fixed
+	bottom: 0
+	left: 0
+	z-index: 101
+.box
+	position: fixed
+	bottom: 0
+	left: 0
+	width: 100vw
+	border-top-left-radius: vw(10)
+	border-top-right-radius: vw(10)
+	z-index: 102
+	background: $color-white
+	transform: translateY(547px)
+.close
+	padding: vw(10)
+	width: vw(30)
+	height: vw(30)
+	position: absolute
+	top: vw(9)
+	right: vw(9)
+	display: flex
+	align-items: center
+	justify-content: center
+	image
+		width: 100%
+		height: auto
+.title-row
+	height: vw(48)
+	width: 100vw
+	display: flex
+	align-items: center
+	justify-content: space-between
+	.title
+		text-align: center
+		color: #404040
+	.oparete-left
+		color: #96979E
+	.oparete-right
+		color: #4A4A4A
+	.op-7
+		opacity: 0.7
+
+

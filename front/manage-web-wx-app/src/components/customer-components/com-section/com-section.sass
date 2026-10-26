@@ -1,0 +1,30 @@
+@import '../../../style/color-variable.sass'
+@import '../../../style/base/arrow'
+.com-section
+  height: vw(52)
+  display: flex
+  align-items: center
+  justify-content: space-between
+  font-size: vw(12)
+  font-family: PingFangSC-Regular, PingFang SC
+  font-weight: 400
+  color: #B5B5B5
+  padding: 0 vw(15)
+
+  &__right
+    display: flex
+    justify-content: flex-end
+    align-items: center
+
+  &__item
+    &:not(:first-child)
+      margin-left: vw(15)
+
+    &.selected
+      font-weight: bold
+      color: #404040
+
+  .icon
+    width: vw(20)
+    height: vw(20)
+    margin-left: vw(5)

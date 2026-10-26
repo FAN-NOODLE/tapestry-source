@@ -1,0 +1,549 @@
+@import '../../../style/color-variable.sass'
+
+.page-points
+  display: flex
+  flex-direction: column
+  height: 100vh
+
+  .container
+
+    .header
+      min-height: vw(355)
+      background-image: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/bg_point.png')
+      background-size: cover
+      background-position: center top
+      background-repeat: no-repeat
+
+    .ranking-box
+      padding-top: vw(10)
+      padding-bottom: vw(15)
+      display: flex
+      justify-content: center
+
+      .rank
+        display: flex
+        justify-content: center
+        align-items: center
+        width: vw(166)
+        height: vw(39)
+        background: #FEFEFE
+        box-shadow: 0 0 vw(9) 0 rgba(255,205,0,0.2)
+        border-radius: vw(20)
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: rgba(255, 147, 0, 1)
+
+        .word
+          font-weight: bold
+          font-size: vw(14)
+          color: rgba(255, 147, 0, 1)
+
+    .info
+      padding-left: vw(20)
+      position: relative
+
+      .title
+        font-size: vw(18)
+        font-family: AlibabaPuHuiTiB
+        color: #000000
+        font-weight: bold
+        display: flex
+        align-items: center
+
+
+        .footprint
+          width: vw(78)
+          height: vw(22)
+          background: #FF7E1C
+          border-radius: vw(11)
+          margin-left: vw(5)
+          font-size: vw(10)
+          color: #fff
+          text-align: center
+          font-weight: normal
+          display: flex
+          align-items: center
+          justify-content: center
+
+          &::after
+            content: ""
+            margin-left: vw(2)
+            width: vw(8)
+            height: vw(8)
+            background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/icon_triangle_right.png') center/100% no-repeat
+
+
+      .time
+        font-size: vw(12)
+        font-family: PingFangSC-Light, PingFang SC
+        font-weight: 300
+        color: rgba(0,0,0,0.4)
+        margin-top: vw(5)
+
+      .rule
+        font-size: vw(10)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #000000
+        width: vw(61)
+        height: vw(26)
+        background-color: rgba(205, 205, 205, 0.20)
+        border-radius: vw(13) 0 0 vw(13)
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        right: 0
+        top: 50%
+        transform: translateY(-50%)
+
+    .content
+      margin-top: vw(14)
+
+      .progress-box
+        position: relative
+        height: vw(64)
+        overflow: hidden
+
+        .scroll-box
+          height: 100%
+          display: flex
+          position: absolute
+          top: 0
+
+          .progress
+            height: vw(4)
+            display: flex
+            margin-top: vw(21)
+            padding-left: vw(48)
+            padding-right: vw(48)
+            border-radius: vw(4)
+
+            .background
+              background-color: rgba(237, 237, 237, 1)
+              flex: 1
+              height: 100%
+            .foreground
+              border-radius: vw(4)
+              height: 100%
+              background: linear-gradient(270deg, #FF7C1C 0%, #FFD117 100%);
+
+          .level-box
+            display: flex
+            align-items: center
+            position: absolute
+            top: 0
+            z-index: 30
+            min-height: vw(42)
+
+            .level
+              background-size: 100% 100%
+              background-repeat: no-repeat
+              position: relative
+              display: flex
+              justify-content: center
+              align-items: center
+              font-size: 13px
+              font-family: AlibabaPuHuiTiH
+              color: #AEAEAE
+              font-weight: bold
+
+              &::after
+                content: attr(data-name)
+                font-size: vw(12)
+                font-family: PingFangSC-Semibold, PingFang SC
+                font-weight: 600
+                display: block
+                position: absolute
+                bottom: 0
+                left: 50%
+                color: #000000
+                z-index: 999
+                transform: translate(-50%, 70%)
+                white-space: nowrap
+                line-height: vw(17)
+
+              &:first-child
+                margin-left: vw(148)
+
+              &:not(:first-child)
+                margin-left: vw(136)
+
+              // &:last-child
+              // 	margin-left: vw(160)
+              .word
+                color: #CFCFCF
+
+            .acquired
+              width: vw(42)
+              height: vw(42)
+
+              &::after
+                font-size: vw(12)
+                font-weight: 600
+                color: #000000
+                padding-top: vw(5)
+
+            .not-obtain
+              width: vw(32)
+              height: vw(32)
+              font-size: vw(9)
+              &::after
+                font-size: vw(10)
+                font-weight: 400
+                color: rgba(113, 113, 113, 1)
+                bottom: vw(-5)
+
+      .detail-info
+        overflow: hidden
+
+        .detail-container
+          position: relative
+          top: 0
+          width: fit-content
+          display: flex
+          padding: vw(12) vw(15) vw(15)
+          align-items: flex-start
+
+          .info-container
+            width: vw(305)
+            // min-height: vw(54)
+            background-color: rgba(255, 255, 255, 0.7)
+            padding: vw(10) vw(8)
+            flex-shrink: 0
+            position: relative
+            border-radius: vw(10)
+
+            &::before
+              content: ''
+              border: vw(7) solid transparent
+              border-bottom-color: rgba(255, 255, 255, 0.7)
+              position: absolute
+              left: 50%
+              top: 0
+              transform: translate(-50%, -100%)
+
+            &:not(:first-child)
+              margin-left: vw(10)
+
+            &:last-child
+              // margin-right: calc(50vw - 330rpx)
+
+            .title
+              font-size: vw(12)
+              font-family: PingFangSC-Regular, PingFang SC
+              font-weight: 400
+              color: #979797
+              margin-bottom: vw(9)
+              line-height: 1
+
+            .content
+              // display: flex
+              position: relative
+              margin-top: 0
+
+              .word
+                font-size: vw(12)
+                font-family: PingFangSC-Regular, PingFang SC
+                font-weight: 400
+                color: #343331
+                line-height: vw(17)
+
+              .icon
+                width: vw(35)
+                flex-shrink: 0
+                position: relative
+
+                &::before
+                  font-size: vw(10)
+                  font-family: PingFangSC-Regular, PingFang SC
+                  font-weight: 400
+                  color: #B3B3B3
+                  flex-shrink: 0
+                  display: flex
+                  align-items: center
+                  display: block
+                  position: absolute
+                  left: 0
+                  top: 50%
+                  transform: translateY(-50%)
+
+                &::after
+                  content: ''
+                  display: block
+                  width: vw(11)
+                  height: vw(11)
+                  position: absolute
+                  right: 0
+                  top: 50%
+                  transform: translateY(-50%)
+
+            .fold
+              display: flex
+
+              .word
+                white-space: nowrap
+                text-overflow: ellipsis
+                overflow: hidden
+
+              .icon
+                &::before
+                  content: '展开'
+
+                &::after
+                  @include renderImg('2023/v3.3/arrow.png')
+
+            .unfold
+              padding-bottom: vw(18)
+
+              .icon
+                display: flex
+                position: absolute
+                bottom: 0
+                right: 0
+                height: vw(14)
+
+                &::before
+                  content: '折叠'
+
+                &::after
+                  @include renderImg('2023/v3.3/arrow.png')
+                  transform: translateY(-50%) rotate(180deg)
+                  transform-origin: 50% 50%
+
+  .points-list
+    margin: 0 vw(15) vw(15)
+    flex: 1
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    .gold-remind
+      position: relative
+      left: 50%
+      transform: translateX(-50%)
+      display: flex
+      align-items: center
+      justify-content: center
+      width: vw(263)
+      height: vw(33)
+      background: rgba(255, 126, 28, 0.05)
+      border-radius: vw(17)
+      margin-bottom: vw(15)
+      &__text
+        font-size: vw(12)
+        color: #FF6800
+
+    .nav
+      display: flex
+      height: vw(22)
+      padding: 0 vw(15)
+      justify-content: center
+      align-items: center
+      margin-top: vw(25)
+      margin-bottom: vw(15)
+
+      .nav-item
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: vw(14)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #323232
+        line-height: 1
+        margin-left: vw(49)
+
+        &:first-child
+          margin-left: 0
+
+      .active
+        font-size: vw(16)
+        font-family: PingFangSC-Semibold, PingFang SC
+        font-weight: 600
+        color: #000000
+        background-image: linear-gradient(180deg, rgba(255, 205, 2, 1) 0%, rgba(255, 205, 2, 1) 100%)
+        background-size: 100% vw(4)
+        background-repeat: no-repeat
+        background-position: 0 100%
+
+    .list
+      // position: relative
+      // background-color: #fff
+      flex: 1
+      overflow-y: auto
+      box-shadow: 0 vw(2) vw(15) -vw(-2) rgba(73,73,73,0.05)
+      border-radius: vw(10)
+      border: vw(2) solid #fff
+      background: #fff url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/bg_task.png') center top/100% no-repeat 
+
+      .list-item
+        height: vw(70)
+        padding: vw(15)
+        display: grid
+        grid-template: repeat(1, 1fr) / vw(44) 1fr auto
+        gap: 0 vw(10)
+        grid-auto-flow: column
+
+        .icon
+          grid-area: 1 / 1 / span 2 / span 1
+
+        .title
+          font-size: vw(14)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #000000
+          line-height: vw(20)
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+
+        .title-box
+          display: flex
+          align-items: center
+            
+        .title-text
+          color: #FF710B
+          
+
+        .time
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #CACACA
+          line-height: vw(17)
+          
+
+        .points
+          font-weight: 400
+          color: #7F7F7F
+
+          &__text 
+            font-family: PingFangSC-Semibold, PingFang SC
+            font-weight: 600
+            color: #FF710B
+            margin-right: vw(4)
+          &__now
+            color: #FF710B
+
+          &:nth-child(3)
+            font-size: vw(12)
+
+          &:nth-child(4)
+            grid-area: 1 / 3 / 3 / 4
+            font-size: vw(14)
+            align-self: center
+            justify-self: end
+
+        .btn
+          grid-area: 1 / 3 / 3 / 4
+          background-color: rgba(255, 205, 0, 1)
+          width: vw(66)
+          height: vw(27)
+          border-radius: vw(15)
+          align-self: center
+          justify-self: end
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #000000
+          display: flex
+          align-items: center
+          justify-content: center
+          position: relative
+          .title-text
+            position: absolute
+            left: vw(-5)
+            top: 50%
+            transform: translate(-100%, -50%)
+            color: #A6A6A6
+
+      .loading-word, .nomore
+        display: flex
+        justify-content: center
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #7F7F7F
+
+    .empty-page
+      height: vw(230)
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      gap: vw(21) 0
+
+      .empty-image
+        width: vw(90)
+        height: vw(90)
+
+      .empty-word
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #7F7F7F
+
+  .animation-left
+    transition: left 0.5s
+
+  
+  .custom-content
+    border-radius: 0
+.popover-tip
+  display: inline-flex
+
+  .tip-icon-box
+    height: 100%
+    display: flex
+    align-items: center
+  &-icon
+    display: inline-block
+    background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/icon_tips.png') center/vw(11) no-repeat
+    margin-left: vw(2)
+    width: vw(12)
+    height: vw(12)
+    position: relative
+    &::after
+      content: ""
+      width: vw(22)
+      height: vw(22)
+      position: absolute
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+
+
+.load-more
+  width: 100%
+  text-align: center
+  font-size: vw(12)
+  font-weight: 400
+  color: #7F7F7F
+  line-height: vw(17)
+  padding-bottom: vw(5)	
+  // 白色自上到下的渐变背景
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)
+
+  &.fixed
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+
+
+.icon-more 
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &::after
+    content: ""
+    width: vw(12)
+    height: vw(12)
+    @include renderImg('2023/v3.3/arrow.png')
+
+
+// 发券插件样式修改 为了能在scroll-view中正常展示
+// .wx-scroll-view 
+// 	-webkit-overflow-scrolling: auto !important

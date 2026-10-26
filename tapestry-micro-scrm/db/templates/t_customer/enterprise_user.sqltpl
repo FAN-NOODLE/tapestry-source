@@ -1,0 +1,55 @@
+SELECT
+    u.id,
+    u.wx_union,
+    u.wx_shop,
+    u.wx_open,
+    u.wx_external,
+    u.bind_to,
+    u.name,
+    {{if .app_table}}
+        {{if eq "wx_user_corp_external" .app_table}}
+                wx.nick,
+                wx.avatar,
+                wx.sex,
+                wx.unionid as union_id,
+        {{end}}
+    {{end}}
+    u.mobile,
+    u.birthday,
+    u.union_code,
+    u.point,
+    u.grade,
+    u.store_code,
+    u.ba_code,
+    u.delivery_mobile,
+    u.country,
+    u.province,
+    u.city,
+    u.remark,
+    u.tags,
+    u.groups,
+    u.pay_order,
+    u.total_fee,
+    u.refund_order,
+    u.refund_fee,
+    u.latest_market_time,
+    u.market_count,
+    u.level_id
+FROM micro_scrm_enterprise_{{.enterprise_id}}.enterprise_user u
+{{if .app_table}}
+inner join 
+micro_scrm_enterprise_{{.enterprise_id}}.{{.app_table}} wx on u.id=wx.euid
+{{end}}
+WHERE 1=1
+{{if .euid}}
+    AND u.id={{.euid}}
+{{end}}
+{{if .unionid}}
+    AND wx.unionid='{{.unionid}}'
+{{end}}
+{{if .openid}}
+    AND wx.appid='{{SafeStr .appid}}' AND wx.openid='{{.openid}}'
+{{end}} 
+{{if .id}}
+    AND wx.id={{.id}}
+{{end}} 

@@ -1,0 +1,151 @@
+<wxs module="tools">
+  /** 根据不同页面展示不同错误颜色 */
+  function pageErrorColor(attribute, pageType) {
+    if (pageType === 3) {
+      return attribute + 'error-1'
+    }
+    return  attribute + 'error'
+  }
+  /** 返回对应位置的class */
+  function positionClass(item, attribute, color) {
+    // 返回开始位置
+    if (item['log-' + attribute + '-start']) {
+      return 'log-start' + ' ' + color
+    }
+    // 返回结束位置
+    if (item['log-' + attribute + '-end']) {
+      return 'log-end' + ' ' + color
+    }
+    // 返回中间位置
+    if (item['log-' + attribute]) {
+      return 'log' + ' ' + color
+    }
+
+    return ''
+  }
+
+  /** 添加连续样式 */
+  function logClass(item, status, pageType) {
+    var errClass = pageErrorColor('log-', pageType)
+    // 指定状态样式
+    if (status === 1) {
+      /** 1 已完成  */
+      return item['finished'] ? positionClass(item, 'finished', 'log-success') : ''
+    } else if (status === 2) {
+      /** 2 待完成  */
+      return item['afoot'] ? positionClass(item, 'afoot', errClass) : ''
+    } else if (status === 3) {
+      // 不做展示
+      return ''
+    }
+
+    /** 非指定状态样式 */
+    if (item['finished']) {
+      return positionClass(item, 'finished', 'log-success')
+    } else if (item['afoot']) {
+      return positionClass(item, 'afoot', errClass)
+    }
+  }
+
+  /** 判断是否显示日历圆点 */
+  function showAir(item, status) {
+    // 已完成
+    if (status === 1) {
+      return item.day && item['finished'] && !item['log-finished']
+    }
+
+    // 待完成
+    if (status === 2) {
+      return item.day && item['afoot'] && !item['log-afoot']
+    }
+
+    // 不做展示
+    if (status === 3) return false
+
+    return item.day && item['finished'] && !item['log-finished'] || item.day && item['afoot'] && !item['log-afoot']
+  }
+
+  module.exports = {
+    logClass: logClass,
+    showAir: showAir,
+    pageErrorColor: pageErrorColor
+  }
+</wxs>
+<view class="calendar custom-calendar">
+    <!-- 操作栏 -->
+    <view class="calendar-header">
+        <!-- 日期筛选 -->
+        <view class="calendar-header-left">
+            <view bindtap="openPicker" class="picker">
+              <view>{{currentYear}}年{{ currentMonth }}月</view>
+              <image class="arrow" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw2.png" />
+            </view>
+             <!-- 回到今天 -->
+            <image class="to-day" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/today.png" mode="aspectFill"  catchtap="handleToday"/>
+        </view>
+
+        <!-- 任务状态 -->
+        <view class="calendar-header-right">
+          <block wx:for="{{colors}}" wx:key="index">
+            <view class="status-air {{pageType === 3 ? 'special-margin-2' : ''}}" style="background-color: {{item.color}}"></view>
+            <view class="status-name {{pageType === 3 ? 'special-margin-1' : ''}}">{{item.name}}</view>
+          </block>
+        </view>
+       
+    </view>
+    <!-- 周 -->
+    <view class="calendar-week">
+        <view wx:for="{{weekData}}" wx:key="*this">{{item}}</view>
+    </view>
+    <!-- 日历 -->
+    <view class="calendar-item">
+        <block wx:for="{{calendarData}}" wx:key="index">
+          <view 
+            class="calendar-item-day {{item.dayToNum === monthInfo.dayToNum ? 'is-checked': ''}} {{tools.logClass(item, status, pageType)}}"
+            bindtap="clickDay"
+            data-item="{{item}}"
+            hidden="{{collapse && item.currentWeek !== collapseWeek}}">
+            <view class="{{pageType === 1 && item.disabled ? 'disabled' : ''}}">
+              {{item.day}} 
+              <view 
+                class="dot {{item['finished'] ? 'dot-success' : tools.pageErrorColor('dot-', pageType)}}" 
+                wx:if="{{tools.showAir(item, status)}}" />
+            </view>
+          </view>
+        </block>
+    </view>
+
+    <!-- 收起隐藏操作面板 -->
+    <view class="calendar-footer" bindtap="pullDown">{{ collapse ? '查看整月' : '收起'}}
+      <image class="{{ !collapse && 'is-collapse' }}" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.1/arraw1.png"></image>
+    </view>
+
+    <!-- 年月切换 -->
+    <popup show="{{pickerShow}}" position="bottom">
+        <view slot="content" class="select-date">
+            <view class="select-date-title">时间选择</view>
+            <view class="select-date-picker">
+              <picker-view 
+              style="height:100%;width:100%" 
+              indicator-class='picker-selected' 
+              indicator-style="height: 50px;" 
+              value="{{ pickerIndex }}" 
+              bindchange="pickerChange"
+              bindpickstart="pickerStart" 
+              bindpickend="pickerEnd"
+               >
+                <picker-view-column class="column">
+                  <view wx:for="{{ years }}" style="line-height:50px;" wx:key="years">{{item}}年</view>
+                </picker-view-column>
+                <picker-view-column class="column">
+                  <view wx:for="{{ months }}" style="line-height:50px;" wx:key="months">{{item}}月</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+            <view class="select-date-footer">
+              <view class="btn cacel" bindtap="closePicker">取消</view>
+              <view bindtap="confirm" class="btn {{scrollEnd ? 'is-disabled' : 'primary'}}">确认</view>
+            </view>
+        </view>
+    </popup>
+</view>

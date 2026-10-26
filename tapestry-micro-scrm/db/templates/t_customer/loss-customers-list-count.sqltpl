@@ -1,0 +1,34 @@
+SELECT
+    count(*) as total
+FROM `relation_callback_records` cr
+{{if .cond.CustomerName}}
+INNER JOIN micro_scrm_enterprise_{{.cond.EnterpriseID}}.`wx_user_corp_external` ce ON cr.`external_user_id` = ce.`openid`
+{{end}}
+WHERE cr.`to_user_name`= '{{.cond.CorpId}}'
+    AND cr.`change_type` = '{{.cond.ChangeType}}'
+{{if eq 1 .cond.TimeSlotType }}
+    {{if .cond.TimeStart}}
+        AND cr.`add_relation_time` >= {{.cond.TimeStart}}
+    {{end}}
+    {{if .cond.TimeEnd}}
+        AND cr.`add_relation_time` <= {{.cond.TimeEnd}}
+    {{end}}
+{{end}}
+{{if eq 2 .cond.TimeSlotType }}
+    {{if .cond.TimeStart}}
+        AND cr.`create_time` >= {{.cond.TimeStart}}
+    {{end}}
+    {{if .cond.TimeEnd}}
+        AND cr.`create_time` <= {{.cond.TimeEnd}}
+    {{end}}
+{{end}}
+ AND cr.`add_relation_time` > 0
+{{if .cond.ChannelId}}
+ AND  cr.`channel_id` = {{.cond.ChannelId}}
+{{end}}
+ {{if .cond.UserId}}
+     AND  cr.`user_id` IN ({{WhereIn .cond.UserId}})
+ {{end}}
+{{if .cond.CustomerName}}
+    AND ce.`name` LIKE '%{{SafeStr .cond.CustomerName}}%';
+{{end}}

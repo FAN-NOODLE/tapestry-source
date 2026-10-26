@@ -1,0 +1,18 @@
+update
+  chat_group_msg_task_member
+set
+  `enterprise_id` = :enterprise_id,
+  `msg_task_id` = :msg_task_id,
+  `member_id` = :member_id,
+  `status` = :status,
+  `task_status` = :task_status,
+  `fail_msg` = :fail_msg,
+  `success_count` = :success_count,
+  `not_send_count` = :not_send_count,
+  `failed_count` = :failed_count,
+  `msgid` = :msgid,
+  `member_send_time` = :send_time,
+  `updated_at` = :updated_at,
+  `deleted_at` = :deleted_at
+where
+  `id` = :id

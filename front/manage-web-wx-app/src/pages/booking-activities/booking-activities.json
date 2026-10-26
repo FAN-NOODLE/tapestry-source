@@ -1,0 +1,13 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "CIIE皮牌预约活动",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "customer": "./components/customer/customer",
+    "custom-loading": "../../components/custom-loading/custom-loading",
+    "toast": "./components/toast/toast"
+  }
+}   

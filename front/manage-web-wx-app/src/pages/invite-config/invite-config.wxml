@@ -1,0 +1,102 @@
+<view class="page-invite-config flex-center">
+    <view wx:if="{{!showLoading && !isError}}">
+        <view class="page-invite-config-header">
+            <view class="page-invite-config-header-name flex">
+                <image class="letter-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/letter-icon.png" />
+                <view class="font-14 label">邀请函名称：</view>
+                <view wx:if="{{isDetail}}">{{detail.title_name}}</view>
+                <view class="page-invite-config-header-name-choose" wx:else>
+                    <view class="page-invite-config-header-name-choose-content flex" catch:tap="handleOpenOptions">
+                        <view class="page-invite-config-header-name-choose-content-name">
+                            {{optionsChoose.title_name}}
+                        </view>
+                        <image class="page-invite-config-header-name-choose-content-icon" src="~@/images/coach/updown.png" />
+                    </view>
+                    <view class="page-invite-config-header-name-choose-content-options" wx:if="{{optionsShow}}">
+                        <scroll-view class="scroll-view" scroll-y="{{true}}">
+                            <block wx:for="{{options}}" wx:key="index">
+                                <view class="page-invite-config-header-name-choose-content-options-item {{optionsChoose.id === item.id ? 'active' : '' }}" data-item="{{item}}" catch:tap="handleChangeOptions">
+                                    {{item.title_name}}
+                                </view>
+                            </block>
+                        </scroll-view>
+                    </view>
+                </view>
+            </view>
+            <view class="service-relation flex">
+                <view class="font-14">关联预约服务：</view>
+                <view class="font-14">
+                    {{detail.reserve_service_name || optionsChoose.reserve_service_name}}
+                </view>
+            </view>
+        </view>
+        <view class="page-invite-config-tabs flex-center">
+            <view class="{{styleIndex === 1 ? 'active' : ''}}" catch:tap="handleChangeStyle" data-type='{{1}}'>
+                样式一
+            </view>
+            <view class="second {{styleIndex === 2 ? 'active' : ''}}" catch:tap="handleChangeStyle" data-type='{{2}}'>
+                样式二
+            </view>
+        </view>
+        <view class="page-invite-config-content">
+            <view wx:if="{{styleIndex === 1}}">
+                <view class="page-invite-config-content-title">尊敬的顾客：{{userName || '--'}}</view>
+                <!-- <view class="page-invite-config-content-write">
+                    {{detail.content || optionsChoose.content}}
+                </view> -->
+                <!-- sa编辑内容 -->
+                <view class="edit-box">
+                    <textarea
+                        class="edit"
+                        maxlength="150"
+                        value="{{editValue}}"
+                        cursor-spacing="{{150}}"
+                        show-confirm-bar="{{false}}"
+                        hold-keyboard="{{false}}"
+                        bindinput="editorInput"
+                    ></textarea>
+                    <view class="word-total">{{editValue.length}}/150</view>
+                </view>
+                <view class="page-invite-config-content-sign">您的专属顾问：{{member_name}}</view>
+            </view>
+            <view class="page-invite-config-content-backgroundImg">
+                <image class="page-invite-config-content-backgroundImg-image" src="{{isDetail ? detail.background_url[currentIndex] : optionsChoose.background_url[currentIndex]}}" mode="widthFix" lazy-load="{{true}}" />
+            </view>
+            <view wx:if="{{styleIndex === 2}}" class="m-t-20">
+                <view class="page-invite-config-content-title">尊敬的顾客：{{userName || '--'}}</view>
+                <!-- <view class="page-invite-config-content-write">
+                    {{detail.content || optionsChoose.content}}
+                </view> -->
+                <!-- sa编辑内容 -->
+                <view class="edit-box">
+                    <textarea
+                        class="edit"
+                        maxlength="150"
+                        value="{{editValue}}"
+                        cursor-spacing="{{150}}"
+                        show-confirm-bar="{{false}}"
+                        hold-keyboard="{{false}}"
+                        bindinput="editorInput"
+                    ></textarea>
+                    <view class="word-total">{{editValue.length}}/150</view>
+                </view>
+                <view class="page-invite-config-content-sign m-b-80">您的专属顾问：{{member_name}}</view>
+            </view>
+            <!-- 自定义指示点 -->
+            <view class="dot-container flex-center">
+                <image class="dot-container-icon-left icon {{currentIndex === 0 ? 'disabled' : ''}}" src="../../images/coach/icon_right_light.png" catch:tap="handleChangePic" data-type="1" />
+                <view class="dot-container-tag">背景{{chinese[currentIndex]}}</view>
+                <image class="dot-container-icon-right icon {{ currentIndex === ( isDetail ? detail.background_url.length - 1 : optionsChoose.background_url.length - 1) ? 'disabled' : '' }}" src="../../images/coach/icon_right_light.png" catch:tap="handleChangePic" data-type="2" />
+            </view>
+        </view>
+        <view class="footer" wx:if="{{!isDetail}}" wx:if="{{!hiddenButton}}">
+            <button class="footer-sendBtn font-12" bind:tap="sendingInvitation">发送邀请函</button>
+        </view>
+    </view>
+    <!-- 微信打开无权限 -->
+    <view wx:if="{{!showLoading && isError}}">
+        <mp-empty icon="power" content="{{errorTxt}}"></mp-empty>
+    </view>
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

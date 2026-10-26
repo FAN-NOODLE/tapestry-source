@@ -1,0 +1,49 @@
+<view class="page-not-participating-activities">
+	<view class="title-wraper flex">
+		<view class="left">
+			<view>{{amount}}</view>
+			<view>未参加群活动人数</view>
+		</view>
+		<view class="right">
+			<view>{{percentage}}</view>
+			<view>未参加群活动率</view>
+		</view>
+	</view>
+	<!-- 明细数据 -->
+	<view class="detail-wrap">
+		<view class="title">明细数据</view>
+		<view class="list-box">
+			<scroll-view class="cmp-scroll" scroll-y="{{true}}" lower-threshold="50" bindscrolltolower="scrolltolower" wx:if="{{list.length > 0}}">
+				<block wx:if="{{list.length > 0}}">
+					<view class="item-list" wx:for="{{list}}" wx:key="index">
+						<view class="flex">
+							<view class="item-avatar">
+								<image src="{{item.avatar}}" />
+							</view>
+							<view class="item-msg">
+								<view class="item-name">{{item.name}}</view>
+								<view class="item-department">入群时间:  {{item.join_time}}</view>
+							</view>
+						</view>
+						<view class="customer-but white-but m-l-0" hover-class="btn-hover" catchtap="contact" data-extid="{{item.openid}}">
+						立即沟通
+						</view>
+					</view>
+				</block>
+			</scroll-view>
+			<mp-empty wx:if="{{!pageSet.loading && list.length == 0}}" slogan="当前暂无未参数活动人员～" icon="order"></mp-empty>
+		</view>
+	</view>
+	<!-- 去打招呼二次确认弹框 -->
+  <message-modal
+    show="{{ confirmModelShow }}"
+    description="{{dialogText}}"
+    descriptionTwo="{{dialogTwoText}}"
+    bindclose="closeConfirmModel"
+    bindcancel="closeConfirmModel"
+    bindsure="closeConfirmModel"
+  ></message-modal>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

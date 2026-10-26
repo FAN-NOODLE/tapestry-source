@@ -1,0 +1,19 @@
+UPDATE `enterprise_corp`
+SET
+    {{if .cond.TagInitStatus}}
+    `tag_init_status` = :tag_init_status,
+    {{end}}
+    {{if .cond.Reason}}
+    `reason`          = :reason,
+    {{end}}
+    {{if .cond.CorpID}}
+    `corp_id` = :corp_id,
+    {{end}}
+    {{if .cond.Domain}}
+    `domain` = :domain,
+    {{end }}
+    {{if .cond.Hash}}
+    `hash` = :hash,
+    {{end }}
+    `enterprise_id` = :enterprise_id
+WHERE `enterprise_id` = :enterprise_id;

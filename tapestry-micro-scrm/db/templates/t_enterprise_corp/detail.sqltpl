@@ -1,0 +1,13 @@
+SELECT `enterprise_id`, `corp_id`, `domain`, `hash`, `tag_init_status`, `reason` FROM `enterprise_corp` WHERE 1=1
+{{if ne .cond.EnterpriseID 0}}
+AND `enterprise_id` = :enterprise_id
+{{end }}
+{{if ne .cond.CorpID ""}}
+AND `corp_id` = :corp_id
+{{end }}
+{{if ne .cond.Domain ""}}
+AND `domain` = :domain
+{{end }}
+{{if ne .cond.Hash ""}}
+AND `hash` = :hash
+{{end }}

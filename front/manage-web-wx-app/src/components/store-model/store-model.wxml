@@ -1,0 +1,23 @@
+<view class="page-store-model {{stores.select ? 'border' : ''}}" bindtap="select">
+  <view class="mark" wx:if="{{stores.select}}">
+    <images src="https://oss-crs.vchangyi.com/store/mark.png" preview="{{false}}"></images>
+  </view>
+  <view class="content">
+    <!-- 对应门店二维码 -->
+    <view class="qrcode">
+      <avatar src="{{stores.qr_code}}" preview="{{true}}"></avatar>
+    </view>
+    <!-- 门店信息 -->
+    <view class="store">
+      <view class="store-name">{{stores.short_name}}</view>
+      <view class="store-number">ID:{{stores.store_no}}</view>
+    </view>
+    <view class="icon-right">
+      <images src="https://oss-crs.vchangyi.com/store/icon-right.png" preview="{{false}}"></images>
+    </view>
+  </view>
+  <view class="info">
+    <view class="name">店长 : {{stores.work_name}}</view>
+    <view>Tel : {{stores.work_phone}}</view>
+  </view>
+</view>

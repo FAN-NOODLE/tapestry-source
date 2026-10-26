@@ -1,0 +1,4 @@
+select
+    count(*)
+from `work_external_user_migration`
+where `status` = 0

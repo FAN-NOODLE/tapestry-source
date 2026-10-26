@@ -1,0 +1,72 @@
+.com-tabs
+  -webkit-tap-highlight-color: transparent
+  position: relative
+
+  &__wrap
+    display: flex
+    overflow: hidden
+
+  &__scroll
+    ::-webkit-scrollbar 
+      display: none
+
+  &__nav
+    display: flex
+    position: relative
+    -webkit-user-select: none
+    user-select: none
+
+  &__line
+    background-color: #4a4a4a
+    border-radius: 6rpx
+    bottom: 0
+    height: 6rpx
+    left: 0
+    opacity: 1
+    position: absolute
+    z-index: 1
+    width: 40rpx
+
+.com-tab
+  box-sizing: border-box
+  color: #777777
+  cursor: pointer
+  font-size: 28rpx
+  line-height: 78rpx
+  min-width: 0
+  padding: 0 30rpx
+  position: relative
+  text-align: center
+
+  &--active
+    color: #4A4A4A
+    font-weight: bold
+  
+  &__title 
+    position: relative
+  
+  &__num
+    position: absolute
+    top: 25rpx
+    right: 0
+    min-width: 28rpx
+    padding: 0 5rpx
+    box-sizing: border-box
+    height: 28rpx
+    border-radius: 28rpx
+    background-color: #000
+    color: #fff
+    font-size: 16rpx
+    display: flex
+    align-items: center
+    justify-content: center
+    transform: translate(50%, -50%)
+
+.com-tabs__wrap--scrollable 
+  white-space: nowrap
+  .com-tabs__nav
+    display: block
+  .com-tab
+    display: inline-block
+.flex_1
+  flex: 1

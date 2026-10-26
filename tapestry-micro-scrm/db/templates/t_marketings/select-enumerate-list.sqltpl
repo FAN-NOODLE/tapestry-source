@@ -1,0 +1,10 @@
+SELECT
+    `id`,
+	`name`,
+	`val`,
+	`pid`,
+	`type`
+FROM
+	`enumerate`
+WHERE
+	`val` != ""

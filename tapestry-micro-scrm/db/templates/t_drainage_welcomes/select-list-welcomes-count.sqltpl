@@ -1,0 +1,19 @@
+SELECT
+	count(*) as count
+FROM
+	drainage_welcomes AS dw
+	LEFT JOIN drainage_contact_channels AS c ON dw.channel_id = c.id AND c.deleted_at = 0
+WHERE
+    dw.is_default = 0
+AND
+    dw.deleted_at = 0
+AND
+    c.deleted_at = 0
+AND
+    dw.enterprise_id = :enterprise_id
+
+{{if .cond.Content}} AND dw.content like '%{{SafeStr .cond.Content}}%' {{end}}
+
+{{if ne .cond.ChannelId 0}} AND dw.channel_id = {{.cond.ChannelId}} {{end}}
+{{if ne .cond.IdNot 0}} AND dw.id != {{.cond.IdNot}} {{end}}
+{{if ne .cond.Type 0}} AND dw.type = {{.cond.Type}} {{end}}

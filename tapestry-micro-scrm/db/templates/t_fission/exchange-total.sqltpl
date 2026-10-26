@@ -1,0 +1,7 @@
+SELECT
+
+COUNT(*) AS COUNT
+
+FROM `fission_exchange_prize_records`
+
+WHERE enterprise_id = ? AND deleted_at = 0

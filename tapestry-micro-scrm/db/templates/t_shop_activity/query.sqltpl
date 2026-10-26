@@ -1,0 +1,22 @@
+SELECT
+  `id`,
+  `activity_id`,
+  `source`,
+  `name`,
+  `start_at`,
+  `end_at`,
+  `need_num`,
+  `activity_type`,
+  `activity_status`,
+  `enterprise_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+FROM
+  `shop_activity`
+WHERE
+  enterprise_id = ?
+AND
+  activity_id = ?
+AND
+  deleted_at = ?

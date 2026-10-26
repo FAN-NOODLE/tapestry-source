@@ -1,0 +1,111 @@
+<view class="page-record-list">
+	<view class="empty" wx:if="{{pageLoading}}">
+		<image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif" />
+	</view>
+
+	<block wx:else>
+		<view class="top-select">
+			<view class="select-item width-90">
+				<view class="time-style">{{selectDate || '时间'}}</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+				<picker
+				 data-key="selectDate"
+				 class="picker-box"
+				 mode="date"
+				 value="{{selectDate}}"
+				 bindchange="changeKey"
+				>
+					<view class="picker">当前选择</view>
+				</picker>
+			</view>
+
+			<view class="select-item" wx:if="{{role !== 5}}">
+				<view>{{statusIndex > - 1 ? statusList[statusIndex].status_name : '状态'}}</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+				<picker
+				 data-key="statusIndex"
+				 class="picker-box"
+				 bindchange="changeKey"
+				 range-key="status_name"
+				 value="statusIndex"
+				 range="{{statusList}}"
+				>
+					<view class="picker">当前选择</view>
+				</picker>
+			</view>
+			
+			<!-- 来源 -->
+			<view class="select-item" wx:if="{{role !== 5}}">
+				<view>{{sourceIndex > - 1 ? sourceList[sourceIndex].status_name : '来源'}}</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+				<picker
+				 data-key="sourceIndex"
+				 class="picker-box"
+				 bindchange="changeKey"
+				 range-key="status_name"
+				 value="sourceIndex"
+				 range="{{sourceList}}"
+				>
+					<view class="picker">当前选择</view>
+				</picker>
+			</view>
+			<view class="select-item" wx:if="{{role === 5}}">
+				<view class="text-hid">{{storeIndex > - 1 ? storeLists[storeIndex].store_name : '门店'}}</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+				<picker
+				 data-key="storeIndex"
+				 class="picker-box"
+				 bindchange="changeKey"
+				 range-key="store_name"
+				 value="storeIndex"
+				 range="{{storeLists}}"
+				>
+					<view class="picker">当前选择</view>
+				</picker>
+			</view>
+			<view class="select-item" wx:if="{{role === 5}}">
+				<view>
+					<span>{{memberIndex > - 1 ? staffLists[memberIndex].members_name : '导购'}}</span>
+				</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+				<picker
+				 data-key="memberIndex"
+				 class="picker-box"
+				 bindchange="changeKey"
+				 range-key="members_name"
+				 value="memberIndex"
+				 range="{{staffLists}}"
+				>
+					<view class="picker">当前选择</view>
+				</picker>
+			</view>
+			<view class="select-item" bindtap="searchReset" wx:if="{{role !== 5}}">
+				<view>重置</view>
+				<image class="reset-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/reset_icon.png" />
+			</view>
+
+			<!-- 更多筛选 -->
+			<view class="select-item" bindtap="openMoreFilter" wx:if="{{role === 5}}">
+				<view>筛选</view>
+				<image class="up-down" src="../../../images/coach/updown.png" />
+			</view>
+		</view>
+		<view class="content-list" wx:if="{{list.length > 0}}">
+			<!-- 邀约列表 -->
+			<block wx:for="{{list}}" wx:key="index">
+				<invite-item item="{{item}}" index="{{index}}" role="{{listOperationObj.role}}" from="{{2}}" bindstatusChange="statusChange"></invite-item>
+				<!-- <invite-list item="{{item}}" index="{{index}}" role="{{listOperationObj.role}}" bindstatusChange="statusChange"/> -->
+			</block>
+      <!-- 自定义加载中 -->
+      <custom-loading isLoading="{{isLoading}}" hasMore="{{hasMore}}"></custom-loading>
+		</view>
+		<mp-empty marginTop="{{80}}" wx:else slogan="暂无数据" icon="order" />
+	</block>
+
+	<!-- 更多筛选弹窗 -->
+	<filter-model id="filterModel" bind:onReset="searchReset" bind:onSubmit="filterModelSubmit"></filter-model>
+</view>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,26 @@
+{{if .cond.GroupID}}
+    UPDATE `source` s
+    LEFT JOIN `source_video` sub ON s.id = sub.id
+    SET
+        s.group_id = :group_id,
+        sub.`name` = :name,
+        sub.`url` = :url,
+        sub.`cover_url` = :cover_url,
+        sub.`ext` = :ext,
+        sub.`size` = :size,
+        sub.`updated_at` = :updated_at
+    WHERE s.`id`=:id
+
+{{else}}
+
+    UPDATE `source_video`
+    SET
+        `name` = :name,
+        `url` = :url,
+        `cover_url` = :cover_url,
+        `ext` = :ext,
+        `size` = :size,
+        `updated_at` = :updated_at
+    WHERE `id`=:id
+
+{{end}}

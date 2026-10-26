@@ -1,0 +1,32 @@
+select
+  `id`,
+  `enterprise_id`,
+  `name`,
+  `type`,
+  `send_type`,
+  `status`,
+  `task_status`,
+  `fail_msg`,
+  `send_time`,
+  `last_send_msg`,
+  `latest_check_time`,
+  `content`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    chat_group_msg_task
+where
+    enterprise_id = {{.cond.enterprise_id}}
+{{if .cond.index}}
+and
+    id < {{.cond.index}}
+{{end}}
+and
+    deleted_at = 0
+{{if .cond.status_list}}
+and
+    status in ({{WhereIn .cond.status_list}})
+{{end}}
+order by id desc
+LIMIT {{.page.Offset}}, {{.page.Limit}}

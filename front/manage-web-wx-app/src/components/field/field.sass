@@ -1,0 +1,49 @@
+/**
+  * CSS书写规范
+  *1.位置属性 (position, top, right, z-index, display, float等)　　
+  *2.大小 (width, height, padding, margin)　　
+  *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+  *4.背景 (background, border等)
+  *5.其他 (animation, transition等)
+ *  */
+
+@import "../../style/color-variable"
+@import '../../style/base/arrow'
+
+.component-field
+  padding: vw(0) vw(15)
+  background: $color-white
+  .field-container
+    background: $color-white
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .field
+      color: $color-333
+      font-size: vw(14)
+      font-family: PingFangSC-Regular,PingFang SC
+      font-weight: 400
+      min-width: vw(75)
+      flex: 1
+      word-break: break-all
+      view
+        padding: vw(15) vw(0)
+    .value
+      font-size: vw(14)
+      font-family: PingFangSC-Regular,PingFang SC
+      font-weight: 400
+      color: #808080
+      text-align: left
+      max-width: vw(200)
+      word-break: break-all
+      display: flex
+      align-items: center
+      view
+        padding: vw(15) vw(0)
+    .tri
+      margin-left: vw(3)
+      @include arrow-right(6, #979797)
+  .bottom
+    border-bottom: vw(1) solid $color-f0
+
+

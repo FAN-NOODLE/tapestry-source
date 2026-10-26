@@ -1,0 +1,87 @@
+.table
+    position: relative
+    font-size: 28rpx
+    background: #fff
+    border-right: none
+    border-radius: 8rpx
+    overflow: hidden
+
+.thead
+    border-bottom: none
+    display: flex
+    justify-content: flex-start
+    border-top-right-radius: 8rpx
+    border-top-left-radius: 8rpx
+    overflow: visible
+    color: #909399
+    border: 1px solid #ebeef5
+    box-sizing: border-box
+
+
+    & .td
+        width: 100%
+        padding: 20rpx 10rpx
+        font-weight: bold
+        display: inline-block
+        text-align: center
+        border-right: 1rpx solid #fff
+
+
+    & .td:last-child
+        border-right: none
+
+
+    &-border .td
+        border-right: 1rpx solid #ebeef5
+
+
+    &-border .td:last-child
+        border-right: none
+
+.tbody
+    box-sizing: border-box
+    font-size: 28rpx
+    color: #666
+    border: 1px solid #ebeef5
+    border-top: none
+    border-bottom-left-radius: 8rpx
+    border-bottom-right-radius: 8rpx
+
+
+    &-tr
+        display: flex
+        border-bottom: 1px solid #ebeef5
+
+
+    &-tr:last-child
+        border-bottom-left-radius: 8rpx
+        border-bottom-right-radius: 8rpx
+
+
+    &-tr-stripe
+        background: #fff
+        border-bottom: none
+
+
+    &-tr-stripe:nth-child(2n)
+        background: #F6F6F6
+
+
+    &-tr .td
+        white-space: wrap
+        padding: 20rpx 10rpx
+        text-align: center
+
+
+    &-tr-border .td
+        border-right: 1rpx solid #F6F6F6
+
+
+    &-tr-border .td:last-child
+        border-right: none
+
+.no-data
+    display: flex
+    padding: 50rpx
+    color: #666
+    justify-content: center

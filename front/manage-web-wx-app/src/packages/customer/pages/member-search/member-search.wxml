@@ -1,0 +1,115 @@
+<view class="container">
+		<view class="content {{ showMore ? 'expand':''}}">
+				<view class="form">
+						<view class="form-item">
+								<view class="form-item__label">姓名</view>
+								<view class="form-item__value">
+										<input class="form-item__input" data-key="name" bindinput="handleInputChange" value="{{form.name}}" placeholder-class="form-item__placeholder" placeholder="请输入顾客姓名" />
+								</view>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">手机号</view>
+								<view class="form-item__value">
+										<input data-key="phoneNumber" bindinput="handleInputChange" bindblur="handleBlur" value="{{form.phoneNumber}}" class="form-item__input" placeholder-class="form-item__placeholder" placeholder="请输入顾客手机号" />
+								</view>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">
+										<view>会员卡号</view>
+								</view>
+								<view class="form-item__value">
+										<input data-key="memberIds" bindinput="handleInputChange" value="{{form.memberIds}}" class="form-item__input" placeholder-class="form-item__placeholder" placeholder="请输入会员卡号" />
+								</view>
+						</view>
+						<view wx:if="{{pickerData.type}}" class="form-item">
+								<view class="form-item__label">顾客类型</view>
+								<picker class="form-item__value show-arrow" data-key="type" bindchange="handlePickerChange" range-key="value" value="{{typeIndex}}" range="{{pickerData.type}}">
+										<view wx:if="{{typeIndex > -1}}" class="form-item__text">{{pickerData.type[typeIndex].value}}</view>
+										<view wx:else class="form-item__placeholder">请选择顾客类型</view>
+								</picker>
+						</view>
+						<view wx:if="{{pickerData.vipLevel}}" class="form-item">
+								<view class="form-item__label">会员等级</view>
+								<picker class="form-item__value show-arrow" data-key="vipLevel" bindchange="handlePickerChange" range-key="value" value="{{vipLevelIndex}}" range="{{pickerData.vipLevel}}">
+										<view wx:if="{{vipLevelIndex > -1}}" class="form-item__text">{{pickerData.vipLevel[vipLevelIndex].value}}</view>
+										<view wx:else class="form-item__placeholder">请选择会员等级</view>
+								</picker>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">L12M消费记录</view>
+								<picker class="form-item__value show-arrow" data-key="priceRange" bindchange="handlePickerChange" range-key="value" value="{{priceRangeIndex}}" range="{{pickerData.priceRange}}">
+										<view wx:if="{{priceRangeIndex > -1}}" class="form-item__text">
+												{{pickerData.priceRange[priceRangeIndex].value}}
+										</view>
+										<view wx:else class="form-item__placeholder">请选择L12M消费记录</view>
+								</picker>
+						</view>
+				</view>
+				<view class="form">
+						<view class="form-item">
+								<view class="form-item__label">购买日期</view>
+								<view class="form-item__value show-arrow" bindtap="handleSelectDate">
+										<view wx:if="{{form.firstPurchase && form.lastPurchase}}">
+												{{form.firstPurchase}} - {{form.lastPurchase}}
+										</view>
+										<view wx:else class="form-item__placeholder">请选择购买日期</view>
+								</view>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">产品类别</view>
+								<picker class="form-item__value show-arrow" data-key="department" bindchange="handlePickerChange" range-key="value" value="{{departmentIndex}}" range="{{pickerData.department}}">
+										<view wx:if="{{departmentIndex > -1}}" class="form-item__text">
+												{{pickerData.department[departmentIndex].value}}
+										</view>
+										<view wx:else class="form-item__placeholder">选择产品类别</view>
+								</picker>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">款号</view>
+								<view class="form-item__value">
+										<input class="form-item__input" maxlength="15" data-key="style" bindinput="handleInputChange" value="{{form.style}}" placeholder-class="form-item__placeholder" placeholder="请输入款号" />
+								</view>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">产品描述</view>
+								<view class="form-item__value">
+										<input class="form-item__input" maxlength="15" data-key="collection" bindinput="handleInputChange" value="{{form.collection}}" placeholder-class="form-item__placeholder" placeholder="请输入Barcode名称,如PKR,PRKR" />
+								</view>
+						</view>
+				</view>
+				<view class="form">
+						<view class="form-item">
+								<view class="form-item__label">
+										<view class="lable-width">出生月份</view>
+								</view>
+								<picker class="form-item__value show-arrow" data-key="birthMonth" bindchange="handlePickerChange" range-key="value" value="{{birthMonthIndex}}" range="{{pickerData.birthMonth}}">
+										<view wx:if="{{birthMonthIndex > -1}}" class="form-item__text">
+												{{pickerData.birthMonth[birthMonthIndex].value}}
+										</view>
+										<view wx:else class="form-item__placeholder">请选择月份</view>
+								</picker>
+						</view>
+						<view class="form-item">
+								<view class="form-item__label">性别</view>
+								<picker class="form-item__value show-arrow" data-key="gender" bindchange="handlePickerChange" range-key="value" value="{{genderIndex}}" range="{{pickerData.gender}}">
+										<view wx:if="{{genderIndex > -1}}" class="form-item__text">
+												{{pickerData.gender[genderIndex].value}}
+										</view>
+										<view wx:else class="form-item__placeholder">请选择性别</view>
+								</picker>
+						</view>
+				</view>
+		</view>
+		<view class="more {{ showMore ? 'expand':''}}" bindtap="showMoreSearch">
+			<view class="more-text">更多查询条件</view>
+		</view>
+		<mp-footer backgroundColor="#f7f7f7">
+			<view class="footer">
+					<view bindtap="handleReset" class="btn">重置</view>
+					<view bindtap="handleSearchConfirm" class="btn {{disabled? 'disabled':''}}">查询</view>
+			</view>
+		</mp-footer>
+</view>
+<mp-datetime-picker show="{{isShowDate}}" value="{{currentDate}}" type="year-month" bind:cancel="handleSelectDateCancel" format="yyyy-MM" bind:reset="handleSelectDateConfirm" bind:confirm="handleSelectDateConfirm"></mp-datetime-picker>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

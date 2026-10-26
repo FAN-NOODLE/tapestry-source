@@ -1,0 +1,17 @@
+SELECT
+  `id`,
+  `enterprise_id`,
+  `group_id`,
+  `group_name`,
+  `order`,
+  `create_time`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+FROM `work_external_tag_group`
+WHERE
+  `enterprise_id` = {{.enterprise_id}}
+AND
+  `group_id` in ({{WhereIn .group_id_list}})
+AND
+  `deleted_at` = {{.deleted_at}}

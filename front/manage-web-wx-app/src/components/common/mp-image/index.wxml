@@ -1,0 +1,27 @@
+<!-- components/common/mp-image/index.wxml -->
+<!-- <wxs src="@filters/wxs/utils.wxs" module="utils" /> -->
+<view class="custom-class mp-image {{ round ? 'mp-image--round' : '' }}" style="--radius:{{radius}};{{customStyle}}">
+	<image
+		wx:if="{{show}}"
+		hidden="{{!(!loading && loaded)}}"
+		class="mp-image__image image-class"
+		src="{{src}}"
+		lazy-load="{{lazyLoad}}"
+		mode="{{mode}}"
+		show-menu-by-longpress="{{showMenuByLongpress}}"
+		webp="{{webp}}"
+		bind:tap="onClick"
+		bindload="onImageLoaded"
+		binderror="onImageError"
+	/>
+	<view wx:if="{{showError && !loading && !loaded}}" class="mp-image__error error-class">
+		<slot wx:if="{{useErrorSlot}}" name="error"></slot>
+		<mp-icon wx:else name="photo-fail" size="40" color="#dcdee0"></mp-icon>
+	</view>
+	<view wx:if="{{showLoading && loading}}" class="mp-image__loading loading-class">
+		<slot wx:if="{{useLoadingSlot}}" name="loading"></slot>
+		<view wx:else class="icon icon-loading">
+			<view class="icon-loading__inner"></view>
+		</view>
+	</view>
+</view>

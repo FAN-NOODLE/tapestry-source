@@ -1,0 +1,3 @@
+UPDATE marketing_strategies SET
+setting_day = :setting_day,
+updated_at = :updated_at WHERE id = :id

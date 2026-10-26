@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-overlay": "../mp-overlay/index",
+    "mp-transition": "../mp-transition/index"
+  }
+}

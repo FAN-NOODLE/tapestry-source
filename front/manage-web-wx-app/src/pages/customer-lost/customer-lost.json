@@ -1,0 +1,9 @@
+{
+	"navigationBarBackgroundColor": "#5C92FC",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "客户流失详情",
+	"backgroundColor": "#ffffff",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {}
+}

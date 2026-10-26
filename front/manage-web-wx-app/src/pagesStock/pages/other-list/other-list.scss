@@ -1,0 +1,232 @@
+@import '~@/style/color-variable';
+@import '~@/style/base/arrow';
+
+.page-list {
+  width: 100vw;
+  height: 100vh;
+  padding-top: vw(15);
+  padding-bottom: vw(90);
+  background: #f7f7f7;
+  overflow: hidden;
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    .header {
+      padding-top: vw(20);
+      &-city {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100rpx;
+        background: #FFFFFF;
+        margin: 0 vw(15);
+        padding: 0 vw(15);
+        .left {
+          display: flex;
+          align-items: center;
+          font-size: vw(14);
+          font-weight: 400;
+          color: #000000;
+          .city {
+            padding-right: vw(12);
+            border-right: 1px solid #eee;
+          }
+          .store {
+            padding-left: vw(12);
+          }
+        }
+        .down-icon {
+          width: vw(14);
+          height: vw(9);
+        }
+      }
+      .sku {
+        display: flex;
+        align-items: center;
+        height: vw(90);
+        background: #FFFFFF;
+        margin: vw(15) vw(15) 0 vw(15);
+        padding: 0 vw(15);
+        &-image {
+          width: vw(70);
+          height: vw(70);
+        }
+        &-content {
+          margin-left: vw(15);
+          font-size: vw(12);
+          line-height: vw(25);
+          .label {
+            color: #7f7f7f;
+          }
+          .sku-info {
+            display: flex;
+            justify-content: space-between;
+            .sku-color {
+              margin-right: vw(33);
+            }
+          }
+        }
+      }
+    }
+    .data-container {
+      display: flex;
+      flex-direction: column;
+      margin: vw(15) vw(15) vw(91) vw(15);
+      background: #FFFFFF;
+      padding: vw(15);
+      overflow: hidden;
+      
+    }
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    height: vw(80);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+    .button {
+      margin: vw(15) vw(45) 0 vw(45);
+      padding: vw(8) 0;
+      text-align: center;
+      font-size: vw(14);
+      font-weight: 400;
+      color: #FFFFFF;
+      background: #000;
+    }
+  }
+}
+
+.page-loading {
+  width: 100vw;
+  height: 100vh;
+  background: #f7f7f7;
+  z-index: 101;
+  position: relative;
+}
+
+
+
+.top-buttons {
+  display: flex;
+  justify-content: space-between;
+  .check {
+    display: flex;
+    align-items: center;
+    font-size: vw(12);
+    flex: 1;
+    image {
+      width: vw(12);
+      height: vw(12);
+      padding-right: vw(5);
+    }
+  }
+  .refresh {
+    display: flex;
+    align-items: center;
+    font-size: vw(12);
+    margin-left: vw(15);
+    image {
+      width: vw(14);
+      height: vw(14);
+      padding-right: vw(5);
+    }
+  }
+}
+.table-data {
+  flex: 1;
+  overflow: hidden;
+  margin-top: vw(15);
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+}
+
+.exit {
+  font-size: vw(12);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .exit-icon {
+    width: vw(14);
+    height: vw(14);
+    padding-right: vw(5);
+  }
+}
+
+// 横屏
+.horizontal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center center;
+  z-index: 100;
+  width: 100vh;
+  height: 100vw;
+  background: #f7f7f7 url('https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/header-back.png') no-repeat scroll top center;
+  background-size: 100% vw(229);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-left: vw(85);
+  box-sizing: border-box;
+
+  .horizontal-content {
+    flex: 1;
+    overflow: hidden;
+    background-color: #fff;
+    margin: vw(15);
+    box-sizing: border-box;
+    padding: vw(15);
+    display: flex;
+    flex-direction: column;
+
+
+
+    .horizontal-header {
+      display: flex;
+      justify-content: space-between;
+
+      .tags {
+        display: flex;
+        margin-right: vw(15);
+      }
+
+      .tag {
+        height: vw(20);
+        line-height: vw(20);
+        font-size: vw(12);
+        font-weight: 400;
+        color: #000000;
+        padding: 0 vw(5);
+        background: #F5F5F5;
+        margin-right: vw(5);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .top-buttons {
+        flex: 1;
+        justify-content: flex-start;
+        display: flex;
+
+        .check {
+          flex: none;
+        }
+
+        .refresh {
+          margin-left: vw(15);
+        }
+      }
+    }
+  }
+}

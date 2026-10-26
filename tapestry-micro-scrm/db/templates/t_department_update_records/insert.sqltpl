@@ -1,0 +1,2 @@
+INSERT INTO `department_update_records`(`id`, `enterprise_id`, `admin_id`, `type`, `status`, `request_id`, `msg_id`, `created_at`, `updated_at`)
+VALUES (:id, :enterprise_id, :admin_id, :type, :status, :request_id, :msg_id, :created_at, :updated_at);

@@ -1,0 +1,10 @@
+UPDATE
+    `moment_topic_members`
+SET
+    `deleted_at` = :deleted_at
+WHERE
+    1 = 1
+AND
+    `moment_topic_id` = :moment_topic_id
+AND
+    `deleted_at` = 0;

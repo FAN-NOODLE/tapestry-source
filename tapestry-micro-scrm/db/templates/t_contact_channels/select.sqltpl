@@ -1,0 +1,26 @@
+SELECT
+`dc`.`id`,
+`dc`.`name`,
+`dc`.`enterprise_id`,
+`dc`.`created_at`,
+`dc`.`updated_at`
+FROM `drainage_contact_channels` AS dc
+WHERE
+`dc`.`enterprise_id` = :enterprise_id
+AND dc.`deleted_at` = 0
+{{if ne .cond.ChannelName ""}}
+    AND `name` LIKE '%{{SafeStr .cond.ChannelName}}%'
+{{end }}
+{{/* 按渠道列表名查询 */}}
+{{if .cond.ChannelNames}}
+and name in ({{WhereIn .cond.ChannelNames}})
+{{end}}
+{{if ne .cond.ChannelID 0}}
+    AND `id` = {{.cond.ChannelID}}
+{{end }}
+GROUP BY `dc`.`id`
+ORDER BY `dc`.`created_at` DESC
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end }}
+;

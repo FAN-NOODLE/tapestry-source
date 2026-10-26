@@ -1,0 +1,8 @@
+SELECT
+ 	count(*) as count
+ FROM
+ 	`customer_relation_guide`
+ WHERE
+     enterprise_id = :enterprise_id
+ AND third_user_id = :third_user_id
+ AND deleted_at = 0

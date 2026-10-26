@@ -1,0 +1,13 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "WeJourney",
+  "navigationStyle": "custom",
+	"backgroundColor": "#F6F6F9",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"navigation-bar": "../../../components/navigation-bar/navigation-bar",
+		"medal-item": "../components/medal-item/medal-item"
+	}
+}

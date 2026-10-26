@@ -1,0 +1,35 @@
+SELECT
+	mt.id AS moment_topic_id,
+	mt.`name` AS name,
+    mm.`member_id` AS member_id,
+    mtm.`id` AS moment_topic_member_id,
+	IFNULL(m.`name`, " ") AS user_name,
+	IFNULL(m.`avatar`, " ") AS user_avatar,
+	IFNULL(mm.`name`, " ") AS moment_user_name,
+    IFNULL(mm.`avatar`, " ") AS moment_user_avatar,
+	mt.publish_time AS publish_time,
+	mt.publish_type AS publish_type,
+	mt.content AS content,
+	mt.created_member_id AS created_member_id,
+	mt.member_count AS member_count,
+	mt.created_at AS created_at,
+	mt.updated_at AS updated_at
+FROM
+	moment_members AS mm
+	LEFT JOIN members AS m ON m.id = mm.member_id
+	LEFT JOIN moment_topic_members AS mtm ON mtm.moment_member_id = mm.member_id
+	LEFT JOIN moment_topics AS mt ON mtm.moment_topic_id = mt.id
+WHERE
+	1 = 1
+AND
+    mt.deleted_at = 0
+AND
+    mtm.deleted_at = 0
+AND
+    mm.mark = :mark
+AND
+    ( mt.publish_type = 1 OR ( mt.publish_type = 2 AND mt.publish_time < :publish_time ) )
+ORDER BY
+	mt.updated_at DESC
+LIMIT
+    {{.page.Offset}}, {{.page.Limit}}

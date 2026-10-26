@@ -1,0 +1,22 @@
+<view class="calendar">
+	<view class="dark" catchtap="cancelTap"></view>
+	<view class="box" animation="{{animationData}}">
+		<view class="close" wx:if="{{closeIcon}}" catchtap="cancelTap">
+			<image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" mode="widthFix"></image>
+		</view>
+		<view class="title-row">
+			<view wx:if="{{!closeIcon && leftBtn}}" catchtap="cancelTap" class="oparete-left p-l-15 p-r-15 font-sc-re font-16" hover-class="op-7">
+				{{leftBtn}}
+			</view>
+			<view class="title flex-1 font-sc-me font-16">
+				{{title}}
+			</view>
+			<view wx:if="{{!closeIcon && rightBtn}}" catchtap="confirmTap" class="oparete-right font-sc-me p-l-15 p-r-15 font-16" hover-class="op-7">
+				{{rightBtn}}
+			</view>
+		</view>
+		<view class="ctn">
+			<slot></slot>
+		</view>
+	</view>
+</view>

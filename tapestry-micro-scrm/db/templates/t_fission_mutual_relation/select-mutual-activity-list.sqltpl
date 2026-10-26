@@ -1,0 +1,10 @@
+SELECT
+	mutual_activity_id,id
+FROM
+	`fission_mutual_relation`
+WHERE
+    enterprise_id = {{.enterpriseID}}
+    {{if gt .activityID 0}}
+       AND  activity_id = {{.activityID}}
+    {{end}}
+	AND deleted_at = 0;

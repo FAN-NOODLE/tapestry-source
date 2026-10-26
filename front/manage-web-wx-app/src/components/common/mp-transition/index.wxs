@@ -1,0 +1,13 @@
+
+function rootStyle(data) {
+  return [
+    '-webkit-transition-duration: ' + data.currentDuration + 'ms',
+    'transition-duration: ' + data.currentDuration + 'ms',
+    data.display ? null : 'display: none',
+    data.customStyle
+  ].join(';')
+}
+
+module.exports = {
+  rootStyle: rootStyle
+}

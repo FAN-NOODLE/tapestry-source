@@ -1,0 +1,8 @@
+SELECT
+    COUNT(T.`id`) AS use_num
+FROM
+    `work_external_tag` AS T
+WHERE
+    T.`enterprise_id` = :enterprise_id AND
+    T.`name` IN ({{WhereIn .name_list}}) AND
+    T.`deleted_at` = 0

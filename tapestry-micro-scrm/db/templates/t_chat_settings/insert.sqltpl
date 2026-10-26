@@ -1,0 +1,4 @@
+INSERT INTO chat_settings
+(`id`, `secret`, `message_public_key`, `message_private_key`, `enterprise_id`,`created_at`,`updated_at`)
+VALUES
+(:id, :secret, :message_public_key, :message_private_key,:enterprise_id,unix_timestamp(now()), unix_timestamp(now()));

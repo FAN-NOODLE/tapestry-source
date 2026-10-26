@@ -1,0 +1,13 @@
+INSERT INTO `official_account`
+(
+  `unionid`,
+  `open_platform_id`,
+  `open_platform_souce`,
+  `euid`,
+) VALUES
+(
+  :unionid,
+  :open_platform_id,
+  :open_platform_souce,
+  :euid,
+);

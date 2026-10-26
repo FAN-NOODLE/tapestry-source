@@ -1,0 +1,19 @@
+UPDATE
+    `moment_members`
+SET
+    `member_id` = :member_id,
+    `name` = :name,
+    `sign` = :sign,
+    `mark` = :mark,
+    `avatar` = :avatar,
+    `background` = :background,
+    `enterprise_id` = :enterprise_id,
+    `created_at` = :created_at,
+    `updated_at` = :updated_at
+WHERE
+    1 = 1
+AND
+    `id` = :id
+AND
+    `deleted_at` = 0
+

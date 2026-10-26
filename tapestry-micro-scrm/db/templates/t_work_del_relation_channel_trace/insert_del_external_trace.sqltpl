@@ -1,0 +1,4 @@
+INSERT INTO `work_del_relation_channel_trace_{{.cond.EnterpriseID}}`
+( `id`, `external_user_id`, `user_id`, `enterprise_id`, `delete_time`, `delete_channel`, `add_time`, `add_channel`, `change` )
+VALUES
+	( :id, :external_user_id, :user_id, :enterprise_id, :delete_time, :delete_channel, :add_time, :add_channel, :change);

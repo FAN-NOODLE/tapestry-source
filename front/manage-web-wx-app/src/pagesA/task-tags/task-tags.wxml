@@ -1,0 +1,262 @@
+<!-- 
+  注意！注意！注意！
+  当前页面已废弃，若有修改请前往：
+  packages/task/pages/task-tags/task-tags
+-->
+<view class="code-fun-flex-col page" bindtap="cancelSelect">
+  <!-- 请先拨打电话 弹窗 -->
+  <popup show="{{showComPopup}}" zIndex="{{5000}}">
+    <view slot="content" class="call-tip-wrap">
+      <view class="content">电话联系客户后才能添加好友哦~</view>
+      <view class="confirm-btn" bindtap="closeComPopup">知道了</view>
+    </view>
+  </popup>
+  <!-- 备注备注 弹窗 -->
+  <remark-popup
+    status="{{status}}"
+    wx:if="{{remarkPopup}}"
+    content="{{remarkContent}}"
+    bind:confirm="confirmFn"
+  />
+  <!-- 顾客名单 tabbar -->
+  <view class="code-fun-flex-col code-fun-justify-start fixed section_3">
+    <view class="code-fun-flex-row code-fun-justify-between code-fun-relative group_4">
+      <view
+        wx:for="{{tabList}}"
+        wx:key="index"
+        bindtap="tabStairList"
+        data-id="{{item.type}}"
+        class="code-fun-flex-col .code-fun-relative code-fun-self-center group_1"
+      >
+        <view class="code-fun-shrink-0 section_4 {{item.checked?'':'hide'}}" />
+        <text class="text_20" class="{{item.checked?'font_1':'font_2'}}">{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 顾客名单 -->
+  <view class="code-fun-flex-col code-fun-relative group_6 space-y-18">
+    <!-- 过滤工具栏 -->
+    <view class="filter-wrap" wx:if="{{pageType !== 1}}">
+      <view class="filter-content">
+        <view class="select-content">
+          <view class="select-type" catchtap="openSelect">{{filterList[filterType].label}}</view>
+          <image
+            class="select-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/select_icon.png"
+          />
+          <view wx:if="{{showType}}" class="select-wrap">
+            <view class="icon" />
+            <view
+              class="li {{item.value === filterType?'on':''}}"
+              wx:for="{{filterList}}"
+              wx:key="label"
+              data-type="{{item.value}}"
+              catchtap="chooseType"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </view>
+        <view class="search-content">
+          <image
+            class="search-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/search_icon.png"
+          />
+          <input
+            value="{{keywords}}"
+            bindinput="inputChange"
+            class="search-placeholder"
+            placeholder="请输入昵称/备注内容搜索"
+          />
+          <image
+            wx:if="{{keywords.length > 0 }}"
+            class="close-icon"
+            src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/close_icon.png"
+            catchtap="clearFilter"
+          />
+        </view>
+      </view>
+      <view class="search-btn" bindtap="handleSearch">搜索</view>
+    </view>
+    <!-- 无数据 搜索中 -->
+    <mp-empty
+      wx:if="{{!userList || !userList.length}}"
+      class="empty"
+      icon="date"
+      center="{{true}}"
+      content="{{isLoading?'正在搜索...':'暂无明细数据'}}"
+      marginTop="0"
+    />
+    <!-- 有数据 -->
+    <block wx:if="{{userList && userList.length > 0 }}">
+      <text class="code-fun-self-start font_1 text_3">明细数据</text>
+      <scroll-view
+        class="code-fun-flex-col scroll-view"
+        scroll-y="{{true}}"
+        lower-threshold="50"
+        bindscrolltolower="loadmore"
+      >
+        <view class="code-fun-flex-col list-item_1" wx:key="id" wx:for="{{userList}}">
+          <view
+            bindtap="viewDetail"
+            data-item="{{item}}"
+            data-index="{{index}}"
+            class="code-fun-flex-row group_7"
+          >
+            <view class="wrap_7">
+              <image
+                class="image_7"
+                src="{{item.avatar ? item.avatar : 'https://cdn-cos.coach.com.cn/uploads/2023/v3.2.0.1/default.png'}}"
+              />
+            </view>
+            <view class="wrap_8">
+              <view class="user-info">
+                <text class="font_1 text_4">{{item.name}}</text>
+                <image
+                  wx:if="{{item.is_union != 0 }}"
+                  class="image_8 image_9"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/friends.png"
+                />
+                <image
+                  wx:if="{{item.is_union == 0 }}"
+                  class="image_8 image_9"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/unfriends.png"
+                />
+              </view>
+              <!-- 客户标签 -->
+              <view class="tags">
+                <view wx:for="{{item.tag_name}}" wx:key="index" class="tag">{{item}}</view>
+              </view>
+            </view>
+            <!-- todo：右侧增加联状态 -->
+            <view
+              class="contract-status"
+              wx:if="{{category === 0 && group_send_type === 1 && item.is_touch > 1 && item.is_finished != 1}}"
+            >
+              <view class="contract-status-text"
+                >{{item.is_touch === 2 ? '好友已删除':'当天接受次数已达上限'}}</view
+              >
+              <image
+                class="contract-status-image"
+                src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/singel.png"
+              />
+            </view>
+            <!-- todo: 朋友圈任务是好友，并且已完成，显示朋友圈已触达 -->
+            <view
+              class="contract-status"
+              wx:if="{{category === 1 && status === 1 && item.is_touch === 1 && item.is_union != 0}}"
+            >
+              <view class="contract-status-text"
+                >朋友圈已触达</view
+              >
+              <image
+                class="contract-status-image"
+                src="https://cdn-cos.coach.com.cn/uploads/2023/3.5.1/singel.png"
+              />
+            </view>
+          </view>
+          <view class="code-fun-flex-row code-fun-items-center group_12 space-x-20">
+            <view class="code-fun-flex-row code-fun-flex-auto equal-division_1">
+              <view
+                wx:if="{{pageType !== 1}}"
+                catchtap="handleCall"
+                data-item="{{item}}"
+                data-index="{{index}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center equal-division-item m-r-22 space-x-6"
+              >
+                <image
+                  class="image_10"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/phone.png"
+                />
+                <text class="font_3">电话</text>
+              </view>
+              <view
+                wx:if="{{item.is_union != 0}}"
+                catchtap="communicate"
+                data-item="{{item}}"
+                data-index="{{index}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center equal-division-item m-r-30 space-x-6"
+              >
+                <image
+                  class="code-fun-shrink-0 image_11"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/send_message.png"
+                />
+                <text class="font_3">发消息</text>
+              </view>
+              <view
+                wx:if="{{item.work_external_user_id && item.is_union == 0}}"
+                catchtap="addUnion"
+                data-item="{{item}}"
+                data-index="{{index}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center equal-division-item m-r-30 space-x-6"
+              >
+                <image
+                  class="code-fun-shrink-0 image_11"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/add_friend.png"
+                />
+                <text class="font_3">加好友</text>
+              </view>
+              <view
+                wx:if="{{pageType !== 1}}"
+                catchtap="handleRemark"
+                data-index="{{index}}"
+                data-item="{{item}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center equal-division-item space-x-6"
+              >
+                <image
+                  class="image_12"
+                  src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.1/remark.png"
+                />
+                <text class="font_3 text_6">写备注</text>
+              </view>
+            </view>
+            <!-- 任务进行中并且是沟通任务 可以进行标记 -->
+            <block wx-if="{{status != 2 && pageType !== 1 && category === 0}}">
+              <view
+                wx-if="{{item.is_finished == 0}}"
+                bind:tap="handleTag"
+                data-item="{{item}}"
+                data-index="{{index}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center text-wrapper"
+              >
+                <text class="font_3 text_7">标记已联系</text>
+              </view>
+              <view
+                wx-if="{{item.is_finished == 1}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center text-wrapper_3"
+              >
+                <text class="font_3 text_15">已联系</text>
+              </view>
+            </block>
+            <!-- 任务已结束/已完成,并且是沟通任务，不能再标记啦 -->
+            <block wx-if="{{status == 2 && pageType !== 1 && category === 0}}">
+              <view
+                wx-if="{{item.is_finished == 0}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center text-wrapper_3"
+              >
+                <text class="font_3 text_15">标记已联系</text>
+              </view>
+              <view
+                wx-if="{{item.is_finished == 1}}"
+                class="code-fun-flex-row code-fun-justify-center code-fun-items-center text-wrapper_3"
+              >
+                <text class="font_3 text_15">已联系</text>
+              </view>
+            </block>
+          </view>
+          <view
+            class="code-fun-flex-col code-fun-justify-start text-wrapper_2"
+          >
+            <view class="font_1 text_14">备注：{{item.remark}}</view>
+          </view>
+        </view>
+        <view class="loading-tips" wx-if="{{!noMore && !isLoading}}">上拉加载更多~</view>
+        <view class="loading-tips" wx-if="{{noMore && !isLoading}}">已经到底了~</view>
+        <view class="loading-tips" wx-if="{{isLoading}}">加载中~</view>
+      </scroll-view>
+    </block>
+  </view>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,75 @@
+node {
+    stage('scm') {
+      echo "准备发布的分支或tag:${branch}"
+      checkout([
+          $class: 'GitSCM',
+          branches: [[name: "${branch}"]],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [],
+          submoduleCfg: [],
+          userRemoteConfigs: [[
+              url: '${git}'
+          ]]
+      ])
+    }
+    stage('Pre'){
+      script{
+        // 腾讯云容器域名
+        env.domainName = "harbor.vchangyi.com"
+        // 命名空间
+        env.namespace = "crs-front-${params.env}"
+        // 定义tag
+        env.tag = branch.replaceAll('/','.').toLowerCase() + '.' + env.BUILD_NUMBER
+        // docker镜像名
+        env.dockerImage = "crs-scrm-work-h5-${params.env}-${params.enterprise_hash}"
+				// 镜像地址
+				env.dockerAddress = "${env.domainName}/${env.namespace}/${env.dockerImage}:${env.tag}"
+        echo "镜像地址：${env.dockerAddress}"
+      }
+    }
+    stage('Build') {
+         echo "当前发布企业${params.enterprise_hash}"
+         nodejs('node10') {
+           echo 'JenkinsFile 文件执行开始'
+           sh 'node -v'
+           sh 'chmod 777 ./deploy/pack.sh'
+           sh "./deploy/pack.sh ${params.enterprise_hash} ${params.api_domain}"
+         }
+          sh """
+          #!/bin/bash
+          cd deploy
+          echo 删除后缀为.map文件
+          find . -name '*.map' -delete
+          echo 删除成功，创建镜像
+          docker -v
+          # 创建镜像
+          docker build --no-cache --build-arg HASH=${params.enterprise_hash} -t ${env.tag} .
+          # 登陆
+          docker login --username=${env.TEST_CRS_HARBOR_USER} --password ${env.TEST_CRS_HARBOR_PWD} ${env.domainName}
+          docker tag ${env.tag} ${env.dockerAddress}
+          docker push ${env.dockerAddress}
+          """
+    }
+    stage('deploy') {
+      script{
+        echo "部署开始"
+        def ips = "${params.ips}".split(',');
+        echo "${ips}"
+        for (int i = 0; i < ips.size(); i++) {
+           def ip = ips[i];
+           echo ip
+           sh """
+             echo "WEB_IMAGE=${env.dockerAddress}" > deploy/.env
+             echo "ENTERPRISE_HASH=${params.enterprise_hash}" >> deploy/.env
+             echo "ENV_DOMAIN=${params.env_domain}" >> deploy/.env
+             echo "DOCKER_NAME=crs-scrm-work-h5-${params.env}-${params.enterprise_hash}" >> deploy/.env
+             scp -r deploy root@${ip}:/
+						 ssh -p 22 root@${ip} "cd /deploy && sed -i '3s/crs-scrm-work-h5/crs-scrm-work-h5-${params.env}-${params.enterprise_hash}/g' docker-compose.yml"
+						 ssh -p 22 root@${ip} "chmod +x /deploy/kill-container.sh && /deploy/kill-container.sh ${env.domainName}/${env.namespace}/${env.dockerImage}"
+						 ssh -p 22 root@${ip} "cd /deploy && docker login --username=${env.TEST_CRS_HARBOR_USER} --password ${env.TEST_CRS_HARBOR_PWD} ${env.domainName} && docker-compose up -d"
+            """
+        }
+	      echo "部署结束"
+      }
+    }
+}

@@ -1,0 +1,2 @@
+UPDATE `work_group_chat`
+SET `name` = :name,`type` = :type, `notice` = :notice, `owner_member_id` = :owner_member_id, `created_at` = :created_at,`updated_at` = :updated_at, `status` = :status, `dissolve_time` = :dissolve_time, `member_num` = :member_num,`admin_list` = :admin_list  WHERE `id` = :id;

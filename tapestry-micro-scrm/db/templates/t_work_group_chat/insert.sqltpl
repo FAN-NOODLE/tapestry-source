@@ -1,0 +1,3 @@
+INSERT INTO `work_group_chat`
+(`id`, `enterprise_id`, `chat_id`, `name`,`type`, `owner_member_id`, `notice`, `create_time`, `status`, `created_at`, `updated_at`, `member_num`,`admin_list`)
+VALUES (:id, :enterprise_id, :chat_id, :name, :type,:owner_member_id, :notice, :create_time, :status, :created_at, :updated_at, :member_num ,:admin_list);

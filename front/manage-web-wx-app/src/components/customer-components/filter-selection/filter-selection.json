@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "filter-selection-item": "../filter-selection-item/filter-selection-item"
+  }
+}

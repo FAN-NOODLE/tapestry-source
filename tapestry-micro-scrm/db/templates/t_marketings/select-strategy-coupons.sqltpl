@@ -1,0 +1,8 @@
+SELECT
+  wc.coupon_name,
+  wc.coupon_stock_id as stock_id
+FROM
+	`marketing_strategy_coupons` as msc
+	LEFT JOIN `wx_coupon` as wc ON msc.wx_coupon_id = wc.coupon_id
+WHERE
+ msc.strategy_id = ?

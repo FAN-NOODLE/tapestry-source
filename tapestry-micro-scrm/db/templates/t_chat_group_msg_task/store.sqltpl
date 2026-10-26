@@ -1,0 +1,5 @@
+insert  into
+  chat_group_msg_task
+ (`id`,`enterprise_id`,`name`,`type`,`send_type`,`status`,  `task_status`,  `send_time` ,`last_send_msg`,  `content`, `created_at`, `updated_at`)
+  values
+ (:id,:enterprise_id,:name,:type,:send_type,:status,:task_status,:send_time,:last_send_msg,:content,:created_at,:updated_at)

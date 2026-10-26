@@ -1,0 +1,31 @@
+SELECT
+  ur.`id`,
+  ur.`enterprise_id`,
+  ur.`work_external_user_id`,
+  ur.`member_id`,
+  ur.`remark`,
+  ur.`description`,
+  ur.`createtime`,
+  ur.`remark_corp_name`,
+  ur.`remark_mobiles`,
+  ur.`add_way`,
+  ur.`state`,
+  ur.`oper_userid`,
+  ur.`relation_status`,
+  ur.`member_deleted_time`,
+  ur.`external_deleted_time`,
+  ur.`created_at`,
+  ur.`updated_at`,
+  ur.`deleted_at`,
+  `members`.`userid` AS `qy_userid`,
+  `members`.`mobile` AS `member_mobile`,
+  `members`.`name` AS `member_name`
+FROM work_external_user_relation as ur
+LEFT JOIN members on members.id = ur.member_id and members.enterprise_id = ur.enterprise_id
+WHERE
+members.enterprise_id = ?
+AND
+ur.work_external_user_id = ?
+AND
+members.id = ?
+AND ur.deleted_at = 0

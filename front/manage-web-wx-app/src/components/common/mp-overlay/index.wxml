@@ -1,0 +1,27 @@
+<!-- components/common/mp-overlay/index.wxml -->
+<!-- <import src="./overlay.wxml" /> -->
+
+<root-portal wx:if="{{ rootPortal }}">
+  <mp-transition
+    show="{{ show }}"
+    custom-class="mp-overlay custom-class"
+    custom-style="z-index: {{ zIndex }}; {{ customStyle }}"
+    duration="{{ duration }}"
+    bind:tap="onClick"
+    catch:touchmove="{{ lockScroll ? 'noop' : ''}}"
+  >
+    <slot></slot>
+  </mp-transition>
+</root-portal>
+
+<mp-transition
+  wx:else
+  show="{{ show }}"
+  custom-class="mp-overlay custom-class"
+  custom-style="z-index: {{ zIndex }}; {{ customStyle }}"
+  duration="{{ duration }}"
+  bind:tap="onClick"
+  catch:touchmove="{{ lockScroll ? 'noop' : ''}}"
+>
+  <slot></slot>
+</mp-transition>

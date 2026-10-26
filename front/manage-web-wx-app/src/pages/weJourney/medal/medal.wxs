@@ -1,0 +1,151 @@
+/** 初始x 可视宽度 scroll-box宽度 */
+var startX = 0
+var tWidth = 0
+/* 触摸时的left */
+var startLeft = 0
+/** 最后一次left的位置 */
+var lastLeft = 0
+var current = 0
+var nextCurrent = 0
+var maxLeft = 0
+var minLeft = 0
+var defaultMinSize = 155
+var defaultMaxSize = 215
+
+/** 手指触摸 */
+function touchstart (event, ins) {
+  var touch = event.touches[0] || event.changedTouches[0]
+  /** 储存触摸位置 */
+  startX = touch.pageX
+  startLeft = lastLeft
+  /* 获取页面current */
+  var dataset = ins.selectComponent('.swiper-box').getDataset()
+  current = dataset.current
+  /** 移除已有动画类 */
+  ins.selectComponent('.scroll-box').removeClass('animation-left')
+  var allCom = ins.selectAllComponents('.swiper-item')
+
+  /* 根据current值设置dom样式 */
+  for (var i = 0; i < allCom.length; i++) {
+    allCom[i].removeClass('animation-item')
+  }
+}
+
+function touchmove (event, ins) {
+  var touch = event.touches[0] || event.changedTouches[0]
+  var pageX = touch.pageX
+  var allCom = ins.selectAllComponents('.swiper-item')
+  /* 获取改变之后的left值 */
+  var left = Math.min(Math.max(minLeft, (pageX - startX) / 1.5 + lastLeft), maxLeft)
+
+  /* 向左滑动 */
+  if (left < lastLeft) {
+    /* 边界情况return */
+    if (current === allCom.length - 1) return
+    nextCurrent = Math.min(current + 1, allCom.length - 1)
+  }
+
+  /* 向右滑动 */
+  if (left > lastLeft) {
+    /* 边界情况return */
+    if (current === 0) return
+    nextCurrent = Math.max(current - 1, 0)
+  }
+
+  /* 滑动距离无变化 return */
+  if (left === lastLeft) return
+
+  /* 动态变大 */
+  var radio = Math.abs(left - startLeft) / (tWidth / 2)
+  /* 宽度变大 */
+  var width1 = Math.min(defaultMinSize + (defaultMaxSize - defaultMinSize) * radio, defaultMaxSize)
+  /* 宽度变小 */
+  var width2 = Math.max(defaultMaxSize - (defaultMaxSize - defaultMinSize) * radio, defaultMinSize)
+  /* 高度变大 */
+  var height1 = Math.min(defaultMinSize + (defaultMaxSize - defaultMinSize) * radio, defaultMaxSize)
+  /* 高度变小 */
+  var height2 = Math.max(defaultMaxSize - (defaultMaxSize - defaultMinSize) * radio, defaultMinSize)
+
+  allCom[current].setStyle({ width: width2 + 'px', height: height2 + 'px' })
+  allCom[nextCurrent].setStyle({ width: width1 + 'px', height: height1 + 'px' })
+
+  /** 为元素添加left */
+  ins.selectComponent('.scroll-box').setStyle({
+    left: left + 'px'
+  })
+
+  startX = pageX
+  lastLeft = left
+}
+
+/** 手指离开屏幕 判断上下元素是否对齐 并自动对齐 */
+function touchend (event, ins) {
+  /* 向右滑动 */
+  if (lastLeft > startLeft) {
+    nextCurrent = Math.max(current - 1, 0)
+  } else if (lastLeft < startLeft) {
+    /* 向左滑动 */
+    var allCom = ins.selectAllComponents('.swiper-item')
+    nextCurrent = Math.min(current + 1, allCom.length - 1)
+  } else {
+    nextCurrent = current
+  }
+  /* 修改页面current 调用change方法 */
+  ins.callMethod('changeCurrent', { value: nextCurrent })
+}
+
+/* 当current发生变化时执行 */
+function currentChange (nv, ov, ins) {
+  /* 页面初始化时不做任何操作 */
+  if (nv === -1) return
+
+  var allCom = ins.selectAllComponents('.swiper-item')
+
+  /* 根据current值设置dom样式 */
+  for (var i = 0; i < allCom.length; i++) {
+    if (i === nv) {
+      allCom[i].setStyle({ width: defaultMaxSize + 'px', height: defaultMaxSize + 'px' }).addClass('current')
+    } else {
+      allCom[i].setStyle({ width: defaultMinSize + 'px', height: defaultMinSize + 'px' }).removeClass('current')
+    }
+
+    if (ov !== -1 && ov !== undefined) {
+      allCom[i].addClass('animation-item')
+    }
+  }
+
+  var dataset = ins.selectComponent('.swiper-box').getDataset()
+  /* 获取scroll-box内边距，用来计算left */
+  var pad = parseInt(ins.selectComponent('.scroll-box').getComputedStyle(['padding-left'])['padding-left'])
+  tWidth = dataset.width
+  maxLeft = getLeft(0)
+  minLeft = getLeft(allCom.length - 1)
+  var left = getLeft(nv)
+
+  /* 计算当前current的left值 */
+  function getLeft (c) {
+    return tWidth / 2 - (defaultMaxSize / 2 + c * defaultMinSize + pad)
+  }
+
+  /** 为元素添加left */
+  ins.selectComponent('.scroll-box').setStyle({
+    left: left + 'px'
+  })
+
+  if (ov !== -1 && ov !== undefined) {
+    ins.selectComponent('.scroll-box').addClass('animation-left')
+  } else {
+    ins.setTimeout(function () {
+      ins.selectComponent('.scroll-box').addClass('animation-left')
+    }, 1500)
+  }
+
+  lastLeft = left
+}
+
+module.exports = {
+  touchstart: touchstart,
+  touchmove: touchmove,
+  touchend: touchend,
+  currentChange: currentChange
+}

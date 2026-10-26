@@ -1,0 +1,26 @@
+<view class="page-comment">
+	<view class="content">
+    <view class="txt">
+      尊敬的顾客，您好！感谢您到店参与本次活动，请留下您的宝贵评价：
+    </view>
+    <view class="from-item">
+      <view class="label">活动安排：</view>
+      <image data-index="{{index}}" data-key="serverIndex" bindtap="clickScore" class="star-item" wx:for="12345" wx:key="index" src="{{serverIndex >= index ? activeImg : starImg}}" />
+    </view>
+    <view class="from-item">
+      <view class="label">整体服务：</view>
+      <image data-index="{{index}}" data-key="storeIndex" bindtap="clickScore" class="star-item" wx:for="12345" wx:key="index" src="{{storeIndex >= index ? activeImg : starImg}}" />
+    </view>
+    <view class="textarea-box">
+      <textarea value="{{remark}}" class="textarea" placeholder="请输入备注信息"	placeholder-class="placeholder-textarea" />
+    </view>
+  </view>
+  <view class="footer-btn" wx:if="{{orderInfo.is_score !== 1}}">
+    <view class="btn font-500" bindtap="sureData">确认</view>
+  </view>
+</view>
+<com-model-privacy ></com-model-privacy>
+
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

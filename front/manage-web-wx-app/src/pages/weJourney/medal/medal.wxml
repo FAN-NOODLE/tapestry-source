@@ -1,0 +1,192 @@
+<wxs src="./medal.wxs" module="tools"></wxs>
+
+<view class="page-medal">
+	<!-- header -->
+	<view class="page-top">
+		<navigation-bar
+			bg-color="{{isScroll ? '#ffffff' : 'transparent'}}"
+			fontSize="17"
+			color="#000000"
+			throughTop="{{false}}"
+			text=""
+			back
+			backActive="goback"
+			bindback="closePage"
+			backBoxWidth="{{100}}"
+		/>
+		<view class="title">我的奖章墙</view>
+		<view class="content">
+			<view>已获得</view>
+			<view>
+				<text class="data-box">{{gained}}枚</text>
+				<text class="word">/总奖章{{total}}枚</text>
+			</view>
+			<!-- <view class="tag">超越了70%的导购</view> -->
+		</view>
+	</view>
+	<!-- 财年 -->
+	<view wx:if="{{yearList.length<3}}" class="year-box flex-center">
+		<block wx:for="{{yearList}}" wx:key="index">
+			<view id="year_{{index}}" class="year-item {{index==currentYear?'active':''}}" data-index="{{index}}" bindtap="changeYear">
+				<view class="year-item__content">
+					<view class="year-item__label">{{item.name}}</view>
+					<view class="year-item__value">({{item.value}}/{{item.total}})</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<scroll-view wx:else class="year-box" scroll-x="{{true}}" scroll-with-animation="{{true}}" scroll-into-view="year_{{currentYear-1}}">
+		<block wx:for="{{yearList}}" wx:key="index">
+			<view id="year_{{index}}" class="year-item {{index==currentYear?'active':''}}" data-index="{{index}}" bindtap="changeYear">
+				<view class="year-item__content">
+					<view class="year-item__label">{{item.name}}</view>
+					<view class="year-item__value">({{item.value}}/{{item.total}})</view>
+				</view>
+			</view>
+		</block>
+	</scroll-view>
+
+	<!-- 普通奖章列表 type 1 -->
+	<view wx:if="{{yearList[currentYear].ordinary.length > 0}}" class="common-medal-list">
+		<view class="title-box">普通奖章</view>
+		<view class="medal-list">
+			<block wx:for="{{yearList[currentYear].ordinary}}" wx:key="id">
+				<medal-item wx:if="{{index < showMore.ordinary}}" info="{{item}}" data-item="{{item}}" data-type="{{1}}" bindopenPopup="openPopup"></medal-item>
+			</block>
+		</view>
+		<!-- 查看更多 -->
+		<view wx:if="{{yearList[currentYear].ordinary.length > 9 }}" class="more" data-key="ordinary" bindtap="handleShowMore">
+			<view class="more__text">{{showMore.ordinary == 9 ? '展开全部':'收起'}}</view>
+			<image class="more__icon" src="{{imagePath}}2023/v3.5.0/icon_arrow_{{showMore.ordinary == 9?'down':'up'}}.png" />
+		</view>
+		<!-- 没有更多 -->
+		<view wx:else class="more">
+			<view class="more__text">THE END ~</view>
+		</view>
+	</view>
+
+	<!-- 稀有奖章列表 type 2 -->
+	<view wx:if="{{yearList[currentYear].rare.length>0}}" class="common-medal-list">
+		<view class="title-box">稀有奖章</view>
+		<view class="medal-list">
+			<block wx:for="{{yearList[currentYear].rare}}" wx:key="id">
+				<medal-item wx:if="{{index<9}}" info="{{item}}" data-item="{{item}}" data-type="{{2}}" bindopenPopup="openPopup"></medal-item>
+			</block>
+		</view>
+		<!-- 查看更多 -->
+		<view wx:if="{{yearList[currentYear].rare.length>9 }}" class="more" data-key="rare" bindtap="handleShowMore">
+			<view class="more__text">{{showMore.rare == 9 ? '展开全部' : '收起'}}</view>
+			<image class="more__icon" src="{{imagePath}}2023/v3.5.0/icon_arrow_{{showMore.rare == 9?'down':'up'}}.png" />
+		</view>
+		<!-- 没有更多 -->
+		<view wx:else class="more no">
+			<view class="more__text">THE END ~</view>
+		</view>
+	</view>
+
+	<!-- 缺省页面 -->
+	<view wx:if="{{yearList[currentYear].ordinary.length == 0 && yearList[currentYear].rare.length == 0}}" class="empty">
+		<image class="empty__image" src="{{imagePath}}2023/v3.5.0/icon_empty_1.png" />
+		<view class="empty__text">奖章正在准备中，未来可期～</view>
+	</view>
+
+	<view wx:if="{{showPopup}}" class="popup" catchtouchmove="{{true}}">
+		<view class="background"></view>
+		<view class="footer"></view>
+
+		<share-element class="popup-medal" key="medal" transform="{{transform}}" duration="{{duration}}">
+			<image src="{{animateInfo.light_icon}}" class="image" />
+		</share-element>
+
+		<view class="grow-box"></view>
+	</view>
+	<!-- 奖章详情， 覆盖整个页面 -->
+	<page-container
+		show="{{show}}"
+		overlay="{{overlay}}"
+		close-on-slide-down
+		duration="{{duration}}"
+		position="{{position}}"
+		bind:afterenter="onAfterEnter"
+		bind:afterleave="onAfterLeave"
+		class="page-container"
+	>
+		<view class="screen" style="padding-top: {{navigationBarHeight}}">
+			<!-- 头部，返回后为关闭page-container -->
+			<navigation-bar
+				bg-color="transparent"
+				fontSize="17"
+				color="#000000"
+				throughTop="{{true}}"
+				text="奖章墙"
+				back
+				backBoxWidth="{{100}}"
+			/>
+			<!-- 奖章总信息 -->
+			<view class="medal-info">
+				<view class="time">
+					<block wx:if="{{medalInfoList[current]['receive_time']}}">{{medalInfoList[current]['receive_time']}}获得</block>
+				</view>
+				<view class="name">{{medalInfoList[current]['medal_name']}}</view>
+				<view class="ranking">{{detailInfo.rule_description}}</view>
+			</view>
+			<!-- 奖章列表滑动区域 -->
+			<view
+				class="swiper-box"
+				data-current="{{current}}"
+				data-width="{{windowWidth}}"
+				change:prop="{{tools.currentChange}}"
+				prop="{{current}}"
+				bindtouchstart="{{tools.touchstart}}"
+				catchtouchmove="{{tools.touchmove}}"
+				bindtouchend="{{tools.touchend}}"
+			>
+				<view class="scroll-box">
+					<block wx:for="{{medalInfoList}}" wx:key="index">
+						<share-element wx:if="{{index === current && showShare}}" class="swiper-item {{index === current && showShare ? 'swiper-item-checked' : ''}}" key="medal" transform="{{transform}}" duration="{{duration}}">
+							<image class="swiper-item-image" src="{{item.create_time ? item.light_icon : item.unlit_icon}}"></image>
+							<!-- <image wx:if="{{index === current && isRare && item.create_time}}" class="rare-icon" src="{{imagePath}}2023/v3.3/rare-icon.png" /> -->
+							<image wx:if="{{index === current && !item.create_time}}" class="lock-icon" src="{{imagePath}}2023/v3.3/lock.png" />
+						</share-element>
+						<view wx:else class="swiper-item">
+							<image class="swiper-item-image" src="{{item.create_time ? item.light_icon : item.unlit_icon}}"></image>
+							<!-- <image wx:if="{{index === current && isRare && item.create_time}}" class="rare-icon" src="{{imagePath}}2023/v3.3/rare-icon.png" /> -->
+							<image wx:if="{{index === current && !item.create_time}}" class="lock-icon" src="{{imagePath}}2023/v3.3/lock.png" />
+						</view>
+					</block>
+				</view>
+			</view>
+			<!-- 解锁奖章底部信息 -->
+			<block wx:if="{{medalInfoList[current]['receive_time']}}">
+				<view class="line-word" wx:if="{{detailInfo.integral}}">额外奖励</view>
+				<view class="prize">
+					<view wx:if="{{detailInfo.integral}}" class="points">
+						<image src="{{imagePath}}2023/v3.3/medal-item-icon-2.png" class="icon" />
+						<view class="word">积分 +{{detailInfo.integral}}</view>
+					</view>
+					<view wx:if="{{detailInfo.item_name}}" class="object">
+						<image src="{{imagePath}}2023/v3.3/medal-item-icon-3.png" class="icon" />
+						<view class="word">{{detailInfo.item_name}}</view>
+					</view>
+				</view>
+				<view class="summary">
+					已有
+					<view class="num">{{medalInfoList[current]['receive_number_people']}}</view>
+					人获得，您已超过{{medalInfoList[current]['has_exceeded']}}%的导购
+				</view>
+			</block>
+			<!-- 未解锁奖章底部信息 -->
+			<block wx:else>
+				<view class="line-word">暂未解锁</view>
+				<view class="summary">
+					已有
+					<view class="num">{{medalInfoList[current]['receive_number_people']}}</view>
+					人获得
+				</view>
+			</block>
+		</view>
+	</page-container>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,45 @@
+/* eslint-disable */
+// @ts-ignore
+var REGEXP = getRegExp('{|}|"', 'g');
+
+function keys(str) {
+  return str
+    .replace(REGEXP, '')
+    .split(',')
+    .map(function(item) {
+      return item.split(':');
+    });
+}
+function kebabCase(word) {
+  var newWord = word
+    .replace(getRegExp("[A-Z]", 'g'), function (i) {
+      return '-' + i;
+    })
+    .toLowerCase()
+
+  return newWord;
+}
+function style(styles) {
+  return keys(styles)
+    .filter(function (item) {
+      return item[1] !== null && item[1] !== ''
+    })
+    .map(function (item) {
+      return [kebabCase(item[0]), [item[1]]].join(':')
+    })
+    .join(';')
+}
+function popupStyle(data) {
+  return [
+    'z-index: '+data.zIndex,
+    data.styles.top ? 'top:' + data.styles.top: '',
+    data.styles.left ? 'left:' + data.styles.left: '',
+    data.styles.width ? 'width:' + data.styles.width: '',
+    data.customStyle,
+  ].join(';')
+}
+
+module.exports = {
+  style: style,
+  popupStyle: popupStyle
+}

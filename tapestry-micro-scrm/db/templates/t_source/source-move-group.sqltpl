@@ -1,0 +1,8 @@
+UPDATE
+    `source`
+SET
+    group_id = :group_id,
+    updated_at = unix_timestamp(now())
+
+WHERE
+    id in ( {{WhereIn .IDs}} )

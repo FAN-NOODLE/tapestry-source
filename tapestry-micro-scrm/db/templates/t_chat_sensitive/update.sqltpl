@@ -1,0 +1,5 @@
+UPDATE `chat_sensitive` SET
+`trigger_num` = `trigger_num` + 1,
+`updated_at` = unix_timestamp(now())
+WHERE `id` = :id
+

@@ -1,0 +1,25 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `name`,
+  `pic`,
+  `stocks`,
+  `exchange_num`,
+  `need_num`,
+  `limit_num`,
+  `sort`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from fission_prize
+where
+    enterprise_id = {{.cond.enterprise_id}}
+and
+    activity_id = {{.cond.activity_id}}
+and
+    deleted_at = 0
+ORDER BY
+    sort asc
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

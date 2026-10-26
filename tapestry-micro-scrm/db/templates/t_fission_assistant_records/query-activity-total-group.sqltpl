@@ -1,0 +1,12 @@
+select count(*) as count
+from fission_assistant_records
+where
+    enterprise_id = ?
+and
+    activity_id = ?
+and
+    add_member_status > 0
+and
+    join_chat_group_status > 0
+and
+    deleted_at = 0

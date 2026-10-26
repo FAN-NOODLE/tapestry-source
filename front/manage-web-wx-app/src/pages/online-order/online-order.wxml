@@ -1,0 +1,20 @@
+<view class="page-online-list">
+  <view class="empty" wx:if="{{loading}}">
+    <image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif"/>
+  </view>
+  <!-- 私聊窗口打开 -->
+  <block wx:if="{{!loading && !isError}}">
+    <!-- 您的门店已开启线上订单功能 -->
+    <view wx:if="{{!!url}}">
+      <web-view src="{{url}}" bindmessage="messageFn"></web-view>
+    </view>
+    <!-- 您的门店还未开启线上订单功能 -->
+    <mp-empty wx:if="{{!url}}" icon="store" marginTop="0" content="您的门店还未开启线上订单功能" center="{{true}}"></mp-empty>
+  </block>
+    
+  <!-- 请通过私聊窗口发送邀请 -->
+  <mp-empty wx:if="{{!loading && isError}}" icon="store" marginTop="0" content="请通过私聊窗口访问线上订单" center="{{true}}"></mp-empty>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

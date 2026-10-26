@@ -1,0 +1,9 @@
+
+<view
+	wx:if="{{ inited }}"
+	class="custom-class mp-popup {{ classes }} mp-popup--{{ position }} {{ safeAreaInsetBottom ? 'mp-popup--safe' : '' }} {{ safeAreaInsetTop ? 'mp-popup--safeTop' : '' }} {{ safeAreaTabBar ? 'mp-popup--safeTabBar' : '' }}"
+	style="{{ computed.popupStyle({ zIndex, currentDuration, display, customStyle }) }}"
+	bind:transitionend="onTransitionEnd"
+>
+	<slot></slot>
+</view>

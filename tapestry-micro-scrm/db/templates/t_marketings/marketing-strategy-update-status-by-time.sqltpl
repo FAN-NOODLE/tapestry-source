@@ -1,0 +1,7 @@
+UPDATE marketing_strategies SET
+`strategy_status` = :strategy_status,
+`updated_at` = :updated_at
+WHERE `end_time` <> 0
+AND `end_time` < :end_time
+AND `deleted_at` = 0
+AND `strategy_status` IN (2,3)

@@ -1,0 +1,12 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "邀约记录",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "invite-date": "../../../components/invite-date/invite-date",
+    "custom-loading": "../../../components/custom-loading/custom-loading"
+  }
+}

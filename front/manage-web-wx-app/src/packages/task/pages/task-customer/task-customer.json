@@ -1,0 +1,17 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "子任务详情",
+  "backgroundColor": "#f6f6f9",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "filter-popup": "../../../customer/components/filter-popup/index",
+    "com-filter-popup": "../../../../components/customer-components/com-filter-popup/com-filter-popup",
+    "customer-item": "../../components/customer-item/customer-item",
+    "com-select": "../../components/com-select/com-select"
+  },
+  "componentPlaceholder": {
+    "filter-popup": "view"
+  }
+}

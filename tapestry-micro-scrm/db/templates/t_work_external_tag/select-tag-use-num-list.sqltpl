@@ -1,0 +1,18 @@
+SELECT
+    T.`name` AS tag_name,
+    T.`id` AS tag_id,
+    T.`tag_id` AS work_tag_id,
+    T.`create_time`,
+    T.`expired_time`
+FROM
+    `work_external_user_tag` UT
+    RIGHT JOIN `work_external_tag` T ON T.`id` = UT.`external_tag_id` AND UT.`deleted_at` = 0 AND UT.relation_id <> 0
+WHERE
+    T.`enterprise_id` = {{.cond.EnterpriseID}} AND
+    T.`group_id` = {{.cond.TagGroupInfoRequest.TagGroupID}}
+    {{if .cond.TagGroupInfoRequest.TagKeywords}}
+    	    AND T.`name` like "%{{.cond.TagGroupInfoRequest.TagKeywords}}%"
+    {{end}}  AND
+    T.`deleted_at` = 0
+GROUP BY T.id
+ORDER BY T.`create_time` DESC

@@ -1,0 +1,32 @@
+SELECT
+	f.id,
+    f.enterprise_id,
+    f.activity_id,
+    f.fission_user_id,
+    f.assistant_user_id,
+    f.external_user_id,
+    f.member_id,
+    f.add_member_status,
+    f.add_member_at,
+    f.join_chat_group_status,
+    f.join_chat_group_at,
+    f.score,
+    f.created_at,
+    f.updated_at,
+    f.deleted_at,
+	a.join_time
+FROM
+	fission_assistant_records  f INNER JOIN work_group_chat_member a ON f.external_user_id = a.userid
+WHERE
+    f.enterprise_id = {{.cond.EnterpriseID}}
+    AND f.activity_id IN ( {{WhereIn .cond.ActivityID}} )
+    {{if .cond.JoinOrLeave}}
+    AND f.join_chat_group_status IN (0,2)
+    {{else}}
+    AND f.join_chat_group_status = 1
+    {{end}}
+    AND f.deleted_at = 0
+    AND a.`type` = 2
+    AND a.deleted_at = 0
+    AND a.`status` = {{if .cond.JoinOrLeave}} 1 {{else}} 2 {{end}}
+	AND a.group_chat_id = {{.cond.ChatID}}

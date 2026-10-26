@@ -1,0 +1,12 @@
+SELECT
+    count(a.`id`) as count
+FROM `marketing_strategy_channels` as a
+inner join `marketing_strategies` as b ON  b.id=a.strategy_id
+WHERE
+ a.deleted_at = 0
+ AND
+ b.strategy_type <> 2
+ AND
+ b.deleted_at = 0
+ AND a.channel_type=1
+ AND a.junior_id={{.cond.SmsId}};

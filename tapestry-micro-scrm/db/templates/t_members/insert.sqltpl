@@ -1,0 +1,3 @@
+INSERT INTO `members`
+(`id`, `userid`, `name`, `mobile`, `position`, `gender`, `email`, `avatar`, `thumb_avatar`, `telephone`, `alias`, `status`, `qr_code`, `address`, `open_userid`, `enterprise_id`, `created_at`, `updated_at`) VALUES
+(:id, :userid, :name, :mobile, :position, :gender, :email, :avatar, :thumb_avatar, :telephone, :alias, :status, :qr_code, :address, :open_userid, :enterprise_id, :created_at, :updated_at);

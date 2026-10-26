@@ -1,0 +1,21 @@
+select
+  `id`,
+  `enterprise_id`,
+  `name`,
+  `type`,
+  `send_type`,
+  `status`,
+  `task_status`,
+  `fail_msg`,
+  `send_time`,
+  `last_send_msg`,
+  `content`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    chat_group_msg_task
+where
+    `id` = ?
+and
+    deleted_at = 0

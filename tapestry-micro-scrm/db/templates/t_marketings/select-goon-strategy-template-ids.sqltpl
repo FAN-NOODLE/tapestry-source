@@ -1,0 +1,15 @@
+SELECT
+	marketing_strategies.id,
+	marketing_strategy_channels.junior_id,
+	marketing_strategies.mobile,
+	marketing_strategies.strategy_name
+FROM
+	marketing_strategies
+	LEFT JOIN `marketing_strategy_channels`
+	ON marketing_strategies.id = marketing_strategy_channels.strategy_id
+WHERE
+    marketing_strategies.enterprise_id = {{.enterpriseID}}
+	AND marketing_strategies.strategy_status = 2
+	AND marketing_strategy_channels.channel_type= 1
+	AND marketing_strategies.deleted_at = 0
+	limit 100;

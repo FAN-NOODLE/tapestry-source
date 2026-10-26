@@ -1,0 +1,1 @@
+select id,member_id,department_id,enterprise_id from member_departments where enterprise_id = :enterprise_id and member_id = :member_id and deleted_at = 0

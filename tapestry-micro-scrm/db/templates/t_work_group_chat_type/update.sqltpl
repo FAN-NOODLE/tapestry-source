@@ -1,0 +1,1 @@
+update work_group_chat_type set name = :name, updated_at = unix_timestamp() where id = :id and enterprise_id = :enterprise_id

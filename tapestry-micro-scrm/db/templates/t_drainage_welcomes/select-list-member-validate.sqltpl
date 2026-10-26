@@ -1,0 +1,16 @@
+SELECT
+	dwm.member_id AS member_id,
+	m.name AS name
+FROM
+	drainage_welcome_members AS dwm
+	LEFT JOIN drainage_welcomes AS dw ON dw.id = dwm.welcome_id
+	LEFT JOIN members AS m ON m.id = dwm.member_id
+WHERE
+	1 = 1
+	AND dwm.deleted_at = 0
+	AND dw.deleted_at = 0
+	AND m.deleted_at = 0
+	AND dw.is_default = 0
+	AND dwm.enterprise_id = :enterprise_id
+	AND dwm.member_id IN ({{WhereIn .cond.MemberIDs}})
+	LIMIT {{.page.Offset}}, {{.page.Limit}}

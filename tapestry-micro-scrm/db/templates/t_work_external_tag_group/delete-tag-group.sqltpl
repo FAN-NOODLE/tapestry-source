@@ -1,0 +1,17 @@
+UPDATE
+    {{if eq .cond.OperationType 1}}
+    `work_external_tag_group`
+    {{end}}
+    {{if eq .cond.OperationType 2}}
+    `work_external_tag`
+    {{end}}
+SET
+    `deleted_at` = :deleted_at
+WHERE
+    `enterprise_id` = :enterprise_id AND
+    {{if eq .cond.OperationType 1}}
+    `id` = :tag_group_id
+    {{end}}
+    {{if eq .cond.OperationType 2}}
+    `group_id` = :tag_group_id
+    {{end}}

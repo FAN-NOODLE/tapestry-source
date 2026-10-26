@@ -1,0 +1,21 @@
+SELECT *
+FROM members
+WHERE  1=1
+AND `deleted_at` = 0
+AND `enterprise_id` = :enterprise_id
+{{if ne .cond.Status 0}}
+AND members.`status` = :status
+{{end}}
+{{if ne .cond.Name ""}}
+AND members.`name` like '%{{SafeStr .cond.Name}}%'
+{{end}}
+{{if ne .cond.UserIDCount 0}}
+AND members.`userid` IN ({{WhereIn .cond.UserIDs}})
+{{end }}
+{{if ne .cond.IDCount 0}}
+AND members.`id` IN ({{WhereIn .cond.IDs}})
+{{end }}
+GROUP BY members.`id`
+{{if ne .page.Limit 0}}
+LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}};

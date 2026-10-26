@@ -1,0 +1,5 @@
+SELECT
+	origin_id
+FROM
+	mini_program
+	where enterprise_id = ? and type = 2

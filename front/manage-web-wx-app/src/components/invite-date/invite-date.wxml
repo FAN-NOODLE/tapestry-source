@@ -1,0 +1,30 @@
+<view class="invite-date">
+  <view class="mask" bindtap="closeModel"></view>
+  <view class="content" bindtap="eventStop">
+    <view class="left-date">
+      <scroll-view scroll-y class="scroll">
+        <view bindtap="clickItem" data-index="{{index}}" class="item {{currentIndex === index ? 'active' : ''}}" wx:for="{{ dataList }}" wx:key="index">
+          {{item.value}}
+        </view>
+      </scroll-view>
+      <view class="blur-box"></view>
+    </view>
+    <view class="right-content">
+      <view class="top-title">
+        <view>选择到店时间</view>
+        <view class="close-box" bindtap="closeModel">
+          <image class="icon" src="../../images/invite-store/close-icon.png" />
+        </view>
+      </view>
+      <view class="store-invite-date">
+        <scroll-view scroll-y class="scroll-invite">
+           <view catchtap="clickInvite" data-index="{{index}}" class="invite-item {{item.isFinish ? 'none' : ''}} {{dateIndex === index ? 'active' : ''}}" wx:for="{{ dataList[currentIndex].date_list }}" wx:key="index">
+            <view class="name">{{item.name}}</view>
+            <view class="invite">{{item.inviteNum}}人已预约</view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="sure-btn" bindtap="sumbit">确定</view>
+    </view>
+  </view>
+</view>

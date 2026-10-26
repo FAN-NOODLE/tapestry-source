@@ -1,0 +1,51 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+
+.impression-item
+
+  .top-box
+    padding: vw(15)
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .title
+      font-size: vw(16)
+      font-family: PingFangSC-Regular, PingFang SC
+      font-weight: 400
+      color: #33363C
+
+    .image
+      width: vw(14)
+      height: vw(14)
+      transform: rotate(180deg)
+
+      &.icon-expand
+        transform: rotate(0)
+
+  .impression-detail-list
+    padding: 0 vw(5) vw(4) vw(15)
+    display: flex
+    flex-wrap: wrap
+  
+    .tag
+      background-color: #fff
+      border: vw(1) solid #000000
+      color: #000000
+      padding: vw(5) vw(10)
+      font-size: vw(14)
+      font-family: PingFangSC-Regular, PingFang SC
+      font-weight: 400
+      margin-right: vw(10)
+      margin-bottom: vw(10)
+
+      &.selected
+        background-color: #000000
+        color: #FFFFFF

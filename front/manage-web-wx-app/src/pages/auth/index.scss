@@ -1,0 +1,19 @@
+.page-load {
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+
+  .shade-load {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    opacity: 0.5;
+  }
+
+  image {
+    width: 160rpx;
+    height: 160rpx;
+  }
+}

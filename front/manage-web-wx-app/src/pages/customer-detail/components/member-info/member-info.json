@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "impression-item": "../impression-item/impression-item",
+    "message-modal": "../../../../components/message-modal/message-modal"
+  }
+}

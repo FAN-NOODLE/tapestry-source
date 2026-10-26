@@ -1,0 +1,17 @@
+INSERT INTO `user_group`
+(
+    `id`,
+    `enterprise_id`,
+    `name`,
+    `type`,
+    `created_at`,
+    `updated_at`
+) VALUES
+(
+    :id,
+    :enterprise_id,
+    :name,
+    :type,
+    :created_at,
+    :updated_at
+);

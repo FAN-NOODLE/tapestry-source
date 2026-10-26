@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "remark-popup": "../remark-popup/remark-popup"
+  }
+}

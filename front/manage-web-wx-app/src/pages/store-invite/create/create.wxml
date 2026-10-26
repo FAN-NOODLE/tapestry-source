@@ -1,0 +1,89 @@
+<view class="page-create">
+	<view class="content" wx:if="{{!showLoading && !isError}}">
+    <image wx:if="{{serverIndex > -1 && serverList[serverIndex].reserve_img}}" class="top-img" src="{{serverList[serverIndex].reserve_img}}" />
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-01.png" />
+        <view>顾客姓名</view>
+      </view>
+      <view class="value font-500">
+        <input maxlength="15" data-key="userName" bindinput="changeInput" value="{{userName}}" class="input-box" placeholder-class="placeholder" placeholder="请输入用户名称"/>
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-02.png" />
+        <view>服务类型</view>
+      </view>
+      <view class="value">
+        <view class="font-500" wx:if="{{serverIndex > -1}}">{{serverList[serverIndex].reserve_name}}</view>
+        <view wx:else class="placeholder">选择服务类型</view>
+        <image class="right-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/right-icon.png" />
+      </view>
+      <picker class="picker-box" bindchange="changeServer" range-key="reserve_name" value="{{serverIndex}}" range="{{serverList}}">
+        <view class="picker">当前选择</view>  
+      </picker>
+    </view>
+    <view class="form-item flex-start-center has-line" bindtap="chooseTime">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-03.png" />
+        <view>到店时间</view>
+      </view>
+      <view class="value">
+        <view class="font-500" wx:if="{{selectTime.select_name}}">{{selectTime.select_name}} {{selectTime.name}}</view>
+        <view class="placeholder" wx:else>选择到店时间</view>
+        <image class="right-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/right-icon.png" />
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-09.png" />
+        <view>邀约门店</view>
+      </view>
+      <view class="value font-500">
+        <input maxlength="15" data-key="storeName" bindinput="changeInput" value="{{storeName}}" class="input-box" placeholder-class="placeholder" placeholder="请输入门店名称"/>
+      </view>
+    </view>
+    <view class="form-item flex-start-center has-line">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-06.png" />
+        <view>门店地址</view>
+      </view>
+      <view class="value font-500">
+        <textarea class="textarea" auto-height  maxlength="45" data-key="storeAddress" bindinput="changeInput" value="{{storeAddress}}" placeholder-class="placeholder" placeholder="请输入门店地址"/>
+      </view>
+    </view>
+    <view class="form-item flex-start-center">
+      <view class="label flex-start-center">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-10.png" />
+        <view>导购备注</view>
+      </view>
+    </view>
+    <view class="textarea-box">
+      <textarea maxlength="50" data-key="reserveRemark" bindinput="changeInput"  value="{{reserveRemark}}" class="textarea" placeholder="请输入备注信息"	placeholder-class="placeholder-textarea" />
+    </view>
+  </view>
+  <view class="footer-btn" wx:if="{{!showLoading && !isError}}">
+    <view bindtap="goRecordList" class="btn btn-default">查看邀约记录</view>
+    <view bindtap="create" class="btn">创建并发送</view>
+  </view>
+  <view class="empty" wx:if="{{showLoading}}">
+    <image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif"/>
+  </view>
+  <!-- 微信打开无权限 -->
+  <view wx:if="{{!showLoading && isError}}">
+    <mp-empty icon="power" content="{{errorTxt}}"></mp-empty>
+  </view>
+  <show-modal
+    show="{{showModel}}"
+    title="{{modelTitle}}"
+    description="{{description}}"
+    descriptionTwo="{{descriptionTwo}}"
+    bindclose="confirmModel"
+    bindsure="confirmModel"
+    isSingle="{{isSingle}}"></show-modal>
+  <invite-date wx:if="{{showTime && dateModel}}" timeObj="{{timeObj}}" allDay="{{allDay}}" bindsumbit="sumbit" bindclose="closeModel"></invite-date>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

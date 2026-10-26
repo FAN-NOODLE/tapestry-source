@@ -1,0 +1,99 @@
+<view class="page-my">
+  <!-- 卡片信息 -->
+  <view class="card" bindtap="goSetting">
+    <!-- 头像 -->
+    <view class="avatar">
+      <avatar preview="{{true}}" src="{{avatar}}" />
+    </view>
+    <!-- 姓名 -->
+    <view class="name">{{name}}</view>
+    <!-- 编号 -->
+    <view class="num">{{worker_no}}</view>
+    <!-- 分割线 -->
+    <view class="line" />
+    <!-- 二维码信息 -->
+    <view class="qr-code-info" catchtap="goCard">
+      <!-- 文本 -->
+      <text class="text">我的专属导购二维码</text>
+      <!-- 二维码小图片 -->
+      <view>
+        <image class="code-img" src="~@/images/customer/qrcode-icon.png" />
+      </view>
+      <!-- 箭头 -->
+      <view class="arrow-r" />
+    </view>
+  </view>
+  <!-- 对外收款订单 -->
+  <view class="form-item-order">
+    <view class="form-item-order-header flex" catch:tap="handleToOrderList">
+      <view class="form-item-order-header-title">对外收款订单</view>
+      <image class="form-item-order-header-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_right_gray.png" lazy-load="{{true}}" mode="aspectFill" />
+    </view>
+    <view class="form-item-order-main flex">
+      <block wx:for="{{externalOrderData}}" wx:key="index">
+        <view class="form-item-order-main-item flex" data-type="{{item.type}}" catch:tap="handleToOrderList">
+          <image class="page-order-detail-card-item-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_{{item.iconName}}_my.png" lazy-load="{{true}}" mode="aspectFill" />
+          <view>{{item.title}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="form-item-wrapper">
+    <!-- 到店邀约记录 -->
+    <view class="form-item" bindtap="goOrderList" data-type="2.1">
+      <view class="left-label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/invitation_icon.png" />
+        <view>到店邀约记录</view>
+      </view>
+      <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+    <!-- 顾客分配 -->
+    <view wx:if="{{role === 5}}" class="form-item" bindtap="goAllocation">
+      <view class="left-label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/customer-allocation-icon.png" />
+        <view>顾客分配</view>
+      </view>
+      <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+    <!-- 线上订单 -->
+    <view class="form-item" wx:if="{{onlineOrder}}" bindtap="goOnlineOrder">
+      <view class="left-label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/order-list-icon.png" />
+        <view>线上订单</view>
+      </view>
+      <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+    <!-- 会员查询 -->
+    <view class="form-item" bindtap="goMemberSearch" wx:if="{{showMember}}" data-type="2.2">
+      <view class="left-label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2023/v3.2.0.1/vip.png" />
+        <view>会员查询</view>
+      </view>
+      <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+    <!-- 皮牌预约 -->
+    <view class="form-item" bindtap="goBooking" wx:if="{{whitePeople}}">
+      <view class="left-label">
+        <image class="icon" src="~@/images/invite-store/my-order-icon.png" />
+        <view>CIIE皮牌预约活动</view>
+      </view>
+        <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+    <!-- 库存查询 -->
+     <view class="form-item" bindtap="goStockSearch" data-type="2.3">
+      <view class="left-label">
+        <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/stock.png" />
+        <view>库存查询</view>
+      </view>
+      <image class="right-icon" src="~@/images/invite-store/right-icon.png" />
+    </view>
+  </view>
+  <!-- 退出登录 -->
+  <view wx:if="{{!wxwork}}" class="logout" catchtap="logout">退出登录</view>
+  <!-- 退出登录二次确认弹框 -->
+  <message-modal show="{{ showLogout }}" description="你确定要退出登录吗？" catchtouchmove="stopPageScroll" bindclose="close" bindcancel="close" bindsure="sure" />
+  <!-- 接受提醒手机号码修改弹框 -->
+  <tel-modal show="{{ showTelModal }}" catchtouchmove="stopPageScroll" bindclose="closeTel" bindconfirm="confirm" />
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

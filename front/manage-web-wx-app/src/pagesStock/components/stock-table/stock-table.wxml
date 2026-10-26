@@ -1,0 +1,144 @@
+<wxs module="tools" src="./stock-table.wxs"></wxs>
+<scroll-view
+  class="table"
+  wx:if="{{data && data.length > 0 }}"
+  scroll-x="{{true}}"
+  scroll-y="{{true}}"
+  enhanced="{{true}}"
+  bounces="{{false}}"
+  fast-deceleration="{{true}}"
+  show-scrollbar="{{false}}"
+  scroll-anchoring="{{true}}"
+  bindscrolltolower="bindscrolltolower"
+  bind:scroll="scroll"
+>
+  <view class="sticky-box" style="width:{{scrollWidth}}rpx;">
+    <!-- 表头 -->
+    <view class="table__head">
+      <view
+        class="table__head__td {{attrIndex === headers.length - 1 && isDrag && showFixed ? 'last' : ''}} {{attrItem.fixed && showFixed ? 'fixed-'+attrItem.fixed : ''}}"
+        wx:for="{{headers}}"
+        wx:key="attrIndex"
+        wx:for-index="attrIndex"
+        wx:for-item="attrItem"
+        data-item="{{attrItem}}"
+        data-index="{{attrIndex}}"
+        catch:tap="sortChange"
+        style="width:{{columnWidth + attrItem.width}}rpx;background: #F6F7F9;"
+      >
+        <view class="table__head__td__text">
+          {{attrItem.label}}
+          <!-- 排序图标 -->
+          <image
+            wx:if="{{attrItem.sort}}"
+            class="sort-icon {{attrItem.sort_type === 'desc'?'rotate':'normal'}}"
+            src="{{attrItem.sort_type?'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/sort.png':'https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/sort-no.png'}}"
+          />
+        </view>
+      </view>
+    </view>
+    <!-- 表体 -->
+    <view
+      class="table__row"
+      wx:for="{{data}}"
+      wx:key="dataIndex"
+      wx:for-index="dataIndex"
+      wx:for-item="dataItem"
+    >
+      <view
+        class="table__row__td {{attrIndex === headers.length - 1 && isDrag && showFixed ? 'last' : ''}} {{attrItem.fixed && showFixed ? 'fixed-'+attrItem.fixed : ''}}"
+        wx:for="{{headers}}"
+        wx:key="dataIndex"
+        wx:for-index="attrIndex"
+        wx:for-item="attrItem"
+        style="width:{{columnWidth + attrItem.width}}rpx"
+      >
+        <view
+          class="custom-td"
+          wx:if="{{attrItem.type==='button' || attrItem.type==='image' ||  attrItem.type==='icon' || attrItem.type==='link' || attrItem.type==='icon'}}"
+        >
+          <!-- 图片特殊处理 -->
+          <view class="table__row__td__image" wx:if="{{attrItem.type==='image'}}">
+            <mp-image
+              icon-loading="loading-image"
+              custom-class="table__row__td__image"
+              src="{{dataItem['image_url']}}"
+              mode="aspectFit"
+              data-index="{{dataIndex}}"
+              data-item="{{dataItem}}"
+              customLoad="{{true}}"
+              bind:custom-load="handleLoadImage"
+              bind:error="imgError"
+              catch:tap="showImageInfo"
+            />
+            <view wx:if="{{dataItem.source_num}}" class="num">{{dataItem.source_num}}</view>
+          </view>
+            
+          <!-- 条形码特殊处理 -->
+          <view
+            class="table__row__td__link"
+            wx:if="{{attrItem.type==='link'}}"
+            data-item="{{dataItem}}"
+            catch:tap="copyCode"
+          >
+            {{dataItem['upc_code']}}
+          </view>
+          <!-- 查询按钮特殊处理 -->
+          <view
+            class="table__row__td__search"
+            wx:if="{{attrItem.type==='button'}}"
+            data-item="{{dataItem}}"
+            catch:tap="showSearchMore"
+          >
+            查询
+            <image
+              class="search-image"
+              src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/more.png"
+            />
+          </view>
+          <!-- 电话icon特殊处理 -->
+          <view
+            class="table__row__td__icon"
+            wx:if="{{attrItem.type==='icon'}}"
+            data-item="{{dataItem}}"
+            catch:tap="callPhone"
+          >
+            <image
+              class="phone-image"
+              src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/phone.png"
+            />
+          </view>
+        </view>
+        <block wx:else>
+          <view wx:if="{{dataItem[attrItem.prop]===undefind}}" class="loading"></view>
+          <text
+            id="{{attrItem.prop}}_{{dataIndex}}"
+            class="table__row__td__text"
+            wx:else
+            data-header="{{attrItem.prop}}"
+            data-header-item="{{attrItem}}"
+            data-index="{{dataIndex}}"
+            data-content="{{dataItem[attrItem.prop]}}"
+            catch:tap="showToast"
+            >{{!isHorizontal ? tools.ellipsisText(dataItem[attrItem.prop] !== ''? dataItem[attrItem.prop]
+            :'--',14) : (dataItem[attrItem.prop] || '--')}}</text
+          >
+        </block>
+          
+      </view>
+    </view>
+    <view wx:if="{{!hideMask && maskWidth != 0}}" class="mask" style="width:{{maskWidth}};max-height:{{tableHeight||0}}px">
+      <view class="mask-text">左右滑动查看完整表单</view>
+    </view>
+  </view>
+</scroll-view>
+<!-- 列表缺省 -->
+<view class="empty" wx:if="{{!data || !data.length}}">
+  <image
+    class="empty-image"
+    src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/no-stock.png"
+  />
+  <view class="empty-text">{{emptyText}}</view>
+</view>
+<!-- tooltips -->
+<mp-tooltip id="mp-tooltip" placement="bottom"></mp-tooltip>

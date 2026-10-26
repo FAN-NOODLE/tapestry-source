@@ -1,0 +1,7 @@
+.idea/
+*.exe
+bin/*
+app.yaml
+vendor/
+*.log
+go.mod/

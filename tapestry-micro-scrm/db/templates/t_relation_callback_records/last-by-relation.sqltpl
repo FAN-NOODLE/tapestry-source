@@ -1,0 +1,29 @@
+SELECT
+	*
+FROM
+	`relation_callback_records`
+WHERE
+1=1
+{{if ne .cond.ToUserName ""}}
+    AND `to_user_name` = :to_user_name
+{{end }}
+{{if ne .cond.ChangeType ""}}
+    AND `change_type` = :change_type
+{{end }}
+{{if ne .cond.UserID ""}}
+    AND `user_id` = :user_id
+{{end }}
+{{if ne .cond.ExternalUserID ""}}
+    AND `external_user_id` = :external_user_id
+{{end }}
+{{if ne .cond.ChannelID 0}}
+    AND `channel_id` = :channel_id
+{{end }}
+{{if ne .cond.CreateTime 0}}
+    AND `create_time` < :create_time
+{{end }}
+{{if ne .cond.ID 0}}
+    AND `id` < :id
+{{end }}
+ORDER BY id DESC
+LIMIT 1

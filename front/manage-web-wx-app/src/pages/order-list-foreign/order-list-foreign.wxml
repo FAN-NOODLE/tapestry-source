@@ -1,0 +1,130 @@
+<wxs module="tool">
+	module.exports.formatMoney = function(money) {
+	  return money ? (parseInt(money) / 100).toFixed(2) : 0;
+	}
+</wxs>
+<view class="page-order-list">
+    <view class="page-order-list-header">
+        <view class="page-order-list-header-search">
+            <image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_search.png" lazy-load="{{true}}" mode="aspectFill" />
+            <input type="text" placeholder="请输入销售单号" value="{{sales_order_no}}" data-type="order_num_min" bindinput="handleInput" bindconfirm="handleConfirm" class="font-12" placeholder-class="page-order-list-header-search-placeholder" />
+        </view>
+        <view class="page-order-list-header-tabs">
+            <block wx:for="{{headerTabs}}" wx:key="index">
+                <view class="page-order-list-header-tabs-item flex-center {{index!=0 ? 'm-l-54' : ''}} {{item.value === searchTabs ? 'active' : ''}}" data-value="{{item.value}}" bind:tap="handleChangeHeaderTabs">
+                    {{item.label}}
+                    <view class="page-order-list-header-tabs-item-line" wx:if="{{item.value === searchTabs}}"></view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="page-order-list-tabs" wx:if="{{searchTabs === 0}}">
+        <block wx:for="{{tabs}}" wx:key="index">
+            <view class="page-order-list-tabs-item flex-center {{item.value === statusTabs ? 'active' : ''}}" bind:tap="handleChangeStatus" data-value="{{item.value}}">
+                {{item.label}}
+                <view class="page-order-list-tabs-item-line" wx:if="{{item.value === statusTabs}}"></view>
+            </view>
+        </block>
+    </view>
+    <view class="page-order-list-content">
+        <scroll-view wx:if="{{list.length}}" class="scroll-view" scroll-y="{{true}}" lower-threshold="50" bindscrolltolower="handleToViewMore">
+            <block wx:for="{{list}}" wx:key="index">
+                <view class="page-order-list-content-item" data-id="{{item.id}}" data-search_tab="{{searchTabs}}" data-index="{{index}}" bind:tap="handleToView">
+                    <view class="page-order-list-content-item-header">
+                        <view class="page-order-list-content-item-header-customer">
+                            <view class="page-order-list-content-item-header-customer-avatar">
+                                <image src="{{item.avatar}}" lazy-load="{{true}}" mode="aspectFill" />
+                            </view>
+                            <view class="page-order-list-content-item-header-customer-name">
+                                {{item.nick}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-header-status" style="background: url('https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_{{searchTabs === 1 ? 'refound' : orderStatusBg[item.order_state-1]}}.png') center no-repeat;background-size: 100%">
+                            {{item.order_state_str || item.refund_status_str}}
+                        </view>
+                    </view>
+                    <view class="page-order-list-content-item-info">
+                        <view class="page-order-list-content-item-info-item">
+                            <view class="page-order-list-content-item-info-item-label">交易时间</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.pay_time}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs !== 1}}">
+                            <view class="page-order-list-content-item-info-item-label">付款总额</view>
+                            <view class="page-order-list-content-item-info-item-value price">
+                                ￥{{tool.formatMoney(item.total_fee)}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{(searchTabs === 1 && item.refund_fee) || (searchTabs !== 1 && item.total_refund_fee)}}">
+                            <view class="page-order-list-content-item-info-item-label">
+                                退款{{searchTabs === 1 ? '金' : '总'}}额
+                            </view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                <view class="price">
+                                    ￥{{tool.formatMoney(searchTabs === 1 ? item.refund_fee : item.total_refund_fee)}}
+                                </view>
+                                <view class="page-order-list-content-item-info-item-value-tips" wx:if="{{searchTabs !== 1 }}">
+                                    {{item.total_fee === item.total_refund_fee  ? '全额' : '部分'}}退款
+                                </view>
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{searchTabs === 1}}">
+                            <view class="page-order-list-content-item-info-item-label">退款原因</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.refund_comment}}
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-item" wx:if="{{item.old_order_state !== 1 && searchTabs !== 1}}">
+                            <!-- 待发货无销售单号 -->
+                            <view class="page-order-list-content-item-info-item-label">销售单号</view>
+                            <view class="page-order-list-content-item-info-item-value">
+                                {{item.sales_order_no}}
+                            </view>
+                        </view>
+                        <view wx:if="{{item.delivery_type === 2 && item.old_order_state !== 1 && searchTabs !== 1}}">
+                            <!-- delivery_type 1-自提订单  2-快递订单 -->
+                            <!-- 自提、待发货无快递信息 -->
+                            <view class="page-order-list-content-item-info-item">
+                                <view class="page-order-list-content-item-info-item-label">
+                                    快递公司
+                                </view>
+                                <view class="page-order-list-content-item-info-item-value">
+                                    {{item.logistics_name}}
+                                </view>
+                            </view>
+                            <view class="page-order-list-content-item-info-item">
+                                <view class="page-order-list-content-item-info-item-label">
+                                    快递单号
+                                </view>
+                                <view class="page-order-list-content-item-info-item-value">
+                                    {{item.logistics_no}}
+                                </view>
+                            </view>
+                            <view class="page-order-list-content-item-info-item">
+                                <view class="page-order-list-content-item-info-item-label">
+                                    物流信息
+                                </view>
+                                <view class="page-order-list-content-item-info-item-value check-logistics" data-id="{{item.id}}" catch:tap="handleToCheck">
+                                    查看物流
+                                    <image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_check.png" lazy-load="{{true}}" mode="aspectFill" />
+                                </view>
+                            </view>
+                        </view>
+                        <view class="page-order-list-content-item-info-operate" wx:if="{{item.order_state === 1 && (item.total_fee !== item.total_refund_fee) && searchTabs !== 1}}">
+                            <!-- order_state  1-待发货  2-已发货  3-已完成 -->
+                            <button class="page-order-list-content-item-info-operate-send flex-center" data-index="{{index}}" catch:tap="handleToSend">
+                                发货
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </scroll-view>
+        <mp-empty wx:else icon="indent" marginTop="89" content="暂无订单"></mp-empty>
+    </view>
+    <logistics show="{{showLogistics}}" list="{{logisticsTrack}}" />
+</view>
+<com-model-privacy></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

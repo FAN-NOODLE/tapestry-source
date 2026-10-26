@@ -1,0 +1,26 @@
+/**
+** 全局颜色变量
+*/
+$color-main: #000000; // 主色
+$color-success: #6fc688; // 成功色
+$color-warn: #f6ab3c; // 异常
+$color-danger: #f67170; // 错误
+$color-normal: #909399; // 正常
+$color-dark: #121c42; //最底层深蓝背景色
+$color-text-button: #6f3112; //文字按钮焦糖色
+
+$color-text-main: #303133; // 主要文字
+$color-text-normal: #606266; // 常规文字
+$color-text-second: #909399; // 提示文字
+$color-placeholder: #c0c4cc; // 占位文字
+$color-background: #f7f7f7; // 背景色
+$color-first-line: #c7cad0; //一级边框色（合并表格表头分割线）
+$color-second-line: #dcdfe6; //二级边框颜色 (输入框色)
+$color-third-line: #ebeef5; // 三级边框颜色 (分割线色)
+$color-disable: #c0c4cc; // 置灰色
+$color-table-header: #ececf3; // 表格表头色
+
+$root-menu-hover: rgba(0, 0, 0, 0.4); // 一级导航栏hover效果
+$color-white: #ffffff; // 白色
+$color-black: #000000; // 黑色
+$color-main-01: rgba(0, 0, 0, 0.1);

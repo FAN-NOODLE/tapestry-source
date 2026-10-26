@@ -1,0 +1,5 @@
+SELECT
+two_level_id as id
+ FROM
+ external_links;
+

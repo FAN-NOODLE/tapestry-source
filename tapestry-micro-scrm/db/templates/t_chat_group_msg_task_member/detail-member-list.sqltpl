@@ -1,0 +1,46 @@
+SELECT
+	taskMember.msgid,
+	taskMember.member_id,
+	taskMember.member_send_time,
+	taskMember.success_count,
+	taskMember.not_send_count,
+	taskMember.failed_count,
+    taskMember.task_status,
+    taskMember.status,
+	members.name,
+	members.userid
+FROM
+    `chat_group_msg_task_member` taskMember
+
+LEFT JOIN members ON members.id = taskMember.member_id
+AND members.deleted_at = 0
+AND members.enterprise_id = {{.cond.EnterpriseID}}
+
+WHERE
+
+taskMember.enterprise_id = {{.cond.EnterpriseID}} AND taskMember.deleted_at = 0 AND msg_task_id = {{.cond.ID}}
+
+{{if ne .cond.MemberId 0}}
+    AND taskMember.member_id = {{.cond.MemberId}}
+{{end}}
+
+{{if ne .cond.TaskStatus 0}}
+    AND taskMember.task_status = {{.cond.TaskStatus}}
+{{end}}
+
+{{if ne .cond.Status 0}}
+    AND taskMember.status = {{.cond.Status}}
+{{end}}
+
+{{if ne .cond.StartTime 0}}
+    AND taskMember.member_send_time >= {{.cond.StartTime}}
+{{end}}
+
+{{if ne .cond.EndTime 0}}
+    AND taskMember.member_send_time <= {{.cond.EndTime}}
+{{end}}
+
+order by member_send_time desc
+{{if ne .page.Limit 0}}
+    LIMIT {{.page.Offset}}, {{.page.Limit}}
+{{end}}

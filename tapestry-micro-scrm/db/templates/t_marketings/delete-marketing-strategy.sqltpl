@@ -1,0 +1,1 @@
+DELETE FROM marketing_strategies WHERE `id` = :id

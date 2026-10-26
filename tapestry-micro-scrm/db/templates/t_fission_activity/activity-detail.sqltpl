@@ -1,0 +1,34 @@
+SELECT
+    fa.id,
+    fa.enterprise_id,
+    fa.name,
+    fa.desc,
+    fa.status,
+    fa.channel_id,
+    fa.start_time,
+    fa.end_time,
+    fa.exchange_end_time,
+    fa.fission_type,
+    fa.cond_type,
+    fa.mutual_type,
+    fa.user_num,
+    fa.fission_num,
+    fa.run_away_num,
+    fa.join_group_num,
+    fa.leave_group_num,
+    fa.drainage_welcomes_id,
+    fa.contact_id,
+    dcc.name as channel_name
+FROM
+    `fission_activity` fa
+LEFT JOIN
+    `drainage_contact_channels` as dcc
+ON
+    fa.channel_id = dcc.id
+WHERE
+    fa.id = ?
+and
+    fa.enterprise_id = ?
+and
+    fa.deleted_at = 0
+

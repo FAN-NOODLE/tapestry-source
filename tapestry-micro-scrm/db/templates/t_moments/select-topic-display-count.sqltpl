@@ -1,0 +1,19 @@
+SELECT
+	count(*) AS count
+FROM
+	`moment_topic_members` AS mtm
+LEFT JOIN
+	`moment_members` AS mm ON mtm.`moment_member_id` = mm.`member_id`
+LEFT JOIN
+	`members` AS m ON m.id = mtm.moment_member_id
+WHERE
+	1 = 1
+AND
+	mtm.deleted_at = 0
+AND
+	mm.deleted_at = 0
+AND
+	m.deleted_at = 0
+AND
+	mtm.moment_topic_id = :id
+{{if .cond.EditMemberId}} AND mtm.`moment_member_id` = :moment_member_id {{end}}

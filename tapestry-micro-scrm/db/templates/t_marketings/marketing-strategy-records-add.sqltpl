@@ -1,0 +1,5 @@
+INSERT IGNORE INTO
+    `marketing_strategy_records_v2`
+(`id`, `enterprise_id`,`union_id`,`user_id`, `external_userid`, `strategy_id`, `channel_type`, `channel_id`, `mobile`, `address_user_name`, `user_name`, `end_time`, `start_time`, `order_id`, `relation_id`, `status`, `created_at`, `updated_at`)
+VALUES
+(:id, :enterprise_id, :user_union_id, :user_id, :external_userid, :strategy_id, :channel_type, :channel_id, :mobile, :address_user_name, :user_name, :end_time, :start_time, :order_id, :relation_id, :status , :created_at, :updated_at);

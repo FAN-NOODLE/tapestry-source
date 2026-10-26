@@ -1,0 +1,3 @@
+SELECT
+`id`, `group_chat_id`, `type`, `userid`, `join_time`, `join_scene`, `leave_time`, `status`, `member_id`, `unionid`, `enterprise_id`, `created_at`, `updated_at`, deleted_at
+FROM `work_group_chat_member` WHERE `enterprise_id` = :enterprise_id AND `deleted_at` = :deleted_at AND `userid` = :userid AND `group_chat_id` = :group_chat_id;

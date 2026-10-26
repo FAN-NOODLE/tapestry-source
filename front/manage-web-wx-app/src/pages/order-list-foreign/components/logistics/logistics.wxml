@@ -1,0 +1,41 @@
+<popup show="{{show}}">
+    <view slot="content">
+        <view class="logistics-popup">
+            <view class="logistics-popup-content">
+                <!-- 头部 -->
+                <view class="logistics-popup-content-header">
+                    <view>物流信息</view>
+                    <image src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_close.png" bind:tap="_handleClose" />
+                </view>
+                <!-- 物流单号 -->
+                <view class="logistics-popup-content-order_no" wx:if="{{list.logistics_no}}">
+                    <view class="logistics-popup-content-order_no-main">
+                        <image class="default_expressage" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_default_expressage.png" lazy-load="{{true}}" mode="aspectFill" />
+                        <view class="logistics-popup-content-order_no-main-name">
+                            {{list.logistics_name}}
+                        </view>
+                        <view>{{list.logistics_no}}</view>
+                    </view>
+                    <view class="logistics-popup-content-order_no-copy" data-logistics_no="{{list.logistics_no}}" bind:tap="_handleToCopy">
+                        复制
+                    </view>
+                </view>
+                <!-- 内容 -->
+                <view class="logistics-popup-body">
+                    <scroll-view class="scroll-view" scroll-y="{{true}}" wx:if="{{list.logistics_track.length}}">
+                        <block wx:for="{{list.logistics_track}}" wx:key="index">
+                            <view class="logistics-popup-body-item">
+                                <view class="logistics-popup-body-item-block {{index===0?'first':''}}"></view>
+                                <view class="logistics-popup-body-item-label">{{item.remark}}</view>
+                                <view class="logistics-popup-body-item-time">
+                                    {{item.datetime}}
+                                </view>
+                            </view>
+                        </block>
+                    </scroll-view>
+                    <mp-empty wx:else icon="expressage" marginTop="142" content="暂无物流信息"></mp-empty>
+                </view>
+            </view>
+        </view>
+    </view>
+</popup>

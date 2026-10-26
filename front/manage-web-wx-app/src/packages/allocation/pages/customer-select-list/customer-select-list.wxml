@@ -1,0 +1,63 @@
+<view class="container">
+  <!-- header -->
+  <view class="header">
+    <!-- 进度展示 -->
+    <view class="step"></view>
+  </view>
+  <!-- 添加顾客、筛选 -->
+  <view class="sticky">
+    <mp-search bind:blur="handleSearchConfirm">
+      <view class="justify-space-between">
+        <view wx:if="{{!filter.show}}" class="search-item" bindtap="handleFilterPopupShow">
+          <view class="search-item__icon">
+            <image class="image" src="{{imageHost}}2023/v4.0.5/icon_filter.png" />
+            <view wx:if="{{filter.count}}" class="search-item__tag">{{filter.count}}</view>
+          </view>
+          <view class="customer-add flex">
+            筛选
+            <image class="image" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+          </view>
+        </view>
+      </view>
+    </mp-search>
+  </view>
+  <com-section current="{{filter.value.manage_type || 0}}" showIcon="{{false}}" bind:change="handleSectionChange">
+    <view class="customer-total">共{{meta.total}}位顾客 | 可分配{{relationCount}}位</view>
+  </com-section>
+  <!-- 顾客列表 -->
+  <view wx:if="{{list.length > 0}}" class="list">
+    <block wx:for="{{list}}" wx:key="index">
+      <com-customer-item item="{{item}}" from="{{3}}" data-index="{{index}}" bind:check="hanldeCheckOne"></com-customer-item>
+    </block>
+      
+    <!-- 加载更多 -->
+    <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+  </view>
+  <!-- 空组件 -->
+  <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+  
+  <mp-footer z-index="4">
+    <view class="footer">
+      <view class="check-all" bind:tap="hanldeCheckAll">
+        <view class="icon-check {{isAllChecked && checkedCount === relationCount ?'active':''}}"></view>
+        全选
+        <view class="popup-toast">已选{{checkedCount}}人</view>
+      </view>
+      <view class="btn plain" bind:tap="handleBack">取消分配</view>
+      <view class="btn {{isAllChecked||checkedIds.length ? '' : 'disabled'}}" bind:tap="handleNext">下一步</view>
+    </view>
+  </mp-footer>
+</view>
+
+<!-- 顾客筛选 选择 -->
+<com-filter-popup 
+  show="{{filter.show}}" 
+  offset="{{filter.offsetTop}}"
+  value="{{filter.value}}"
+  count="{{filter.count}}"
+  currentPage="{{5}}"
+  bind:close="handleFilterPopupHide"
+  bind:confirm="handleFilterConfirm"
+></com-filter-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

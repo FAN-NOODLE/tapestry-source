@@ -1,0 +1,102 @@
+
+<wxs module="computed">
+  /* eslint-disable */
+  var REGEXP = getRegExp('{|}|"', 'g');
+  var REGEXP1 = getRegExp('^-?\d+(\.\d+)?$');
+
+  function addUnit(value) {
+    if (value == null) {
+      return undefined;
+    }
+
+    return REGEXP1.test('' + value) ? value + 'rpx' : value;
+  }
+
+  function keys(obj) {
+    return JSON.stringify(obj)
+      .replace(REGEXP, '')
+      .split(',')
+      .map(function(item) {
+        return item.split(':')[0]
+      })
+  }
+  function isArray(array) {
+    return array && array.constructor === 'Array'
+  }
+  function isObject(obj) {
+    return obj && obj.constructor === 'Object'
+  }
+  function kebabCase(word) {
+    var newWord = word
+      .replace(getRegExp('[A-Z]', 'g'), function (i) {
+        return '-' + i
+      })
+      .toLowerCase()
+
+    return newWord
+  }
+
+  function style(styles) {
+    if (isArray(styles)) {
+      return styles
+        .filter(function (item) {
+          return item != null && item !== ''
+        })
+        .map(function (item) {
+          return style(item)
+        })
+        .join(';')
+    }
+
+    if (isObject(styles)) {
+      return keys(styles)
+        .filter(function (key) {
+          return styles[key] != null && styles[key] !== ''
+        })
+        .map(function (key) {
+          return [kebabCase(key), [styles[key]]].join(':')
+        })
+        .join(';')
+    }
+
+    return styles
+  }
+  function lineStyle(data) {
+    return style({
+      width: addUnit(data.lineWidth),
+      opacity: 1,
+      transform: 'translateX(' + data.lineOffsetLeft + 'px)',
+      '-webkit-transform': 'translateX(' + data.lineOffsetLeft + 'px)',
+      'background-color': data.color,
+      height: data.lineHeight !== -1 ? addUnit(data.lineHeight) : null,
+      'border-radius':
+        data.lineHeight !== -1 ? addUnit(data.lineHeight) : null,
+      'transition-duration': '0.3s',
+      '-webkit-transition-duration': '0.3s',
+    })
+  }
+
+  module.exports = {
+    lineStyle: lineStyle
+  }
+
+</wxs>
+<view class="com-tabs">
+  <view class="com-tabs__wrap">
+    <scroll-view 
+      class="com-tabs__scroll com-tabs__wrap--scrollable" 
+      scroll-x="{{ scrollable }}"
+      scroll-with-animation="{{ true }}"
+      scroll-left="{{ scrollLeft }}"
+    >
+      <view class="com-tabs__nav" style="display:{{scrollable ? 'block':'flex'}}">
+        <view class="com-tabs__line" style="{{ computed.lineStyle({ color, lineOffsetLeft, lineHeight, skipTransition, duration, lineWidth, inited }) }}"></view>
+        <view wx:for="{{tabs}}" wx:key="index" class="com-tab {{index === currentIndex?'com-tab--active':''}} {{scrollable ? '':'flex_1'}}" data-index="{{ index }}" bind:tap="onTap">
+          <view class="com-tab__title">{{item.title}}
+            <view wx:if="{{item.num}}" class="com-tab__num">{{item.num}}</view>
+          </view>
+        </view>
+      </view> 
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+SELECT
+	*
+FROM
+	`work_del_relation_channel_trace_{{.cond.EnterpriseID}}`
+WHERE
+	`user_id` = ?
+	AND `external_user_id` = ?
+	AND `enterprise_id` = ?
+	AND `add_time` = 0
+    ORDER BY id DESC
+LIMIT 1

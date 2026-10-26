@@ -1,0 +1,21 @@
+SELECT
+	UGD.`user_group_id` AS user_group_id,
+	UG.`name` AS user_group_name,
+	UGD.`tag_group_id` AS tag_group_id,
+	IFNULL(TG.`group_name`," ") AS tag_group_name,
+	UGD.`tag_id`,
+	IFNULL(T.`name`," ") AS tag_name,
+	UGD.`include_type`,
+	UGD.`user_group_type`,
+	UGD.`file_id`,
+	UGD.`department_id`,
+	UGD.`is_extract`
+FROM
+	`user_group_detail` AS UGD
+	LEFT JOIN `user_group` UG ON UG.`id` = UGD.`user_group_id`
+	LEFT JOIN `work_external_tag_group` TG ON TG.`id` = UGD.`tag_group_id`
+	LEFT JOIN `work_external_tag` T ON T.`id` = UGD.`tag_id`
+WHERE
+	UGD.`enterprise_id` = :enterprise_id
+	AND UGD.`user_group_id` = :user_group_id
+	AND UGD.`deleted_at` = 0

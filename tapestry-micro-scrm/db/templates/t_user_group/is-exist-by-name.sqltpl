@@ -1,0 +1,7 @@
+SELECT
+    COUNT(`id`) AS use_num
+FROM
+    `user_group`
+WHERE
+    `name` = :name and
+    `deleted_at`=0

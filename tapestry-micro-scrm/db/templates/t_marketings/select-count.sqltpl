@@ -1,0 +1,43 @@
+SELECT count(*) as `total`
+FROM (SELECT COUNT(DISTINCT marketing_strategies.`id`) as `count`
+      FROM marketing_strategies
+               LEFT JOIN marketing_strategy_channels
+                         ON marketing_strategy_channels.`strategy_id` = marketing_strategies.`id` AND
+                            marketing_strategy_channels.`deleted_at` = 0
+      WHERE marketing_strategies.deleted_at = 0
+        AND marketing_strategies.enterprise_id = :enterprise_id {{if ne .cond.CustomerGroupID 0}}
+        AND marketing_strategies.customer_group_id = :customer_group_id
+    {{end}}
+    {{if ne .cond.StrategyName ""}}
+        AND marketing_strategies.strategy_name LIKE :strategy_name
+    {{end}}
+    {{if ne .cond.StrategyType 0}}
+        AND marketing_strategies.strategy_type = :strategy_type
+    {{end}}
+    {{if .cond.Channels}}
+        AND marketing_strategy_channels.`channel_type`  = {{.cond.Channels}}
+    {{end}}
+    {{if ne .cond.StrategyPolicy 0}}
+        AND marketing_strategies.strategy_policy = :strategy_policy
+    {{end}}
+    {{if ne .cond.StrategyStatus 0}}
+        AND marketing_strategies.strategy_status = :strategy_status
+    {{end}}
+
+    {{if ne .cond.StrategyStatusMultiCnt 0}}
+        AND marketing_strategies.strategy_status IN ({{WhereIn .cond.StrategyStatusMulti}})
+    {{end}}
+
+    {{if ne .cond.StrategyMethod 0}}
+        AND marketing_strategies.strategy_method = :strategy_method
+    {{end}}
+
+    {{if ne .cond.StartTime 0}}
+    AND marketing_strategies.start_time >= :start_time AND marketing_strategies.start_time <= :end_time
+    {{end}}
+
+    {{if ne .cond.CurrentTime 0}}
+    AND (marketing_strategies.start_time <= {{.cond.CurrentTime}} AND marketing_strategies.end_time >= {{.cond.CurrentTime}})
+    {{end}}
+      GROUP BY
+          marketing_strategies.`id`) as count

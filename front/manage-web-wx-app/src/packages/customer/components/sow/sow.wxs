@@ -1,0 +1,7 @@
+function disabled(list, index) {
+  var item = list[index]
+  return item.remind_time === 0 || item.content === ''
+}
+module.exports = {
+  disabled: disabled
+}

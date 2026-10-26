@@ -1,0 +1,27 @@
+/** 组合群人数 比如：指定群人数大于1人。。。 */
+function getGroupInfo(logical) {
+  // 大于/小于/等于
+  var expressions = {
+    eq: '等于',
+    gt: '大于',
+    ge: '大于等于',
+    lt: '小于',
+    le: '小于等于'
+  }
+  return logical.remark + expressions[logical.expression] + logical.number
+}
+
+/** 根据状态取不同颜色 */
+function calcStatusInfo(status, key) {
+  // status详情
+  var statusInfo = [
+    { color: '#D1A7A7', name: '待完成', className: 'is-error' },
+    { color: '#BBD1A7', name: '已完成', className: 'is-success' },
+    { color: '#96979E', name: '已过期', className: 'is-load' }
+  ]
+  return statusInfo[status] ? statusInfo[status][key] : ''
+}
+module.exports = {
+  getGroupInfo: getGroupInfo,
+  calcStatusInfo: calcStatusInfo
+}

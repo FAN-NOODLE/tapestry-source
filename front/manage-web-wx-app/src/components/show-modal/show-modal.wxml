@@ -1,0 +1,37 @@
+<view class="modal-page modal-box {{show?'modal-show':''}} {{(fadein || show)?'modal-normal':'modal-scale'}}">
+  <view class="modal-content">
+    <view class="modal-title">{{title}}</view>
+    <view class="modal-description" wx:if="{{description || descriptionTwo}}">
+        <view class="line-txt">{{description}}</view>
+        <view wx:if="{{descriptionTwo}}" class="line-txt">{{descriptionTwo}}</view>
+    </view>
+    <slot></slot>
+    <view class="bottom-btn" wx:if="{{!isSingle && !reverse}}">
+      <view class="modal-btn btn-empty" catchtap="cancel">
+          <text>{{cancelText}}</text>
+      </view>
+      <view class="modal-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+          <button wx:if="{{isShare}}" class="share-btn" open-type="share"></button>
+      </view>
+    </view>
+
+    <view class="bottom-btn" wx:if="{{!isSingle && reverse}}">
+      <view class="modal-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+          <button wx:if="{{isShare}}" class="share-btn" open-type="share"></button>
+      </view>
+      <view class="modal-btn btn-empty" catchtap="cancel">
+          <text>{{cancelText}}</text>
+      </view>
+    </view>
+    <!-- 单个操作按钮-->
+    <view class="bottom-btn" wx:if="{{isSingle}}">
+      <view class="modal-btn single-btn btn-solid" catchtap="sure">
+          <text>{{sureText}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 遮罩 -->
+<view class="modal-mask {{show ? 'mask-show':''}}" ></view>

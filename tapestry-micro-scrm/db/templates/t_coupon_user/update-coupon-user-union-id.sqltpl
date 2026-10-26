@@ -1,0 +1,9 @@
+UPDATE coupon_user SET
+    `user_id`=:user_id,
+    `open_id`=:open_id
+ WHERE
+ `enterprise_id` = :enterprise_id
+  AND
+  deleted_at=0
+ AND
+  `union_id` = :union_id

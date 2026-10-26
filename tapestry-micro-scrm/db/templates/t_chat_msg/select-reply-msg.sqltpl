@@ -1,0 +1,30 @@
+SELECT
+        max(a.id) as id,
+        a.from_user,
+        b.to_user,
+        max(a.msg_at) as msg_at
+    FROM
+        `chat_msg` AS a
+        LEFT JOIN `chat_receive_user` AS b ON `a`.`id` = `b`.`chat_msg_id`
+    WHERE
+         `a`.`deleted_at` = 0 AND
+         `a`.`enterprise_id` = {{.cond.EnterpriseID}} AND
+         `a`.`room_id` = "" AND
+         `a`.`type` != "disagree"
+         {{if gt .cond.UserChannel 0}}
+            AND  `b`.`user_channel` =  {{.cond.UserChannel}}
+         {{end}}
+         {{if ne "" .cond.FromUser}}
+             AND  `a`.`from_user` =  '{{.cond.FromUser}}'
+         {{end}}
+         {{if ne "" .cond.ToUser}}
+            AND `b`.`to_user` =  '{{.cond.ToUser}}'
+         {{end}}
+         {{if gt .cond.TimeEnd 0}}
+            AND msg_at between {{.cond.TimeStart}} and {{.cond.TimeEnd}}
+         {{end}}
+    GROUP BY
+          from_user,to_user
+    ORDER BY
+         msg_at DESC
+    limit 1000

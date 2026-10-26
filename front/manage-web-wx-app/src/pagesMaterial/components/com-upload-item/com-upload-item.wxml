@@ -1,0 +1,68 @@
+<view wx:if="{{styleType == 1}}" class="custom-class com-item com-item--card">
+  <view class="com-item__image">
+    <view wx:if="{{percent == 1}}" class="com-item__delete" catch:tap="handleDelete"></view>
+    <image wx:if="{{fileType=='image'}}" class="image" src="{{item.path}}" mode="aspectFit"></image>
+    
+    <!-- <video wx:if="{{fileType=='video' && percent==1}}" class="image" src="{{item.url}}" controls="{{false}}" show-center-play-btn="{{false}}"></video> -->
+    <image wx:if="{{fileType=='video'}}" class="image" mode="aspectFit" src="{{item.cover_path || item.cover_url}}"></image>
+    
+    <view wx:if="{{percent<1}}" class="progress">
+      <progress percent="{{percent * 100}}" activeColor="#000" stroke-width="3"/>
+    </view>
+  </view>
+  <!-- <view wx:if="{{fileType=='image'}}" class="com-item__check" catch:tap="handleUseOriginal">
+    <view class="check {{ item.is_origin ? 'active' : '' }}"></view>
+    <view>原图</view>
+  </view> -->
+  <view wx:if="{{fileType=='image'}}" class="com-item__check" catch:tap="handleUseAI">
+    <view class="check {{ item.is_ai ? 'active' : '' }}"></view>
+    <view>AI识图</view>
+  </view>
+</view>
+
+<view wx:if="{{styleType == 2}}" class="custom-class com-item">
+  <view class="com-item__image">
+    <view class="com-item__delete" bind:tap="handleDelete"></view>
+    <image wx:if="{{fileType=='image'}}" class="image" src="{{item.path}}" mode="aspectFit"></image>
+    
+    <!-- <video wx:if="{{fileType=='video' && percent==1}}" class="image" src="{{item.url}}" controls="{{false}}" show-center-play-btn="{{false}}"></video> -->
+    <image wx:if="{{fileType=='video'}}" class="image" mode="aspectFit" src="{{item.cover_path || item.cover_url}}"></image>
+  </view>
+  <view class="flex-1">
+    <view class="com-item__name">
+      <view class="name">{{item.name || '上传中...'}}</view>
+      <view wx:if="{{fileType=='image'}}" class="com-item__edit" bind:tap="handleEditName"></view>
+    </view>
+    <view class="flex">
+      <!-- <view class="com-item__check" bind:tap="handleUseOriginal">
+        <view class="check {{ item.is_origin == 1 ? 'active' : '' }}"></view>
+        <view>{{fileType=='image' ? '原图':'原视频'}}</view>
+      </view> -->
+      <view wx:if="{{fileType=='image'}}" class="com-item__check" catch:tap="handleUseAI">
+        <view class="check {{ item.is_ai ? 'active' : '' }}"></view>
+        <view>AI识图</view>
+      </view>
+    </view>
+    <view wx:if="{{percent < 1}}" class="progress">
+      <progress percent="{{percent * 100}}" activeColor="#000" stroke-width="3"/>
+    </view>
+    <view wx:else class="success">加载完成</view>
+  </view>
+</view>
+
+<mp-popup show="{{show}}" position="bottom" bind:close="handleEditNameCancel">
+  <view class="popup" style="padding-bottom: {{keyboardHeight}}px">
+    <view class="input">
+      <input 
+        wx:if="{{show}}" 
+        class="text" 
+        type="text" 
+        value="{{name}}" 
+        auto-focus="{{true}}"	
+        adjust-position="{{false}}" 
+        bind:input="handleInput" 
+        bindkeyboardheightchange="handleKeyboardHeightChange" />
+      <view class="confirm" bind:tap="handleEditNameConfirm">确定</view>
+    </view>
+  </view>
+</mp-popup>

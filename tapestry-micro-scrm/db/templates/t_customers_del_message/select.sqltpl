@@ -1,0 +1,16 @@
+select
+`id`,
+`enterprise_id`,
+`status`,
+`send_type`,
+`stat_txt`,
+`qy_stat_txt`,
+`created_at`,
+`updated_at`,
+`deleted_at`
+from
+customers_del_message
+where
+enterprise_id = {{.cond.EnterpriseID}}
+and send_type = {{.cond.SendType}}
+and deleted_at = 0

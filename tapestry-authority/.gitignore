@@ -1,0 +1,6 @@
+/vendor
+.idea
+.DS_Store
+src/storage
+src/storage/logs
+/src/public/nginx.htaccess

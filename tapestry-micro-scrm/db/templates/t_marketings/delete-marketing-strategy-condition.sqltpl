@@ -1,0 +1,1 @@
+DELETE FROM marketing_strategy_conditions WHERE `strategy_id` = :id

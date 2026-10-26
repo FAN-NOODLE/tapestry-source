@@ -1,0 +1,9 @@
+{
+  "component": true, 
+  "usingComponents": {
+    "chart": "plugin://echarts/chart"
+  },
+  "componentPlaceholder": {
+    "chart": "view"
+  }
+}

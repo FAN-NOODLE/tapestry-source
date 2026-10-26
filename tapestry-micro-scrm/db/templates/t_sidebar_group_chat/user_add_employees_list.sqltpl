@@ -1,0 +1,19 @@
+SELECT
+    members.*,
+    work_external_user_relation.createtime,
+    members.id as member_id,
+    IFNULL(customer_relation_guide.id, 0) as customer_relation_guide_id
+FROM
+    work_external_user_relation
+    left join members on work_external_user_relation.member_id = members.id
+    left join customer_relation_guide on members.id = customer_relation_guide.members_id
+    AND customer_relation_guide.deleted_at = 0
+    and customer_relation_guide.user_id = ?
+WHERE
+    work_external_user_relation.work_external_user_id = ?
+    and work_external_user_relation.enterprise_id = ?
+    and members.deleted_at = 0
+    and work_external_user_relation.deleted_at = 0
+    and work_external_user_relation.relation_status=0
+ORDER BY
+    work_external_user_relation.createtime DESC

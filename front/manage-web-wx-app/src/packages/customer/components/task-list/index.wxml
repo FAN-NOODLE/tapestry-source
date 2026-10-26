@@ -1,0 +1,5 @@
+<view class="list">
+    <task-item wx:for="{{list}}" wx:key="index" item="{{item}}" detail="{{detail}}" from="1" bind:update="handleUpdate"></task-item>
+    <mp-empty wx:if="{{ !showLoading && list.length === 0}}" custom-class="empty-page" icon="no-task" content=""/>
+    <view class="more" bind:tap="handleViewMore">查看三个月内全部任务</view>
+</view>

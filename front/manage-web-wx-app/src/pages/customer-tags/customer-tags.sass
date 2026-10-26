@@ -1,0 +1,145 @@
+@import '../../style/color-variable.sass'
+@import '../../style/base/flex.sass'
+
+.page-customer-tags 
+  width: 100%
+  min-height: 100vh
+  background-color: #EDEEF1
+  font-size: vw(14)
+  .search-text
+    position: absolute
+    left: 0
+    top: 0
+    opacity: 0
+    padding: 0 vw(17)
+    font-size: vw(14)
+    font-family: PingFangSC-Regular,PingFang SC
+  .search-wrap
+    width: 100%
+    min-height: vw(60)
+    background: #FFFFFF
+    padding-top: vw(15)
+    padding-left: vw(15)
+    justify-content: flex-start
+    flex-wrap: wrap
+    .search-tag
+      justify-content: flex-start
+      align-items: center
+      min-width: vw(30)
+      height: vw(30)
+      margin-right: vw(15)
+      margin-bottom: vw(15)
+      padding: vw(5) vw(15)
+      background: #4A4A4A
+      border-radius: vw(2)
+      text-align: center
+      color: #FFFFFF
+    .delete-icon
+      width: vw(8)
+      height: vw(8)
+      margin-left: vw(10)
+    .search-box
+      height: vw(30)
+      margin-bottom: vw(15)
+      padding-right: vw(15)
+    .search-input
+      height: vw(30)
+      line-height: vw(30)
+      color: #33363C
+      caret-color: #4A4A4A
+      font-size: vw(14)
+      font-family: PingFangSC-Regular,PingFang SC
+    .input-active
+      padding: 0 0 0 0
+      position: absolute
+    .input-active-box
+      position: relative
+      border: vw(1) dashed rgba(128,128,128,0.49)
+    .input-placeholder
+      color: #96979E
+    .input-right
+      align-items: center
+      height: vw(30)
+      line-height: vw(30)
+      color: #DDDDE0
+      .input-total
+        margin-right: vw(10)
+      .close-icon
+        width: vw(16)
+        height: vw(16)
+  .tag-tips
+    margin-top: vw(10)
+    height: vw(20)
+    font-size: vw(14)
+    font-family: PingFangSC-Regular,PingFang SC
+    font-weight: 400
+    color: rgba(238,99,82,1)
+    line-height: vw(20)
+  .customer-but
+    width: vw(345)
+    height: vw(38)
+    margin: 0 auto vw(25)
+    line-height: vw(38)
+    border-radius: vw(2)
+    color: #ffffff
+  .m-t-10
+    margin-top: vw(10) !important
+  .m-t-15
+    margin-top: vw(15) !important
+  .but-gray
+    background: #C6C6C7
+  .but-blue
+    background: #4A4A4A
+  .tags-list-wrap
+    width: 100%
+  .list-title
+    width: 100%
+    height: vw(20)
+    padding: 0 vw(15)
+    align-items: center
+    line-height: vw(20)
+    .list-tips
+      color: #96979E
+    .tags-manage
+      align-items: center
+      color: #4A4A4A
+      .set-icon
+        width: vw(14)
+        height: vw(14)
+        margin-right: vw(5)
+  // 搜索列表
+  .filter-box
+    width: 100%
+    background-color: #F4F5F5
+    padding: 0 vw(15)
+    .item-tag
+      width: 100%
+      height: vw(50)
+      line-height: vw(50)
+      border-bottom: vw(1) solid #E5E5E5
+      color: #33363C
+      &:nth-last-child(1)
+        border: 0
+      .highlight
+        color: #4A4A4A
+  // 标签列表
+  .tags-box
+    width: 100%
+    padding: vw(15)
+    padding-right: 0
+    justify-content: flex-start
+    flex-wrap: wrap
+    .item-tag
+      min-width: vw(30)
+      height: vw(30)
+      margin-top: vw(15)
+      margin-right: vw(15)
+      padding: vw(5) vw(15)
+      border-radius: vw(2)
+      text-align: center
+    .item-normal
+      background: rgba(128,128,128,0.15)
+      color: #808080
+    .item-active
+      background: #4A4A4A
+      color: #FFFFFF

@@ -1,0 +1,8 @@
+SELECT
+	d.name as department_name,
+	d.third_id as third_id
+FROM
+	drainage_contact_members  as dcm
+	LEFT JOIN  departments as d ON dcm.third_id=d.third_id
+WHERE
+	d.enterprise_id =? AND  dcm.third_id>0 AND dcm.contact_id = ? AND dcm.deleted_at=?

@@ -1,0 +1,8 @@
+<view class="binding-relation" wx:if="{{ list.length > 0}}">
+  <invite-item wx:for="{{list}}" wx:key="index" item="{{item}}" role="{{role}}" />
+  <!-- 加载更多 -->
+  <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+</view>
+<!-- 空组件 -->
+<mp-empty wx:if="{{list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-task" content="暂无邀约记录"/>
+        

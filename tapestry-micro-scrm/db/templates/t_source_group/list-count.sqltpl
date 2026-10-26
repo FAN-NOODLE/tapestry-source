@@ -1,0 +1,6 @@
+SELECT
+	count(`id`) as count
+FROM
+	`source_group`
+WHERE `enterprise_id` = :enterprise_id
+AND `deleted_at` = 0

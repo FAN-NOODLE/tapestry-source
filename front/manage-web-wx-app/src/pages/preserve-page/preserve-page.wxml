@@ -1,0 +1,15 @@
+<view class="page-preserve-page">
+  <navigation-bar text="请稍后..." back="{{false}}"></navigation-bar>
+  <!-- 缺省页 -->
+  <mp-empty
+    icon="error"
+    marginTop="0"
+    content="当前访问人员较多，请稍后再试"
+    center="{{true}}"
+    btnValue="点击重试"
+    bindgoclick="goclick"
+  />
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

@@ -1,0 +1,93 @@
+
+function setName(name) {
+  if (!name) return name || ''
+  return name.split('.')[0]
+}
+function setCount(count) {
+  if (count > 10000) {
+    return (count / 10000).toFixed(1) + 'w'
+  } else if (count > 1000) {
+    return (count / 1000).toFixed(1) + 'k'
+  } else {
+    return count
+  }
+}
+function select(list, current) {
+  var ids = list.map(function(item) {
+    return item.id
+  })
+  var isSelected = ids.indexOf(current.id)
+
+  return isSelected ? 'active' : ''
+}
+
+function status(selection, item, entry) {
+  var ids = selection.map(function(val) { return val.id })
+  // 图片素材中有多张图片的，商品素材中有多张素材的
+  var isMergeImage = entry === 3 ? item.type === 2 && item.merge_image && item.merge_image.length > 0 : (item.type === 2 || item.type === 8 || item.type === 7) && item.merge_image && item.merge_image.length > 0
+  if (isMergeImage) {
+    var checkedLength = item.merge_image.filter(function(val) { return ids.indexOf(val.id) !== -1 })
+    if (checkedLength.length === item.merge_image.length) {
+      return 2
+    } else if (checkedLength.length > 0) {
+      return 1
+    } else {
+      return 0
+    }
+  } else {
+    if (ids.indexOf(item.id) !== -1) {
+      return 2
+    } else {
+      return 0
+    }
+  }
+}
+
+function isChecked(selection, item) {
+  var ids = selection.map(function(item) { return item.id })
+  return ids.indexOf(item.id) !== -1
+}
+
+function getCheckedLength(selection, item) {
+  if (!item.merge_image || !item.merge_image.length) return 0
+  var ids = selection.map(function(item) { return item.id })
+
+  return item.merge_image.filter(function(item) { return ids.indexOf(item.id) !== -1 }).length
+}
+
+
+function checked(selection, item, entry) {
+  var value = status(selection, item, entry)
+  if (value === 2) {
+    return 'active'
+  } else if (value === 1) {
+    return 'active--half'
+  } else {
+    return ''
+  }
+}
+
+/**
+ * 是否显示选择按钮
+ * @param item 当前素材
+ * @param enterType 入口来源 1-品牌素材库 2-群发素材库
+ */
+function showSelectButton(item, enterType) {
+  if (enterType === 2) {
+    if (item.type === 8 && item.merge_image.length === 0) return false
+  } else {
+    return false
+  }
+  return true
+}
+
+module.exports = {
+  setName: setName,
+  setCount: setCount,
+  select: select,
+  status: status,
+  isChecked: isChecked,
+  checked: checked,
+  getCheckedLength: getCheckedLength,
+  showSelectButton: showSelectButton
+}

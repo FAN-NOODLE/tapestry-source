@@ -1,0 +1,677 @@
+@import '~@/style/color-variable'
+@keyframes mp-skeleton-blink
+  50%
+    opacity: 0.6
+.com-item
+  position: relative
+  width: 690rpx
+  background-color: #fff
+  padding: 30rpx
+  margin: auto
+  box-sizing: border-box
+  margin-bottom: 30rpx
+
+  .top 
+    position: absolute
+    top: 10rpx
+    left: 10rpx
+    z-index: 2
+    display: flex
+
+
+  .is-top
+    width: 62rpx
+    height: 28rpx
+    background: #000000
+    border-radius: 17rpx
+    display: flex
+    align-items: center
+    justify-content: center
+    font-weight: 400
+    font-size: 20rpx
+    color: #FFFFFF
+    margin-right: 10rpx
+
+  .image
+    width: 100%
+    height: 100%
+    // background-color: #fff
+
+  &__header
+    display: flex
+    align-items: center
+    overflow: hidden
+    .user
+      flex: 1
+      display: flex
+      align-items: center
+      overflow: hidden
+      .avatar
+        width: 76rpx
+        height: 76rpx
+        border-radius: 50%
+        margin-right: 20rpx
+        background-color: #f0f0f0
+        overflow: hidden
+        .image
+          border-radius: 50%
+      .flex-1
+        flex: 1
+        overflow: hidden
+      .name
+        font-size: 28rpx
+        color: #000
+        line-height: 40rpx
+        display: flex
+        align-items: center
+        .is-top 
+          margin-left: 10rpx
+      .time
+        font-size: 24rpx
+        color: #9E9E9E
+        line-height: 34rpx
+    .count
+      display: flex
+      align-items: center
+      .count-item
+        display: inline-block
+        padding-left: 22rpx
+        font-size: 24rpx
+        color: #9E9E9E
+        line-height: 34rpx
+
+        &:nth-child(1) 
+          margin-right: 30rpx
+          background: imgUrl('/static/wxapp/v5.1.5.2/shoucang3.png') left center / 16rpx 16rpx no-repeat
+        &:nth-child(2) 
+          margin-right: 30rpx
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_down_gray.png") left center / 14rpx 16rpx no-repeat
+        &:nth-child(3)
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_share_gray.png") left center / 16rpx 16rpx no-repeat
+
+  &__uploader
+    display: flex
+    align-items: center
+    min-width: 0
+    margin-bottom: 16rpx
+    .avatar
+      width: 44rpx
+      height: 44rpx
+      flex: 0 0 44rpx
+      border-radius: 50%
+      margin-right: 12rpx
+      background-color: #f0f0f0
+    .name
+      min-width: 0
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      font-size: 24rpx
+      color: #666
+          
+  &__content
+    .text
+      font-size: 28rpx
+      line-height: 40rpx
+      color: #000
+      word-break: break-all
+      .copy
+        display: inline-block
+        width: 24rpx
+        height: 24rpx
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_copy.png") center / 100% no-repeat
+        margin-left: 30rpx
+    .image-list
+      margin-top: 30rpx
+      display: flex
+      flex-wrap: wrap
+      .image-item
+        width: 196rpx
+        height: 196rpx
+        margin-right: 20rpx
+        margin-bottom: 20rpx
+        background-color: #f0f0f0
+        position: relative
+        // animation: mp-skeleton-blink 1.2s ease-in-out infinite
+        .image-item__image
+          width: 100%
+          height: 100%
+        &:nth-child(3n)
+          margin-right: 0
+
+        &:only-child
+          width: 100%
+          height: 510rpx
+          margin-right: 0
+
+  &__footer
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    margin-top: 10rpx
+    border-top: 2rpx dashed #EEEEEE
+    .collect 
+      flex: 1
+      height: 64rpx
+      display: flex
+      align-items: center
+      justify-content: center
+      font-weight: 400
+      font-size: 24rpx
+      color: #000000
+      &::before
+        content: ""
+        width: 24rpx
+        height: 24rpx
+        background: imgUrl('/static/wxapp/v5.1.5.2/shoucang1.png') center/24rpx no-repeat
+        margin-right: 10rpx
+
+      &::after
+        content: "收藏"
+      
+      &.active::before
+        background: imgUrl('/static/wxapp/v5.1.5.2/shoucang2.png') center/24rpx no-repeat
+      &.active::after
+        content: ""
+    .btn
+      border: 2rpx solid #000000
+      padding: 0 20rpx
+      height: 64rpx
+      border-radius: 38rpx
+      font-size: 24rpx
+      color: #000
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &:not(:first-child)
+        margin-left: 20rpx
+      
+      &.friends::before
+        content: ""
+        width: 28rpx
+        height: 28rpx
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_share_friend.png") no-repeat center center /100%
+        margin-right: 8rpx
+      &.copy::before
+        content: ""
+        width: 24rpx
+        height: 24rpx
+        background: imgUrl('/static/wxapp/v5.1.5.2/copy2.png') no-repeat center center /100%
+        margin-right: 10rpx
+    .total
+      display: flex
+      align-items: center
+      flex: 1
+
+      .total-item
+        display: flex
+        align-items: center
+        font-weight: 400
+        font-size: 20rpx
+        color: #9E9E9E
+        line-height: 28rpx
+        margin-right: 40rpx
+
+        &:nth-child(1) 
+          &::before
+            content: ""
+            width: 16rpx
+            height: 16rpx
+            background: imgUrl('/static/wxapp/v5.1.5.2/shoucang1.png') center / 100% no-repeat
+            opacity: 0.3
+            margin-right: 6rpx
+        &:nth-child(2)
+          &::before
+            content: ""
+            width: 16rpx
+            height: 16rpx
+            background: imgUrl('/static/wxapp/v5.1.5.2/copy1.png') center / 100% no-repeat
+            margin-right: 6rpx
+    .flex
+      display: flex
+  &__new
+    position: absolute
+    left: 0
+    top: 0
+    width: 78rpx
+    height: 78rpx
+    background: imgUrl("/static/wxapp/v4.0.1/material/icon_new.png") -26rpx -26rpx / 100% no-repeat
+    z-index: 1
+            
+  &__select
+    position: absolute
+    top: 0
+    right: 0
+    width: 56rpx
+    height: 56rpx
+    background-color: #fff
+    box-shadow: -4rpx 4rpx 16rpx 0rpx rgba(0,0,0,0.1)
+    border-radius: 0rpx 0rpx 0rpx 20rpx
+    z-index: 2
+    &::after
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      width: 32rpx
+      height: 32rpx
+      border-radius: 50%
+      background-color: #fff
+      border: 2rpx solid #4A4A4A
+      box-sizing: border-box
+      z-index: 2
+    &::before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      width: 32rpx
+      height: 32rpx
+      border-radius: 50%
+      background: imgUrl("/static/wxapp/v4.0.1/material/icon_select.png") no-repeat center center/100%
+
+      z-index: 1
+
+    &.active
+      &::before
+        z-index: 2
+      &::after
+        z-index: 1
+    
+    &.active--half
+      &::before
+        background: #fff
+        width: 16rpx
+        height: 6rpx
+        border-radius: 0
+        z-index: 2
+      &::after
+        z-index: 1
+        background: #000
+  .select-num
+    position: absolute
+    top: 0
+    right: 0
+    width: 56rpx
+    height: 82rpx
+    background: #000000
+    border-radius: 0rpx 0rpx 0rpx 17rpx
+    z-index: 1
+    font-size: 16rpx
+    color: #fff
+    .num-text
+      position: absolute
+      top: 55rpx
+      right: 0
+      white-space: nowrap
+  &__image
+    width: 290rpx
+    height: 290rpx
+    position: relative
+    background-color: #f0f0f0
+    position: relative
+    // animation: mp-skeleton-blink 1.2s ease-in-out infinite
+    .mark
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background: rgba(0, 0, 0, 0.5) imgStatic("2024/v4.2.0/icon_play.png") center/30px no-repeat
+      z-index: 1
+    
+    .image-number
+      height: 28rpx
+      line-height: 28rpx
+      background: rgba(0,0,0,0.5)
+      border-radius: 17rpx
+      font-size: 20rpx
+      color: #fff
+      padding: 0 10rpx
+      z-index: 1
+      text-align: center
+
+    .count
+      position: absolute
+      bottom: 0
+      right: 0
+      padding: 14rpx
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      z-index: 2
+      &-item
+        box-sizing: border-box
+        min-width: 80rpx
+        height: 36rpx
+        background: rgba(0,0,0,0.5)
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 0 12rpx
+        font-size: 20rpx
+        color: #fff
+        &:nth-child(1) 
+          margin-right: 10rpx
+          &::before
+            content: ""
+            width: 18rpx
+            height: 18rpx
+            background: imgUrl('/static/wxapp/v5.1.5.2/shoucang4.png') center / 16rpx 16rpx no-repeat
+            margin-right: 6rpx
+        &:nth-child(2)
+          margin-right: 10rpx
+          &::before
+            content: ""
+            width: 18rpx
+            height: 18rpx
+            background: imgUrl("/static/wxapp/v4.0.1/material/icon_share_white.png") left center / 100% no-repeat
+            margin-right: 6rpx
+        &:nth-child(3)::before
+          content: ""
+          width: 14rpx
+          height: 16rpx
+          margin-right: 6rpx
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_download_white.png") left center / 100% no-repeat
+    
+  .mask
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0,0,0,0.5)
+    z-index: 1
+    display: flex
+    align-items: center
+    justify-content: center
+    &::after
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%) 
+      width: 78rpx
+      height: 78rpx
+      background: imgUrl("/static/wxapp/v4.0.1/material/icon_play.png") no-repeat center center /100%
+
+  &__title
+    font-size: 28rpx
+    line-height: 40rpx
+    color: #4a4a4a
+    font-weight: bold
+    margin-top: 20rpx
+    display: flex
+    align-items: center
+    justify-content: center
+
+    .text 
+      overflow: hidden
+      text-overflow: ellipsis
+      display: -webkit-box
+      -webkit-line-clamp: 1
+      -webkit-box-orient: vertical
+      word-break: break-all
+      text-align: center
+
+  &__save
+    height: 64rpx
+    display: flex
+    align-items: center
+    justify-content: center
+    box-sizing: border-box
+    font-size: 24rpx
+    flex: 1
+    &::before
+      content: ""
+      width: 30rpx
+      height: 36rpx
+      background: imgUrl('/static/wxapp/v5.1.5.2/baocun1.png') center / 20rpx 24rpx no-repeat
+      margin-right: 8rpx
+    
+
+  &.com-item--image,
+  &.com-item--video,
+  &.com-item--wechat,
+  &.com-item--file,
+    width: 330rpx
+    padding: 20rpx 20rpx 0
+    position: relative
+    .btn
+      border: none
+      padding: 0
+
+  &.com-item--image
+    .com-item__title
+      height: 80rpx
+      .text
+        -webkit-line-clamp: 2
+    
+  &.com-item--text 
+    padding: 30rpx 30rpx 0
+    .is-top
+      margin-bottom: 10rpx
+    .btn
+      border: none
+      padding: 0
+      height: 68rpx
+      box-sizing: border-box
+      border-radius: 0
+      justify-content: flex-end
+      &:not(:first-child)
+        margin-left: 80rpx
+        
+    .com-item__footer
+      margin-top: 20rpx
+      .copy-number
+        font-size: 28rpx
+        color: #9E9E9E
+        line-height: 40rpx
+        display: flex
+        align-items: center
+        &::before
+          content: ""
+          margin-right: 16rpx
+          width: 20rpx
+          height: 20rpx
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_copy.png") center / 100% no-repeat
+        
+  &.com-item--link
+    display: flex
+    padding: 20rpx
+
+    .com-item__image
+      width: 194rpx
+      height: 194rpx
+      margin-right: 20rpx
+    
+    .com-item__content
+      flex: 1
+      overflow: hidden
+      
+      .title
+        font-size: 28rpx
+        color: #4A4A4A
+        line-height: 40rpx
+        font-weight: bold
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      .desc
+        height: 68rpx
+        line-height: 34rpx
+        font-size: 24rpx
+        color: #96979E
+        margin-top: 12rpx
+        overflow: hidden
+        text-overflow: ellipsis
+        display: -webkit-box
+        -webkit-line-clamp: 2
+        -webkit-box-orient: vertical
+        word-break: break-all
+
+    .com-item__footer
+      border: none
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin-top: 40rpx
+      
+      .total-item
+        display: flex
+        align-items: center
+        font-weight: 400
+        font-size: 20rpx
+        color: #9E9E9E
+        line-height: 28rpx
+        flex: 1
+        
+        &::before
+          content: ""
+          width: 16rpx
+          height: 16rpx
+          background: imgUrl('/static/wxapp/v5.1.5.2/shoucang1.png') center / 100% no-repeat
+          opacity: 0.3
+          margin-right: 6rpx
+      .collect 
+        height: 34rpx
+        flex: none
+
+  &.com-item--wechat
+    padding: 30rpx 20rpx 0
+    .com-item__header
+      display: flex
+      align-items: flex-start
+      .flex-1
+        flex: 1
+        overflow: hidden
+      .wechat-icon
+        width: 30rpx
+        height: 30rpx
+        margin-right: 18rpx
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_wechat.png") no-repeat center center /100%
+        
+      .wechat-title
+        font-size: 28rpx
+        color: #4a4a4a
+        font-weight: bold
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+        line-height: 28rpx
+      .wechat-name
+        font-size: 24rpx
+        color: #96979e
+        margin-top: 16rpx
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+        line-height: 34rpx
+
+    .com-item__image 
+      // margin-top: 20rpx
+      background: #F0F0F0
+
+    .com-item__footer
+      display: flex
+      align-items: center
+      height: 70rpx
+      border: none
+      .total-item
+        display: flex
+        align-items: center
+        font-weight: 400
+        font-size: 20rpx
+        color: #9E9E9E
+        line-height: 28rpx
+        
+        &::before
+          content: ""
+          width: 16rpx
+          height: 16rpx
+          background: imgUrl('/static/wxapp/v5.1.5.2/shoucang1.png') center / 100% no-repeat
+          opacity: 0.3
+          margin-right: 6rpx
+      .collect 
+        height: 34rpx
+        justify-content: flex-start
+
+
+  &.com-item--file
+    .com-item__content
+      padding-top: 100rpx
+      padding-bottom: 100rpx
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      flex-direction: column
+      overflow: hidden
+      position: relative
+      .count
+        position: absolute
+        bottom: 0
+        right: 0
+        padding: 14rpx
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        z-index: 2
+        &-item
+          box-sizing: border-box
+          min-width: 80rpx
+          height: 36rpx
+          background: rgba(0,0,0,0.5)
+          display: flex
+          align-items: center
+          justify-content: center
+          padding: 0 12rpx
+          font-size: 20rpx
+          color: #fff
+          &:nth-child(1) 
+            margin-right: 10rpx
+            &::before
+              content: ""
+              width: 18rpx
+              height: 18rpx
+              background: imgUrl('/static/wxapp/v5.1.5.2/shoucang4.png') center / 16rpx 16rpx no-repeat
+              margin-right: 6rpx
+    .file-image
+      width: 104rpx
+      height: 120rpx
+    .file-name
+      margin-top: 30rpx
+      font-size: 28rpx
+      line-height: 40rpx
+      color: #4a4a4a
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
+      padding: 0 20rpx
+      width: 100%
+      box-sizing: border-box
+      text-align: center
+      
+    .preview
+      flex: 1
+      border-radius: 0
+
+      &::before
+        content: ""
+        width: 24rpx
+        height: 16rpx
+        background: imgUrl('/static/wxapp/v5.1.5.2/yulan.png') center / 24rpx 16rpx no-repeat
+        margin-right: 8rpx
+    
+    .com-item__footer
+      margin-top: 20rpx
+  &.com-item--circle
+    .collect 
+      justify-content: flex-start
+    .com-item__footer
+      padding-top: 12rpx
+.com-item__header ~ .com-item__content
+  margin-top: 30rpx
+

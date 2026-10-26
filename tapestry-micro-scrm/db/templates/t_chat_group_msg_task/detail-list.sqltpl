@@ -1,0 +1,45 @@
+SELECT 
+	cgmsr.send_time,
+	wgc.name AS chat_name,
+	m.name
+	
+FROM 
+	`chat_group_msg_send_record` cgmsr
+	
+
+LEFT JOIN work_group_chat wgc ON  wgc.chat_id = cgmsr.chat_id AND wgc.enterprise_id ={{.cond.EnterpriseID}}
+
+
+LEFT JOIN members m ON cgmsr.msg_task_member_id=m.id AND m.deleted_at = 0 AND m.enterprise_id ={{.cond.EnterpriseID}}
+
+
+WHERE
+ 
+  cgmsr.enterprise_id = {{.cond.EnterpriseID}}
+
+    AND cgmsr.deleted_at = 0
+
+    AND msg_task_id = {{.cond.ID}}
+
+  {{if  ne .cond.ChatName ""}}
+    AND
+    wgc.name like '%{{SafeStr .cond.ChatName}}%'
+  {{end}}
+
+ {{if  ne .cond.MemberId 0}}
+   AND
+   cgmsr.msg_task_member_id = {{.cond.MemberId}}
+ {{end}}
+
+ {{if ne .cond.StartTime 0}}
+ AND cgmsr.send_time>= {{.cond.StartTime}}
+ {{end}}
+
+ {{if ne .cond.EndTime 0}}
+ AND cgmsr.send_time<= {{.cond.EndTime}}
+ {{end}}
+
+ order by  send_time desc
+  {{if ne .page.Limit 0}}
+      LIMIT {{.page.Offset}}, {{.page.Limit}}
+  {{end}}

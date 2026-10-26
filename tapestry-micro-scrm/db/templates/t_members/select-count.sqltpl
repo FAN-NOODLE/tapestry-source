@@ -1,0 +1,26 @@
+SELECT count(distinct members.`id`) as `total`
+FROM members
+LEFT JOIN member_departments ON members.`id` = member_departments.`member_id`
+LEFT JOIN departments ON member_departments.`department_id` = departments.`id`
+WHERE members.`enterprise_id` = :enterprise_id AND members.`deleted_at` = 0 AND member_departments.`deleted_at` = 0 AND departments.`deleted_at` = 0
+{{if ne .cond.DepartmentID 0}}
+AND member_departments.`department_id` = :department_id
+{{end}}
+{{if ne .cond.Status 0}}
+AND members.`status` = :status
+{{end}}
+{{if ne .cond.Name ""}}
+AND members.`name` like :name
+{{end}}
+{{if ne .cond.Userid ""}}
+AND members.`userid` = :userid
+{{end}}
+{{if ne .cond.Mobile ""}}
+AND members.`mobile` = :mobile
+{{end}}
+{{if ne .cond.UserIDCount 0}}
+AND members.`userid` IN ({{WhereIn .cond.UserIDs}})
+{{end }}
+{{if ne .cond.IDCount 0}}
+AND members.`id` IN ({{WhereIn .cond.IDs}})
+{{end }};

@@ -1,0 +1,18 @@
+
+@import '~@/style/color-variable';
+
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  background: #F4F7FB;
+
+  .header {
+    background: #fff;
+    // position: sticky;
+    // top: 0;
+    // z-index: 10;
+    box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5);
+  }
+}
+
+      

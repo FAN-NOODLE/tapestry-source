@@ -1,0 +1,11 @@
+<view class="new-shop-member">
+	<view class="title">请出示下方二维码，让新店员扫码申请加入</view>
+    <view class="description">扫码申请前请确认该店员是否已加入本店企业微信</view>
+    <image class="card" src="{{poster}}"></image>
+    <view class="handle {{isIpx ? 'handle-ipx': ''}}" bindtap="save">
+        <view class="btn btn-solid">保存新增店员海报</view>
+    </view>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

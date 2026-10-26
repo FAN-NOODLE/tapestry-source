@@ -1,0 +1,49 @@
+{
+  "_args": [
+    [
+      "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+      "/Users/xingxing/Desktop/changyi/web-admin"
+    ]
+  ],
+  "_from": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+  "_id": "crs-cy-components@git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#0d738e8f9b9903fab175ea320fe2b849bbe1c65e",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/crs-cy-components",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+    "rawSpec": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+    "saveSpec": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+    "fetchSpec": "ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git",
+    "gitCommittish": "v1.1.32"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#0d738e8f9b9903fab175ea320fe2b849bbe1c65e",
+  "_spec": "git+ssh://git@gitlab-ce.k8s.tools.vchangyi.com:32201/common/vue-toolbox.git#v1.1.32",
+  "_where": "/Users/xingxing/Desktop/changyi/web-admin",
+  "author": {
+    "name": "johnhuu",
+    "email": "houwei@vchangyi.com"
+  },
+  "description": "基于 element 的高阶组件",
+  "keywords": [
+    "cy-upload",
+    "cy-table",
+    "cy-form",
+    "cy-input",
+    "cy-form",
+    "cy-cascader"
+  ],
+  "main": "dist/components.umd.min.js",
+  "name": "crs-cy-components",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+http://gitlab-ce.k8s.tools.vchangyi.com/crs/crs.third.admin.git"
+  },
+  "version": "1.1.32"
+}

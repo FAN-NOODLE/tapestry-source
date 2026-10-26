@@ -1,0 +1,161 @@
+@import '~@/style/color-variable'
+.page-customer-lost
+	padding: 20rpx
+	font-size: vw(14)
+	.navbar
+		display: flex
+		padding: 10rpx
+		.nav-item
+			flex: 1
+			background: #F2F2F2
+			padding: 10rpx 20rpx
+			text-align: center
+			border-radius: 5px
+		.active
+			background: #708DF5
+			color: #ffffff
+	.message-item
+		margin: vw(14) 0
+	.container
+		display: flex
+		picker
+			flex: 1
+			.select-wraper
+				display: inline-block
+				padding: vw(6)
+				background: #F0F0F0
+	.customer-list
+		.page-customer-card
+			.customer-card-contengt
+				padding: vw(20)
+				border-top: vw(1) solid #F0F0F0
+				.customer-info
+					display: flex
+					align-items: flex-start
+					.customer-avatar
+						position: relative
+						width: vw(52)
+						height: vw(52)
+						margin-right: vw(15)
+						.img
+							width: 100%
+							height: 100%
+							border-radius: 100%
+					.customer-content
+						flex: 1
+						.content-top
+							display: flex
+							align-items: center
+						.name
+							// display: block
+							// line-height: vw(22)
+							font-size: vw(16)
+							font-family: PingFangSC-Medium, PingFang SC
+							font-weight: 500
+							color: #33363C
+						.customer-gender
+							width: vw(15)
+							height: vw(15)
+						.gender-text
+							font-family: PingFangSC-Regular, PingFang SC
+							margin-left: vw(3)
+							margin-right: vw(15)
+							font-size: vw(14)
+							color: #808080
+						.date
+							height: vw(17)
+							font-size: vw(12)
+							font-family: PingFangSC-Regular, PingFang SC
+							font-weight: 400
+							color: #96979E
+							line-height: vw(17)
+							margin-top: vw(5)
+							display: flex
+							.card
+								color: #ECAB49
+							.other-type
+								color: #4A4A4A
+								margin-left: vw(3)
+								margin-right: vw(3)
+						.other
+							line-height: vw(20)
+							margin-top: vw(5)
+							color: #808080
+							display: flex
+							align-items: center
+							// .customer-gender
+							//   width: vw(15)
+							//   height: vw(15)
+							// .gender-text
+							//   margin-left: vw(3)
+							//   margin-right: vw(15)
+							.customer-tel
+								width: vw(15)
+								height: vw(15)
+							.tel-text
+								margin-left: vw(3)
+								font-size: vw(14)
+						.system-label
+							width: 100%
+							height: vw(18)
+							margin-bottom: vw(5)
+							margin-top: vw(15)
+							display: flex
+							flex-wrap: wrap
+							overflow: hidden
+							.system-label-box
+								height: vw(18)
+								background: rgba(52,182,153,0.1)
+								border-radius: vw(2)
+								font-size: vw(11)
+								font-weight: 400
+								color: #34B699
+								padding: vw(1) vw(8)
+								margin-right: vw(5)
+						.our-label
+							width: 100%
+							height: vw(18)
+							margin-bottom: vw(5)
+							display: flex
+							flex-wrap: wrap
+							overflow: hidden
+							white-space: nowrap
+							text-overflow: ellipsis
+							.our-label-box
+								height: vw(18)
+								background: #F6F7F9
+								border-radius: vw(2)
+								font-size: vw(11)
+								font-weight: 400
+								color: #808080
+								padding: vw(1) vw(8)
+								margin-right: vw(5)
+							.more
+								font-size: vw(11)
+								color: #96979E
+								line-height: vw(16)
+				.customer-footer
+					padding: vw(20) 0
+					border-bottom: vw(1) solid #F0F0F0
+					.customer-footer-button
+						display: flex
+						align-items: center
+						justify-content: flex-end
+						.customer-but
+							line-height: vw(20)
+							border-radius: vw(2)
+							font-size: vw(14)
+							padding: vw(4) vw(15)
+							border: vw(1) solid rgba(91,137,254,1)
+							margin-left: vw(10)
+						.white-but
+							color: #4A4A4A
+						.blue-but
+							background-color: #4A4A4A
+							color: #FEFFFE
+						.m-l-0
+							margin-left: vw(0)!important
+		.bottom-tip
+			border-top: vw(1) solid #F0F0F0
+			padding-top: vm(10)
+			text-align: center

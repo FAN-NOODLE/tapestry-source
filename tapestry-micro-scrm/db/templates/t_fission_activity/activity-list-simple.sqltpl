@@ -1,0 +1,5 @@
+SELECT id ,`name`
+
+FROM `fission_activity`
+
+WHERE enterprise_id = ? and deleted_at = 0

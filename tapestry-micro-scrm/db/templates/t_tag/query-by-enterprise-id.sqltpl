@@ -1,0 +1,15 @@
+select
+  `id`,
+  `enterprise_id`,
+  `tag_id`,
+  `tag_name`,
+  `tag_group_id`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`
+from
+    `tag`
+where
+    `enterprise_id` = {{.enterprise_id}}
+and
+    `deleted_at` = 0

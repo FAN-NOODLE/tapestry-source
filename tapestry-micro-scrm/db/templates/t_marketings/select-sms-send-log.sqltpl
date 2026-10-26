@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	sms_send_log
+WHERE
+	enterprise_id ={{.cond.EnterpriseId}}

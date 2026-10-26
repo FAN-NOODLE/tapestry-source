@@ -1,0 +1,41 @@
+SELECT
+    count(DISTINCT (sl.id))
+FROM source_link sl
+LEFT JOIN source s ON s.id = sl.id
+LEFT JOIN source_category_relation as scr on scr.source_id = sl.id
+LEFT JOIN source_category as sc on sc.id = scr.category_id
+LEFT JOIN source_relation_goods as srg on sl.id = srg.source_id
+
+WHERE
+sl.enterprise_id = {{.cond.EnterpriseID}}
+AND s.type = 3
+AND s.deleted_at = 0
+AND sl.deleted_at = 0
+
+{{if .cond.CategoryIds}}
+    AND scr.category_id IN ({{WhereIn .cond.CategoryIds}})
+{{end}}
+
+{{if .cond.GroupIDList}}
+    AND s.group_id IN ({{WhereIn .cond.GroupIDList}})
+{{end}}
+
+{{if .cond.Keyword}}
+   AND (sl.title LIKE '%{{SafeStr .cond.Keyword}}%'
+   OR sl.description LIKE '%{{SafeStr .cond.Keyword}}%'
+   OR srg.name LIKE '%{{SafeStr .cond.Keyword}}%'
+   OR srg.sku_code LIKE '%{{SafeStr .cond.Keyword}}%')
+{{end}}
+
+{{if and .cond.JustMe .cond.AdminID}}
+    AND s.admin_id = {{.cond.AdminID}}
+{{end}}
+
+{{if and .cond.CreatedStart .cond.CreatedEnd}}
+    AND sl.created_at >= {{.cond.CreatedStart}}
+    AND sl.created_at <= {{.cond.CreatedEnd}}
+{{end}}
+
+{{if ne .cond.SourceStatus 2}}
+    AND s.status = {{.cond.SourceStatus}}
+{{end}}

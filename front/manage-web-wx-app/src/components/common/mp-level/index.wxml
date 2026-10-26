@@ -1,0 +1,2 @@
+<wxs src="./index.wxs" module="computed" />
+<image class="mp-level" src="{{currentLevelImage}}" />

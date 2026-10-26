@@ -1,0 +1,22 @@
+<!-- components/common/mp-dragable/index.wxml -->
+<movable-area
+	id="movable-area"
+	class="custom-class movable-area"
+	bind:longpress="onLongPress"
+	bind:touchstart="onTouchStart"
+	catch:touchmove="{{isDrag?'onTouchMove':''}}"
+	bind:touchend="{{isDrag?'onTouchEnd':''}}"
+>
+	<slot></slot>
+	<movable-view
+		wx:if="{{current>-1}}"
+		x="{{x}}"
+		y="{{y}}"
+		direction="all"
+		damping="{{5000}}"
+		friction="{{1}}"
+		disabled="{{disabled}}"
+	>
+		<slot name="movable-view"></slot>
+	</movable-view>
+</movable-area>

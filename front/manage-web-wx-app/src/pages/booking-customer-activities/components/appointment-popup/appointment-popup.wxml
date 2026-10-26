@@ -1,0 +1,120 @@
+<popup show="{{show}}">
+    <view slot="content">
+        <view class="appointment-popup">
+            <view class="appointment-popup-content">
+                <!-- 头部 -->
+                <view class="header">
+                    <view>预约信息</view>
+                    <image src="https://cdn-cos.coach.com.cn/uploads/2022/v2.8.0/reserve_close.png"  bindtap="handleClose"/>
+                </view>
+                <!-- 内容 -->
+                <view class="body">
+                    <!-- 内容 -->
+                    <view class="row cell-name-mb">
+                        <!-- 用户名 -->
+                        <view class="cell-input">
+                            <label class="input-name">昵称</label>
+                            <input 
+                                type="text"
+                                placeholder-class="place-holder"
+                                value="{{form.user_name}}" 
+                                bindinput="changeInput" 
+                                data-name="user_name"
+                                maxlength="15"
+                                placeholder="请输入昵称" />
+                        </view>
+
+                        <!-- 性别 -->
+                        <radio-group class="cell-mg" bindchange="changeInput" data-name="gender" >
+                            <label class="check-label" wx:for="{{genders}}" wx:key="index">
+                                <view class="cell-hd">
+                                    <radio value="{{item.value}}" checked="{{item.checked}}"/>
+                                </view>
+                                <view class="cell-bd">{{item.name}}</view>
+                            </label>
+                        </radio-group>
+                    </view>
+
+                    <view class="row">
+
+                        <!-- 手机号 -->
+                        <view class="cell-input">
+                            <label class="input-name">手机号</label>
+                            <input 
+                                type="number" 
+                                value="{{form.mobile}}" 
+                                bindinput="changeInput"
+                                placeholder-class="place-holder"
+                                data-name="mobile"
+                                maxlength="11"
+                                placeholder="请输入手机号" />
+                        </view>
+                        
+                        <!-- 手机号授权 -->
+                        <view class="cell-phone">
+                            <button class="phone-position" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" phone-number-no-quota-toast="{{false}}">
+                                <view class="icon" />
+                                <view class="phone-text">微信自动授权</view>
+                            </button>
+                        </view>
+                    </view>
+                    <view class="row cell-time-mb">
+                        <!-- 预约时间 -->
+                        <view class="cell">
+                            <label class="cell-text">预约日期</label>
+                            <view class="cell-text">{{today}}</view>
+                        </view>
+                    </view>
+                    <!-- 时间段 -->
+                    <view class="row-overspread">
+                        <label>时间段</label>
+                        <view class="sub-text">（您仅可选择预约当天的活动时间段）</view>
+                    </view>
+
+                    <scroll-view scroll-x class="scroll-box" scroll-into-view="{{anchorPointId}}" scroll-with-animation bindscroll="getLeft">
+                       <view class="time-box">
+                         <view
+                            class="time-item {{item.icon}} {{!item.disabled && current_index === index ? 'is-checked' : ''}}" 
+                            wx:for="{{times}}" 
+                            wx:key="index"
+                            data-index="{{index}}"
+                            data-disabled="{{item.disabled}}"
+                            bindtap="changeChecked"
+                            id="cont{{index}}"
+                            >
+                            <view class="time-item-text">{{item.renderTime}}</view>
+                            <view class="time-item-text">{{item.text}}</view>
+                        </view>
+                       </view>
+                    </scroll-view>
+                    
+                    <!-- 滚动条 -->
+                    <view class="slide">
+                        <view class='slide-bar' >
+                            <view class="slide-show" style="margin-left:{{slideLeft <= 1 ? 0 : slideLeft +'rpx'}};"></view>
+                        </view>
+                    </view>
+                    <!-- 提示文案 -->
+                    <view class="row-overspread">
+                        <view class="tips sub-text">*预约成功后，请于预约时间段内到会场，凭预约二维码领取皮牌。</view>
+                    </view>
+
+                    <!-- 协议 -->
+                    <view class="agreement" wx:if="{{!isEdit}}">
+                        <radio value="{{agree}}" bindtap="changeAgree" checked="{{agree}}"/>
+                        <view>我同意接受COACH相关的《
+                            <navigator class="main-text" url="/pages/use-agreement/use-agreement">使用协议</navigator>
+                            》及《
+                            <navigator class="main-text" url="/pages/privacy-policy/privacy-policy">安全与隐私</navigator>
+                            》</view>
+                    </view>
+                    <!-- 提交按钮 -->
+                    <button class="sub" bindtap="submit">提交</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</popup>
+
+ <!-- 提示弹窗 -->
+<toast id="toast" />

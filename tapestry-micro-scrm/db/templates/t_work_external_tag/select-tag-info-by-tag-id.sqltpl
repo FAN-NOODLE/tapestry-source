@@ -1,0 +1,19 @@
+SELECT
+    T.`id`,
+    T.`enterprise_id`,
+    T.`group_id`,
+    T.`tag_id`,
+    T.`name`,
+    T.`type`,
+    T.`order`,
+    T.`member_id`,
+    T.`create_time`,
+    T.`created_at`,
+    T.`updated_at`,
+    T.`deleted_at`
+FROM
+    `work_external_tag` AS T
+WHERE
+    T.`enterprise_id` = :enterprise_id AND
+    T.`id` = :id AND
+    T.`deleted_at` = 0

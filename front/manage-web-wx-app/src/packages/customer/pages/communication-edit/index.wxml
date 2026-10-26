@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="list">
+    <mp-dragable list="{{list}}" bind:dragBefore="handleDragBefore" bind:change="handleDragChange">
+      <view class="drag-item item {{current === index?'hide':''}}" wx:for="{{list}}" wx:key="index">
+        <view class="item-icon"></view>
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-edit" data-item="{{item}}" bind:tap="handleEdit"></view>
+        <view class="item-del" data-item="{{item}}" bind:tap="handleDelete"></view>
+      </view>
+      
+      <view wx:if="{{list[current]}}" slot="movable-view" class="item">
+        <view class="item-icon"></view>
+        <view class="item-name">{{list[current].name}}</view>
+        <view class="item-edit"></view>
+        <view class="item-del"></view>
+      </view>
+    </mp-dragable>
+  </view>
+</view>
+
+<mp-edit-popup 
+  show="{{showEditPopup}}" 
+  type="{{2}}" 
+  maxlength="{{10}}"
+  value="{{currentInfo.name}}"
+  title="编辑人群包名称"
+  confirmText="保存"
+  placeholder="请输入人群包名称"
+  bind:cancel="handleEditCancel"
+  bind:confirm="handleEditConfirm"
+  >
+</mp-edit-popup>
+
+<!-- 删除弹框 -->
+<mp-popup show="{{showDeletePopup}}" bind:close="handleDeleteCancel">
+  <view class="p">
+    <view class="popup">
+      <view class="popup-close" bind:tap="handleDeleteCancel"></view>
+      <view class="popup-header">是否确认删除？</view>
+      <view class="popup-content">{{currentInfo.name}}</view>
+      <view class="popup-footer">
+        <view class="btn" bind:tap="handleDeleteConfirm">确认删除</view>
+        <view class="btn plain" bind:tap="handleDeleteCancel">取消</view>
+      </view>
+    </view>
+  </view>
+</mp-popup>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

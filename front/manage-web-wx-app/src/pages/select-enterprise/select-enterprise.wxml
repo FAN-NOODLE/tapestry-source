@@ -1,0 +1,28 @@
+<view class="page-select-enterprise {{isPartner?'partner':''}}">
+	<view class="choose">选择您要登录的{{isPartner?'品牌合伙人账户':'企业'}}</view>
+	<block wx:for="{{enterprise}}" wx:key="index">
+		<view class="item {{index === selectIdx ? 'active' : ''}}" data-idx="{{index}}" bindtap="select">
+			<view class="mark" wx:if="{{index === selectIdx}}">
+				<image wx:if="{{isPartner}}" src="https://img-crs.vchangyi.com/store-manage-wxapp/sy_partner_select_enterprise_mark.png" mode="widthFix"></image>
+				<images wx:else src="https://oss-crs.vchangyi.com/store/mark.png" preview="{{false}}"></images>
+			</view>
+			<view class="left">
+				<avatar src="{{item.logo}}"></avatar>
+			</view>
+			<view class="middle m-r-9 m-l-9">
+				<view class="{{isPartner?'store1':'store'}}">
+					{{item.shop_name}}
+				</view>
+				<view class="{{isPartner?'name1':'name'}}">
+					{{item.name}}
+				</view>
+			</view>
+			<view class="right">
+				<image class="" src="https://oss-crs.vchangyi.com/store/icon-right.png" mode="widthFix"></image>
+			</view>
+		</view>
+	</block>
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

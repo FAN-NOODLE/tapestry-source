@@ -1,0 +1,7 @@
+select id, name, enterprise_id
+from work_group_chat_type
+where enterprise_id = {{.cond.EnterpriseID}}
+{{if ne .cond.Name ""}} AND name = :name {{end}}
+{{/*  支持类型批量筛选  */}}
+{{if .cond.Names}} and name in ({{WhereIn .cond.Names}}) {{end}}
+AND deleted_at = 0 order by created_at desc

@@ -1,0 +1,1 @@
+SELECT count(*) AS relation_num FROM (SELECT userid FROM work_group_chat_member WHERE (( `join_time` <=  :end_at AND `status` = 1 ) OR ( `join_time` <= :end_at AND `leave_time` >= :end_at AND `status` = 2)) AND `enterprise_id` = :enterprise_id AND type = 2 AND deleted_at = 0 GROUP BY userid) tmp_table

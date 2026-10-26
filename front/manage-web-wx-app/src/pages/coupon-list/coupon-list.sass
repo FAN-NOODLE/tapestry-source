@@ -1,0 +1,88 @@
+@import '../../style/color-variable.sass'
+@import '../../style/base/arrow'
+
+.order-list
+  padding: vw(15)
+  background-color: #fff
+  min-height: 100vh
+  
+  .coupon-content
+    width: 100%
+    margin-bottom: vw(15)
+    background-color: #f4f5f8
+    color: #4a4a4a
+    border-radius: vw(8)
+    position: relative
+    .circle
+      width: vw(14)
+      height: vw(14)
+      border-radius: 100%
+      background-color: #ffffff
+      position: absolute
+      top: vw(30)
+      z-index: 1
+      &.circle-left
+        left: vw(-8)
+
+      &.circle-right
+        right: vw(-8)
+
+    .coupon-content-top
+      font-size: vw(12)
+      margin-top: vw(4)
+      padding: vw(10) vw(20)
+      font-weight: 400
+      display: flex
+      justify-content: space-between
+
+    .coupon-line
+      width: vw(332)
+      margin: 0 auto
+      border-top: vw(1) dashed #cccccc
+
+    .coupon-content-bottom
+      padding: vw(10) vw(20)
+      font-size: vw(10)
+
+      .word-line
+
+        &:nth-child(1)
+          font-size: vw(14)
+          font-weight: bold
+          line-height: vw(20)
+          padding-bottom: vw(3)
+          font-weight: 500
+
+        &:nth-child(2)
+          font-size: vw(12)
+          line-height: vw(17)
+          font-weight: 400
+
+        &:nth-child(3)
+          display: flex
+          align-items: center
+          font-size: vw(12)
+          line-height: vw(17)
+          font-weight: 300
+          .van-icon
+            margin-left: vw(4)
+    
+        &:nth-child(4)
+          margin-top: vw(6)
+          font-weight: 300
+          line-height: vw(14)
+          font-size: vw(10)
+
+        .arrow-down
+          margin-left: vw(10)
+          @include arrow-down(6, #979797)
+        
+        .arrow-top
+          margin-left: vw(10)
+          @include arrow-top(6, #979797)
+
+  .bottom-tip, .loading-box
+    width: 100%
+    font-size: vw(14)
+    color: #96979E
+    text-align: center

@@ -1,0 +1,73 @@
+<view class="container">
+  <!-- header -->
+  <view class="header">
+    <navigation-bar text="顾客分配" back="{{true}}" throughTop="{{false}}" bg-color="#ffffff" color="#000000" backActive="goback"></navigation-bar>
+    <!-- 添加顾客、筛选 -->
+    <mp-search bind:blur="handleSearchConfirm">
+      <view class="justify-space-between">
+        <view wx:if="{{!filter.show}}" class="search-item" bindtap="handleFilterPopupShow">
+          <view class="search-item__icon">
+            <image class="image" src="{{imageHost}}2023/v4.0.5/icon_filter.png" />
+            <view wx:if="{{filter.count}}" class="search-item__tag">{{filter.count}}</view>
+          </view>
+          <view class="customer-add flex">
+            筛选
+            <image class="image" src="https://cdn-cos.coach.com.cn/static/wxapp/common/down-icon.png" />
+          </view>
+        </view>
+      </view>
+    </mp-search>
+  </view>
+  <com-section current="{{filter.value.manage_type || 0}}" bind:change="handleSectionChange">
+    <view class="customer-total">共{{meta.total}}位顾客(去重)</view>
+  </com-section>
+  <!-- 顾客列表 -->
+  <view wx:if="{{list.length > 0}}" class="list">
+    <block wx:for="{{list}}" wx:key="index">
+      <com-customer-item-beta item="{{item}}" from="{{2}}"></com-customer-item-beta>
+      <!-- <com-customer-item wx:else item="{{item}}" from="{{2}}"></com-customer-item> -->
+    </block>
+      
+    <!-- 加载更多 -->
+    <mp-load-more custom-class="mp-load-more" status="{{meta.status}}"></mp-load-more>
+  </view>
+  <!-- 空组件 -->
+  <mp-empty wx:if="{{ list.length === 0 && meta.status !== 'loading'}}" custom-class="empty-page" icon="no-search" content="暂无搜索结果"/>
+  
+  <mp-footer z-index="4">
+    <view class="footer">
+      <view class="btn" bind:tap="handleViewRecord">分配记录</view>
+      <view class="btn" bind:tap="handleAllocationCustomer">分配客户</view>
+    </view>
+  </mp-footer>
+</view>
+
+<!-- 顾客筛选 选择 -->
+<com-filter-popup 
+  wx:if="{{!isBeat}}"
+  show="{{filter.show}}" 
+  offset="{{filter.offsetTop}}"
+  value="{{filter.value}}"
+  count="{{filter.count}}"
+  currentPage="{{5}}"
+  bind:close="handleFilterPopupHide"
+  bind:confirm="handleFilterConfirm"
+></com-filter-popup>
+
+<filter-popup
+  wx:if="{{isBeat}}"
+  show="{{filter.show}}" 
+  offset="{{filter.offsetTop}}"
+  zIndex="{{101}}"
+  only-search="{{true}}"
+  value="{{filter.value}}" 
+  searchButtonText="确定"
+  currentPage="{{5}}"
+  bind:close="handleFilterPopupHide" 
+  bind:confirm="handleFilterConfirm"
+></filter-popup>
+
+<mp-toast custom-class="toast" title="分配成功" id="mp-toast"></mp-toast>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

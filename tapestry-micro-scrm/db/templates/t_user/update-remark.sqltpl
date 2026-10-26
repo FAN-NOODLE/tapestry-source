@@ -1,0 +1,7 @@
+UPDATE
+  micro_scrm_enterprise_{{.enterprise_id}}.enterprise_user
+SET
+  `remark` = ?,
+  `updated_at` = ?
+WHERE
+  id = ?

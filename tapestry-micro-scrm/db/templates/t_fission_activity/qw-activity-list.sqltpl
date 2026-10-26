@@ -1,0 +1,27 @@
+SELECT
+	`id`,
+	`name`,
+	`desc`,
+	`status`,
+	`start_time`,
+	`end_time`
+FROM
+	`fission_activity`
+WHERE
+	enterprise_id = {{.cond.EnterpriseId}}
+	AND deleted_at = 0
+	{{if ne .cond.SearchText ""}}
+        AND name like '%{{SafeStr .cond.SearchText}}%'
+    {{end}}
+    {{if eq .cond.Status 1}}
+        AND start_time > {{.cond.NowTime}} AND status = 1
+    {{else if eq .cond.Status 2}}
+        AND status = 2 AND end_time > {{.cond.NowTime}}
+    {{else if eq .cond.Status 3}}
+        AND end_time <= {{.cond.NowTime}}
+    {{else if eq .cond.Status 4}}
+         AND (start_time <= {{.cond.NowTime}} AND end_time >= {{.cond.NowTime}}) AND status = 1
+    {{end}}
+ORDER BY `id` DESC
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

@@ -1,0 +1,6 @@
+UPDATE
+    `fission_prize`
+SET
+    `deleted_at` = :deleted_at
+WHERE
+    `activity_id` = :id;

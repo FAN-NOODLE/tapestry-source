@@ -1,0 +1,10 @@
+SELECT COUNT(*) AS `total` FROM `drainage_contact_channel_labels`
+WHERE `enterprise_id` = :enterprise_id
+AND `deleted_at` = 0
+{{if ne .cond.ChannelID 0}}
+AND `channel_id` = :channel_id
+{{end }}
+
+{{if ne .cond.ChannelIdsCount 0}}
+AND `channel_id` IN ({{WhereIn .cond.ChannelIds}})
+{{end }}

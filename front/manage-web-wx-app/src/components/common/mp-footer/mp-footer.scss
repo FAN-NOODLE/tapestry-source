@@ -1,0 +1,21 @@
+
+:host {
+  width: 100%;
+}
+
+.mp-footer {
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+  
+  &--placeholder {
+    width: 100%;
+    background-color: transparent;
+  }
+
+  &--fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+}

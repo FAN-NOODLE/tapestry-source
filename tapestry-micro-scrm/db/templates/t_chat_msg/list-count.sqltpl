@@ -1,0 +1,27 @@
+SELECT
+	COUNT(msg.id) AS count
+FROM
+	`chat_msg` msg
+	LEFT JOIN `chat_receive_user` ru ON ( `msg`.`id` = `ru`.`chat_msg_id` )
+WHERE
+	`msg`.`from_user` IN ("{{.cond.FromUser}}", "{{.cond.ToUser}}")
+    AND `ru`.`to_user` IN ("{{.cond.ToUser}}", "{{.cond.FromUser}}")
+	{{if ne "" .cond.Type}}
+        AND `msg`.`type` = "{{.cond.Type}}"
+    {{end}}
+    {{if eq "text" .cond.Type}}
+        AND `msg`.`content` -> "$.content" LIKE "%{{SafeStr .cond.Keywords}}%"
+        {{else}}
+        {{if ne "" .cond.Keywords}}
+            {{if eq "" .cond.Type}}
+                AND `msg`.`content` -> "$.content" LIKE "%{{SafeStr .cond.Keywords}}%"
+                AND `msg`.`type` = "text"
+            {{end}}
+        {{end}}
+    {{end}}
+	{{if gt .cond.EndAt .cond.StartAt}}
+        AND `msg`.`msg_at` BETWEEN {{.cond.StartAt}} AND {{.cond.EndAt}}
+    {{end}}
+	AND `msg`.`enterprise_id` = {{.cond.EnterpriseID}}
+	AND `msg`.`deleted_at` = 0
+	AND `msg`.`type` NOT IN ('chatrecord', 'voip_doc_share');

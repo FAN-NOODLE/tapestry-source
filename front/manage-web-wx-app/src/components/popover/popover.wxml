@@ -1,0 +1,17 @@
+<view>
+    <!-- 空白蒙层，实现点击空白区域关闭弹窗 -->
+    <view class="mark" wx:if="{{show}}" bindtap="close" bindlongpress="close"></view>
+
+    <!-- 触发元素 -->
+    <view id='targetPopover' bindtap="open">
+        <slot name="reference"></slot>
+    </view>
+    
+    <!-- 弹出框内容 -->
+    <view data-popper-placement="{{placement}}" class="popover popover--{{theme}}" style="left:{{left}}px; top: {{top}}px" hidden="{{!show}}">
+        <view class="popover__arrow" />
+        <view class="popover__content custom-content" id="popover">
+            <slot></slot>
+        </view>
+    </view>
+</view>

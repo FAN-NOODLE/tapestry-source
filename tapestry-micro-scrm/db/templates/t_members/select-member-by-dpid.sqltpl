@@ -1,0 +1,14 @@
+SELECT
+	`member_id`,
+	`department_id`,
+	`enterprise_id`,
+	`created_at`,
+	`updated_at`,
+	`deleted_at`
+FROM
+	`member_departments`
+WHERE
+	1 = 1
+	AND `deleted_at` = 0
+	AND `department_id` = ?
+	AND `enterprise_id` = ?

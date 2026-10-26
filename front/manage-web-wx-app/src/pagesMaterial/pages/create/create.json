@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "",
+  "backgroundColor": "#F4F7FB",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "com-upload": "../../components/com-upload/com-upload",
+    "com-popup-tips": "../../components/com-popup-tips/com-popup-tips",
+    "com-popup-time": "../../components/com-popup-time/com-popup-time",
+    "com-popup-filter": "../../components/com-popup-filter/com-popup-filter",
+    "com-popup-select-tag": "../../components/com-popup-select-tag/com-popup-select-tag",
+    "com-select-goods": "../../components/com-select-goods/com-select-goods"
+  }
+}

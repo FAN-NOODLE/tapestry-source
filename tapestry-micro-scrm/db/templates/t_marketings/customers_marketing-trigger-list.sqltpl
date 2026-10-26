@@ -1,0 +1,42 @@
+SELECT
+    strategy.id as strategy_id,
+    strategy.strategy_type as strategy_type,
+    conditions.condition,
+    conditions.inner_condition,
+    conditions.relation_type,
+    conditions.assign_type,
+    conditions.start_point,
+    conditions.end_point,
+    conditions.time,
+    strategy.start_time,
+    strategy.end_time,
+    strategy.strategy_method,
+    strategy.enterprise_id,
+    strategy.strategy_policy,
+    strategy.strategy_status,
+    channels.channel_type,
+    channels.junior_id as channel_id,
+    IFNULL(GROUP_CONCAT(relation.relation_id SEPARATOR ';'),"") as `relation_ids`
+FROM
+marketing_strategies as strategy
+LEFT JOIN marketing_strategy_conditions as conditions on  conditions.strategy_id = strategy.id
+LEFT JOIN marketing_strategy_channels as channels on channels.strategy_id = strategy.id
+LEFT JOIN marketing_strategy_trigger_relations as relation on relation.strategy_id = strategy.id
+WHERE
+strategy.enterprise_id = :enterprise_id
+AND
+{{if ne .cond.Count 0}}
+       (
+           (strategy.customer_group_id IN ( {{WhereIn .cond.GroupIds}} ) AND strategy.strategy_status = 2)
+           OR
+           (strategy_type = 2 AND status = 2)
+       )
+{{end}}
+{{if eq .cond.Count 0}}
+       strategy_type = 2 AND status = 2
+{{end}}
+AND strategy.deleted_at = 0
+AND channels.deleted_at = 0
+AND conditions.deleted_at = 0
+AND channels.channel_type != 3
+GROUP BY strategy.id ,relation_type ,channel_id, channel_type,conditions.assign_type,conditions.condition,conditions.inner_condition,conditions.relation_type,conditions.start_point,conditions.end_point,conditions.time

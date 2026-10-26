@@ -1,0 +1,280 @@
+
+@import '~@/style/color-variable'
+
+.create
+  position: fixed
+  right: 24rpx
+  bottom: 200rpx
+  width: 72rpx
+  height: 72rpx
+  background: imgUrl("/static/wxapp/v4.0.1/material/icon_add.png") no-repeat center center/100%
+  z-index: 10
+
+.send-material
+  width: 100vw
+  min-height: 100vh
+  background: #F4F7FB
+
+  .send-material__header 
+    position: sticky
+    top: 0
+    background: #F4F7FB
+    z-index: 10
+
+  .header__inner
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 28rpx 30rpx 32rpx
+
+    .search
+      flex: 1
+      height: 100rpx
+      background: #FFFFFF
+      box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5)
+      padding: 0 30rpx
+      box-sizing: border-box
+      display: flex
+      align-items: center
+      .search-wrap
+        height: 100%
+        display: flex
+        align-items: center
+        flex: 1
+        overflow: hidden
+        position: relative
+
+        &__icon
+          width: 28rpx
+          height: 28rpx
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_search.png") no-repeat center center/100%
+          margin-right: 12rpx
+        
+        &__input
+          font-size: 26rpx
+          height: 100%
+          flex: 1
+        .placeholder
+          color: #A1A1A1
+
+    .select
+      position: relative
+      box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5)
+      width: 100rpx
+      height: 100rpx
+      font-size: 26rpx
+      color: #4a4a4a
+      display: flex
+      align-items: center
+      justify-content: center
+      background: #FFFFFF
+      margin-left: 10rpx
+      &::after
+        content: ""
+        width: 16rpx
+        height: 8rpx
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_arrow_down.png") no-repeat center center/100%
+        margin-left: 6rpx
+      &-num
+        display: flex
+        align-items: center
+        justify-content: center
+        position: absolute
+        right: 10rpx
+        top: 15rpx
+        width: 28rpx
+        height: 28rpx
+        background: #000000
+        border: 1rpx solid #FFFFFF
+        border-radius: 50%
+        font-size: 16rpx
+        font-weight: 500
+        color: #fff
+    .filter
+      width: 100rpx
+      height: 100rpx
+      background: #FFFFFF imgUrl("/static/wxapp/v6.3.5/icon_filter.png") no-repeat center center/32rpx
+      box-shadow: 0rpx 12rpx 24rpx 0rpx rgba(222,224,227,0.5)
+      margin-left: 10rpx
+
+  .info
+    display: inline-block
+    max-width: 690rpx
+    height: 56rpx
+    background: #000000
+    border-radius: 38rpx
+    margin-left: 30rpx
+    margin-bottom: 10rpx
+    color: #fff
+    padding: 0 30rpx
+    box-sizing: border-box
+    line-height: 56rpx
+    font-size: 24rpx
+    position: relative
+
+    &-clear 
+      position: absolute
+      right: 0
+      top: 50%
+      transform: translate(50%, -50%)
+      width: 38rpx
+      height: 38rpx
+      background: imgUrl("/static/wxapp/v4.0.1/material/icon_clear.png") no-repeat center center/100%
+  
+  
+  .grid
+    height: 40rpx
+    padding: 0 40rpx
+    display: flex
+    align-items: center
+    margin-top: 30rpx
+    position: relative
+
+    &-item
+      width: 40rpx
+      height: 40rpx
+      margin-right: 60rpx
+      position: relative
+
+      &:nth-child(1)
+        &::before
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
+          width: 40rpx
+          height: 40rpx
+          z-index: 2
+          opacity: 1
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_4.png") no-repeat center center/100%
+        &::after
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
+          width: 40rpx
+          height: 40rpx
+          z-index: 1
+          opacity: 0
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_4_1.png") no-repeat center center/100%
+        
+      &:nth-child(2)
+        &::before
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
+          width: 42rpx
+          height: 46rpx
+          z-index: 2
+          opacity: 1
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_9.png") no-repeat center center/100%
+        &::after
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
+          width: 42rpx
+          height: 46rpx
+          z-index: 1
+          opacity: 0
+          background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_9_1.png") no-repeat center center/100%
+        
+      &.active
+        &::before
+          z-index: 1
+          opacity: 0
+        &::after
+          z-index: 2
+          opacity: 1
+    
+    .grid__tips
+      z-index: 4
+      position: absolute
+      top: 30rpx
+      left: 120rpx
+      width: 364rpx
+      height: 138rpx
+      background: imgUrl("/static/wxapp/v4.0.1/material/icon_popup_tips.png") no-repeat center center/100%
+  
+  .send-material__content
+    padding: 26rpx 30rpx
+
+
+    .column-3
+      width: 216rpx
+      padding: 14rpx 14rpx 20rpx 14rpx
+      .com-item__image
+        width: 188rpx
+        height: 188rpx
+        .count
+          width: 100%
+          padding: 0
+          .count-item
+            margin: 0
+            flex: 1
+            padding: 0
+            min-width: auto
+          
+      
+      .com-item__title
+        height: 68rpx
+        margin-top: 14rpx  !important
+        line-height: 34rpx !important
+        font-size: 24rpx !important
+        .text
+          -webkit-line-clamp: 2 !important
+
+      .com-item__save
+        margin-top: 20rpx !important
+
+  .footer-wrap
+    box-shadow: 0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.15)
+  .footer
+    padding: 0rpx 0rpx 16rpx 30rpx
+    display: flex
+    align-items: center
+
+    .number
+      font-size: 26rpx
+      font-weight: 400
+      color: #000000
+      line-height: 44rpx   
+      flex: 1
+      position: relative
+      .tips
+        // position: absolute
+        // left: 0
+        // top: 45rpx
+        font-size: 20rpx
+        font-weight: 400
+        color: #E02020
+        line-height: 28rpx
+
+    .btn-clear
+      display: flex
+      align-items: center
+      font-size: 24rpx
+      font-weight: bold
+      margin-right: 20rpx
+      text-decoration: underline
+
+    .btn 
+      width: 220rpx
+      height: 120rpx
+      background: #000
+      display: flex
+      align-items: center
+      justify-content: center
+      font-size: 28rpx
+      font-weight: bold
+      color: #fff
+
+      &.disabled
+        background-color: #ccc
+
+      

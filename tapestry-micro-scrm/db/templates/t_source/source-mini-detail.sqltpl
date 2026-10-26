@@ -1,0 +1,21 @@
+SELECT s.id,
+       s.group_id,
+       s.created_at,
+       s.type,
+       s.enterprise_id,
+       s.`admin_id`,
+       IFNULL(sub.mini_program_id,"") mini_program_id,
+       IFNULL(sub.title, "") title,
+       IFNULL(sub.path, "") path,
+       IFNULL(sub.cover_url, "") cover_url,
+       IFNULL(mini_program.origin_id, "") origin_id,
+       IFNULL(mini_program.app_id, "") app_id,
+       IFNULL(mini_program.app_name, "") app_name,
+       s.start_time,
+       s.end_time
+
+FROM `source` s
+LEFT JOIN `source_mini_program` sub ON s.id = sub.id
+LEFT JOIN `mini_program` ON mini_program.id = sub.mini_program_id
+
+WHERE s.id = ? AND s.deleted_at=0

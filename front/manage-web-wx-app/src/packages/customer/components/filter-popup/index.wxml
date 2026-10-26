@@ -1,0 +1,165 @@
+
+<mp-popup zIndex="{{zIndex}}" show="{{show}}" position="top" bind:close="handleClose">
+  <view class="popup" style="padding-top: {{offset}}">
+    <view class="popup-content">
+      <view class="popup-aside">
+        <view class="group-item {{index === current ? 'active':''}}" wx:for="{{group}}" wx:key="index" data-index="{{index}}" bind:tap="handleSideChange">{{item.label}}</view>
+      </view>
+      <view class="popup-main">
+        <scroll-view class="scroll-view" scroll-y="{{true}}" scroll-into-view="{{scrollToView}}" scroll-with-animation="{{true}}" bind:scrolltoupper="handleScrollToUpper">
+          <block wx:for="{{group}}" wx:key="index">
+            <!-- <mp-observer data-index="{{index}}" bind:change="handleObserverChange"> -->
+              <view id="group-{{index}}" class="group" bind:touchstart="handleTouchStart">
+                <view class="group-title">{{item.label}}</view>
+                <view class="group-content">
+                  <block wx:for="{{options}}" wx:for-item="o" wx:for-index="i" wx:key="i">
+                      <filter-item 
+                        wx:if="{{item.value == o.group && !o.hide}}"
+                        value="{{innerValue[o.key]}}" 
+                        item="{{o}}" 
+                        options="{{o.options}}" 
+                        bind:change="handleFilterChange"
+                        bind:show-tips="handleTips"
+                        bind:select-date="handlePicker"
+                      >
+                        <view slot="title" wx:if="{{o.key==='rel_create_time'}}">({{innerValue.rel_create_time_type == 1 ? '本人':'企业'}})</view>
+                        
+                        <view slot="more" wx:if="{{o.key==='rel_interact_time'}}" class="switch active-{{innerValue.rel_interact_time_type}}">
+                          <view class="switch-item {{innerValue.rel_interact_time_type == 1? 'active':''}}" data-key="rel_interact_time_type" data-value="{{1}}" bind:tap="handleSwitchChange">我的</view>
+                          <view class="switch-item {{innerValue.rel_interact_time_type == 2? 'active':''}}" data-key="rel_interact_time_type" data-value="{{2}}" bind:tap="handleSwitchChange">企业</view>
+                        </view>
+                        <view slot="more" wx:if="{{o.key==='rel_active_time'}}" class="switch active-{{innerValue.rel_active_time_type}}">
+                          <view class="switch-item {{innerValue.rel_active_time_type == 1? 'active':''}}" data-key="rel_active_time_type" data-value="{{1}}" bind:tap="handleSwitchChange">我的</view>
+                          <view class="switch-item {{innerValue.rel_active_time_type == 2? 'active':''}}" data-key="rel_active_time_type" data-value="{{2}}" bind:tap="handleSwitchChange">企业</view>
+                        </view>
+                      </filter-item>
+                  </block>
+                </view>
+              </view>
+            <!-- </mp-observer> -->
+          </block>
+            
+          <view class="tip-btn" bind:tap="handleTips">数据更新时间说明</view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="popup-footer">
+      <view class="selected {{innerValueMap.length ? '':'hide'}}">
+        <view class="selected-label">已选</view>
+        <view class="selected-value">
+          <scroll-view class="scroll-view" enable-flex scroll-x="{{true}}">
+            <block  wx:for="{{innerValueMap}}" wx:key="index">
+              <!-- 单选/多选 -->
+              <block wx:if="{{item.type === 1 || item.type === 2}}">
+                <block  wx:for="{{item.result}}" wx:for-item="val" wx:for-index="i" wx:key="i">
+                  <view class="item">{{val.value}}
+                    <view class="item-del" data-key="{{item.key}}" data-type="{{item.type}}" data-value="{{val.key}}" bind:tap="handleDelete"></view>
+                  </view>
+                </block>
+              </block>
+              <view wx:if="{{item.type === 3 || item.type === 4}}" class="item">{{item.title}}
+                <view class="item-del" data-key="{{item.key}}" data-type="{{item.type}}" bind:tap="handleDelete"></view>
+              </view>
+            </block>
+          </scroll-view>
+        </view>
+      </view>
+      <view class="flex">
+        <view class="btn plain" data-name="筛选" data-content="重置" bind:tap="handleReset">重置</view>
+        <view class="btn" data-name="筛选" data-content="确定" bind:tap="handleConfirm">{{searchButtonText}}</view>
+        <view wx:if="{{!onlySearch}}" class="btn {{innerValueMap.length==0 ?'disabled':''}}" bind:tap="handleSave">
+          <view wx:if="{{loading}}" class="loading">顾客数量查询中</view>
+          <view wx:else class="text">打包沟通名单<text wx:if="{{innerValueMap.length>0}}">({{total}})</text></view>
+        </view>
+      </view>
+      <view wx:if="{{!onlySearch}}" class="tips">
+        <text>*单次最多打包</text>
+        <text class="num">{{maxCount}}</text>
+        <text>人</text>
+      </view>
+      <view wx:if="{{!onlySearch}}" class="btn-text" data-name="筛选" data-content="我的沟通名单" bind:tap="handleViewPack">我的沟通名单</view>
+    </view>
+  </view>
+</mp-popup>
+
+<com-tip-popup
+  show="{{tips.show}}" 
+  title="{{tips.title}}" 
+  list="{{tips.list}}" 
+  bind:close="handleTips"
+></com-tip-popup>
+
+<!-- 打包沟通名单 -->
+<mp-edit-popup 
+  show="{{showSavePopup}}" 
+  type="{{2}}" 
+  maxlength="{{10}}"
+  title="沟通名单命名"
+  value="{{packName}}"
+  placeholder="请输入沟通名单名称"
+  bind:cancel="handleSaveCancel"
+  bind:confirm="handleSaveConfirm"
+  >
+  <view class="remark">注：打包上限<text class="num">{{maxPackCount}}</text>组名单，已存在<text class="num">{{packTotal}}</text>组</view>
+</mp-edit-popup>
+
+<!-- 人数达到上限提示 -->
+<mp-popup show="{{showCountMessagePopup}}" data-name="打包人群上限提示弹窗" data-content="返回" bind:close="handleCloseMessage">
+  <view class="popup-message">
+    <view class="popup-close" data-name="打包人群上限提示弹窗" data-content="返回" bind:tap="handleCloseMessage"></view>
+    <view class="popup-content">
+      <view class="icon"></view>
+      <view class="text">单次打包人群上限{{maxCount}}人</view>
+      <view class="text">建议返回修改筛选项后，重新打包</view>
+    </view>
+    <view class="popup-footer">
+      <view class="btn plain" data-name="打包人群上限提示弹窗" data-content="返回" bind:tap="handleCloseMessage">返回</view>
+    </view>
+    <view class="btn-text" data-name="打包人群上限提示弹窗" data-content="放弃打包，查看筛选结果" bind:tap="handleConfirm">放弃打包，查看筛选结果</view>
+  </view>
+</mp-popup>
+
+<!-- 包数量达到上限提示 -->
+<mp-popup show="{{showPackCountMessagePopup}}" data-name="打包数量上限提示弹窗" data-content="返回" bind:close="handleCloseMessage">
+  <view class="popup-message">
+    <view class="popup-close" data-name="打包数量上限提示弹窗" data-content="返回" bind:tap="handleCloseMessage"></view>
+    <view class="popup-content">
+      <view class="icon"></view>
+      <view class="text">沟通名单已达到上限{{maxPackCount}}组</view>
+      <view class="text">建议进行名单管理后，再重新打包</view>
+    </view>
+    <view class="popup-footer">
+      <view class="btn plain" data-name="打包数量上限提示弹窗" data-content="返回" bind:tap="handleCloseMessage">返回</view>
+      <view class="btn" data-name="打包数量上限提示弹窗" data-content="前往管理" bind:tap="handleViewPack">前往管理</view>
+    </view>
+    <view class="btn-text" data-name="打包数量上限提示弹窗" data-content="放弃打包，查看筛选结果" bind:tap="handleConfirm">放弃打包，查看筛选结果</view>
+  </view>
+</mp-popup>
+
+<!-- 打包成功 -->
+<mp-popup show="{{showPackSuccessPopup}}" data-name="沟通名单打包成功提示弹窗" data-content="返回" bind:close="handleCloseMessage">
+  <view class="popup-message">
+    <view class="popup-close" data-name="沟通名单打包成功提示弹窗" data-content="返回" bind:tap="handleCloseMessage"></view>
+    <view class="popup-content">
+      <view class="icon-success"></view>
+      <view class="title">“{{packName}}”打包成功</view>
+    </view>
+    <view class="popup-footer">
+      <view class="btn plain" data-name="沟通名单打包成功提示弹窗" data-content="查看列表" bind:tap="handleConfirm">查看列表</view>
+      <view class="btn" data-name="沟通名单打包成功提示弹窗" data-content="去沟通" bind:tap="handleViewPack">去沟通</view>
+    </view>
+  </view>
+</mp-popup>
+
+
+
+<mp-datetime-picker 
+  value="{{innerDateValue}}" 
+  maxDate="{{maxDate}}" 
+  minDate="{{minDate}}" 
+  show="{{showPickerDate}}" 
+  format="yyyy/MM/dd"
+  bind:reset="handlePickerConfirm"
+  bind:cancel="handlePickerHide" 
+  bind:confirm="handlePickerConfirm"
+></mp-datetime-picker>

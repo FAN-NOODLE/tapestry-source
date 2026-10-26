@@ -1,0 +1,11 @@
+SELECT
+	msg_id, max(enterprise_id) as enterprise_id
+FROM
+	qy_msg_send_result
+WHERE
+	deleted_at = 0
+AND
+    status = 0
+GROUP BY
+    msg_id
+ORDER BY created_at DESC

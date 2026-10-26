@@ -1,0 +1,17 @@
+
+SELECT
+count(*) as count
+
+FROM
+
+ `fission_user` fu
+
+LEFT JOIN  `fission_mp_user`  fmu ON  fu.enterprise_id = {{.cond.EnterpriseID}}  AND fu.activity_id ={{.cond.ActivityID}} AND  fu.user_id = fmu.id
+
+WHERE
+        fu.enterprise_id = {{.cond.EnterpriseID}}
+        AND fu.deleted_at = 0
+        AND fu.activity_id ={{.cond.ActivityID}}
+{{if ne .cond.Nickname ""}}
+        AND  fmu.nick_name like '%{{SafeStr .cond.Nickname}}%'
+{{end}}

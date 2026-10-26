@@ -1,0 +1,8 @@
+SELECT
+	count(`id`) as count
+FROM
+	`source_group`
+WHERE   `group_name` = :group_name
+{{if .cond.EnterpriseID }} AND `enterprise_id` = :enterprise_id {{end}}
+{{if .cond.ID }} AND `id` <> :id {{end}}
+AND `deleted_at` = 0

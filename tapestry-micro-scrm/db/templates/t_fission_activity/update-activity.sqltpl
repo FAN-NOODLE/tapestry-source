@@ -1,0 +1,13 @@
+UPDATE
+    `fission_activity`
+SET
+    `name` = :name,
+    `desc` = :desc,
+    `start_time` = :start_time,
+    `end_time` = :end_time,
+    `exchange_end_time` = :exchange_end_time,
+    `cond_type` = :cond_type,
+    `mutual_type` = :mutual_type,
+    `updated_at` = :updated_at
+WHERE
+	`id` = :id

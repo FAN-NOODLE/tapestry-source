@@ -1,0 +1,4 @@
+<!-- components/common/mp-observer/index.wxml -->
+<view class="mp-observer custom-class">
+	<slot></slot>
+</view>

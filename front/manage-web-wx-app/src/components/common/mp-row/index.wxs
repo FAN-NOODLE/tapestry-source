@@ -1,0 +1,15 @@
+
+function rootStyle(data) {
+  if (!data.gutter) {
+    return ''
+  }
+
+  return [
+    'margin-right: ' + (-data.gutter / 2) + 'rpx',
+    'margin-left: ' + (-data.gutter / 2) + 'rpx'
+  ].join(';')
+}
+
+module.exports = {
+  rootStyle: rootStyle
+}

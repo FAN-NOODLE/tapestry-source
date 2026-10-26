@@ -1,0 +1,66 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+@import '~@/style/color-variable'
+.binding-relation
+  padding: vw(12) vw(15) 0
+  
+  .relation-item
+    height: vw(109)
+    padding: vw(15)
+    display: flex
+    background-color: #fff
+    margin-bottom: vw(15)
+
+    .avatar
+      width: vw(28)
+      height: vw(28)
+      border-radius: 50%
+      margin-right: vw(10)
+
+    .relation-detail
+      flex: 1
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+
+      .top
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+        .title
+          font-size: vw(16)
+          font-family: PingFangSC-Medium, PingFang SC
+          font-weight: 500
+          color: #000000
+
+        .tag
+          width: vw(54)
+          height: vw(24)
+          display: flex
+          justify-content: center
+          align-items: center
+          background-color: #F4F5F8
+          font-size: vw(12)
+          font-family: PingFangSC-Regular, PingFang SC
+          font-weight: 400
+          color: #676767
+
+      .center, .bottom
+        font-size: vw(12)
+        font-family: PingFangSC-Regular, PingFang SC
+        font-weight: 400
+        color: #676767
+
+  .bottom-tip, .loading-box
+    width: 100%
+    font-size: vw(14)
+    color: #96979E
+    text-align: center
+  

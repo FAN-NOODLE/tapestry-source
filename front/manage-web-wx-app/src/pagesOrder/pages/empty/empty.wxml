@@ -1,0 +1,6 @@
+<view class="page-setting" wx:if="{{show}}">
+    空页面
+</view>
+
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

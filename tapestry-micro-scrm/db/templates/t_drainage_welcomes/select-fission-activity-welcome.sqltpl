@@ -1,0 +1,13 @@
+SELECT
+	content
+FROM
+	drainage_welcomes
+WHERE
+    deleted_at = 0
+AND
+    enterprise_id = ?
+AND
+    id = ?
+AND
+    is_default = ?
+LIMIT 1;

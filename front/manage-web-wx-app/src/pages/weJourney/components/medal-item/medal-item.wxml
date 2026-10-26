@@ -1,0 +1,19 @@
+<view class="medal-item">
+  <view class="medal-image-box" data-name="点击奖章" data-content="{{info.rule_name}}" bindtap="tapMedal">
+    <image src="{{info.icon}}" class="medal-image" />
+  </view>
+
+  <view wx:if="{{info.rule_total && info.rule_total !== 1}}" class="progress-box">
+    <view class="progress">
+      <view class="foreground" style="width: {{info.rule_gained / info.rule_total * 100}}%"></view>
+    </view>
+    <view class="word">
+      <view class="value">{{info.rule_gained}}</view>
+      <view class="total">/{{info.rule_total}}</view>
+    </view>
+  </view>
+
+  <view class="name">{{info.rule_name}}</view>
+
+  <view wx:if="{{info.is_show === 0 && info.rule_gained > 0}}" class="new-icon">NEW</view>
+</view>

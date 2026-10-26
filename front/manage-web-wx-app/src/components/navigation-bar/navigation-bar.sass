@@ -1,0 +1,108 @@
+/**
+ * CSS书写规范
+ *1.位置属性 (position, top, right, z-index, display, float等)　　
+ *2.大小 (width, height, padding, margin)　　
+ *3.文字系列 (font, line-height, letter-spacing, color- text-align等)　　
+ *4.背景 (background, border等)
+ *5.其他 (animation, transition等)
+ *  */
+
+@import '~@/style/color-variable'
+
+.page-navigation-bar
+  border: none
+  .navbar
+    position: fixed
+    z-index: 999
+    top: 0
+    left: 0
+    width: 100%
+  .title-container
+    position: relative
+    display: flex
+    height: 40px
+    align-items: center
+    .coach
+      height: vw(29)
+      width: vw(100)
+    .back-view
+      position: absolute
+      top: 6px
+      left: vw(10)
+      height: vw(24)
+      padding: vw(5)
+      display: flex
+      align-items: center
+      
+      .banner-back
+        width: vw(7)
+        height: vw(13)
+      .back-text
+        color: $color-333
+        font-size: vw(14)
+  .title
+    position: absolute
+    top: 6px
+    right: 104px
+    left: 104px
+    overflow: hidden
+    height: 30px
+    font-size: 16px
+    line-height: 30px
+    color: $color-black
+    text-align: center
+    white-space: nowrap
+    text-overflow: ellipsis
+    font-family: PingFangSC-Medium,PingFang SC !important
+    font-weight: 500  !important
+  .back-icon
+    float: left
+    font-size: vw(17.5) //ui自己的尺寸 自己不认 故调成与小程序统一的大小
+    margin-left: 8px
+    color: $color-black
+    transform: rotate(180deg)
+.again-bug-meng
+  position: fixed
+  z-index: 100
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  opacity: 0.7
+  background: transparent
+.again-bug
+  position: fixed
+  z-index: 100
+  top: vw(260)
+  right: 0
+  left: 0
+  width: vw(260)
+  height: vw(147)
+  margin: 0 auto
+  padding-top: vw(51)
+  color: $color-333
+  border-radius: vw(7)
+  background: $color-white
+  text-align: center
+  box-shadow: 0 vw(2) vw(10) rgba(192, 192, 192, .28)
+  .again-content
+    position: relative
+    .image
+      position: absolute
+      top: vw(-33)
+      right: vw(10)
+      width: vw(11)
+      height: vw(12)
+      vertical-align: middle
+    .title
+      padding-bottom: vw(25)
+      font-weight: 600
+      border-bottom: vw(1) solid $color-f0
+    .justify-space-between
+      line-height: vw(50)
+      height: vw(50)
+      display: flex
+      justify-content: space-between
+      view 
+      width: 50%
+      align-items: center

@@ -1,0 +1,24 @@
+SELECT
+    *
+FROM
+    `goods_spu`
+WHERE
+    `enterprise_id` = {{.cond.EnterpriseID}}
+    AND `deleted_at` = 0
+    {{if gt .cond.SpuID 0}}
+        AND `spu_id` = {{.cond.SkuID}}
+    {{end}}
+    {{$spuLen := len .cond.SpuIDs}}
+    {{if gt  $spuLen 0}}
+       AND `spu_id` IN ({{WhereIn .cond.SpuIDs}})
+   {{end}}
+    {{if gt .cond.Status 0}}
+        AND `status` = {{.cond.Status}}
+    {{end}}
+    {{if ne .cond.SpuName ""}}
+        AND `spu_name` like '%{{SafeStr .cond.SpuName}}%'
+    {{end}}
+ORDER BY
+    `create_time` DESC
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

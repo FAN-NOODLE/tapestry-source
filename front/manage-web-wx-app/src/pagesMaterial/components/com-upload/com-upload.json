@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "com-upload-item": "../com-upload-item/com-upload-item"
+  }
+}

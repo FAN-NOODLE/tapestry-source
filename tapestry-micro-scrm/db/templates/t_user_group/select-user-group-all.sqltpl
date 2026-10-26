@@ -1,0 +1,8 @@
+SELECT
+    `id` AS user_group_id,
+    `name` AS group_name
+FROM
+    `user_group`
+WHERE
+    `enterprise_id` = :enterprise_id
+    AND `deleted_at` = 0

@@ -1,0 +1,8 @@
+UPDATE
+	`work_external_channel_trace_{{.cond.EnterpriseID}}`
+	SET  `leave_time` = :leave_time
+WHERE
+	`enterprise_id` = :enterprise_id
+	AND `external_user_id` = :external_user_id
+	AND `add_channel` = :add_channel
+	AND  (`leave_time` > :leave_time OR `leave_time` = 0)

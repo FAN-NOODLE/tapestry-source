@@ -1,0 +1,31 @@
+<view class="page-verify">
+  <view class="verify">
+    <button bindtap="scanQRCode">扫码核销</button>
+  </view>
+  <view class="verify-list">
+    <view class="tag">
+      已核销
+      <text class="verify-num">({{verifyList.length}})</text>
+    </view>
+    <view class="coupon-box" wx:if="{{verifyList.length}}">
+      <view class="coupon-item" wx:for="{{verifyList}}" wx:key="index">
+        <view class="coupon-tit">{{item.prize.prize_name}}</view>
+        <view class="coupon coupon-no">
+          <view class="coupon-text">核销时间:</view>
+          <view class="coupon-con">{{item.check_time_string}}</view>
+        </view>
+        <view class="coupon coupon-no">
+          <view class="coupon-text">券号:</view>
+          <view class="coupon-con">{{item.activity_code}}</view>
+        </view>
+        <view class="coupon coupon-no">
+          <view class="coupon-text">姓名:</view>
+          <view class="coupon-con">{{item.user_name||"无"}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="empty" wx:else>还没有核销记录</view>
+  </view>
+</view>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

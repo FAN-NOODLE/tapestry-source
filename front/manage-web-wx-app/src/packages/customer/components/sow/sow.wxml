@@ -1,0 +1,84 @@
+<wxs src="./sow.wxs" module="computed"></wxs>
+<view class="sow">
+  <view class="form">
+    <view class="form-item">
+      <view class="form-item__label">播种类型</view>
+      <view class="form-item__value">
+        <select-sow-type current="{{currentTempIndex}}" list="{{sowTempList}}" bind:change="handleSowTypeChange"></select-sow-type>
+      </view>
+    </view>
+    <view wx:if="{{sowTempList[currentTempIndex].theme}}" class="form-item">
+      <view class="form-item__label">主题说明</view>
+      <view class="form-item__value">
+        <view class="theme {{showOpened?'show':''}} {{opened?'opened':''}}">
+          <text id="theme-text" class="{{opened?'':'theme-text'}}">{{sowTempList[currentTempIndex].theme}}</text>
+          <view wx:if="{{showOpened}}" class="theme-btn" bind:tap="handleOpen">{{opened?'收起':'展开'}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-item__label">提醒时间</view>
+      <view class="form-item__value">
+        <select-sow-time value="{{sowTempList[currentTempIndex].remind_time}}" bind:change="handleSowTimeChange"></select-sow-time>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-item__label">播种内容</view>
+      <view class="form-item__value">
+        <sow-content value="{{sowTempList[currentTempIndex].content}}" disabled="{{!detail.is_relation}}" bind:change="handleSowContentChange"></sow-content>
+      </view>
+    </view>
+    <view class="btn {{disabled ? 'disabled' : ''}}" bindtap="createSow">{{currentTempIndex===0 ? '创建': '查看播种内容'}}</view>
+  </view>
+
+  <view class="sow-record">
+    <view class="record-top">
+      <view class="title">播种记录</view>
+      <view class="filter-list" bindtap="tapFilter">
+        <view
+          wx:for="{{filterList}}"
+          wx:key="key"
+          data-key="{{item.key}}"
+          class="filter-item {{filterKey === item.key ? 'selected' : ''}}"
+        >{{item.label}}</view>
+      </view>
+    </view>
+    <view wx:if="{{sowList.length > 0}}" class="record-list">
+      <view wx:for="{{sowList}}" wx:key="id" class="record-item">
+        <view class="top-info">
+          <image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/clock-icon.png" />
+          <view class="time">{{item.remind_time}}</view>
+          <view class="status {{item.status === 1 ? '' : 'finished'}}">{{item.status === 1 ? '待完成' : '已完成'}}</view>
+        </view>
+        <view class="detail">
+          <text>{{item.content}}</text>
+        </view>
+        <view wx:if="{{item.status === 1}}"  class="btn-box">
+          <view class="delete-btn" data-id="{{item.id}}" data-item="{{item}}" bindtap="openDeleteModel">删除</view>
+          <view class="confirm-btn" data-id="{{item.id}}" data-item="{{item}}" bindtap="openTipsModel">确认完成</view>
+        </view>
+      </view>
+      <view class="bottom-tip" wx:if="{{!meta.isMore }}">已经到底了~</view>
+      <view wx:if="{{isLoading && meta.page !== 1}}" class="loading-box">加载中～</view>
+    </view>
+    <view wx:else class="empty-list">
+      <image class="image" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.2/weclient/no-sow-icon.png" />
+      <view class="word">{{ isLoading ? '加载中...':'暂无播种记录'}}</view>
+    </view>
+  </view>
+</view>
+<!-- 状态说明弹窗 -->
+<message-modal
+  show="{{ isOpenTipsModal }}"
+  description="提醒"
+  descriptionTwo="{{isDelete ? '确认删除当前播种？' : '确认已完成该播种任务？'}}"
+  bindclose="closeTipsModel"
+  bindcancel="closeTipsModel"
+  bindsure="confirm"
+  descBox="{{ 'padding: 30rpx 0' }}"
+  descStyle="{{ 'font-size: 32rpx; margin-bottom: 22rpx; color: #000000' }}"
+  descStyleTwo="color: #000000"
+  isCatchFun="true"
+></message-modal>
+
+<create-sow-popup id="create-sow-popup" value="{{sowTempList[currentTempIndex]}}" bind:confirm="submit"></create-sow-popup>

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "task-item": "../../../task/components/task-item/task-item"
+  },
+  "componentPlaceholder": {
+    "task-item": "view"
+  }
+}

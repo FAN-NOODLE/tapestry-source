@@ -1,0 +1,28 @@
+SELECT
+    mm.member_id,
+    mm.mark,
+    count(mt.id) AS topic_count,
+    mm.updated_at
+FROM
+    moment_members as mm
+LEFT JOIN
+    moment_topic_members as mtm ON mtm.moment_member_id = mm.member_id
+LEFT JOIN
+    moment_topics AS mt ON mt.id = mtm.moment_topic_id
+WHERE
+    1 = 1
+AND
+    mm.`enterprise_id` = :enterprise_id
+{{if .cond.StartTime}} AND mm.updated_at >= {{.cond.StartTime}} {{end}}
+{{if .cond.EndTime}} AND mm.updated_at <= {{.cond.EndTime}} {{end}}
+{{if .cond.MemberIds}} AND mm.member_id IN ({{WhereIn .cond.MemberIds}}) {{end}}
+AND
+    mt.`deleted_at` = 0
+AND
+    mtm.`deleted_at` = 0
+GROUP BY
+    mm.member_id, mm.updated_at, mm.mark
+ORDER BY
+    mm.updated_at DESC
+LIMIT
+	{{.page.Offset}}, {{.page.Limit}}

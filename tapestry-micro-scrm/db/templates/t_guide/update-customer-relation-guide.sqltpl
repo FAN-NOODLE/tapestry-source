@@ -1,0 +1,3 @@
+UPDATE customer_relation_guide SET `members_user_id`=:members_user_id,`bind_time`=:bind_time,
+`members_id`=:members_id,`user_id`=:user_id,`updated_at` = :updated_at
+WHERE `third_user_id` = :third_user_id AND enterprise_id = :enterprise_id AND deleted_at=0

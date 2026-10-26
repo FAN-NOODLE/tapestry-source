@@ -1,0 +1,22 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container">
+    <view class="popup-header">
+      <div class="popup-header-name">近30天邀约状态</div>
+      <div class="popup-header-close" bindtap="handleCancel"></div>
+    </view>
+    <view class="popup-content">
+      <view class="popup-content-title">一、邀约中</view>
+      <view class="popup-content-text">
+        <view class="right-desp">企业内，近30天存在进行中的邀约</view>
+      </view>
+      <view class="popup-content-title">二、邀约成功</view>
+      <view class="popup-content-text">
+        <view class="right-desp">企业内，近30天邀约成功的顾客</view>
+      </view>
+      <view class="popup-content-title">三、无邀约</view>
+      <view class="popup-content-text">
+        <view class="right-desp">企业内，近30天无邀约记录的顾客</view>
+      </view>
+    </view>
+  </view>
+</mp-popup>

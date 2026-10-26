@@ -1,0 +1,110 @@
+
+@import '~@/style/mixin';
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  background: #F7F7F7;
+
+  .list {
+    padding: 30rpx;
+
+    .item {
+      width: 690rpx;
+      height: 100rpx;
+      background: #FFFFFF;
+      margin-bottom: 30rpx;
+      display: flex;
+      align-items: center;
+      padding: 0 15rpx 0 30rpx;
+      box-sizing: border-box;
+
+      &.hide {
+        opacity: 0.3;
+      }
+
+      .item-name {
+        font-weight: 400;
+        font-size: 28rpx;
+        color: #000000;
+        line-height: 40rpx;
+        flex: 1;
+      }
+
+      .item-icon {
+        width: 40rpx;
+        height: 40rpx;
+        background: imgUrl('/static/wxapp/v5.0.6/icon_drag.png') center/100% no-repeat;
+        margin-right: 16rpx;
+      }
+      .item-edit {
+        width: 70rpx;
+        height: 70rpx;
+        background: imgUrl('/static/wxapp/v5.0.6/icon_edit_2.png') center/40rpx no-repeat;
+      }
+      .item-del {
+        width: 70rpx;
+        height: 70rpx;
+        background: imgUrl('/static/wxapp/v5.0.6/icon_del_2.png') center/40rpx no-repeat;
+      }
+    }
+  }
+}
+
+.popup {
+  width: 650rpx;
+  background: #FFFFFF;
+  position: relative;
+
+  .popup-close {
+    position: absolute;
+    width: 96rpx;
+    height: 96rpx;
+    right: 0;
+    top: 0;
+    background: imgUrl('/static/wxapp/v5.0.6/icon_popup_close.png') center/36rpx 36rpx no-repeat;
+  }
+
+  .popup-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32rpx;
+    color: #000000;
+    line-height: 45rpx;
+    padding-top: 40rpx;
+  }
+
+  .popup-content {
+    text-align: center;
+    font-weight: 400;
+    font-size: 28rpx;
+    color: #000000;
+    line-height: 40rpx;
+    padding: 60rpx 0;
+  }
+
+  .popup-footer {
+    padding: 0 30rpx 30rpx;
+    display: flex;
+
+    .btn {
+      flex: 1;
+      height: 72rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28rpx;
+      background-color: #F64040;
+
+      &:nth-child(2) {
+        margin-left: 20rpx;
+      }
+
+      &.plain {
+        color: #000000;
+        background-color: #fff;
+        border: 1px solid;
+      }
+    }
+  }
+}

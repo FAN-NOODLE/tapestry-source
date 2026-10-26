@@ -1,0 +1,5 @@
+
+<view class="grid">
+  <view wx:for="{{[0, 1]}}" wx:key="index" class="grid-item {{current==item ?'active':''}}" data-value="{{item}}" bind:tap="handleGideChange"></view>
+  <view wx:if="{{showFirstTips}}" class="grid__tips" bind:tap="handleHideTips"></view>
+</view>

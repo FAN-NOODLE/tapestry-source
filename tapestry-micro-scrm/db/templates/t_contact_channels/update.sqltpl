@@ -1,0 +1,1 @@
+UPDATE `drainage_contact_channels` SET `name` = :name , `updated_at` = :updated_at WHERE `id` = :id AND `enterprise_id` = :enterprise_id;

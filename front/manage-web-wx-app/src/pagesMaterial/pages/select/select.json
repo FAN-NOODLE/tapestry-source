@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "官网商品素材库",
+  "backgroundColor": "#F4F7FB",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "navigation-bar": "../../../components/navigation-bar/navigation-bar",
+    "com-popup-preview": "../../components/com-popup-preview/com-popup-preview",
+    "com-goods-material": "../../components/com-goods-material/com-goods-material",
+    "com-normal-material": "../../components/com-normal-material/com-normal-material"
+  }
+}

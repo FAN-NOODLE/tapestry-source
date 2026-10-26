@@ -1,0 +1,62 @@
+@import '~@/style/color-variable'
+
+.filter-selection
+  background-color: #fff
+  padding: 0 vw(5) vw(64) vw(15)
+
+  .close
+    position: absolute
+    right: vw(13)
+    top: vw(13)
+    &-icon
+      @include renderImg('2022/v3.1/close.png')
+      width: vw(12)
+      height: vw(12)
+  .header
+    margin-top: vw(15)
+    @include flex
+    &-title
+      @include fontStyle(16, 500, #000000, 22)
+
+  .body
+    margin-bottom: vw(15)
+    max-height: 60vh
+    overflow-y: scroll
+
+.btn-group
+  width: 100%
+  height: vw(64)
+  display: flex
+  align-items: center
+  justify-content: center
+  position: absolute
+  bottom: 0
+  left: 0
+  background-color: #fff
+
+  .reset-btn, .confirm-btn
+    width: vw(167)
+    height: vw(36)
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: vw(14)
+    font-family: PingFangSC-Medium, PingFang SC
+    font-weight: 500
+
+  .reset-btn
+    background-color: #fff
+    border: vw(1) solid #000000
+    color: #000000
+    margin-right: vw(11)
+
+  .confirm-btn
+    background-color: #000000
+    color: #FFFFFF
+
+
+.iosBodyBottom
+  margin-bottom: vw(30) !important
+.isIosBottom
+  @include iosBottom
+		

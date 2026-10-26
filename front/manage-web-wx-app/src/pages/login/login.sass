@@ -1,0 +1,161 @@
+@import 'src/style/color-variable'
+
+page
+	background-color: #fff
+.page-login
+	width: 100vw
+	min-height: 100vh
+	//background: $color-white
+	overflow-x: hidden
+
+.login-bg
+	//width: 100%
+	//height: vw(195)
+	width: vw(203)
+	height: vw(235)
+	margin-top: vw(85)
+	margin-left: vw(30)
+.box
+	//position: absolute
+	position: relative
+	left: 0
+	top: vw(-50)
+	width: 100%
+	//border-top-left-radius: vw(10)
+	//border-top-right-radius: vw(10)
+	box-shadow: 0 0 vw(4) #fff
+.welcome
+	color: #33363C
+	height: 100%
+	line-height: vw(28)
+.des
+	width: 100%
+	line-height: vw(17)
+	color: #C6C6C7
+.phone-title, .code-title
+	width: 100%
+	height: vw(20)
+	color: #C6C6C7
+	line-height: vw(20)
+	display: flex
+	justify-content: flex-start
+	align-items: center
+	.error-text
+		color: #FD7474
+.phone-ctn
+	width: vw(315)
+	height: vw(44)
+	display: flex
+	justify-content: flex-start
+	align-items: center
+	border: vw(1) solid #F0F0F0
+	border-radius: vw(2)
+	&.phone-fouce
+		border-color: #4A4A4A
+	&.phone-error
+		border-color: #FD7F7F
+	.mark
+		width: vw(51)
+		height: 100%
+		display: flex
+		justify-content: center
+		align-items: center
+		//color: #4A4A4A
+		color: $color-333
+		position: relative
+		&::after
+			content: ''
+			width: vw(1)
+			height: vw(14)
+			background: #F0F0F0
+			position: absolute
+			right: 0
+			top: 50%
+			transform: translateY(-50%)
+	.phone-ipt
+		width: 100%
+		height: 100%
+		display: flex
+		align-items: center
+		color: #33363C
+	.placeholder
+		color: #C6C6C7
+.code-ctn
+	width: 100%
+	height: vw(44)
+	display: flex
+	justify-content: flex-start
+	.code-area-box
+		width: vw(118+88)
+		height: 100%
+		position: relative
+	.code-area
+		width: 100%
+		height: 100%
+		display: flex
+		justify-content: space-between
+		.code-item
+			width: vw(44)
+			height: vw(44)
+			border-radius: vw(2)
+			border: vw(1) solid #F0F0F0
+			display: flex
+			justify-content: center
+			align-items: center
+			&.code-use
+				// color: #4A4A4A
+				border-color: #4A4A4A
+			&.last-code-use
+				border-color: #4A4A4A
+			&.error-code
+				border-color: #FD7474
+				color: #FD7474
+	.code-ipt
+		position: absolute
+		left: vw(-30)
+		top: 0
+		width: 0
+		height: 100%
+		display: flex
+		justify-content: space-between
+		letter-spacing: vw(10)
+	.op-7
+		opacity: 0.7
+.get-code
+	width: vw(314)
+	height: vw(44)
+	display: flex
+	justify-content: center
+	align-items: center
+	//color: #4A4A4A
+	//border: vw(1) solid #4A4A4A
+	color: #58BD6B
+	border: vw(1) solid #58BD6B
+	border-radius: vw(2)
+	margin: 0 auto
+	border-radius: vw(22)
+	margin-top: vw(40)
+	&.use
+		color: #C6C6C7
+		border-color: #C6C6C7
+.footer
+	position: absolute
+	left: 0
+	right: 0
+	bottom: vw(15)
+	text-align: center
+	font-size: vw(12)
+	color: $color-a6
+	.footer-records
+		display: flex
+		justify-content: space-around
+		.records
+			display: flex
+			align-items: center
+			justify-content: center
+			.icon
+				width: vw(12)
+				height: vw(12)
+				margin-right: vw(3)
+	.login-desc
+		margin-bottom: vw(5)

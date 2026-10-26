@@ -1,0 +1,7 @@
+UPDATE
+  `marketing_user_statistics`
+SET
+  `count` = :count,
+  `updated_at` = :updated_at
+WHERE
+  `id` = :id

@@ -1,0 +1,27 @@
+.git
+*.log
+node_modules/
+dist/
+build/
+package-lock.json
+.idea/
+yarn.lock
+src/ext.json
+src/project.config.json
+src/.DS_Store
+src/env/.DS_Store
+.DS_Store
+.history
+src/lib/config.js
+info-output.json
+cli.config.local.js
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# jsconfig.json
+.agents

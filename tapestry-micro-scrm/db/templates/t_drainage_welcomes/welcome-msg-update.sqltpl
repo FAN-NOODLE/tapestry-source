@@ -1,0 +1,1 @@
+UPDATE `drainage_welcomes` SET `content` = :content, `channel_id` = :channel_id, `updated_at` = :updated_at WHERE `id` = :id AND `enterprise_id` = :enterprise_id;

@@ -1,0 +1,5 @@
+insert  into
+  chat_group_msg_task_member
+  ( `id`,`enterprise_id`,`msg_task_id`,`member_id`,`msgid`, `created_at`,`updated_at`)
+  values
+  (:id,:enterprise_id,:msg_task_id,:member_id,:msgid,:created_at,:updated_at)

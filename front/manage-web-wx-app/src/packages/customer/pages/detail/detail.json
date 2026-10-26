@@ -1,0 +1,17 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "顾客详情",
+  "backgroundColor": "#ffffff",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "default",
+  "disableScroll": false,
+  "usingComponents": {
+    "base-info": "../../components/base-info/index",
+    "task-list": "../../components/task-list/index",
+    "sow": "../../components/sow/sow",
+    "invite-list": "../../components/invite-list/invite-list",
+    "binding-relation": "../../components/binding-relation/binding-relation"
+  }
+}

@@ -1,0 +1,1 @@
+UPDATE marketing_strategy_records_v2 SET `updated_at` = :updated_at,`status` = :status, `touched_at` = :send_time WHERE `external_userid` = :external_userid AND `msg_id` = :msg_id

@@ -1,0 +1,33 @@
+SELECT
+    g.sku_name,
+    a.shop_activity_id,
+    a.sell_price,
+    a.activity_price,
+    g.sku_attribute,
+    g.sku_id,
+    g.spu_id,
+    g.sku_picture
+FROM
+    `shop_activity_sku` a
+    LEFT JOIN goods_sku g ON a.sku_id = g.sku_id
+WHERE
+    a.`enterprise_id` = {{.cond.EnterpriseID}}
+   AND g.`enterprise_id` = {{.cond.EnterpriseID}}
+   AND a.`deleted_at` = 0
+   AND g.`deleted_at` = 0
+
+   {{$activityLen := len .cond.ActivityIds}}
+   {{if gt  $activityLen 0}}
+      AND `shop_activity_id` IN ({{WhereIn .cond.ActivityIds}})
+  {{end}}
+  {{if gt .cond.Status 0}}
+       AND a.`sku_status` = {{.cond.Status}}
+   {{end}}
+   {{if ne .cond.GoodsName ""}}
+       AND `sku_name` like '%{{SafeStr .cond.GoodsName}}%'
+   {{end}}
+
+ORDER BY
+    `create_time` DESC
+LIMIT {{.page.Offset}},
+    {{.page.Limit}};

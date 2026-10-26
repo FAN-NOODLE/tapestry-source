@@ -1,0 +1,9 @@
+# Default ignored files
+.vscode/
+.idea/
+app.yaml
+vendor
+*.exe
+bin/
+*.log
+.DS_Store

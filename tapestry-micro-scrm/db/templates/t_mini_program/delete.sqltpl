@@ -1,0 +1,6 @@
+UPDATE
+    `mini_program`
+SET
+    deleted_at = unix_timestamp(now())
+WHERE
+    id = ?

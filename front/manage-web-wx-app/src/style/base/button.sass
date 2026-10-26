@@ -1,0 +1,119 @@
+@import "../mixins/button.scss"
+/** Button 按钮 ============================ */
+.mp-button 
+  position: relative
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: center
+  height: var(--button-default-height, 80rpx)
+  padding: 0 var(--button-default-padding, 30rpx)
+  font-size: var(--button-default-font-size, 28rpx)
+  text-align: center
+  vertical-align: middle
+  border-radius: var(--button-border-radius, 0)
+  transition: opacity 0.2s
+  -webkit-text-size-adjust: 100%
+  -webkit-appearance: none
+
+  // theme
+  @include button-theme('primary', #000)
+
+  // size
+  &--large,
+  &[size=large] 
+    width: 100%
+    height: var(--button-large-height, 100rpx)
+    font-size: var(--button-default-font-size, 32rpx)
+  
+
+  &--default,
+  &[size=default] 
+    padding: 0 30rpx
+    font-size: var(--button-normal-font-size, 28rpx)
+  
+
+  &--small,
+  &[size=small] 
+    min-width: var(--button-small-min-width, 120rpx)
+    height: var(--button-small-height, 68rpx)
+    padding: 0 var(--padding-s, 16rpx)
+    font-size: var(--button-small-font-size, 24rpx)
+  
+
+  &--mini,
+  &[size=mini] 
+    display: inline-flex
+    min-width: var(--button-mini-min-width, 100rpx)
+    height: var(--button-mini-height, 44rpx)
+    padding: 0 var(--padding-xs, 12rpx)
+    font-size: var(--button-mini-font-size, 20rpx)
+    line-height: var(--button-mini-height, 44rpx)
+  
+  // round
+  &--round 
+    border-radius: 999rpx
+
+    &::after 
+      border-radius: 999rpx
+    
+  
+  // square
+  &--square 
+    border-radius: 0
+
+    &::after 
+      border-radius: 0
+    
+  
+
+  &--block 
+    display: flex
+    width: 100%
+  
+
+  // ghost
+  &--ghost 
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 100
+    opacity: 0
+  
+
+// 空心按钮 (字号、padding、宽高自设)
+.btn-empty
+  width: vw(120)
+  height: vw(40)
+  font-family: PingFangSC-Regular,PingFang SC
+  font-size: vw(14)
+  font-weight: 400
+  color: $color-main
+  border: vw(1) solid $color-main
+  display: flex
+  justify-content: center
+  align-items: center
+  background: $color-white
+  border-radius: vw(2)
+  box-sizing: border-box
+// 实心按钮 (字号、padding、宽高自设)
+.btn-solid
+  width: vw(120)
+  height: vw(40)
+  font-family: PingFangSC-Regular,PingFang SC
+  font-size: vw(14)
+  font-weight: 400
+  color: $color-white
+  display: flex
+  justify-content: center
+  align-items: center
+  background: $color-main
+  border-radius: vw(2)
+// 禁用按钮
+.btn-disable
+  @extend .btn-solid
+  background: #C6C6C7
+
+

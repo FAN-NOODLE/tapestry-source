@@ -1,0 +1,139 @@
+<view class="com-upload">
+  <!-- 样式一 九宫格展示 -->
+  <block wx:if="{{styleType == 1}}">
+    <view wx:if="{{fileType=='image' && value.length>0}}" class="select-all">
+      <!-- <view class="select" bind:tap="handleSelectAll">
+        <view class="select__icon {{isAll?'active':''}}"></view>
+        <view>全部原图</view>
+      </view> -->
+      <view class="select" bind:tap="handleSelectAllAI">
+        <view class="select__icon {{isAllAI?'active':''}}"></view>
+        <view>全部AI识别</view>
+      </view>
+      <view class="sort__tips">长按图片可拖拽排序</view>
+    </view>
+    <movable-area
+      id="movable-area"
+      class="custom-class movable-area"
+    >
+      <view class="com-upload__list">
+        <view class="item drag-item {{dragable && current == index ? 'hide':''}}" 
+          wx:for="{{value}}" 
+          wx:key="id" 
+          data-index="{{index}}"
+          bind:longpress="onLongTap"
+          bind:touchstart="onTouchStart"
+          catch:touchmove="{{dragable?'onTouchMove':''}}"
+          bind:touchend="{{dragable?'onTouchEnd':''}}"
+        >
+          <com-upload-item 
+            item="{{item}}"
+            data-index="{{index}}"
+            file-type="{{fileType}}"
+            bind:change="handleChange"
+            bind:delete="handleDelete"
+          ></com-upload-item>
+        </view>
+        <view wx:if="{{value.length < limit}}" class="item item--upload" bind:tap="handleUpload">
+          <view class="item__icon"></view>
+          <view class="item__text">{{fileType=='image'?'上传图片':'上传视频'}}</view>
+        </view>
+      </view>
+      <movable-view
+        wx:if="{{dragable && current>-1}}"
+        x="{{x}}"
+        y="{{y}}"
+        direction="all"
+        damping="{{5000}}"
+        friction="{{1}}"
+        disabled="{{disabled}}"
+      >
+      
+        <view class="item" 
+        >
+          <com-upload-item 
+            item="{{value[current]}}"
+            data-index="{{current}}"
+            file-type="{{fileType}}"
+            bind:change="handleChange"
+            bind:delete="handleDelete"
+          ></com-upload-item>
+        </view>
+      </movable-view>
+    </movable-area>
+  </block>
+
+  <!-- 样式二 平铺一列展示 -->
+  <view wx:if="{{styleType == 2}}" class="com-upload__list2">
+    <view wx:if="{{value.length < limit}}" class="item item--upload" bind:tap="handleUpload">
+      <view class="item__icon"></view>
+      <view class="item__text">{{fileType=='image'?'上传图片':'上传视频'}}</view>
+    </view>
+
+    <view wx:if="{{fileType=='image' && value.length>0}}" class="select-all">
+      <!-- <view class="select">
+        <view class="select__icon {{isAll?'active':''}}" bind:tap="handleSelectAll"></view>
+        <view bind:tap="handleSelectAll">全部原图</view>
+      </view> -->
+      <view class="select" bind:tap="handleSelectAllAI">
+        <view class="select__icon {{isAllAI?'active':''}}"></view>
+        <view>全部AI识别</view>
+      </view>
+      <view class="select__count">已选{{value.length}}张</view>
+      <view class="sort__tips">长按图片可拖拽排序</view>
+    </view>
+    <movable-area
+      id="movable-area"
+      class="custom-class movable-area"
+    >
+      <view 
+        class="drag-item {{dragable && current == index ? 'hide':''}}" 
+        wx:for="{{value}}" 
+        wx:key="id"
+        data-index="{{index}}"
+        bind:longpress="onLongTap"
+        bind:touchstart="onTouchStart"
+        catch:touchmove="{{dragable?'onTouchMove':''}}"
+        bind:touchend="{{dragable?'onTouchEnd':''}}"
+      >
+        <com-upload-item
+          item="{{item}}" 
+          style-type="{{2}}" 
+          compress="{{false}}"
+          data-index="{{index}}"
+          file-type="{{fileType}}"
+          bind:change="handleChange"
+          bind:delete="handleDelete"
+        ></com-upload-item>
+      </view>
+      <movable-view
+          wx:if="{{dragable && current>-1}}"
+          x="{{x}}"
+          y="{{y}}"
+          direction="all"
+          damping="{{5000}}"
+          friction="{{1}}"
+          disabled="{{disabled}}"
+        >
+        
+          <view class="item" 
+          >
+            <com-upload-item 
+              style-type="{{2}}" 
+              item="{{value[current]}}"
+              data-index="{{current}}"
+              file-type="{{fileType}}"
+              bind:change="handleChange"
+              bind:delete="handleDelete"
+            ></com-upload-item>
+          </view>
+        </movable-view>
+    </movable-area>
+  </view>
+    
+
+</view>
+<!-- 提示文案 -->
+<!-- <view class="com-upload__tips">
+  <slot name="tips"></slot>
+</view> -->

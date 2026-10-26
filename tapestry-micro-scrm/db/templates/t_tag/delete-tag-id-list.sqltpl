@@ -1,0 +1,8 @@
+UPDATE
+    `tag`
+SET
+    `deleted_at` = {{.deleted_at}}
+WHERE
+    `enterprise_id` = {{.enterprise_id}}
+AND
+    `tag_id` in ({{WhereIn .tag_id_list}})

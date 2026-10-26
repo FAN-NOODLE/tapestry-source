@@ -1,0 +1,10 @@
+SELECT
+    DISTINCT
+    UR.`work_external_user_id`
+FROM
+    `work_external_user_tag` UT
+    INNER JOIN `work_external_user_relation` UR ON UR.`id` = UT.`relation_id`
+WHERE
+    UT.`enterprise_id` = :enterprise_id
+    AND UT.`external_tag_id` in ({{WhereIn .IDList}})
+    AND UT.`deleted_at` = 0

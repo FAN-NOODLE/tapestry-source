@@ -1,0 +1,37 @@
+<!-- components/common/mp-datetime-picker/index.wxml -->
+<wxs module="computed" src="./index.wxs"></wxs>
+<mp-popup show="{{show}}" round position="bottom" z-index="1000" root-portal="{{true}}" bind:close="handleCancel">
+		<view class="popup">
+				<view class="popup__close" bind:tap="handleCancel"></view>
+				<view class="popup__title">{{title}}</view>
+				<view class="popup__header">
+						<view class="result {{ current == 0 ? 'active' : '' }}" data-index="{{0}}" bind:tap="handleInputChange">
+								<input class="result__input" value="{{computed.formatDate(innerValue[0], format)}}" disabled="{{true}}" placeholder="请选择开始时间" />
+						</view>
+						<view>-</view>
+						<view class="result {{ current == 1 ? 'active' : '' }}" data-index="{{1}}" bind:tap="handleInputChange">
+								<input class="result__input" value="{{computed.formatDate(innerValue[1], format)}}" disabled="{{true}}" placeholder="请选择结束时间" />
+						</view>
+				</view>
+				<view class="popup__content">
+						<view class="title">
+								<view wx:for="{{types}}" wx:key="index">{{item}}</view>
+						</view>
+						<view class="date">
+								<picker-view indicator-style="height: 50px;" style="width: 100%; height: 250px;" value="{{columnIndex}}" bindchange="handleChange" bindpickstart="handleStart">
+										<picker-view-column wx:for="{{columns}}" wx:for-item="column" wx:key="index">
+												<view wx:for="{{column.values}}" wx:key="index" style="line-height: 50px; text-align: center;">
+														{{item}}
+												</view>
+										</picker-view-column>
+								</picker-view>
+						</view>
+				</view>
+				<mp-footer fixed="{{false}}">
+					<view class="popup__footer">
+							<view class="btn plain" bind:tap="handleReset">重置</view>
+							<view class="btn {{innerValue[1]?'':'disabled'}}" bind:tap="handleConfirm">确定</view>
+					</view>
+				</mp-footer>
+		</view>
+</mp-popup>

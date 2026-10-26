@@ -1,0 +1,124 @@
+@import '../../style/color-variable.sass'
+
+.page-tag-manage
+  width: 100%
+  .add-box
+    height: vw(60)
+    color: #4A4A4A
+    font-size: vw(14)
+    display: flex
+    align-items: center
+    padding-left: vw(15)
+    .add-img
+      width: vw(20)
+      height: vw(20)
+      margin-right: vw(10)
+  .tag-list-box
+    background-color: #ffffff
+    padding: 0 vw(15)
+    .tag-item
+      height: vw(50)
+      border-bottom: solid vw(1) #F0F0F0
+      display: flex
+      align-items: center
+      justify-content: space-between
+      .tag-name
+        color: #33363C
+        font-size: vw(14)
+      .tag-num
+        color: #96979E
+        font-size: vw(14)
+      .tag-right
+        height: 100%
+        width: vw(42)
+        display: flex
+        align-items: center
+        justify-content: center
+        position: relative
+        right: vw(-15)
+        .delete-icon
+          width: vw(12)
+          height: vw(13)
+    .tag-item:last-child
+      border-bottom: none
+  .bottom-tip
+    text-align: center
+    font-size: vw(14)
+    padding-top: vw(51)
+    color: #96979E
+  .modal-box
+    .modal-page
+      position: fixed
+      z-index: 100
+      background: #ffffff
+      width: vw(296)
+      height: vw(200)
+      padding-top: vw(20)
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      margin: auto
+      .modal-title
+        font-size: vw(16)
+        line-height: vw(22)
+        text-align: center
+        font-family: PingFangSC-Medium,PingFang SC
+        font-weight: 500
+      .close-box
+        width: vw(30)
+        height: vw(30)
+        position: absolute
+        right: 0
+        top: 0
+        .close-img
+          width: vw(11)
+          height: vw(11)
+          position: absolute
+          right: 0
+          top: 0
+          bottom: 0
+          left: 0
+          margin: auto
+      .tag-input
+        width: vw(266)
+        height: vw(35)
+        border-radius: vw(2)
+        background-color: #F6F7F9
+        margin: auto
+        margin-top: vw(35)
+        padding: vw(7) 0 vw(7) vw(15)
+        color: #33363C
+        font-size: vw(14)
+      .error-txt
+        font-size: vw(12)
+        color: #EE6352
+        line-height: vw(17)
+        height: vw(17)
+        width: vw(266)
+        margin: auto
+        margin-top: vw(5)
+      .add-btn
+        width: vw(266)
+        height: vw(38)
+        display: flex
+        align-items: center
+        justify-content: center
+        color: #ffffff
+        background-color: #4A4A4A
+        border-radius: vw(2)
+        font-size: vw(14)
+        margin: auto
+        margin-top: vw(12)
+      .no-text-btn
+        background-color: #C6C6C7
+    .modal-mask
+      position: fixed
+      z-index: 99
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      opacity: 0.7
+      background: #000000
+

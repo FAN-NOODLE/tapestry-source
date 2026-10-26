@@ -1,0 +1,20 @@
+SELECT
+    count(*) as count
+FROM
+	moment_members AS mm
+LEFT JOIN
+    members AS m ON m.id = mm.member_id
+LEFT JOIN
+    moment_topic_members AS mtm ON mtm.moment_member_id = mm.member_id
+LEFT JOIN
+    moment_topics AS mt ON mtm.moment_topic_id = mt.id
+WHERE
+	1 = 1
+AND
+    mm.mark = :mark
+AND
+    mt.deleted_at = 0
+AND
+    mtm.deleted_at = 0
+AND
+    ( mt.publish_type = 1 OR ( mt.publish_type = 2 AND mt.publish_time > 1000000 ) )

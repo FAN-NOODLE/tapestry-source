@@ -1,0 +1,12 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "WeClient Pro",
+	"backgroundColor": "#000000",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false,
+	"usingComponents": {
+		"store-model": "../../components/store-model/store-model",
+		"custom-loading": "../../components/custom-loading/custom-loading"
+	}
+}

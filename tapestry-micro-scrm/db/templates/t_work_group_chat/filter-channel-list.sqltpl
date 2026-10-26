@@ -1,0 +1,2 @@
+select distinct wgc.channel_id id,dcc. name from work_group_chat wgc inner join drainage_contact_channels dcc on wgc.channel_id=dcc.id
+where wgc.enterprise_id = :enterprise_id and dissolve_time = 0 and status = 1 and channel_id != 0

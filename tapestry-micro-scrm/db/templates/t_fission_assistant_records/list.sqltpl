@@ -1,0 +1,24 @@
+select
+  `id`,
+  `enterprise_id`,
+  `activity_id`,
+  `fission_user_id`,
+  `assistant_user_id`,
+  `member_id`,
+  `add_member_status`,
+  `add_member_at`,
+  `join_chat_group_status`,
+  `join_chat_group_at`,
+  `score`,
+  `created_at`,
+  `updated_at`,
+  `deleted_at`,
+  `is_vip`
+from fission_assistant_records
+where
+    activity_id = {{.cond.activity_id}}
+and
+    fission_user_id = {{.cond.user_id}}
+order by created_at desc
+LIMIT {{.page.Offset}},
+    {{.page.Limit}}

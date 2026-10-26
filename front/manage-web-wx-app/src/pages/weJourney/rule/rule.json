@@ -1,0 +1,8 @@
+{
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "WeJourney",
+	"backgroundColor": "#F6F6F9",
+	"backgroundTextStyle": "light",
+	"enablePullDownRefresh": false
+}

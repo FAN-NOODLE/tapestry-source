@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>形状结合</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M15,0 L1320,0 L1320,0 L1320,1252 L0,1252 L0,15 C-1.01453063e-15,6.71572875 6.71572875,1.52179594e-15 15,0 Z" id="path-1"></path>
+    </defs>
+    <g id="用户池/组织结构" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="客户分组" transform="translate(-615.000000, -1032.000000)">
+            <rect fill="#121C42" x="0" y="0" width="1440" height="1252"></rect>
+            <g id="蒙版-2" transform="translate(120.000000, 0.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="蒙版" fill="#F5F6FA" xlink:href="#path-1"></use>
+                <path d="M40,80 L1280,80 C1285.52285,80 1290,84.4771525 1290,90 L1290,1165 C1290,1170.52285 1285.52285,1175 1280,1175 L40,1175 C34.4771525,1175 30,1170.52285 30,1165 L30,90 C30,84.4771525 34.4771525,80 40,80 Z" id="矩形" fill="#FFFFFF"></path>
+                <g id="编组-32备份-13" transform="translate(365.000000, 956.000000)">
+                    <rect id="矩形" stroke="#DCDFE6" fill="#FFFFFF" x="0.5" y="0.5" width="274" height="188" rx="5"></rect>
+                    <g id="编组-68" transform="translate(101.000000, 76.000000)" fill="#909399" fill-rule="nonzero">
+                        <g id="编组-66" transform="translate(29.000000, 0.000000)">
+                            <path d="M7,0 C7.27614237,0 7.5,0.223857625 7.5,0.5 L7.5,0.5 L7.5,6.5 L13.5,6.5 C13.7454599,6.5 13.9496084,6.67687516 13.9919443,6.91012437 L14,7 C14,7.27614237 13.7761424,7.5 13.5,7.5 L13.5,7.5 L7.5,7.5 L7.5,13.5 C7.5,13.7454599 7.32312484,13.9496084 7.08987563,13.9919443 L7,14 C6.72385763,14 6.5,13.7761424 6.5,13.5 L6.5,13.5 L6.5,7.5 L0.5,7.5 C0.254540111,7.5 0.0503916296,7.32312484 0.00805566941,7.08987563 L0,7 C0,6.72385763 0.223857625,6.5 0.5,6.5 L0.5,6.5 L6.5,6.5 L6.5,0.5 C6.5,0.254540111 6.67687516,0.0503916296 6.91012437,0.00805566941 Z" id="形状结合"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,266 @@
+@import '../../../../style/color-variable.sass'
+
+.popup
+	width: 100vw
+	background: linear-gradient(180deg, #FFFFFF 0%, #FFF5CE 100%)
+	border-radius: vw(10) vw(10) 0 0
+	position: relative
+	&-close
+		position: absolute
+		top: vw(8)
+		right: vw(10)
+		width: vw(18)
+		height: vw(18)
+		background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_close.png') center/100% no-repeat
+		z-index: 1
+	&-header
+		width: 100vw
+		height: vw(169)
+		background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/bg_header.png') center/100% no-repeat
+		position: relative
+		.level-time
+			height: vw(20)
+			font-size: vw(14)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 400
+			color: #7F7F7F
+			line-height: vw(20)
+			position: absolute
+			top: vw(86)
+			left: vw(38)
+		.level-title
+			height: vw(22)
+			font-size: vw(16)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 600
+			color: #000000
+			line-height: vw(22)
+			position: absolute
+			top: vw(112)
+			left: vw(38)
+		.level-icon
+			width: vw(106)
+			height: vw(106)
+			position: absolute
+			top: vw(67)
+			right: vw(19)
+	&-content
+		width: 100vw
+		height: vw(408)
+		.title
+			height: vw(20)
+			font-size: vw(14)
+			font-family: PingFangSC-Regular, PingFang SC
+			font-weight: 400
+			color: #C8C8C8
+			line-height: vw(20)
+			padding-left: vw(20)
+		.content
+			position: relative
+			margin: auto
+			&::before
+				content: ""
+				width: vw(13)
+				height: vw(13)
+				background: #FF8F18
+				border-radius: 50%
+				position: absolute
+				left: vw(77)
+				top: vw(-8)
+
+			.level-item
+				width: vw(29)
+				height: vw(29)
+				position: absolute
+
+				&__max
+					width: vw(48)
+					height: vw(22)
+					position: absolute
+					top: vw(-20)
+					left: vw(-40)
+					z-index: 1
+					background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_tag.png') center/100% no-repeat
+					
+
+				&__title 
+					width: vw(84)
+					height: vw(35)
+					line-height: vw(35)
+					text-align: center
+					font-size: vw(12)
+					font-weight: bold
+					color: #000000
+					position: absolute
+					box-sizing: border-box
+					top: 50%
+				&__time
+					height: vw(17)
+					font-size: vw(12)
+					font-weight: 400
+					color: #7F7F7F
+					line-height: vw(17)
+					white-space: nowrap
+					position: absolute
+					top: 50%
+
+				&__image 
+					width: 100%
+					height: 100%
+
+				&:nth-child(1),
+				&:nth-child(3),
+				&:nth-child(5),
+				&.left
+					.level-item__title
+						left: vw(-5)
+						transform: translate(-100%, -50%)
+						padding-right: vw(6)
+						background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/bg_pop_left.png') center/100% no-repeat
+					.level-item__time
+						right: vw(-5)
+						transform: translate(100%, -50%)
+
+				&:nth-child(2),
+				&:nth-child(4),
+				&.right
+					.level-item__title
+						right: vw(-5)
+						transform: translate(100%, -50%)
+						padding-left: vw(6)
+						background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/bg_pop_right.png') center/100% no-repeat
+					.level-item__time
+						left: vw(-5)
+						transform: translate(-100%, -50%)
+
+				&.is-max
+					width: vw(42)
+				&.is-max .level-item__image
+					width: vw(42)
+					height: vw(42)
+					position: absolute
+					top: 50%
+					left: 50%
+					transform: translate(-50%, -50%)
+					
+			// 5+个等级
+			&.line-5
+				width: vw(128)
+				height: auto
+				margin-top: vw(17)
+				padding-top: vw(1)
+				background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_line_5.png') center top/100% repeat
+				
+				.level-item
+					position: relative
+
+				.level-item:nth-child(1)
+					margin-top: vw(17)
+					margin-left: vw(45)
+				.level-item:nth-child(2)
+					margin-top: vw(37)
+					margin-left: vw(107)
+				.level-item:nth-child(3)
+					margin-top: vw(40)
+					margin-left: vw(-14)
+				.level-item:nth-child(4)
+					margin-top: vw(34)
+					margin-left: vw(89)
+				.level-item:nth-child(5)
+					margin-top: vw(46)
+					margin-left: vw(65)
+
+			// 4个等级
+			&.line-4
+				width: vw(83)
+				height: vw(282)
+				margin-top: vw(30)
+				background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_line_4.png') center/100% no-repeat
+				
+				&::before
+					left: vw(58)
+					top: vw(-10)
+				.level-item:nth-child(1)
+					top: vw(43)
+					left: vw(5)
+				.level-item:nth-child(2)
+					top: vw(127)
+					left: vw(64)
+				.level-item:nth-child(3)
+					top: vw(201)
+					left: vw(-12)
+				.level-item:nth-child(4)
+					top: vw(270)
+					left: vw(62)
+
+			// 3个等级
+			&.line-3
+				width: vw(81)
+				height: vw(258)
+				margin-top: vw(30)
+				background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_line_3.png') center/100% no-repeat
+				
+				&::before
+					left: vw(55)
+					top: vw(-10)
+				.level-item:nth-child(1)
+					top: vw(43)
+					left: vw(2)
+				.level-item:nth-child(2)
+					top: vw(145)
+					left: vw(61)
+				.level-item:nth-child(3)
+					top: vw(240)
+					left: vw(-15)
+
+			// 2个等级
+			&.line-2
+				width: vw(52)
+				height: vw(274)
+				margin-top: vw(30)
+				background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_line_2.png') center/100% no-repeat
+				
+				&::before
+					left: vw(47)
+					top: vw(-10)
+				.level-item:nth-child(1)
+					top: vw(122)
+					left: vw(-6)
+				.level-item:nth-child(2)
+					top: vw(258)
+					left: vw(14)
+			// 1个等级
+			&.line-1
+				width: vw(43)
+				height: vw(145)
+				margin-top: vw(30)
+				background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/footprint/icon_line_1.png') center/100% no-repeat
+				
+				&::before
+					left: vw(40)
+					top: vw(-10)
+				.level-item:nth-child(1)
+					top: vw(122)
+					left: vw(-15)
+
+		.footer 
+			height: vw(40)
+			width: 100vw
+	.tips 
+		position: absolute
+		bottom: 0
+		left: 0
+		z-index: 2
+		width: 100vw
+		height: vw(80)
+		background: linear-gradient(180deg, rgba(255,247,213,0.35) 0%, #FFF6D3 70%)
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+		font-size: vw(10)
+
+		.icon-arrow-double
+			background: url('https://cdn-cos.coach.com.cn/uploads/2023/v3.5.0/icon_arrow_double.png') center/100% no-repeat
+			width: vw(11)
+			height: vw(12)

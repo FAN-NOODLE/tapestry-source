@@ -1,0 +1,152 @@
+@import '~@/style/color-variable';
+
+.com-item {
+  width: 630rpx;
+  height: 190rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  padding-top: 14rpx;
+  box-sizing: border-box;
+
+  &--card {
+    width: 190rpx;
+    height: auto;
+    display: block;
+  }
+
+  &__delete {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    width: 40rpx;
+    height: 40rpx;
+    background: imgUrl("/static/wxapp/v4.0.1/material/icon_delete.png") no-repeat center center/ 28rpx 28rpx;
+  }
+
+  &__image {
+    width: 176rpx;
+    height: 176rpx;
+    position: relative;
+    background-color: #eee;
+
+    .image {
+      width: 100%;
+      height: 100%;
+    }
+
+    .progress {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120rpx;
+      z-index: 1;
+    }
+  }
+
+  .flex-1 {
+    flex: 1;
+    overflow: hidden;
+    margin-left: 30rpx;
+
+    .progress {
+      width: 120rpx;
+      margin-top: 20rpx;
+    }
+
+    .success {
+      color: green;
+      margin-top: 20rpx;
+    }
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+
+    .name {
+      max-width: 356rpx;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 28rpx;
+      line-height: 40rpx;
+    }
+  }
+
+  &__edit {
+    margin-left: 30rpx;
+    width: 36rpx;
+    height: 36rpx;
+    background: imgUrl("/static/wxapp/v4.0.1/material/icon_edit.png") no-repeat center center/ 100%;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 20rpx;
+  }
+
+  &__check {
+    display: flex;
+    margin-top: 24rpx;
+    align-items: center;
+
+    .check {
+      width: 24rpx;
+      height: 24rpx;
+      border: 2rpx solid #CCCCCC;
+      box-sizing: border-box;
+      margin-right: 12rpx;
+
+      &.active {
+        border-color: #000000;
+        background: #000000 imgUrl("/static/wxapp/v4.0.1/material/icon_select.png") no-repeat center center/100%;
+      }
+    }
+
+    
+  }
+
+}
+
+.com-item--card {
+  .com-item__check~.com-item__check {
+    margin-top: 16rpx;
+  }
+}
+
+.popup {
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 30rpx;
+
+  .input {
+    height: 88rpx;
+    display: flex;
+    align-items: center;
+    background: #F4F7FB;
+    justify-content: flex-end;
+
+    .text {
+      flex: 1;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0 30rpx;
+      font-size: 28rpx;
+    }
+
+    .confirm {
+      height: 88rpx;
+      width: 168rpx;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+  }
+}

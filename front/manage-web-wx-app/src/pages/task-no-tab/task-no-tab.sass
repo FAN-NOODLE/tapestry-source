@@ -1,0 +1,100 @@
+@import '../../style/color-variable.sass'
+
+
+/** 给文案添加下划线 */
+@mixin taskUnderline
+  position: relative
+  &::after
+    content: ""
+    width: 100%
+    height: vw(1)
+    background-color: #000000
+    position: absolute 
+    left: 0
+    bottom: 0
+
+/** 任务中心 样式 */
+.task
+	height: 100vh
+	display: flex
+	flex-direction: column
+	&-header
+		flex-shrink: 0
+	&-body
+		flex: 1
+
+
+/** tabs 切换样式 */
+.tabs
+	@include flex(space-between, center)
+	height: vw(44)
+	background: #FFFFFF
+	&-item
+		height: 100%
+		flex: 1
+		@include flex
+		@include fontStyle(14, 400, #A6A6A6, 20)
+		position: relative
+		&:not(:first-child)
+			&::before
+				height: vw(13)
+				width: vw(1)
+				content: ""
+				background: #D1BFA7
+				position: absolute
+				left: 0
+	.bubble
+		position: relative
+		&-item
+			position: absolute
+			top: 0
+			right: vw(-14)
+			width: vw(12)
+			height: vw(12)
+			background: #000000
+			border-radius: 50%
+			@include fontStyle(8, 400, #FFFFFF, 11)
+			@include flex
+	.is-active
+		color: #000000
+		@include taskUnderline
+		&::after
+			width: vw(40)
+			left: 50%
+			bottom: vw(8)
+			transform: translateX(-50%)
+
+
+/* 外面的边框可以这样 */
+radio
+  display: inline-flex
+  align-items: center
+  .wx-radio-input
+    height: vw(10)
+    width: vw(10)
+    border-radius: 50%
+    border: vw(1) solid #979797 //替换边框 隐藏原有边框
+
+radio 
+  .wx-radio-input.wx-radio-input-checked 
+    border: vw(1) solid #979797 !important
+    background-color: #FFF
+
+/* 中间圆点   选中的背景需要是xml中设置 */
+radio 
+  .wx-radio-input.wx-radio-input-checked
+    &::before 
+      border-radius: 50%
+      /* 圆角 */
+      width: vw(6)
+      /* 选中后对勾大小，不要超过背景的尺寸 */
+      height: vw(6)
+      /* 选中后对勾大小，不要超过背景的尺寸 */
+      text-align: center
+      font-size: 0
+      /* 对勾大小 30rpx */
+      color: #FFF
+      /* 对勾颜色 白色 */
+      background-color: #8B8B8B
+      transform: translate(-50%, -50%) scale(1)
+      -webkit-transform: translate(-50%, -50%) scale(1)

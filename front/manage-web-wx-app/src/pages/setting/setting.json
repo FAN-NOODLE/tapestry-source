@@ -1,0 +1,13 @@
+{
+	"navigationBarBackgroundColor": "#F6F7F9",
+	"navigationBarTextStyle": "black",
+	"navigationBarTitleText": "设置",
+	"backgroundColor": "#fff",
+	"backgroundTextStyle": "light",
+	"usingComponents": {
+      "avatar": "../../components/avatar/avatar",
+      "field": "../../components/field/field",
+      "message-modal": "../../components/message-modal/message-modal",
+      "tel-modal": "../../components/tel-modal/tel-modal"
+    }
+}

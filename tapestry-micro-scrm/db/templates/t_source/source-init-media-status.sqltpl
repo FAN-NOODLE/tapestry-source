@@ -1,0 +1,7 @@
+UPDATE
+    `source_{{.sourceType}}`
+SET `media_status` = 0, `media_fail_reason` = ""
+WHERE
+    `enterprise_id` = ?
+    AND `id` IN ({{WhereIn .ids}})
+    AND `deleted_at` = 0

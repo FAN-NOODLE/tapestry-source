@@ -1,0 +1,30 @@
+SELECT
+	*
+FROM
+	`chat_msg`
+WHERE
+	`room_id` = "{{.cond.GroupId}}"
+	{{if ne "" .cond.Type}}
+        AND `type` = "{{.cond.Type}}"
+    {{end}}
+    {{if eq "text" .cond.Type}}
+        AND `content` -> "$.content" LIKE "%{{.cond.Keywords}}%"
+        {{else}}
+        {{if ne "" .cond.Keywords}}
+            {{if eq "" .cond.Type}}
+                AND `content` -> "$.content" LIKE "%{{.cond.Keywords}}%"
+                AND `type` = "text"
+            {{end}}
+        {{end}}
+    {{end}}
+	{{if gt .cond.EndAt .cond.StartAt}}
+	    AND `msg_at` BETWEEN {{.cond.StartAt}} AND {{.cond.EndAt}}
+	{{end}}
+	AND `enterprise_id` = {{.cond.EnterpriseID}}
+	AND `deleted_at` = 0
+	AND `type` NOT IN ('chatrecord', 'voip_doc_share')
+ORDER BY
+	`msg_time` DESC,
+	`id` DESC
+	LIMIT {{.page.Offset}},
+	{{.page.Limit}};

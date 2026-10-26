@@ -1,0 +1,1 @@
+package legal_right

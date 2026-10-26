@@ -1,0 +1,55 @@
+import {
+  Button,
+  Tab,
+  Tabs,
+  Search,
+  Col,
+  Row,
+  List,
+  DropdownMenu,
+  DropdownItem,
+  Toast,
+  Tag,
+  Divider,
+  Cell,
+  Calendar,
+  Popover,
+  Loading,
+  Field,
+  Image,
+  Icon,
+  Empty,
+  Area,
+  Popup,
+  DatetimePicker,
+  Switch,
+  Overlay,
+  Picker
+} from "vant";
+import Vue from "vue";
+Vue.use(Button)
+  .use(Row)
+  .use(Col)
+  .use(Tab)
+  .use(Tabs)
+  .use(Search)
+  .use(List)
+  .use(DropdownMenu)
+  .use(DropdownItem)
+  .use(Tag)
+  .use(Divider)
+  .use(Cell)
+  .use(Calendar)
+  .use(Popover)
+  .use(Loading)
+  .use(Field)
+  .use(Image)
+  .use(Icon)
+  .use(Empty)
+  .use(Area)
+  .use(Popup)
+  .use(Switch)
+  .use(Overlay)
+  .use(Picker)
+  .use(DatetimePicker);
+Vue.prototype.$toast = Toast;

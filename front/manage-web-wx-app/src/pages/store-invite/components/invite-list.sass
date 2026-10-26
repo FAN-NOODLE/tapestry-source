@@ -1,0 +1,112 @@
+@import '~@/style/color-variable'
+
+.page-record-list
+    // padding-bottom: vw(40)
+    .m-t-15
+        margin-top: vw(15)
+    .m-t-45
+        margin-top: vw(45)
+
+
+    // .item
+    //     width: vw(345)
+    //     background: #FFFFFF
+    //     padding: vw(15)
+    //     margin-bottom: vw(15)
+    //     position: relative
+    //     &::after
+    //         content: ""
+    //         clear: both
+    //         width: vw(346)
+    //         height: vw(1)
+    //         background: #F0F0F0
+    //         position: absolute
+    //         top: vw(46)
+    //         left: 0
+    .form-item
+        display: flex
+        justify-content: space-between
+        align-items: center
+        font-size: vw(14)
+        line-height: vw(20)
+        .label
+            color: #96979E
+            flex-shrink: 0
+            margin-right: vw(30)
+
+    .status-box-left 
+        position: absolute
+        top: vw(8)
+        left: vw(-6)
+        width: vw(92)
+        height: vw(32)
+        .txt
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            color: #FFFFFF
+            line-height: vw(32)
+            text-align: center
+            font-size: vw(14)
+            margin-top: vw(-2)
+            margin-right: vw(20)
+        .status-txt    
+            color: #000
+        .bg-icon
+            width: vw(92)
+            height: vw(32)
+    .status-box-right
+        position: absolute
+        top: vw(7)
+        right: vw(-6)
+        width: vw(92)
+        height: vw(32)
+        display: flex
+        align-items: center
+        .txt
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            color: #000
+            line-height: vw(33)
+            text-align: center
+            font-size: vw(14)
+            // margin-top: vw(-2)
+        .edit-icon
+            width: vw(16)
+            height: vw(16)   
+    .order-box
+        font-size: vw(14) 
+        padding: vw(15)  
+        background-color: #F3F4F6
+        .order-item
+            display: flex
+            justify-content: space-between
+            flex-direction: row
+            .item-label
+                flex-shrink: 0
+                color: #96979E 
+                display: flex
+                .tips-icon 
+                    width: vw(20)
+                    height: vw(20)
+                    margin-left: vw(5)
+            .item-value
+                color: #000
+                word-break: break-all 
+    
+            .item-box
+                display: flex 
+                .radio-icon 
+                    width: vw(54)
+                    // .wx-radio-input  
+                    //     width: vw(17) !important
+                    //     height: vw(16) !important
+                    // .wx-radio-input.wx-radio-input-checked::before
+                    //     font-size: vw(18) !important
+                .radio-mr
+                    margin-right: vw(24)   
+        .item-bottom
+            margin-bottom: vw(15)

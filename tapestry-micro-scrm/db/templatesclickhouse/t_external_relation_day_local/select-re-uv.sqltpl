@@ -1,0 +1,6 @@
+SELECT uniqExact(external_user_id) AS relation_num
+FROM external_relation_day final
+WHERE add_time < :end_at
+  and (del_time = 0
+    or del_time > :end_at)
+  AND corp_id = :corp_id

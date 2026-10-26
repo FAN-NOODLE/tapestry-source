@@ -1,0 +1,1 @@
+SELECT ( SELECT COUNT(*) FROM work_group_chat WHERE `created_at` <= :end_at AND STATUS = 1 AND `enterprise_id` = :enterprise_id AND deleted_at = 0 ) + ( SELECT COUNT(*) FROM work_group_chat WHERE `created_at` <= :end_at AND `dissolve_time` >= :end_at AND STATUS = 2 AND `enterprise_id` = :enterprise_id AND deleted_at = 0 ) AS relation_num

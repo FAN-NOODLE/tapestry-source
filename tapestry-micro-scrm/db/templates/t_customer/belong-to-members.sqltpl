@@ -1,0 +1,20 @@
+SELECT m.id AS member_id,
+       m.name AS member_name,
+       m.userid AS member_userid,
+       wr.createtime AS create_time,
+       wr.description,
+       IFNULL(dcc.name,'') as state
+FROM work_external_user_relation AS wr 
+LEFT JOIN `members` m ON m.id = wr.member_id
+LEFT JOIN `drainage_contacts` dc ON dc.id = wr.state
+LEFT JOIN `drainage_contact_channels` dcc ON dcc.id = dc.channel_id
+WHERE
+{{if .cond.WorkExternalUserID}}
+    wr.work_external_user_id in ({{WhereIn .cond.WorkExternalUserID}})
+  AND
+{{end}}
+  wr.relation_status = 0
+  AND wr.deleted_at = 0
+  AND m.deleted_at = 0
+ORDER BY wr.createtime DESC
+LIMIT {{.page.Offset}}, {{.page.Limit}}

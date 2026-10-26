@@ -1,0 +1,5 @@
+<view class="page-images" catchtap="previewImage">
+  <image wx:if="{{!src}}" class="standard" src="https://img-crs.vchangyi.com/store-manage-wxapp/empty-bg.png" mode="aspectFill" lazy-load="true"></image>
+
+  <image wx:else class="img" src="{{src}}" mode="aspectFill" lazy-load="true"></image>
+</view>

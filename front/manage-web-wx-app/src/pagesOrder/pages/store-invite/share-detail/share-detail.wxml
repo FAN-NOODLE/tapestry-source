@@ -1,0 +1,105 @@
+<view class="page-invite-detail">
+	<view class="empty" wx:if="{{showLoading}}">
+		<image class="empty-icon" src="https://cdn-cos.coach.com.cn/uploads/common/loading-1.gif" />
+	</view>
+	<view wx:elif="{{errPage}}" class="height-100">
+		<mp-empty center="{{true}}" slogan="{{errMsg || '服务异常，请重试'}}" icon="order" />
+	</view>
+	<block wx:else>
+		<view class="content">
+			<view class="top-status {{detail.serve_img ? 'has-image' : ''}}">
+				<image wx:if="{{detail.serve_img}}" class="top-img" src="{{detail.serve_img}}" />
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-01.png" />
+					<view>顾客姓名</view>
+				</view>
+				<view class="value font-500">{{detail.user_name}}</view>
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-04.png" />
+					<view>服务类型</view>
+				</view>
+				<view class="value">
+					<view class="font-500">
+						{{detail.serve_name}}
+					</view>
+				</view>
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-03.png" />
+					<view>到店时间</view>
+				</view>
+				<view class="value">
+					<view class="font-500" wx:if="{{selectTime.select_name}}">
+						{{selectTime.select_name}} {{selectTime.name}}
+					</view>
+				</view>
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/weclient/icon-02.png" />
+					<view>服务时长</view>
+				</view>
+				<view class="value">
+					<view class="font-500">
+						{{detail.serve_time}}小时
+					</view>
+				</view>
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-05.png" />
+					<view>邀约导购</view>
+				</view>
+				<view class="value font-500">{{detail.member_name}}</view>
+			</view>
+			<view class="form-item flex-start-center has-line">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-09.png" />
+					<view>邀约门店</view>
+				</view>
+				<view class="value font-500">{{detail.store_name}}</view>
+			</view>
+			<view class="form-item flex-start-center">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-06.png" />
+					<view>门店地址</view>
+				</view>
+				<view class="value font-500">{{detail.store_address}}</view>
+			</view>
+			<view class="form-item flex-start-center">
+				<view class="label flex-start-center">
+					<image class="icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.0.1/independ/icon-07.png" />
+					<view>导购备注</view>
+				</view>
+				<view class="value font-500">{{detail.reserve_remark || '无'}}</view>
+			</view>
+
+			<view class="textarea-box" wx:if="{{detail.status === 0}}">
+				<textarea
+				 maxlength="200"
+				 auto-height
+				 disabled="{{detail.is_commit === 1}}"
+				 data-key="user_remark"
+				 bindinput="changeInput"
+				 value="{{user_remark}}"
+				 class="textarea"
+				 placeholder="如有其他需要，请留言"
+				 placeholder-class="placeholder-textarea"
+				/>
+			</view>
+    </view>
+    <view class="footer-btn" wx:if="{{detail.status === 0 && detail.is_commit === 0}}">
+      <view class="btn font-500"  bindtap="confirmOrder">
+        确认
+      </view>
+    </view>
+  </block>
+</view>
+<com-model-privacy ></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

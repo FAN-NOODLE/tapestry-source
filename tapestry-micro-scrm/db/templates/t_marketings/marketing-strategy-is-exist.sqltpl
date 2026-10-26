@@ -1,0 +1,1 @@
+SELECT count(`id`) FROM marketing_strategies WHERE `deleted_at` = 0 AND `id` = :id;

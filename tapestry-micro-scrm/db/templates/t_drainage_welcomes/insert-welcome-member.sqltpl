@@ -1,0 +1,5 @@
+INSERT INTO
+	`drainage_welcome_members`
+	( `id`, `welcome_id`, `enterprise_id`, `member_id`, `created_at`, `updated_at`, `deleted_at` )
+VALUES
+	( :id, :welcome_id, :enterprise_id, :member_id, :created_at, :updated_at, :deleted_at )

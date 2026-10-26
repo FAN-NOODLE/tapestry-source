@@ -1,0 +1,30 @@
+<mp-popup show="{{show}}" position="bottom" bind:close="handleCancel">
+  <view class="popup-container {{isHorizontal?'horizontal':''}}">
+    <view class="popup-inner">
+      <view class="popup-header">
+        <div class="popup-header-name">门店联系电话</div>
+        <div class="popup-header-close" bindtap="handleCancel"></div>
+      </view>
+      <view class="popup-content">
+        <view class="phone" wx:if="{{phone}}">
+          {{phone}}
+        </view>
+        <view class="empty" wx:if="{{!phone}}">
+          <view class="empty-phone">
+            <image
+              class="no-phone"
+              src="https://cdn-cos.coach.com.cn/uploads/2023/v4.0.6/no-phone.png"
+            />
+          </view>
+          <view class="empty-text">抱歉，该门店暂无电话~</view>
+        </view>
+      </view>
+      <mp-footer fixed="{{false}}"  wx:if="{{phone}}">
+        <view class="footer">
+          <view class="btn plain" bind:tap="handleCopy">复制电话</view>
+          <view class="btn" bind:tap="handleCall">拨打电话</view>
+        </view>
+      </mp-footer>
+    </view>
+  </view>
+</mp-popup>

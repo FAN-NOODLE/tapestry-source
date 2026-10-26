@@ -1,0 +1,221 @@
+<wxs src="./index.wxs" module="computed" />
+<view class="content">
+  <!-- 基础信息 -->
+  <view class="section base-wrap">
+    <view class="section-title">基础信息</view>
+    <view class="section-content">
+      <view class="box {{isExpand ? 'is-expand': 'is-collapse'}}">
+        <mp-row gutter="0">
+          <mp-col span="{{item.span}}" wx:for="{{baseInfoItems}}" wx:key="index">
+            <view class="flex">
+              <view class="label">{{item.label}}</view>
+              <view class="flex-1 value" 
+                wx:if="{{item.isCopy}}" 
+                data-value="{{computed.getNestedValue(item, detail, crmDetail)}}" 
+                bind:tap="handleCopy">
+                <view wx:if="{{item.key === 'union_code'}}" class="code {{computed.getNestedValue(item, detail, crmDetail) ? 'copy' : ''}}">{{computed.getNestedValue(item, detail, crmDetail)||'--'}}</view>
+                <view wx:else>{{computed.getNestedValue(item, detail, crmDetail)||'--'}}</view>
+              </view>
+              <view class="flex-1 value" wx:else>
+                {{computed.getNestedValue(item, detail, crmDetail)||'--'}}
+              </view>
+            </view>
+          </mp-col>
+        </mp-row>
+      </view>
+      <view class="more {{isExpand ? 'open':''}}" bind:tap="handleExpand"></view>
+    </view>
+  </view>
+  <!-- 标签信息 -->
+  <view class="section tag-wrap">
+    <view class="section-title">标签信息</view>
+    <view class="section-content">
+      <view wx:if="{{detail.tags.length}}" class="deliver">客户标签</view>
+      <view wx:if="{{detail.tags.length}}" class="tag-list">
+        <view class="tag" wx:for="{{detail.tags}}" wx:key="index">
+          <view class="tag-name">{{item}}</view>
+        </view>
+      </view>
+      <!-- <view wx:else class="empty">暂无数据</view> -->
+      <view class="deliver">沟通互动</view>
+      <view class="wrap">
+        <mp-row gutter="0">
+          <mp-col wx:if="{{!update}}" span="24">
+            <view class="flex">
+              <view class="label">顾客沟通意愿</view>
+              <view class="flex-1">
+                <view class="select {{showPicker?'active':''}}" bind:tap="handleShowPicker">
+                  <view wx:if="{{value>=0}}" class="select-value">{{pickerOptions[value].label}}</view>
+                  <view wx:else class="placeholder">请选择</view>
+                </view>
+              </view>
+            </view>
+          </mp-col>
+          <mp-col span="13">
+            <view class="flex">
+              <view class="label">近30天邀约状态</view>
+              <view class="flex-1 value">{{detail.valid_reserve_at_text}}</view>
+            </view>
+          </mp-col>
+          <mp-col span="11">
+            <view class="flex">
+              <view class="label">我的上次触达</view>
+              <view class="flex-1 value">{{detail.interact_time_text}}</view>
+            </view>
+          </mp-col>
+          <mp-col span="13">
+            <view class="flex">
+              <view class="label">近30天任务触达</view>
+              <view class="flex-1 value">{{detail.task_finish_at_text}}</view>
+            </view>
+          </mp-col>
+          <mp-col span="11">
+            <view class="flex">
+              <view class="label">上次活跃沟通</view>
+              <view class="flex-1 value">{{detail.active_time_text}}</view>
+            </view>
+          </mp-col>
+        </mp-row>
+      </view>
+      <view class="deliver">购物行为</view>
+      <view class="wrap">
+        <mp-row gutter="0">
+          <mp-col span="13">
+            <view class="flex">
+              <view class="label small">L12M总金额</view>
+              <view class="flex-1 value">¥{{detail.amount_total_text}}</view>
+            </view>
+          </mp-col>
+          <mp-col span="11">
+            <view class="flex">
+              <view class="label big">历史购买总金额LTV</view>
+              <view class="flex-1 value">¥{{detail.history_amount_total_text}}</view>
+            </view>
+          </mp-col>
+          <mp-col span="13">
+            <view class="flex m-b-0">
+              <view class="label small">近期未消费</view>
+              <view class="flex-1 value">{{detail.last_purchase_date_text}}</view>
+            </view>
+          </mp-col>
+        </mp-row>
+      </view>
+    </view>
+  </view>
+  <!-- 品类偏好 & 时间分布 -->
+  <view class="flex echart-wrap">
+    <view class="section">
+      <view class="section-title">
+        <text>品类偏好</text>
+        <mp-tips-popup title="品类偏好" content="用户历史三年购买品类占比"></mp-tips-popup>
+      </view>
+      <view class="section-content">
+        <view wx:if="{{detail.cdp_tag_buy_category_preference.length}}" class="echart">
+          <echart-pie class="echart" id="pie1" width="100%" height="350rpx" legendRight="-14rpx">
+            <view class="echart-title">品类-占比</view>
+          </echart-pie>
+        </view>
+        <view wx:else class="empty">暂无数据</view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">
+        <text>时间分布</text>
+        <mp-tips-popup title="时间分布" content="按用户历史三年购买记录所在月份累计统计订单数"></mp-tips-popup>
+      </view>
+      <view class="section-content">
+        <view wx:if="{{detail.cdp_tag_purchased_month.length}}" class="echart">
+          <echart-pie class="echart" id="pie2" width="100%" height="350rpx" legendRight="16rpx" legendWidth="176rpx">
+            <view class="echart-title">月份-订单</view>
+          </echart-pie>
+        </view>
+        <view wx:else class="empty">暂无数据</view>
+      </view>
+    </view>
+  </view>
+  <!-- 可能感兴趣的物品 -->
+  <view class="section goods-wrap">
+    <view class="section-title">可能感兴趣的物品</view>
+    <view wx:if="{{!hideInterestedProducts && showTips && (detail.card_level === 'O' || !detail.card_level)}}" class="section-tips">非会员，仅提供畅销商品推荐，请努力邀请入会，完善商品推荐。</view>
+    <view wx:if="{{hideInterestedProducts}}" class="section-content">
+      <view class="upgrade-empty">
+        <image class="upgrade-empty__image" src="{{interestedProductsEmptyImage}}" mode="aspectFit"></image>
+        <view class="upgrade-empty__text">功能升级中，预计10月重新开放</view>
+        <view class="upgrade-empty__text">敬请期待</view>
+      </view>
+    </view>
+    <view wx:else class="section-content">
+      <view wx:if="{{group1.length}}" class="row">
+        <mp-row gutter="14">
+          <block wx:for="{{group1}}" wx:key="index">
+            <mp-col span="8" wx:if="{{index < 3}}">
+              <view class="item" data-item="{{item}}" data-key="1-{{index+1}}" bind:tap="handleViewDetail">
+                <mp-image 
+                  custom-class="item-image" 
+                  src="{{item.image}}"
+                  data-index="{{index}}"
+                  data-item="{{item}}"
+                  customLoad="{{false}}"
+                  bind:custom-load="handleLoadImage"
+                ></mp-image>
+                <view class="item-code {{item.code? '':'gray'}}">{{item.code||'--'}}</view>
+                <view class="item-name {{item.name? '':'gray'}} .name1{{index||''}}" data-selector=".name1{{index||''}}" data-content="{{item.name}}" catch:tap="handleShowTooltip">{{item.name||'暂未获取到数据'}}</view>
+              </view>
+            </mp-col>
+          </block>
+            
+        </mp-row>
+      </view>
+      <view wx:if="{{group2.length}}" class="row">
+        <mp-row gutter="14">
+          <block wx:for="{{group2}}" wx:key="index">
+            <mp-col span="8" wx:if="{{index < 3}}">
+              <view class="item" data-item="{{item}}" data-key="2-{{index+1}}" bind:tap="handleViewDetail">
+                <mp-image 
+                  custom-class="item-image" 
+                  src="{{item.image}}"
+                  data-index="{{index}}"
+                  data-item="{{item}}"
+                  customLoad="{{false}}"
+                  bind:custom-load="handleLoadImage"
+                ></mp-image>
+                <view class="item-code {{item.code? '':'gray'}}">{{item.code||'--'}}</view>
+                <view class="item-name {{item.name? '':'gray'}} .name2{{index||''}}" data-selector=".name2{{index||''}}" data-content="{{item.name}}" catch:tap="handleShowTooltip">{{item.name||'暂未获取到数据'}}</view>
+              </view>
+            </mp-col>
+          </block>
+            
+        </mp-row>
+      </view>
+      <view wx:if="{{group3.length}}" class="row">
+        <mp-row gutter="14">
+          <block wx:for="{{group3}}" wx:key="index">
+            <mp-col span="8" wx:if="{{index < 3}}">
+              <view class="item" data-item="{{item}}" data-key="3-{{index+1}}" bind:tap="handleViewDetail">
+                <mp-image 
+                  custom-class="item-image" 
+                  src="{{item.image}}"
+                  data-index="{{index}}"
+                  data-item="{{item}}"
+                  customLoad="{{false}}"
+                  bind:custom-load="handleLoadImage"
+                ></mp-image>
+                <view class="item-code {{item.code? '':'gray'}}">{{item.code||'--'}}</view>
+                <view class="item-name {{item.name? '':'gray'}} .name3{{index||''}}" data-selector=".name3{{index||''}}" data-content="{{item.name}}" catch:tap="handleShowTooltip">{{item.name||'暂未获取到数据'}}</view>
+              </view>
+            </mp-col>
+          </block>
+            
+        </mp-row>
+      </view>
+    </view>
+    <view wx:if="{{!hideInterestedProducts && group1.length == 0 && group2.length == 0 && group3.length == 0}}" class="section-content">
+      <view class="empty">暂未获取到数据</view>
+    </view>
+  </view>
+</view>
+
+<!-- 弹窗选择器 - 修改客户沟通意愿 -->
+<mp-picker show="{{showPicker}}" current="{{value}}" options="{{pickerOptions}}" bind:cancel="handleCancel" bind:confirm="handlePickerConfirm"></mp-picker>
+<!-- 气泡提示 -->
+<mp-tooltip id="mp-tooltip" placement="top"></mp-tooltip>

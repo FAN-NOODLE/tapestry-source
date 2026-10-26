@@ -1,0 +1,8 @@
+SELECT
+	`value` 
+FROM
+	`enterprise_config`
+WHERE
+	enterprise_id = :enterprise_id
+	AND `key` = :key
+	AND deleted_at = 0

@@ -1,0 +1,89 @@
+@import '~@/style/color-variable';
+.grid {
+  height: 40rpx;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  margin-top: 30rpx;
+  position: relative;
+
+  &-item {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 60rpx;
+    position: relative;
+
+    &:nth-child(1) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40rpx;
+        height: 40rpx;
+        z-index: 2;
+        opacity: 1;
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_4.png") no-repeat center center/100%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40rpx;
+        height: 40rpx;
+        z-index: 1;
+        opacity: 0;
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_4_1.png") no-repeat center center/100%
+      }
+    }
+    &:nth-child(2) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 42rpx;
+        height: 46rpx;
+        z-index: 2;
+        opacity: 1;
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_9.png") no-repeat center center/100%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 42rpx;
+        height: 46rpx;
+        z-index: 1;
+        opacity: 0;
+        background: imgUrl("/static/wxapp/v4.0.1/material/icon_grade_9_1.png") no-repeat center center/100%;
+      }
+    }
+      
+    &.active {
+      &::before {
+        z-index: 1;
+        opacity: 0
+      }
+      &::after {
+        z-index: 2;
+        opacity: 1;
+      }
+    }
+  }
+  .grid__tips {
+    z-index: 4;
+    position: absolute;
+    top: 30rpx;
+    left: 120rpx;
+    width: 364rpx;
+    height: 138rpx;
+    background: imgUrl("/static/wxapp/v4.0.1/material/icon_popup_tips.png") no-repeat center center/100%
+  }
+}

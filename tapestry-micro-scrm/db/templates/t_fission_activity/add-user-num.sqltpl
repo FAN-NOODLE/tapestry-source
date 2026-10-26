@@ -1,0 +1,6 @@
+update
+    fission_activity
+set
+    user_num = user_num + ?
+where
+    id = ?

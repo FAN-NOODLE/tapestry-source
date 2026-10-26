@@ -1,0 +1,86 @@
+<wxs module="computed">
+function isActive(index, current, selected) {
+  if (index === 3) return current === selected[3]
+  if (index === 2) return current === selected[2] && selected[3] === -1
+  if (index === 1) return current === selected[1] && selected[2] === -1
+  if (index === 0) return current === selected[0]
+}
+module.exports = {
+  isActive: isActive
+}
+</wxs>
+<slot wx:if="{{useSlot}}" bind:tap="show"></slot>
+<view wx:else class="custom-class select" bind:tap="show">
+  <input class="select__value" value="{{valueName}}" disabled="{{true}}" placeholder="选择素材分组" placeholder-class="select__placeholder" />
+  <view class="select__icon"></view>
+</view>
+<mp-popup show="{{show}}" position="bottom" z-index="1000" bind:close="hanldeCancel">
+  <view class="popup">
+    <view class="popup-content">
+      <scroll-view class="popup-aside" scroll-y>
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          class="popup-aside-item {{ computed.isActive(0, index, selected) ? 'active' : '' }}"
+          data-key="{{0}}"
+          data-index="{{index}}"
+          data-value="{{[index, -1, -1, -1]}}"
+          bind:tap="handleChange"
+        >
+          <view class="aside-item-text ellipsis-t">{{ item.group_name }}</view>
+        </view>
+      </scroll-view>
+      <scroll-view class="popup-main" scroll-y>
+        <!-- 二级分类 -->
+        <view class="item {{ item.expand ? 'expand' : '' }}" wx:for="{{list[selected[0]].children}}" wx:key="index">
+          <view
+            class="item-title {{ computed.isActive(1, index, selected) ? 'active' : '' }} {{ item.children.length > 0 ? 'has-child' : ''}} {{ item.is_show ? '' : 'disabled' }}"
+            data-key="{{1}}"
+            data-disabled="{{item.is_show==0}}"
+            data-index="{{index}}"
+            data-value="{{[selected[0], index, -1, -1]}}"
+            bind:tap="handleChange"
+          >
+            <view class="item-title__text">{{ item.group_name }}</view>
+          </view>
+          <!-- 三级分类 -->
+          <view wx:if="{{item.children.length}}" class="item-content">
+            <view class="item {{ third.expand ? 'expand' : '' }}" wx:for="{{item.children}}" wx:for-item="third" wx:for-index="thirdIndex" wx:key="thirdIndex">
+              <view
+                class="item-title {{ computed.isActive(2, thirdIndex, selected) ? 'active' : '' }} {{ third.children.length > 0 ? 'has-child' : ''}} {{ third.is_show ? '' : 'disabled' }}"
+                data-key="{{2}}"
+                data-disabled="{{third.is_show==0}}"
+                data-index="{{thirdIndex}}"
+                data-value="{{[selected[0], index, thirdIndex, -1]}}"
+                bind:tap="handleChange"
+              >
+                <view class="item-title__text">{{ third.group_name }}</view>
+              </view>
+              <!-- 四级分类 -->
+              <view wx:if="{{third.children.length}}" class="item-content">
+                <view class="item" wx:for="{{third.children}}" wx:for-item="four" wx:for-index="fourIndex" wx:key="fourIndex">
+                  <view
+                    class="item-title hide-icon {{ computed.isActive(3, fourIndex, selected) ? 'active' : '' }} {{ four.is_show ? '' : 'disabled' }}"
+                    data-key="{{3}}"
+                    data-disabled="{{four.is_show==0}}"
+                    data-index="{{fourIndex}}"
+                    data-value="{{[selected[0], index, thirdIndex, fourIndex]}}"
+                    bind:tap="handleChange"
+                  >
+                    <view class="item-title__text">{{ four.group_name }}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <mp-footer custom-class="footer" fixed="{{false}}">
+      <view class="popup-footer">
+        <view class="btn plain" bind:tap="hanldeCancel">取消</view>
+        <view class="btn" bind:tap="handleConfirm">确定</view>
+      </view>
+    </mp-footer>
+  </view>
+</mp-popup>

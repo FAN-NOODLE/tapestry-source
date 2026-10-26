@@ -1,0 +1,168 @@
+<wxs module="tool">
+	module.exports.formatMoney = function(money) {
+	  return money ? (parseInt(money) / 100).toFixed(2) : 0;
+	}
+</wxs>
+<view class="page-order-detail">
+    <view wx:if="{{!isLoading && detail}}">
+        <view class="page-order-detail-card flex">
+            <image class="page-order-detail-card-status" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_{{isRefundOrder ? 'refound' : orderStatusIcon[detail.order_state-1]}}_detail.png" lazy-load="{{true}}" mode="aspectFill" />
+            <view class="page-order-detail-card-title">
+                <!-- 退款单和普通订单字段名不同 -->
+                {{detail.order_state_str || detail.refund_status_str}}
+            </view>
+        </view>
+        <!-- 退款信息 -->
+        <view class="page-order-detail-card" wx:if="{{isRefundOrder}}">
+            <!-- 退款单显示退款信息 -->
+            <view class="page-order-detail-card-title">退款信息</view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">退款单号</view>
+                <view class="page-order-detail-card-item-value">{{detail.out_refund_no}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">申请时间</view>
+                <view class="page-order-detail-card-item-value">{{detail.refund_reqtime}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">退款时间</view>
+                <view class="page-order-detail-card-item-value">{{detail.refund_reqtime}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">退款金额</view>
+                <view class="page-order-detail-card-item-value">
+                    ￥{{tool.formatMoney(detail.refund_fee)}}
+                </view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">退款说明</view>
+                <view class="page-order-detail-card-item-value">
+                    {{detail.refund_comment || '--'}}
+                </view>
+            </view>
+        </view>
+        <!-- 订单信息 -->
+        <view class="page-order-detail-card">
+            <view class="page-order-detail-card-title">订单信息</view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">订单编号</view>
+                <view class="page-order-detail-card-item-value">
+                    {{detail.out_trade_no || detail.out_refund_no}}
+                </view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">客户昵称</view>
+                <view class="page-order-detail-card-item-value">{{detail.nick}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">会员卡号</view>
+                <view class="page-order-detail-card-item-value">{{detail.union_code || '--'}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">付款时间</view>
+                <view class="page-order-detail-card-item-value">{{detail.pay_time}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">付款总额</view>
+                <view class="page-order-detail-card-item-value">
+                    ￥{{tool.formatMoney(detail.total_fee)}}
+                      <view wx:if="{{detail.order_state === 4}}" class="order-red">(全额退款)</view>
+                </view>
+            </view>
+            <view class="page-order-detail-card-item" wx:if="{{isRefundOrder}}">
+                <!-- 退款单在订单信息中显示销售单号 -->
+                <view class="page-order-detail-card-item-label">销售单号</view>
+                <view class="page-order-detail-card-item-value">
+                    {{detail.sales_order_no || '--'}}
+                </view>
+            </view>
+            <view class="page-order-detail-card-item" wx:if="{{!isRefundOrder}}">
+                <view class="page-order-detail-card-item-label">商家备注</view>
+                <view class="page-order-detail-card-item-value">{{detail.remark || '--'}}</view>
+            </view>
+        </view>
+        <!-- 收货信息 -->
+        <view class="page-order-detail-card" wx:if="{{!isRefundOrder}}">
+            <!-- 非退款单显示收货信息 -->
+            <view class="page-order-detail-card-title">收货信息</view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">配送方式</view>
+                <view class="page-order-detail-card-item-value">
+                    {{detail.delivery_type === 1 ? '自提' : '快递'}}
+                </view>
+            </view>
+            <view class="page-order-detail-card-item" wx:if="{{detail.delivery_type === 2}}">
+                <!-- 1--自提订单  2--快递订单 -->
+                <!-- 快递订单显示联系人信息 -->
+                <view class="page-order-detail-card-item-label">联系人信息</view>
+                <view class="page-order-detail-card-item-value contact-info">
+                    <view class="page-order-detail-card-item-user">
+                        <view class="page-order-detail-card-item-user-name">
+                            {{detail.contact_info.name}} |
+                        </view>
+                        <view>{{detail.contact_info.phone}}</view>
+                    </view>
+                    <view style="color: #A6A6A6">{{detail.contact_info.address}}</view>
+                </view>
+            </view>
+        </view>
+        <!-- 发货信息 -->
+        <view class="page-order-detail-card" wx:if="{{detail.old_order_state !== 1 && !isRefundOrder}}">
+            <!-- 非退款单、除待发货状态显示发货信息 -->
+            <view class="page-order-detail-card-title">发货信息</view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">发货时间</view>
+                <view class="page-order-detail-card-item-value">{{detail.delivery_time}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">销售单号</view>
+                <view class="page-order-detail-card-item-value">{{detail.sales_order_no}}</view>
+            </view>
+            <view class="page-order-detail-card-item">
+                <view class="page-order-detail-card-item-label">小票图片</view>
+                <view class="page-order-detail-card-item-value flex" bind:tap="handleToCheckReceipt">
+                    查看小票
+                    <view class="flex-center">
+                        <image class="page-order-detail-card-item-icon" src="https://cdn-cos.coach.com.cn/uploads/2022/v3.2/weclient/icon_check.png" lazy-load="{{true}}" mode="aspectFill" />
+                    </view>
+                </view>
+            </view>
+            <view class="page-order-detail-card-item" wx:if="{{detail.delivery_type === 2}}">
+                <!-- 1--自提订单  2--快递订单 -->
+                <!-- 自提订单不显示快递信息 -->
+                <view class="page-order-detail-card-item-label">快递公司</view>
+                <view class="page-order-detail-card-item-value">{{detail.logistics_name}}</view>
+            </view>
+            <view class="page-order-detail-card-item" wx:if="{{detail.delivery_type === 2}}">
+                <!-- 1--自提订单  2--快递订单 -->
+                <!-- 自提订单不显示快递信息 -->
+                <view class="page-order-detail-card-item-label">快递单号</view>
+                <view class="page-order-detail-card-item-value flex">
+                    {{detail.logistics_no}}
+                    <view class="page-order-detail-card-item-copy flex-center" data-logistics_no="{{detail.logistics_no}}" bind:tap="handleToCopy">
+                        复制
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="page-order-detail-operate" wx:if="{{!isRefundOrder}}">
+            <!-- 非自提订单显示操作按钮 -->
+            <button class="page-order-detail-operate-check send flex-center" data-id="{{detail.id}}" data-delivery_type="{{detail.delivery_type}}" bind:tap="handleToSend" wx:if="{{detail.order_state === 1 && (detail.total_fee !== detail.total_refund_fee)}}">
+                <!-- 待发货显示发货按钮 -->
+                发货
+            </button>
+            <button class="page-order-detail-operate-edit flex-center" data-id="{{detail.id}}" data-delivery_type="{{detail.delivery_type}}" data-is_edit="{{true}}" bind:tap="handleToSend" wx:if="{{detail.order_state === 2}}">
+                <!-- 已发货状态显示修改按钮 -->
+                修改发货信息
+            </button>
+            <button class="page-order-detail-operate-check flex-center" data-id="{{detail.id}}" bind:tap="handleToCheck" wx:if="{{detail.order_state === 2 && detail.delivery_type === 2}}">
+                <!-- 除待发货状态并且是快递订单显示查看物流按钮 -->
+                查看物流
+            </button>
+        </view>
+        <logistics show="{{showLogistics}}" list="{{logisticsTrack}}" />
+    </view>
+</view>
+<com-model-privacy></com-model-privacy>
+<!-- 系统水印  请勿删除 -->
+<mp-watermark></mp-watermark>

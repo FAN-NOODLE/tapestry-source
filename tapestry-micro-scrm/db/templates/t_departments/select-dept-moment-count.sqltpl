@@ -1,0 +1,22 @@
+SELECT
+	count(id) as count
+FROM
+	departments
+WHERE
+	1 = 1
+AND
+	`enterprise_id` = {{.cond.EnterpriseId}}
+AND
+	`deleted_at` = 0
+{{if .cond.ThirdId}}
+AND
+    `third_parent_id` = {{.cond.ThirdId}}
+{{end}}
+{{if .cond.IsTop}}
+AND
+    `third_parent_id` = (SELECT third_parent_id FROM departments WHERE deleted_at = 0 AND `enterprise_id` = {{.cond.EnterpriseId}} ORDER BY third_id ASC LIMIT 1)
+{{end}}
+{{if .cond.Name}}
+AND
+    `name` LIKE '%{{SafeStr .cond.Name}}%'
+{{end}}

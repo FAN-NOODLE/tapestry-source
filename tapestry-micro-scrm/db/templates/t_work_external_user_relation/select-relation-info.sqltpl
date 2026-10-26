@@ -1,0 +1,13 @@
+SELECT
+    WR.`enterprise_id`,
+    WR.`member_id`,
+    UCE.`id` AS external_user_id,
+    WR.`id` AS relation_id
+FROM
+    `work_external_user_relation`   AS  WR
+INNER JOIN  micro_scrm_enterprise_{{.enterprise_id}}.wx_user_corp_external UCE ON UCE.id = WR.work_external_user_id
+
+WHERE
+    WR.`enterprise_id` = {{.enterprise_id}} AND
+    WR.`member_id` = {{.member_id}} AND
+    UCE.`openid` = "{{.external_userid}}"

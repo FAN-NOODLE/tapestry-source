@@ -1,0 +1,41 @@
+.entry
+  width: 178rpx
+  height: 64rpx
+.com-create-entry
+  position: absolute
+  right: 0
+  // bottom: 200rpx
+  display: flex
+  align-items: center
+  border-radius: 64rpx
+  width: 178rpx
+  height: 64rpx
+  background: #F2F2F2
+  box-shadow: -2rpx 4rpx 14rpx 0rpx rgba(0,0,0,0.2)
+  border-radius: 38rpx 0rpx 0rpx 38rpx
+  opacity: 0.8
+  overflow: hidden
+  transition: all 0.3s
+  z-index: 4
+  &__icon
+    width: 64rpx
+    height: 64rpx
+    background: url("https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/icon_create.png") center/28rpx 24rpx no-repeat
+  &__icon-close
+    width: 64rpx
+    height: 64rpx
+    background: url("https://cdn-cos.coach.com.cn/uploads/2023/v4.0.5/icon_close_1.png") center/32rpx 32rpx no-repeat
+
+  &__text 
+    font-size: 24rpx
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &.hide
+    width: 64rpx
+    border-radius: 38rpx
+    right: 10rpx
+    .com-create-entry__text 
+      display: none
+

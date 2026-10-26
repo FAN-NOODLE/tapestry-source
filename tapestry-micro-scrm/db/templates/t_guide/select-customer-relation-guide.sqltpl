@@ -1,0 +1,1 @@
+select `enterprise_id`, `members_user_id`, `members_id`, `user_id`, `third_user_id`, `bind_time` FROM  `customer_relation_guide` WHERE `third_user_id` IN ( {{WhereIn .thirdUserIds}} ) AND enterprise_id = :enterprise_id AND deleted_at=0

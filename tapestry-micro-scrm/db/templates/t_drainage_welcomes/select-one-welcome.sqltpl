@@ -1,0 +1,22 @@
+SELECT
+	dw.`id`,
+    dw.`content`,
+    dw.`enterprise_id`,
+    dw.`is_default`,
+    dw.`channel_id`,
+    dw.`created_at`,
+    dw.`updated_at`,
+    dw.`deleted_at`,
+	IFNULL(c.name,"") AS channel
+FROM
+	drainage_welcomes AS dw
+	LEFT JOIN drainage_contact_channels AS c ON dw.channel_id = c.id AND c.deleted_at = 0
+WHERE
+    dw.deleted_at = 0
+AND
+    dw.enterprise_id = ?
+AND
+    dw.id = ?
+AND
+    dw.is_default = ?
+LIMIT 1;

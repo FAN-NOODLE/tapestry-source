@@ -1,0 +1,10 @@
+select count(*) as count
+from relation_callback_records
+where
+    1
+{{if .cond.Status}}
+ and `status` = {{.cond.Status}}
+{{end}}
+{{if .cond.ToUserName}}
+  and `to_user_name` = "{{.cond.ToUserName}}"
+{{end}}

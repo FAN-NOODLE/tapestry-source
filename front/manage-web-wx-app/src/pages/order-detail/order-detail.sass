@@ -1,0 +1,101 @@
+@import 'src/style/color-variable.sass'
+
+.page-order-detail
+    padding: 0 vw(15) vw(113)
+
+    &-card
+        padding: vw(15)
+        background: #FFFFFF
+        margin-top: vw(15)
+        align-items: center
+
+        &-status
+            width: vw(40)
+            height: vw(40)
+            margin-right: vw(9)
+
+        &-title
+            font-size: vw(16)
+            color: #000000
+            line-height: vw(22)
+            font-weight: 600
+
+        &-item
+            display: flex
+            justify-content: space-between
+            // align-items: center
+            margin-top: vw(15)
+
+            &-label
+                font-size: vw(14)
+                color: #96979E
+                line-height: vw(20)
+
+            &-value
+                font-size: vw(14)
+                color: #000000
+                line-height: vw(20)
+                display: flex
+                justify-content: flex-end
+                align-items: center
+
+            .contact-info
+                flex: 1
+                flex-direction: column
+                align-items: flex-end
+                padding-left: vw(15)
+
+            &-user
+                display: flex
+                align-items: flex-end
+                justify-content: flex-end
+
+                &-name
+                    margin-right: vw(5)
+
+            &-icon
+                width: vw(14)
+                height: vw(15)
+                margin-left: vw(5)
+
+            &-copy
+                width: vw(34)
+                height: vw(20)
+                font-size: vw(11)
+                line-height: vw(16)
+                border: vw(1) solid #000000
+                margin-left: vw(5)
+
+    &-operate
+        width: 100%
+        // height: vw(98)
+        padding: 0 vw(15)
+        display: flex
+        justify-content: space-around
+        position: fixed
+        bottom: 0
+        left: 0
+        background: #FFFFFF
+
+        button
+            width: vw(165)
+            height: vw(44)
+            color: #000000
+            font-size: vw(14)
+            line-height: vw(20)
+            margin: vw(10) 0 vw(44)
+
+        .send
+            width: 100% !important
+
+        &-edit
+            border: vw(1) solid #000000
+
+        &-check
+            background: #000000
+            color: #FFFFFF !important
+
+    .order-red
+        display: inline-block
+        color: red
+        font-size: vw(12)

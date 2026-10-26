@@ -1,0 +1,17 @@
+import ListModule from "./list/list";
+import CreateModule from "./create/create";
+import setParam from "./set-param/set-param";
+/**
+ * @description 模块配置
+ */
+export default {
+  icon: "", // 菜单以及权限验证所显示的 icon
+  path: "",
+  cname: "短信管理", // 菜单以及权限验证所显示的中文名 （*必填）
+  ename: "sms-mgt", // 权限验证根据 ename 生成 key （*必填）
+  root: "customer", //根目录结点
+  description: "短信管理", // 模块描述/备注 选填字段
+  type: 4, // 1 => 菜单 2 => 视图 4 => 菜单+视图
+  hide: false,
+  children: [ListModule, CreateModule, setParam]
+};

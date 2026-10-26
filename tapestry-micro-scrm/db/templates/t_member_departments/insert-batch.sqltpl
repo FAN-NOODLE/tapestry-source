@@ -1,0 +1,1 @@
+INSERT INTO `member_departments` (`id`, `member_id`, `department_id`, `created_at`, `updated_at`, `enterprise_id`) VALUES (:id, :member_id, :department_id, :created_at, :updated_at, :enterprise_id);
